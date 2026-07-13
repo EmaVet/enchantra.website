@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependency folders (none for this static site, but standard to include)
+node_modules/
+
+# Build output (if you add a build step later)
+dist/
+build/
+
+# Local environment
+.env
+.env.local
