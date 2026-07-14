@@ -43,6 +43,75 @@
   /* faq answer collapse */
   .faq-answer { display: none; }
   .faq-item.open .faq-answer { display: block; }
+
+  /* ═══════════ MOBILE RESPONSIVENESS ═══════════ */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px !important; }
+    nav > div { gap: 14px !important; }
+
+    header { grid-template-columns: 1fr !important; gap: 24px !important; min-height: auto !important; padding: 48px 20px 56px !important; }
+    header h1 { font-size: 40px !important; line-height: 48px !important; max-width: 100% !important; }
+    header p { font-size: 15px !important; line-height: 24px !important; }
+
+    div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 32px !important; }
+    div[style*="grid-template-columns: 1fr 1.05fr"] { grid-template-columns: 1fr !important; gap: 32px !important; }
+    div[style*="grid-template-columns: 1fr auto 1fr"] { grid-template-columns: 1fr !important; gap: 24px !important; }
+    div[style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: 1fr !important; gap: 12px !important; }
+    div[style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+    div[style*="grid-template-columns: 1.4fr 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 20px !important; }
+    div[style*="display: grid; grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 28px !important; }
+
+    h2 { font-size: 36px !important; line-height: 44px !important; }
+    section { padding: 64px 20px !important; }
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 12px 16px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; }
+    nav > a { display: flex !important; }
+    nav > div { flex-direction: row !important; gap: 8px !important; }
+    nav > div a { font-size: 0 !important; width: 0 !important; padding: 0 !important; display: none !important; }
+    nav > div a:last-child { font-size: 12px !important; width: auto !important; padding: 0 12px !important; display: inline-flex !important; height: 36px !important; }
+
+    header { grid-template-columns: 1fr !important; gap: 20px !important; padding: 36px 16px 44px !important; }
+    header > div:first-child > div:first-child { font-size: 10px !important; margin-bottom: 12px !important; }
+    header h1 { font-size: 28px !important; line-height: 36px !important; }
+    header p { font-size: 14px !important; line-height: 21px !important; }
+    header > div:last-child { display: none !important; }
+
+    /* Hide large decorative elements */
+    div[style*="position: absolute"] { display: none !important; }
+    div[style*="width: 420px"] { display: none !important; }
+    div[style*="width: 380px"] { display: none !important; }
+    svg[style*="width: 100%"] { max-width: 100% !important; height: auto !important; }
+
+    section { padding: 44px 16px !important; }
+    section > div { max-width: 100% !important; }
+
+    h1 { font-size: 26px !important; line-height: 34px !important; }
+    h2 { font-size: 24px !important; line-height: 30px !important; }
+    h3 { font-size: 18px !important; line-height: 24px !important; }
+
+    div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 12px !important; }
+
+    .faq-q { padding: 14px 14px !important; gap: 12px !important; }
+    .faq-q span:first-child { font-size: 14px !important; }
+    .faq-answer { padding: 0 14px 12px !important; font-size: 13px !important; line-height: 20px !important; }
+
+    a[style*="background: #e8c98a"], [style*="background: #e8c98a"] {
+      font-size: 13px !important;
+      padding: 0 14px !important;
+      height: 40px !important;
+      min-width: auto !important;
+    }
+
+    div[style*="padding: 28px"] { padding: 18px 14px !important; }
+    div[style*="padding: 24px"] { padding: 16px 12px !important; }
+    div[style*="padding: 22px"] { padding: 14px 12px !important; }
+    div[style*="gap: 60px"] { gap: 24px !important; }
+    div[style*="gap: 56px"] { gap: 20px !important; }
+    div[style*="gap: 44px"] { gap: 16px !important; }
+  }
+
 </style>
 </head>
 <body>
