@@ -43,12 +43,26 @@
   .faq-sign::after { content: "+"; }
   details.faq[open] .faq-sign::after { content: "\2013"; }
 
-  /* Mobile sticky "Join the waitlist" bar — the one intentional breakpoint */
+  /* Mobile sticky "Join the waitlist" bar + hamburger nav share one breakpoint (860px).
+     Below 860: hamburger menu + sticky bottom bar (no nav Join pill).
+     860 and up: full nav bar with links + Join pill (no sticky bar, no hamburger). */
   .sticky-join, .sticky-spacer { display: none; }
-  @media (max-width: 759px) {
-    .sticky-join { display: block; }
-    .sticky-spacer { display: block; }
+  .nav-toggle { display: none; background: none; border: 0; padding: 4px; margin: -4px 0; cursor: pointer; line-height: 0; }
+  .nav-links a:hover, .nav-menu a:hover { color: #f0dcac !important; }
+  .nav-menu {
+    display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column;
+    background: #0e0b1e; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid #221d3a; box-shadow: 0 12px 24px rgba(0,0,0,0.4); padding: 4px clamp(18px,5vw,40px) 14px;
   }
+  .nav-menu.open { display: flex; }
+  .nav-menu a { border-top: 1px solid #1c1834; }
+  .nav-menu a:first-child { border-top: 0; }
+  @media (max-width: 859px) {
+    .sticky-join, .sticky-spacer { display: block; }
+    .nav-links, .nav-join { display: none !important; }
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  }
+  @media (min-width: 860px) { .nav-menu { display: none !important; } }
 
   /* Accessibility: motion off → reveal immediately, no transforms */
   @media (prefers-reduced-motion: reduce) {
@@ -73,10 +87,27 @@
       </span>
       <span class="en-serif" style="font-size: 19px; letter-spacing: 0.5px; color: #f3efe9;">Enchantra</span>
     </a>
-    <a href="https://cardswekeep.substack.com/subscribe" class="btn-gold" style="display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 999px; border: none; background: #e8c98a; color: #191529; font-size: 13.5px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; white-space: nowrap; box-shadow: 0 4px 16px rgba(232,201,138,0.22);">
-      Join the waitlist
-      <svg viewBox="0 0 24 24" width="13" height="13"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-    </a>
+    <div style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px);">
+      <div class="nav-links" style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px);">
+        <a href="#cards" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Bring your cards</a>
+        <a href="#how" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">How it works</a>
+        <a href="#pricing" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Pricing</a>
+        <a href="#faq" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">FAQ</a>
+      </div>
+      <a href="https://cardswekeep.substack.com/subscribe" class="btn-gold nav-join" style="display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 999px; border: none; background: #e8c98a; color: #191529; font-size: 13.5px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; white-space: nowrap; box-shadow: 0 4px 16px rgba(232,201,138,0.22);">
+        Join the waitlist
+        <svg viewBox="0 0 24 24" width="13" height="13"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#f3efe9" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+      </button>
+    </div>
+    <div class="nav-menu" id="navMenu">
+      <a href="#cards" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">Bring your cards</a>
+      <a href="#how" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">How it works</a>
+      <a href="#pricing" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">Pricing</a>
+      <a href="#faq" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">FAQ</a>
+    </div>
   </nav>
 
   <div id="top"></div>
@@ -578,6 +609,21 @@
 
 </div>
 
+<script>
+  /* Mobile nav: hamburger toggles the dropdown menu; tapping a link closes it. */
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var menu = document.getElementById('navMenu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function () {
+      var open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) { menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+    });
+  })();
+</script>
 <script>
   /* Scroll reveal WITH a hard visibility guarantee. Content reveals as it
      scrolls into view for the fade animation, but if scroll detection ever
