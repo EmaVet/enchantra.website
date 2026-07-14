@@ -579,24 +579,22 @@
 </div>
 
 <script>
-  /* Scroll reveal — reveals each .reveal section as it enters view. Uses a
-     scroll/rAF check (not IntersectionObserver) so fast scrolling and anchor
-     jumps can never skip a section and leave it permanently hidden. */
+  /* Scroll reveal WITH a hard visibility guarantee. Content reveals as it
+     scrolls into view for the fade animation, but if scroll detection ever
+     fails to fire (happens on some mobile browsers), everything is force-shown
+     shortly after load — so no section can ever stay hidden below the hero. */
   (function () {
     var els = [].slice.call(document.querySelectorAll('.reveal'));
     function show(el) {
       el.style.opacity = '1';
       el.style.transform = 'translateY(0)';
-      if (el.firstElementChild) {
-        el.firstElementChild.style.opacity = '1';
-        el.firstElementChild.style.transform = 'translateY(0)';
-      }
+      var c = el.firstElementChild;
+      if (c) { c.style.opacity = '1'; c.style.transform = 'translateY(0)'; }
     }
     function check() {
       var vh = window.innerHeight || document.documentElement.clientHeight;
       for (var i = els.length - 1; i >= 0; i--) {
-        var top = els[i].getBoundingClientRect().top;
-        if (top < vh * 0.94) { show(els[i]); els.splice(i, 1); }
+        if (els[i].getBoundingClientRect().top < vh * 0.92) { show(els[i]); els.splice(i, 1); }
       }
     }
     var ticking = false;
@@ -604,10 +602,12 @@
       if (!ticking) { ticking = true; requestAnimationFrame(function () { check(); ticking = false; }); }
     }
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('touchmove', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
-    window.addEventListener('load', check);
+    window.addEventListener('load', function () { check(); });
     check();
-    setTimeout(check, 1200); /* safety net for any missed events */
+    /* Hard guarantee: reveal everything shortly after load, no matter what. */
+    setTimeout(function () { els.slice().forEach(show); els.length = 0; }, 1600);
   })();
 </script>
 </body>
