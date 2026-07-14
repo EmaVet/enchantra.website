@@ -1,47 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enchantra — a lunar keeper for your own tarot practice</title>
+<meta name="description" content="Enchantra keeps your cycle. You draw from your own deck; she remembers what returns. A lunar tarot reflection app — a mirror for your practice, the meaning always yours. Join the waitlist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0e0b1e; }
+  ::selection { background: #463c72; color: #e6e9f6; }
+  * { box-sizing: border-box; }
+  a { color: #e8c98a; }
+  a:hover { color: #f0dcac; }
+  @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.022); } }
+  @keyframes glowpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
+  @keyframes twinkle { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+  @keyframes driftup { from { transform: translateY(8px); } to { transform: translateY(-8px); } }
+  @keyframes floatL { 0%,100% { transform: rotate(-13deg) translate(-70px,10px); } 50% { transform: rotate(-13deg) translate(-70px,3px); } }
+  @keyframes floatR { 0%,100% { transform: rotate(13deg) translate(70px,10px); } 50% { transform: rotate(13deg) translate(70px,3px); } }
+  @keyframes floatC { 0%,100% { transform: translateY(-6px); } 50% { transform: translateY(-15px); } }
+  @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes cardglow { 0%,100% { box-shadow: 0 12px 30px rgba(0,0,0,0.45); } 50% { box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 24px rgba(232,201,138,0.22); } }
+  @keyframes threadpulse { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+  @keyframes spinslow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes floatCardR { 0%,100% { transform: rotate(var(--r)) translateY(0); } 50% { transform: rotate(var(--r)) translateY(-9px); } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 900ms ease-out, transform 900ms ease-out; }
+  .reveal.revealed { opacity: 1; transform: translateY(0); }
+  .en-serif { font-family: 'Iowan Old Style', 'Noto Serif', Palatino, Georgia, serif; }
+  .en-mono { font-family: 'SF Mono', ui-monospace, Menlo, monospace; }
 
+  /* nav CTA hover / active */
+  .btn-cta { transition: background 200ms ease, transform 160ms ease, box-shadow 200ms ease; }
+  .btn-cta:hover { background: #f0dcac !important; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,201,138,0.3) !important; }
+  .btn-cta:active { transform: translateY(0); }
+
+  /* substack embed frame */
+  .substack-embed { width: 100%; max-width: 480px; height: 320px; border: 1px solid #2c284c; border-radius: 16px; background: #15122a; overflow: hidden; }
+
+  /* faq answer collapse */
+  .faq-answer { display: none; }
+  .faq-item.open .faq-answer { display: block; }
+</style>
 </head>
 <body>
-
-<head>
-  <title>Enchantra — a lunar keeper for your own tarot practice</title>
-  <meta name="description" content="Enchantra keeps your cycle. You draw from your own deck; she remembers what returns. A lunar tarot reflection app — a mirror for your practice, the meaning always yours. Join the waitlist.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;1,400&amp;display=swap" rel="stylesheet">
-  <style>
-    html, body { margin: 0; padding: 0; background: #0e0b1e; }
-    ::selection { background: #463c72; color: #e6e9f6; }
-    * { box-sizing: border-box; }
-    @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.022); } }
-    @keyframes glowpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
-    @keyframes twinkle { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
-    @keyframes driftup { from { transform: translateY(8px); } to { transform: translateY(-8px); } }
-    @keyframes floatL { 0%,100% { transform: rotate(-13deg) translate(-70px,10px); } 50% { transform: rotate(-13deg) translate(-70px,3px); } }
-    @keyframes floatR { 0%,100% { transform: rotate(13deg) translate(70px,10px); } 50% { transform: rotate(13deg) translate(70px,3px); } }
-    @keyframes floatC { 0%,100% { transform: translateY(-6px); } 50% { transform: translateY(-15px); } }
-    @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    @keyframes cardglow { 0%,100% { box-shadow: 0 12px 30px rgba(0,0,0,0.45); } 50% { box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 24px rgba(232,201,138,0.22); } }
-    @keyframes threadpulse { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
-    @keyframes spinslow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-    @keyframes floatCardR { 0%,100% { transform: rotate(var(--r)) translateY(0); } 50% { transform: rotate(var(--r)) translateY(-9px); } }
-    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
-    .en-serif { font-family: 'Iowan Old Style', 'Noto Serif', Palatino, Georgia, serif; }
-    .en-mono { font-family: 'SF Mono', ui-monospace, Menlo, monospace; }
-  </style>
-</head>
-
-
 <div style="min-height: 100vh; background: #0e0b1e; color: #cdd1e6; font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden;">
 
   <!-- ═══════════ NAV ═══════════ -->
   <nav style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; background: rgba(14,11,30,0.72); backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a;">
     <a href="#top" style="display: flex; align-items: center; gap: 6px; text-decoration: none;">
-      <svg viewBox="0 0 120 120" width="27" height="27" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible; pointer-events: none;"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg>
+      <svg viewBox="0 0 120 120" width="27" height="27" style="display: block; overflow: visible; flex: none;">
+        <path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path>
+        <path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path>
+      </svg>
       <span class="en-serif" style="font-size: 20px; letter-spacing: 0.5px; color: #f3efe9;">Enchantra</span>
     </a>
     <div style="display: flex; align-items: center; gap: 24px; white-space: nowrap;">
@@ -49,7 +62,7 @@
       <a href="#how" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">How it works</a>
       <a href="#pricing" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Pricing</a>
       <a href="#faq" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">FAQ</a>
-      <a href="#join" style="display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 20px; border-radius: 999px; border: none; background: #e8c98a; color: #191529; font-size: 14px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; transition: background 200ms ease, transform 160ms ease, box-shadow 200ms ease; box-shadow: 0 4px 16px rgba(232,201,138,0.22);">
+      <a href="#join" class="btn-cta" style="display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 20px; border-radius: 999px; border: none; background: #e8c98a; color: #191529; font-size: 14px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; box-shadow: 0 4px 16px rgba(232,201,138,0.22);">
         Join the waitlist
         <svg viewBox="0 0 24 24" width="13" height="13"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       </a>
@@ -82,14 +95,9 @@
       <h1 class="en-serif" style="text-wrap: balance; margin: 0px; font-weight: 400; font-size: 54px; line-height: 60px; color: #f3efe9; max-width: 540px;">Your tarot practice, remembered.</h1>
       <p style="margin: 24px 0 0; font-size: 18px; line-height: 29px; color: #c6cae2; max-width: 500px; text-wrap: pretty;">Bring the deck you already love. Enchantra helps you understand each card, journal what it stirs in you, and remember every reading across the lunar cycle.</p>
 
-      <!-- waitlist -->
-      <div id="join-a" style="margin-top: 34px; max-width: 470px;">
-        
-          <iframe src="https://cardswekeep.substack.com/embed" 
-            width="100%" height="auto" frameborder="0" scrolling="no" 
-            style="border: 1px solid #2c284c; border-radius: 999px; padding: 0; background: transparent; max-width: 470px; margin: 0;">
-          </iframe>
-        
+      <!-- waitlist (Substack embed) -->
+      <div id="join-a" style="margin-top: 34px; max-width: 480px;">
+        <iframe src="https://cardswekeep.substack.com/embed" class="substack-embed" frameborder="0" scrolling="no" title="Join the Enchantra waitlist"></iframe>
       </div>
 
       <!-- launch microcopy -->
@@ -213,19 +221,19 @@
         <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 24px 20px;">
           <div style="width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #241e3c, #191529); border: 1px solid #241f40; box-shadow: inset -4px 0 7px -1px rgba(164,194,171,0.5); margin-bottom: 18px;"></div>
           <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #a4c2ab; margin-bottom: 8px;">Set an intention</div>
-          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;"><p data-start="327" data-end="461">Before you begin, choose something you'd like to explore, understand or reflect on. Your intention becomes the focus for your reading.</p></div>
+          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;"><p>Before you begin, choose something you'd like to explore, understand or reflect on. Your intention becomes the focus for your reading.</p></div>
         </div>
         <!-- step 2 -->
         <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 24px 20px;">
           <div style="margin-bottom: 18px;"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
           <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #e8c98a; margin-bottom: 8px;">Draw from your own deck</div>
-          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;"><p data-start="500" data-end="627" class="PDq2pG_selectionAnchorContainer">Shuffle your tarot deck and draw a card, just as you always would. Enchantra works alongside your cards, never instead of them.<span aria-hidden="true" class="PDq2pG_selectionAnchor"></span></p></div>
+          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;"><p>Shuffle your tarot deck and draw a card, just as you always would. Enchantra works alongside your cards, never instead of them.</p></div>
         </div>
         <!-- step 3 -->
         <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 24px 20px;">
           <div style="width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #3a3363, #201a3a); border: 1px solid #2e2648; box-shadow: inset 0 0 8px 1px rgba(232,201,138,0.4), 0 0 14px rgba(232,201,138,0.12); margin-bottom: 18px;"></div>
           <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #e8c98a; margin-bottom: 8px;">Explore the reading</div>
-          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;"><p data-start="579" data-end="716" class="PDq2pG_selectionAnchorContainer">Enchantra interprets the card using your deck's tradition, your intention and the lunar cycle. Use it as a guide while discovering what the card means to you.</p></div>
+          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;"><p>Enchantra interprets the card using your deck's tradition, your intention and the lunar cycle. Use it as a guide while discovering what the card means to you.</p></div>
         </div>
         <!-- step 4 -->
         <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 24px 20px;">
@@ -243,7 +251,7 @@
         <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 24px 20px;">
           <div style="width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #241e3c, #191529); border: 1px solid #241f40; box-shadow: inset -6px 0 10px -2px rgba(198,202,226,0.5); margin-bottom: 18px;"></div>
           <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 8px;">Look back over time</div>
-          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;"><div data-start="1422" data-end="1504" class="PDq2pG_selectionAnchorContainer"><p data-start="1197" data-end="1327" class="PDq2pG_selectionAnchorContainer">Revisit past readings to see how those patterns have shaped your practice and deepened your intuition.<span aria-hidden="true" class="PDq2pG_selectionAnchor"></span></p></div></div>
+          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;"><p>Revisit past readings to see how those patterns have shaped your practice and deepened your intuition.</p></div>
         </div>
       </div>
 
@@ -415,19 +423,11 @@
         <span>No hidden upgrades</span>
       </div>
       <p class="en-serif" style="margin: 30px auto 0; font-size: 18px; line-height: 27px; font-style: italic; color: #e8c98a; max-width: 420px;">Made to be returned to, again and again.</p>
-      <div style="max-width: 470px; margin: 32px auto 0;">
-        
-          <iframe src="https://cardswekeep.substack.com/embed" 
-            width="100%" height="auto" frameborder="0" scrolling="no" 
-            style="border: 1px solid #2c284c; border-radius: 999px; padding: 0; background: transparent; max-width: 470px; margin: 0;">
-          </iframe>
-        
+      <div style="max-width: 480px; margin: 32px auto 0; display: flex; justify-content: center;">
+        <iframe src="https://cardswekeep.substack.com/embed" class="substack-embed" frameborder="0" scrolling="no" title="Join the Enchantra waitlist"></iframe>
       </div>
     </div>
   </section>
-
-  <!-- ═══════════ YOUR PRACTICE. HELD. ═══════════ -->
-  
 
   <!-- ═══════════ FOUNDER STORY ═══════════ -->
   <section class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1080px; margin: 0 auto; padding: 116px 40px;">
@@ -435,7 +435,6 @@
       <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 20px;">Inside Enchantra</div>
       <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: 40px; line-height: 48px; color: #f3efe9; max-width: 600px; text-wrap: balance;">Everything your practice needs, in one place.</h2>
       <p style="margin: 24px auto 0; font-size: 17px; line-height: 28px; color: #9aa0c2; max-width: 540px; text-wrap: pretty;">You shuffle your own tarot cards. You set an intention. <br>The cards reveal. Enchantra remembers.</p>
-      
     </div>
     <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px;">
       <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 28px 20px;">
@@ -446,7 +445,7 @@
       <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 28px 20px;">
         <div style="width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #241e3c, #191529); border: 1px solid #2e2648; display: flex; align-items: center; justify-content: center; margin-bottom: 18px;"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#a4c2ab" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"></rect><line x1="9" y1="8" x2="15" y2="8"></line><line x1="9" y1="12" x2="15" y2="12"></line><line x1="9" y1="16" x2="13" y2="16"></line></svg></div>
         <div class="en-serif" style="font-size: 20px; color: #f3efe9; margin-bottom: 8px;">Journal</div>
-        <div style="font-size: 13.5px; line-height: 21px; color: #8b8fb2;"><span style="display: block; color: rgb(198, 202, 226); margin-bottom: 6px;">Journal what comes up for you.</span><p data-pm-slice="0 0 []">Write down what the card means to you, what stood out or anything you don't want to forget. Your reflections stay private and become part of your growing practice.</p></div>
+        <div style="font-size: 13.5px; line-height: 21px; color: #8b8fb2;"><span style="display: block; color: rgb(198, 202, 226); margin-bottom: 6px;">Journal what comes up for you.</span><p style="margin: 0;">Write down what the card means to you, what stood out or anything you don't want to forget. Your reflections stay private and become part of your growing practice.</p></div>
       </div>
       <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 28px 20px;">
         <div style="width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #241e3c, #191529); border: 1px solid #2e2648; display: flex; align-items: center; justify-content: center; margin-bottom: 18px;"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M5 8 L12 13 L19 7 M12 13 L14 19" fill="none" stroke="#9a8fc0" stroke-width="1.2" opacity="0.7"></path><circle cx="5" cy="8" r="1.8" fill="#9a8fc0"></circle><circle cx="12" cy="13" r="2" fill="#c6cae2"></circle><circle cx="19" cy="7" r="1.8" fill="#9a8fc0"></circle><circle cx="14" cy="19" r="1.6" fill="#9a8fc0"></circle></svg></div>
@@ -459,7 +458,10 @@
         <div style="font-size: 13.5px; line-height: 21px; color: #8b8fb2;"><span style="display: block; color: rgb(198, 202, 226); margin-bottom: 6px;">Notice what the cards call in.</span>The real world echoes that follow a reading: recurring symbols, dreams, people, places and meaningful moments. Note them, and Enchantra links them back to the cards that named them.</div>
       </div>
     </div>
-  </section><section style="background: #0e0b1e; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834;">
+  </section>
+
+  <!-- ═══════════ WHY WE BUILT ENCHANTRA ═══════════ -->
+  <section style="background: #0e0b1e; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834;">
     <div style="max-width: 780px; margin: 0 auto; padding: 100px 40px;" class="reveal">
       <div style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; position: relative; background: radial-gradient(ellipse 100% 62% at 50% -6%, #17132e, #120f26 68%); border: 1px solid #2c284c; border-radius: 24px; padding: 54px 60px 48px; overflow: hidden;">
         <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.12), transparent 70%); pointer-events: none;"></div>
@@ -567,89 +569,89 @@
     </div>
 
     <div style="display: flex; flex-direction: column; gap: 2px;">
-      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
-        <div onClick="{{ toggle0 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
           <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">What is Enchantra?</span>
-          <span style="font-size: 20px; color: #9a8fc0; flex: none;">{{ sign0 }}</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
         </div>
-        <sc-if value="{{ open0 }}"><div style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;">Enchantra is a tarot reflection app that helps you build a deeper relationship with your own tarot deck. Draw cards from your physical deck, explore their meaning, record your reflections and discover patterns across your readings over time.</div></sc-if>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;">Enchantra is a tarot reflection app that helps you build a deeper relationship with your own tarot deck. Draw cards from your physical deck, explore their meaning, record your reflections and discover patterns across your readings over time.</div>
       </div>
-      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
-        <div onClick="{{ toggle1 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
           <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">What is a reflective tarot reading?</span>
-          <span style="font-size: 20px; color: #9a8fc0; flex: none;">{{ sign1 }}</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
         </div>
-        <sc-if value="{{ open1 }}"><div style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">A reflective tarot reading helps you explore your cards rather than predict your future.</p><p style="margin: 14px 0 0;">You draw from your own physical tarot deck, and Enchantra interprets the card in the context of your intention, your tarot tradition and the lunar cycle. It offers a place to begin. The meaning is always yours to make.</p></div></sc-if>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">A reflective tarot reading helps you explore your cards rather than predict your future.</p><p style="margin: 14px 0 0;">You draw from your own physical tarot deck, and Enchantra interprets the card in the context of your intention, your tarot tradition and the lunar cycle. It offers a place to begin. The meaning is always yours to make.</p></div>
       </div>
-      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
-        <div onClick="{{ toggle2 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
           <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Do I need to know tarot already?</span>
-          <span style="font-size: 20px; color: #9a8fc0; flex: none;">{{ sign2 }}</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
         </div>
-        <sc-if value="{{ open2 }}"><div style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">No. Enchantra is designed for beginners and experienced tarot readers alike.</p><p style="margin: 14px 0 0;">If you're new to tarot, it explains each card in plain English while encouraging you to build confidence in your own intuition over time.</p></div></sc-if>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">No. Enchantra is designed for beginners and experienced tarot readers alike.</p><p style="margin: 14px 0 0;">If you're new to tarot, it explains each card in plain English while encouraging you to build confidence in your own intuition over time.</p></div>
       </div>
-      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
-        <div onClick="{{ toggle3 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
           <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Can I use my own tarot deck?</span>
-          <span style="font-size: 20px; color: #9a8fc0; flex: none;">{{ sign3 }}</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
         </div>
-        <sc-if value="{{ open3 }}"><div style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Yes. Enchantra is built to work alongside your own physical tarot deck.</p><p style="margin: 14px 0 0;">It supports major tarot traditions, including Rider-Waite-Smith, Thoth and Marseille. You choose your deck's tradition, and each card is interpreted within its own system so the meaning stays true to the creator's intention.</p></div></sc-if>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Yes. Enchantra is built to work alongside your own physical tarot deck.</p><p style="margin: 14px 0 0;">It supports major tarot traditions, including Rider-Waite-Smith, Thoth and Marseille. You choose your deck's tradition, and each card is interpreted within its own system so the meaning stays true to the creator's intention.</p></div>
       </div>
-      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
-        <div onClick="{{ toggle4 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
           <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Does Enchantra predict the future?</span>
-          <span style="font-size: 20px; color: #9a8fc0; flex: none;">{{ sign4 }}</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
         </div>
-        <sc-if value="{{ open4 }}"><div style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">No.</p><p style="margin: 14px 0 0;">Enchantra is not a fortune telling app. It helps you reflect on your readings, record what they mean to you and notice patterns across your practice over time.</p><p style="margin: 14px 0 0;">Rather than telling you what will happen, it helps you pay closer attention to the life you're already living.</p></div></sc-if>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">No.</p><p style="margin: 14px 0 0;">Enchantra is not a fortune telling app. It helps you reflect on your readings, record what they mean to you and notice patterns across your practice over time.</p><p style="margin: 14px 0 0;">Rather than telling you what will happen, it helps you pay closer attention to the life you're already living.</p></div>
       </div>
-      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
-        <div onClick="{{ toggle5 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
           <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">How does AI work in Enchantra?</span>
-          <span style="font-size: 20px; color: #9a8fc0; flex: none;">{{ sign5 }}</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
         </div>
-        <sc-if value="{{ open5 }}"><div style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">AI helps explain the symbolism and traditional meanings of your cards while remembering your readings, reflections and patterns over time.</p><p style="margin: 14px 0 0;">It doesn't replace your intuition or tell you what your reading means. Instead, it gives you a thoughtful place to begin. Every meaning remains yours to make.</p></div></sc-if>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">AI helps explain the symbolism and traditional meanings of your cards while remembering your readings, reflections and patterns over time.</p><p style="margin: 14px 0 0;">It doesn't replace your intuition or tell you what your reading means. Instead, it gives you a thoughtful place to begin. Every meaning remains yours to make.</p></div>
       </div>
-      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
-        <div onClick="{{ toggle6 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
           <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Does AI make up my interpretation?</span>
-          <span style="font-size: 20px; color: #9a8fc0; flex: none;">{{ sign6 }}</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
         </div>
-        <sc-if value="{{ open6 }}"><div style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">No.</p><p style="margin: 14px 0 0;">Enchantra uses AI to provide thoughtful interpretations based on your chosen tarot tradition, your intention and your reading history. It never tells you what to believe. Your own reflections and lived experience are always the most important part of every reading.</p></div></sc-if>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">No.</p><p style="margin: 14px 0 0;">Enchantra uses AI to provide thoughtful interpretations based on your chosen tarot tradition, your intention and your reading history. It never tells you what to believe. Your own reflections and lived experience are always the most important part of every reading.</p></div>
       </div>
-      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
-        <div onClick="{{ toggle7 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
           <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Is my tarot journal private?</span>
-          <span style="font-size: 20px; color: #9a8fc0; flex: none;">{{ sign7 }}</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
         </div>
-        <sc-if value="{{ open7 }}"><div style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Yes.</p><p style="margin: 14px 0 0;">Your readings, reflections and notes are private by default. They're securely stored so you can revisit them whenever you like, but they are never shared with other users.</p></div></sc-if>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Yes.</p><p style="margin: 14px 0 0;">Your readings, reflections and notes are private by default. They're securely stored so you can revisit them whenever you like, but they are never shared with other users.</p></div>
       </div>
-      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
-        <div onClick="{{ toggle8 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
           <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Can Enchantra help me notice patterns?</span>
-          <span style="font-size: 20px; color: #9a8fc0; flex: none;">{{ sign8 }}</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
         </div>
-        <sc-if value="{{ open8 }}"><div style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Yes.</p><p style="margin: 14px 0 0;">As your readings grow, Enchantra helps you discover recurring cards, repeating themes and, if you choose, real world echoes like dreams, symbols, people, places and meaningful moments.</p><p style="margin: 14px 0 0;">These are the connections that often only become visible with time.</p></div></sc-if>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Yes.</p><p style="margin: 14px 0 0;">As your readings grow, Enchantra helps you discover recurring cards, repeating themes and, if you choose, real world echoes like dreams, symbols, people, places and meaningful moments.</p><p style="margin: 14px 0 0;">These are the connections that often only become visible with time.</p></div>
       </div>
-      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
-        <div onClick="{{ toggle9 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
           <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Is Enchantra a digital tarot deck?</span>
-          <span style="font-size: 20px; color: #9a8fc0; flex: none;">{{ sign9 }}</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
         </div>
-        <sc-if value="{{ open9 }}"><div style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">No.</p><p style="margin: 14px 0 0;">You continue using the physical tarot deck you already own and love. You shuffle, draw and read your own cards. Enchantra simply helps you understand, remember and build a deeper relationship with them over time.</p></div></sc-if>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">No.</p><p style="margin: 14px 0 0;">You continue using the physical tarot deck you already own and love. You shuffle, draw and read your own cards. Enchantra simply helps you understand, remember and build a deeper relationship with them over time.</p></div>
       </div>
-      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
-        <div onClick="{{ toggle10 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
           <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">How is Enchantra different from other tarot apps?</span>
-          <span style="font-size: 20px; color: #9a8fc0; flex: none;">{{ sign10 }}</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
         </div>
-        <sc-if value="{{ open10 }}"><div style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Most tarot apps focus on digital card draws or one-off readings.</p><p style="margin: 14px 0 0;">Enchantra is designed to help you build an ongoing tarot practice. It combines your physical deck, thoughtful interpretations, private journalling and long-term pattern tracking, so every reading becomes part of a bigger story.</p></div></sc-if>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Most tarot apps focus on digital card draws or one-off readings.</p><p style="margin: 14px 0 0;">Enchantra is designed to help you build an ongoing tarot practice. It combines your physical deck, thoughtful interpretations, private journalling and long-term pattern tracking, so every reading becomes part of a bigger story.</p></div>
       </div>
-      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
-        <div onClick="{{ toggle11 }}" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
           <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">When will Enchantra be available?</span>
-          <span style="font-size: 20px; color: #9a8fc0; flex: none;">{{ sign11 }}</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
         </div>
-        <sc-if value="{{ open11 }}"><div style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Enchantra is currently in development and available by waitlist.</p><p style="margin: 14px 0 0;">Joining is free, and waitlist members will receive early access on iPhone and Android as soon as it's ready.</p></div></sc-if>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Enchantra is currently in development and available by waitlist.</p><p style="margin: 14px 0 0;">Joining is free, and waitlist members will receive early access on iPhone and Android as soon as it's ready.</p></div>
       </div>
     </div>
     </div>
@@ -668,13 +670,8 @@
       </div>
       <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: 44px; line-height: 50px; color: #f3efe9;">She keeps your practice.</h2>
       <p style="margin: 18px auto 0; font-size: 17px; line-height: 27px; color: #9aa0c2; max-width: 460px;">Join the waitlist for early access. <br>When the time is right, she'll write to you.</p>
-      <div style="max-width: 470px; margin: 32px auto 0;">
-        
-          <iframe src="https://cardswekeep.substack.com/embed" 
-            width="100%" height="auto" frameborder="0" scrolling="no" 
-            style="border: 1px solid #2c284c; border-radius: 999px; padding: 0; background: transparent; max-width: 470px; margin: 0;">
-          </iframe>
-        
+      <div style="max-width: 480px; margin: 32px auto 0; display: flex; justify-content: center;">
+        <iframe src="https://cardswekeep.substack.com/embed" class="substack-embed" frameborder="0" scrolling="no" title="Join the Enchantra waitlist"></iframe>
       </div>
       <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 18px; font-size: 13.5px; color: #9aa0c2;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 8px rgba(232,201,138,0.7); flex: none;"></span>Launching end of August 2026 · First lunar cycle free, then A$6.50/month</div>
     </div>
@@ -685,7 +682,10 @@
     <div style="max-width: 1080px; margin: 0 auto; padding: 54px 40px 60px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px;">
       <div>
         <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 16px;">
-          <svg viewBox="0 0 120 120" width="24" height="24" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible; pointer-events: none;"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg>
+          <svg viewBox="0 0 120 120" width="24" height="24" style="display: block; overflow: visible; flex: none;">
+            <path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path>
+            <path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path>
+          </svg>
           <span class="en-serif" style="font-size: 19px; color: #f3efe9;">Enchantra</span>
         </div>
         <p class="en-serif" style="margin: 0; font-size: 15px; line-height: 23px; color: #8b8fb2; font-style: italic; max-width: 260px;">The moon keeps time. The meaning is yours.</p>
@@ -722,28 +722,41 @@
 
 </div>
 
-
-<!-- Scroll Reveal for Animations -->
 <script>
-(function() {
-  const revealElements = document.querySelectorAll('.reveal');
-  if (revealElements.length === 0) return;
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
-      }
+(function () {
+  // ── FAQ accordion ──
+  document.querySelectorAll('.faq-item').forEach(function (item) {
+    var q = item.querySelector('.faq-q');
+    var sign = item.querySelector('.faq-sign');
+    q.addEventListener('click', function () {
+      var open = item.classList.toggle('open');
+      sign.textContent = open ? '\u2013' : '+';
     });
-  }, {
-    threshold: 0.12,
-    rootMargin: ' 0px 0px -8% 0px'
   });
-  
-  revealElements.forEach(el => observer.observe(el));
+
+  // ── Scroll reveal ──
+  function show(el) {
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+    if (el.firstElementChild) {
+      el.firstElementChild.style.opacity = '1';
+      el.firstElementChild.style.transform = 'translateY(0)';
+    }
+  }
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { show(en.target); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    requestAnimationFrame(function () {
+      reveals.forEach(function (el) { io.observe(el); });
+    });
+  } else {
+    reveals.forEach(show);
+  }
 })();
 </script>
-
 </body>
 </html>
