@@ -22,3 +22,11 @@ build/
 # Local environment
 .env
 .env.local
+
+# never commit preview bundles, backups, or stray clones
+*.dc.html
+*.bak
+*.bak2
+*.bak3
+*.backup
+enchantra.website/
