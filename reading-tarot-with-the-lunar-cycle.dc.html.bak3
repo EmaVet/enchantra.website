@@ -293,7 +293,7 @@ class Component extends DCLogic {
       toggle: () => this.setState((st) => ({ faq: Object.assign({}, st.faq, { [i]: !st.faq[i] }) })),
     }));
     const related = [
-      { href: 'tarot-journaling.dc.html', tag: 'Journaling', title: 'Tarot journaling: a practice you can return to', dek: 'A three-line format, prompts, and how to record the echoes that follow.', bg: 'radial-gradient(circle at 55% 40%, #241e3c, #14112a)' },
+      { href: 'Almanac - Tarot Journaling.dc.html', tag: 'Journaling', title: 'Tarot journaling: a practice you can return to', dek: 'A three-line format, prompts, and how to record the echoes that follow.', bg: 'radial-gradient(circle at 55% 40%, #241e3c, #14112a)' },
       { href: 'how-to-read-tarot-for-reflection.dc.html', tag: 'Reflection', title: 'How to read tarot for reflection, not prediction', dek: "A beginner's way into the cards that never asks them to tell your future.", bg: 'radial-gradient(circle at 70% 40%, #241e3c, #14112a)' },
     ];
     return { barRef: this.barRef, pubDate: '12 July 2026', readTime: '6 min read', orbit, toc, phases, faqs, related };

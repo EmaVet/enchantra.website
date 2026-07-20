@@ -294,7 +294,7 @@ class Component extends DCLogic {
     }));
     const related = [
       { href: 'reading-tarot-with-the-lunar-cycle.dc.html', tag: 'Lunar', title: 'Reading tarot with the lunar cycle', dek: 'How each moon phase shapes your intentions, daily cards and full moon reflections.', bg: 'radial-gradient(circle at 40% 40%, #241e3c, #14112a)' },
-      { href: 'tarot-journaling.dc.html', tag: 'Journaling', title: 'Tarot journaling: a practice you can return to', dek: 'A three-line format, prompts, and how to record the echoes that follow.', bg: 'radial-gradient(circle at 55% 40%, #241e3c, #14112a)' },
+      { href: 'Almanac - Tarot Journaling.dc.html', tag: 'Journaling', title: 'Tarot journaling: a practice you can return to', dek: 'A three-line format, prompts, and how to record the echoes that follow.', bg: 'radial-gradient(circle at 55% 40%, #241e3c, #14112a)' },
     ];
     return { barRef: this.barRef, pubDate: '17 July 2026', readTime: '7 min read', toc, steps, examples, faqs, related };
   }

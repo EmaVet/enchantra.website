@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enchantra — a lunar keeper for your own tarot practice</title>
+<meta name="description" content="Enchantra keeps your cycle. You draw from your own deck; she remembers what returns. A lunar tarot reflection app — a mirror for your practice, the meaning always yours. Join the waitlist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #0e0b1e; }
+  ::selection { background: #463c72; color: #e6e9f6; }
+  * { box-sizing: border-box; }
+  a { color: #e8c98a; }
+  a:hover { color: #f0dcac; }
+  @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.022); } }
+  @keyframes glowpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
+  @keyframes twinkle { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+  @keyframes driftup { from { transform: translateY(8px); } to { transform: translateY(-8px); } }
+  @keyframes floatL { 0%,100% { transform: rotate(-13deg) translate(-70px,10px); } 50% { transform: rotate(-13deg) translate(-70px,3px); } }
+  @keyframes floatR { 0%,100% { transform: rotate(13deg) translate(70px,10px); } 50% { transform: rotate(13deg) translate(70px,3px); } }
+  @keyframes floatC { 0%,100% { transform: translateY(-6px); } 50% { transform: translateY(-15px); } }
+  @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes cardglow { 0%,100% { box-shadow: 0 12px 30px rgba(0,0,0,0.45); } 50% { box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 24px rgba(232,201,138,0.22); } }
+  @keyframes threadpulse { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+  @keyframes spinslow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes floatCardR { 0%,100% { transform: rotate(var(--r)) translateY(0); } 50% { transform: rotate(var(--r)) translateY(-9px); } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 900ms ease-out, transform 900ms ease-out; }
+  .reveal.revealed { opacity: 1; transform: translateY(0); }
+  .en-serif { font-family: 'Iowan Old Style', 'Noto Serif', Palatino, Georgia, serif; }
+  .en-mono { font-family: 'SF Mono', ui-monospace, Menlo, monospace; }
+
+  /* nav CTA hover / active */
+  .btn-cta { transition: background 200ms ease, transform 160ms ease, box-shadow 200ms ease; }
+  .btn-cta:hover { background: #f0dcac !important; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,201,138,0.3) !important; }
+  .btn-cta:active { transform: translateY(0); }
+
+  /* substack embed frame */
+  .substack-embed { width: 100%; max-width: 480px; height: 140px; border: 1px solid #2c284c; border-radius: 16px; background: #15122a; overflow: hidden; margin-top: -70px; }
+
+  /* faq answer collapse */
+  .faq-answer { display: none; }
+  .faq-item.open .faq-answer { display: block; }
+
+  /* ═══════════ MOBILE RESPONSIVENESS ═══════════ */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px !important; }
+    nav > div { gap: 14px !important; }
+
+    header { grid-template-columns: 1fr !important; gap: 24px !important; min-height: auto !important; padding: 48px 20px 56px !important; }
+    header h1 { font-size: 40px !important; line-height: 48px !important; max-width: 100% !important; }
+    header p { font-size: 15px !important; line-height: 24px !important; }
+
+    div[style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 32px !important; }
+    div[style*="grid-template-columns: 1fr 1.05fr"] { grid-template-columns: 1fr !important; gap: 32px !important; }
+    div[style*="grid-template-columns: 1fr auto 1fr"] { grid-template-columns: 1fr !important; gap: 24px !important; }
+    div[style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: 1fr !important; gap: 12px !important; }
+    div[style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
+    div[style*="grid-template-columns: 1.4fr 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 20px !important; }
+    div[style*="display: grid; grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; gap: 28px !important; }
+
+    h2 { font-size: 36px !important; line-height: 44px !important; }
+    section { padding: 64px 20px !important; }
+  }
+
+  @media (max-width: 480px) {
+    nav { padding: 12px 16px !important; display: flex !important; justify-content: space-between !important; align-items: center !important; }
+    nav > a { display: flex !important; }
+    nav > div { flex-direction: row !important; gap: 8px !important; }
+    nav > div a { font-size: 0 !important; width: 0 !important; padding: 0 !important; display: none !important; }
+    nav > div a:last-child { font-size: 12px !important; width: auto !important; padding: 0 12px !important; display: inline-flex !important; height: 36px !important; }
+
+    header { grid-template-columns: 1fr !important; gap: 20px !important; padding: 36px 16px 44px !important; }
+    header > div:first-child > div:first-child { font-size: 10px !important; margin-bottom: 12px !important; }
+    header h1 { font-size: 28px !important; line-height: 36px !important; }
+    header p { font-size: 14px !important; line-height: 21px !important; }
+    header > div:last-child { display: none !important; }
+
+    /* Hide large decorative elements */
+    div[style*="position: absolute"] { display: none !important; }
+    div[style*="width: 420px"] { display: none !important; }
+    div[style*="width: 380px"] { display: none !important; }
+    svg[style*="width: 100%"] { max-width: 100% !important; height: auto !important; }
+
+    section { padding: 44px 16px !important; }
+    section > div { max-width: 100% !important; }
+
+    h1 { font-size: 26px !important; line-height: 34px !important; }
+    h2 { font-size: 24px !important; line-height: 30px !important; }
+    h3 { font-size: 18px !important; line-height: 24px !important; }
+
+    div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 12px !important; }
+
+    .faq-q { padding: 14px 14px !important; gap: 12px !important; }
+    .faq-q span:first-child { font-size: 14px !important; }
+    .faq-answer { padding: 0 14px 12px !important; font-size: 13px !important; line-height: 20px !important; }
+
+    a[style*="background: #e8c98a"], [style*="background: #e8c98a"] {
+      font-size: 13px !important;
+      padding: 0 14px !important;
+      height: 40px !important;
+      min-width: auto !important;
+    }
+
+    div[style*="padding: 28px"] { padding: 18px 14px !important; }
+    div[style*="padding: 24px"] { padding: 16px 12px !important; }
+    div[style*="padding: 22px"] { padding: 14px 12px !important; }
+    div[style*="gap: 60px"] { gap: 24px !important; }
+    div[style*="gap: 56px"] { gap: 20px !important; }
+    div[style*="gap: 44px"] { gap: 16px !important; }
+  }
+
+</style>
+</head>
+<body>
+<div style="min-height: 100vh; background: #0e0b1e; color: #cdd1e6; font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden;">
+
+  <!-- ═══════════ NAV ═══════════ -->
+  <nav style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; background: rgba(14,11,30,0.72); backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a;">
+    <a href="#top" style="display: flex; align-items: center; gap: 6px; text-decoration: none;">
+      <svg viewBox="0 0 120 120" width="27" height="27" style="display: block; overflow: visible; flex: none;">
+        <path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path>
+        <path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path>
+      </svg>
+      <span class="en-serif" style="font-size: 20px; letter-spacing: 0.5px; color: #f3efe9;">Enchantra</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: 24px; white-space: nowrap;">
+      <a href="#cards" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Bring your cards</a>
+      <a href="#how" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">How it works</a>
+      <a href="#pricing" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Pricing</a>
+      <a href="#faq" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">FAQ</a>
+      <a href="#join" class="btn-cta" style="display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 20px; border-radius: 999px; border: none; background: #e8c98a; color: #191529; font-size: 14px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; box-shadow: 0 4px 16px rgba(232,201,138,0.22);">
+        Join the waitlist
+        <svg viewBox="0 0 24 24" width="13" height="13"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+    </div>
+  </nav>
+
+  <div id="top"></div>
+
+  <!-- ═══════════ HERO — THE KEEPER ═══════════ -->
+  <header style="position: relative; max-width: 1180px; margin: 0 auto; padding: 70px 40px 96px; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 40px; align-items: center; min-height: 620px;">
+    <!-- ambient stars -->
+    <div style="position: absolute; top: 12%; left: 46%; width: 4px; height: 4px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 6px rgba(198,202,226,0.8); animation: twinkle 5s ease-in-out infinite;"></div>
+    <div style="position: absolute; top: 30%; left: 88%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 6.5s ease-in-out infinite 1s;"></div>
+    <div style="position: absolute; top: 64%; left: 58%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 7s ease-in-out infinite 2s;"></div>
+    <div style="position: absolute; top: 20%; left: 66%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 5.5s ease-in-out infinite 0.5s;"></div>
+    <div style="position: absolute; top: 78%; left: 82%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 6s ease-in-out infinite 1.4s;"></div>
+    <div style="position: absolute; top: 8%; left: 74%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 7.5s ease-in-out infinite 2.6s;"></div>
+    <div style="position: absolute; top: 52%; left: 94%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 6.8s ease-in-out infinite 0.9s;"></div>
+    <!-- gold stars -->
+    <div style="position: absolute; top: 16%; left: 82%; width: 3px; height: 3px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 6px rgba(232,201,138,0.7); animation: twinkle 4.5s ease-in-out infinite 0.3s;"></div>
+    <div style="position: absolute; top: 44%; left: 62%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 5.8s ease-in-out infinite 1.7s;"></div>
+    <div style="position: absolute; top: 70%; left: 70%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 6.4s ease-in-out infinite 2.2s;"></div>
+    <!-- gold sparks -->
+    <div style="position: absolute; top: 26%; left: 91%; animation: twinkle 5.2s ease-in-out infinite 0.7s;"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
+    <div style="position: absolute; top: 60%; left: 50%; animation: twinkle 7.2s ease-in-out infinite 1.1s;"><svg viewBox="0 0 24 24" width="10" height="10"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a" opacity="0.8"></path></svg></div>
+    <div>
+      <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 24px;">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#e8c98a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"></rect><line x1="10" y1="18.5" x2="14" y2="18.5"></line></svg>
+        A tarot reflection app · iPhone &amp; Android</div>
+      <h1 class="en-serif" style="text-wrap: balance; margin: 0px; font-weight: 400; font-size: 54px; line-height: 60px; color: #f3efe9; max-width: 540px;">Your tarot practice, remembered.</h1>
+      <p style="margin: 24px 0 0; font-size: 18px; line-height: 29px; color: #c6cae2; max-width: 500px; text-wrap: pretty;">Bring the deck you already love. Enchantra helps you understand each card, journal what it stirs in you, and remember every reading across the lunar cycle.</p>
+
+      <!-- waitlist (Substack embed) -->
+      <div id="join-a" style="margin-top: 34px; max-width: 480px;">
+        <a href="https://cardswekeep.substack.com/subscribe" style="display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 24px; border-radius: 999px; border: none; background: #e8c98a; color: #191529; font-size: 15px; font-weight: 600; text-decoration: none; transition: background 200ms ease, transform 160ms ease; cursor: pointer;" onmouseover="this.style.background='#f0dcac'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#e8c98a'; this.style.transform='translateY(0)';"><span>Join the waitlist</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+      </div>
+
+      <!-- launch microcopy -->
+      <div style="display: flex; align-items: center; gap: 10px; margin-top: 16px; font-size: 13.5px; color: #9aa0c2;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 8px rgba(232,201,138,0.7); flex: none;"></span>
+        Launching end of August 2026 · First lunar cycle free, then A$6.50/month
+      </div>
+    </div>
+
+    <!-- hero moon + tarot cards: the lunar keeper of your deck -->
+    <div style="display: flex; justify-content: center; align-items: center; position: relative; min-height: 460px;">
+      <div style="position: relative; width: 420px; height: 460px;">
+        <!-- outer aura -->
+        <div style="position: absolute; left: 50%; top: 210px; width: 440px; height: 440px; margin-left: -220px; margin-top: -220px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.12), rgba(198,202,226,0.05) 55%, transparent 72%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
+        <!-- orbit ring of phases -->
+        <div style="position: absolute; left: 50%; top: 210px; width: 322px; height: 322px; margin-left: -161px; margin-top: -161px; border-radius: 50%; border: 1px dashed rgba(232,201,138,0.16); animation: spinslow 120s linear infinite;">
+          <div style="position: absolute; left: 50%; top: -8px; margin-left: -8px; width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle at 62% 42%, #45406e, #221c3c); box-shadow: inset -3px 0 8px rgba(232,201,138,0.5), 0 0 10px rgba(232,201,138,0.2);"></div>
+          <div style="position: absolute; right: -7px; top: 50%; margin-top: -7px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 30% 50%, #3a3363, #1a1730); box-shadow: inset 4px 0 7px -1px rgba(198,202,226,0.5);"></div>
+          <div style="position: absolute; left: 50%; bottom: -7px; margin-left: -7px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #2e2850 0 48%, #14112a 52%); border: 1px solid #241f40;"></div>
+          <div style="position: absolute; left: -7px; top: 50%; margin-top: -7px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 70% 50%, #3a3363, #1a1730); box-shadow: inset -4px 0 7px -1px rgba(198,202,226,0.5);"></div>
+        </div>
+        <!-- the moon -->
+        <div style="position: absolute; left: 50%; top: 210px; margin-left: -115px; margin-top: -115px; animation: breath 4800ms ease-in-out infinite;">
+          <div style="width: 230px; height: 230px; border-radius: 50%; background: radial-gradient(circle at 63% 41%, #342d5c 0%, #251f40 52%, #191529 100%); border: 1px solid #241f40; box-shadow: inset -34px 0 58px -10px rgba(198,202,226,0.55), inset -18px 0 36px -12px rgba(232,201,138,0.24), 0 0 90px rgba(232,201,138,0.15);"></div>
+        </div>
+        <!-- cards rising from behind the moon -->
+        <div style="position: absolute; left: 50%; top: 260px; width: 0; height: 0;">
+          <div style="--r: -24deg; position: absolute; left: -140px; top: -4px; transform-origin: 50% 120%; animation: floatCardR 4800ms ease-in-out infinite; width: 96px; height: 138px; border-radius: 14px 14px 4px 14px; background: linear-gradient(160deg, #2c2648, #1c1733); border: 1px solid #4a4270; box-shadow: 0 16px 34px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;"><div style="width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(198,202,226,0.32); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#8f95bd"></path></svg></div></div>
+          <div style="--r: 24deg; position: absolute; left: 44px; top: -4px; transform-origin: 50% 120%; animation: floatCardR 4800ms ease-in-out infinite 1s; width: 96px; height: 138px; border-radius: 14px 14px 4px 14px; background: linear-gradient(160deg, #2c2648, #1c1733); border: 1px solid #4a4270; box-shadow: 0 16px 34px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;"><div style="width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(198,202,226,0.32); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="15" height="15"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#8f95bd"></path></svg></div></div>
+          <div style="position: absolute; left: -56px; top: -20px; z-index: 3; animation: floatCard 4800ms ease-in-out infinite 0.5s; width: 112px; height: 158px; border-radius: 16px 16px 4px 16px; background: linear-gradient(160deg, #363058, #1f1937); border: 1px solid #6b5a34; box-shadow: 0 24px 50px rgba(0,0,0,0.55), 0 0 34px rgba(232,201,138,0.26); display: flex; align-items: center; justify-content: center;"><div style="width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(232,201,138,0.6); display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 14px rgba(232,201,138,0.14);"><svg viewBox="0 0 24 24" width="21" height="21"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════ TRUST STRIP ═══════════ -->
+  <div style="border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834; background: #100d22;">
+    <div style="max-width: 1080px; margin: 0 auto; padding: 22px 40px; display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; font-size: 13.5px; color: #e8c98a;">
+      <span>Use your own tarot deck</span>
+      <span style="color: #2c284c;">·</span>
+      <span>Interpreted in your tradition</span>
+      <span style="color: #2c284c;">·</span>
+      <span>Private by default</span>
+      <span style="color: #2c284c;">·</span>
+      <span>Aligned with the lunar cycle</span>
+    </div>
+  </div>
+
+  <!-- ═══════════ THE CARDS ARE YOURS ═══════════ -->
+  <section id="cards" style="background: #100d22; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834;">
+    <div style="max-width: 1080px; margin: 0 auto; padding: 108px 40px;">
+
+      <!-- Row 1 — the spread + the deck -->
+      <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+        <div style="display: flex; justify-content: center;">
+          <div style="position: relative; width: 380px; height: 260px;">
+            <!-- left card -->
+            <div style="position: absolute; left: 50%; top: 50%; margin-left: -56px; margin-top: -80px; width: 112px; height: 160px; border-radius: 16px 16px 4px 16px; background: linear-gradient(160deg, #322b52 0%, #241d3e 55%, #1d1733 100%); border: 1px solid #5f5896; display: flex; align-items: center; justify-content: center; transform: rotate(-13deg) translate(-70px,10px); animation: floatL 4800ms ease-in-out infinite;">
+              <div style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid #463c72; display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#c6cae2"></path></svg></div>
+            </div>
+            <!-- right card -->
+            <div style="position: absolute; left: 50%; top: 50%; margin-left: -56px; margin-top: -80px; width: 112px; height: 160px; border-radius: 16px 16px 4px 16px; background: linear-gradient(160deg, #322b52 0%, #241d3e 55%, #1d1733 100%); border: 1px solid #5f5896; display: flex; align-items: center; justify-content: center; transform: rotate(13deg) translate(70px,10px); animation: floatR 4800ms ease-in-out 1.2s infinite;">
+              <div style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid #463c72; display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#c6cae2"></path></svg></div>
+            </div>
+            <!-- center card (gold) -->
+            <div style="position: absolute; left: 50%; top: 50%; margin-left: -56px; margin-top: -80px; z-index: 2; width: 112px; height: 160px; border-radius: 16px 16px 4px 16px; background: linear-gradient(160deg, #363058 0%, #272042 55%, #1f1937 100%); border: 1px solid #5f5896; display: flex; align-items: center; justify-content: center; transform: translateY(-6px); animation: floatC 4800ms ease-in-out 0.6s infinite, cardglow 4800ms ease-in-out 0.6s infinite;">
+              <div style="width: 46px; height: 46px; border-radius: 50%; border: 1px solid #6b5a34; display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="display: inline-flex; align-items: center; gap: 9px; font-size: 12px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 20px;">
+            <span style="width: 9px; height: 9px; border: 1.2px solid rgb(154, 143, 192); border-radius: 9px 0px; transform: rotate(45deg);"></span>
+            Your cards. Your practice.</div>
+          <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: 38px; line-height: 45px; color: #f3efe9;">Bring the tarot deck you already know and love.</h2>
+          <div style="margin: 22px 0 0; font-size: 17px; line-height: 27px; color: #9aa0c2; max-width: 460px; text-wrap: pretty;"><p style="margin: 0;">The one you shuffle, hold and set intentions with. Enchantra works alongside it — helping you understand each reading and remember every reflection.</p>
+<p style="margin: 14px 0 0;">Over time, cards return, new meanings emerge, and your practice deepens.</p></div>
+          <div style="border-left: 2px solid #6b5a34; padding: 4px 0 4px 16px; margin-top: 24px;">
+            <p class="en-serif" style="margin: 0; font-size: 18px; line-height: 27px; font-style: italic; color: #e8c98a;">Your cards remain the physical connection to your practice.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2 — the thread -->
+      <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease 100ms, transform 900ms ease 100ms; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 84px;">
+        <div>
+          <div style="display: inline-flex; align-items: center; gap: 9px; font-size: 12px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: #e8c98a; margin-bottom: 20px;">
+            <svg viewBox="0 0 24 24" width="12" height="12"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg>
+            She reads beside you.
+          </div>
+          <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: 38px; line-height: 45px; color: #f3efe9;">A reading to reflect with.</h2>
+          <div style="margin: 22px 0 0; font-size: 17px; line-height: 27px; color: #9aa0c2; max-width: 460px; text-wrap: pretty;"><p style="margin: 0;">Every card is interpreted in your deck's tradition, with your intention and the moon in mind.</p>
+<p style="margin: 14px 0 0;">She remembers each reading — and, if you like, the real-world echoes that follow: symbols, dreams, people, places and moments that return.</p>
+<p style="margin: 14px 0 0;">The reading is a place to begin. The meaning is always yours.</p></div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center;">
+          <div style="width: 84px; height: 84px; border-radius: 50%; background: radial-gradient(circle at 62% 42%, #2e2850, #1a1730); border: 1px solid #241f40; box-shadow: inset -13px 0 22px -4px rgba(198,202,226,0.5), 0 0 34px rgba(198,202,226,0.12); flex: none;"></div>
+          <div style="position: relative; width: 66px; height: 1px; background: linear-gradient(90deg, #463c72, #6b5a34); margin: 0 8px; flex: none;">
+            <div style="position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; transform: translate(-50%,-50%); box-shadow: 0 0 8px rgba(232,201,138,0.7);"></div>
+          </div>
+          <div style="width: 92px; height: 130px; border-radius: 14px 14px 4px 14px; background: linear-gradient(160deg, #363058 0%, #272042 55%, #1f1937 100%); border: 1px solid #5f5896; display: flex; align-items: center; justify-content: center; flex: none; animation: floatCard 4800ms ease-in-out infinite, cardglow 4800ms ease-in-out infinite;">
+            <div style="width: 42px; height: 42px; border-radius: 50%; border: 1px solid #6b5a34; display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ HOW IT WORKS — THE LUNAR LOOP ═══════════ -->
+  <section id="how" style="background: #100d22; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834;">
+    <div style="max-width: 1080px; margin: 0 auto; padding: 100px 40px;">
+      <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; text-align: center; margin-bottom: 66px;">
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">How it works</div>
+        <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: 40px; line-height: 46px; color: #f3efe9;">From a single reading <br>to patterns that unfold over time.</h2>
+        <p style="margin: 18px auto 0; font-size: 17px; line-height: 27px; color: #9aa0c2; max-width: 520px;">The same gentle rhythm, repeated each lunar cycle.</p>
+      </div>
+
+      <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease 120ms, transform 900ms ease 120ms; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;">
+        <!-- step 1 -->
+        <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 24px 20px;">
+          <div style="width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #241e3c, #191529); border: 1px solid #241f40; box-shadow: inset -4px 0 7px -1px rgba(164,194,171,0.5); margin-bottom: 18px;"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #a4c2ab; margin-bottom: 8px;">Set an intention</div>
+          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;"><p>Before you begin, choose something you'd like to explore, understand or reflect on. Your intention becomes the focus for your reading.</p></div>
+        </div>
+        <!-- step 2 -->
+        <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 24px 20px;">
+          <div style="margin-bottom: 18px;"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #e8c98a; margin-bottom: 8px;">Draw from your own deck</div>
+          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;"><p>Shuffle your tarot deck and draw a card, just as you always would. Enchantra works alongside your cards, never instead of them.</p></div>
+        </div>
+        <!-- step 3 -->
+        <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 24px 20px;">
+          <div style="width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #3a3363, #201a3a); border: 1px solid #2e2648; box-shadow: inset 0 0 8px 1px rgba(232,201,138,0.4), 0 0 14px rgba(232,201,138,0.12); margin-bottom: 18px;"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #e8c98a; margin-bottom: 8px;">Explore the reading</div>
+          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;"><p>Enchantra interprets the card using your deck's tradition, your intention and the lunar cycle. Use it as a guide while discovering what the card means to you.</p></div>
+        </div>
+        <!-- step 4 -->
+        <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 24px 20px;">
+          <div style="width: 3px; height: 26px; background: #a4c2ab; border-radius: 2px; margin-bottom: 18px;"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #a4c2ab; margin-bottom: 8px;">Add your reflection</div>
+          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;">Write down what the card means to you, what stood out or anything you don't want to forget. Every reading becomes part of your story.</div>
+        </div>
+        <!-- step 5 -->
+        <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 24px 20px;">
+          <div style="width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #3a3363, #201a3a); border: 1px solid #2e2648; box-shadow: inset 0 0 10px 1px rgba(198,202,226,0.5), 0 0 16px rgba(198,202,226,0.14); margin-bottom: 18px;"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 8px;">Notice what returns</div>
+          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;">Spot recurring cards, themes and real world echoes that begin appearing across your readings.</div>
+        </div>
+        <!-- step 6 -->
+        <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 24px 20px;">
+          <div style="width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #241e3c, #191529); border: 1px solid #241f40; box-shadow: inset -6px 0 10px -2px rgba(198,202,226,0.5); margin-bottom: 18px;"></div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.1px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 8px;">Look back over time</div>
+          <div style="font-size: 14px; line-height: 21px; color: #9aa0c2;"><p>Revisit past readings to see how those patterns have shaped your practice and deepened your intuition.</p></div>
+        </div>
+      </div>
+
+      <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease 200ms, transform 900ms ease 200ms; text-align: center; margin-top: 40px;">
+        <a href="#join" style="font-size: 15px; color: #e8c98a; text-decoration: none;">Join the waitlist for early access ›</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ DECK SUPPORT ═══════════ -->
+  <section class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1080px; margin: 0 auto; padding: 96px 40px 88px;">
+    <div style="display: grid; grid-template-columns: 1fr 1.05fr; gap: 56px; align-items: center;">
+      <!-- left: copy -->
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">Traditions</div>
+        <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: 36px; line-height: 44px; color: #f3efe9; max-width: 440px; text-wrap: balance;">Works with the tarot tradition your deck belongs to.</h2>
+        <p style="margin: 20px 0 0; font-size: 17px; line-height: 28px; color: #9aa0c2; max-width: 430px; text-wrap: pretty;">Choose your deck's tradition, and Enchantra interprets each card within it, keeping every meaning true to how the creator intended.</p>
+        <p style="margin: 28px 0 0; font-size: 14px; letter-spacing: 0.3px; color: #6f6c86;">Rider–Waite–Smith, Thoth, Marseille and other major traditions.</p>
+      </div>
+      <!-- right: three cards laid out like a reading -->
+      <div style="display: flex; align-items: center; justify-content: center;">
+      <!-- left card -->
+      <div style="transform: rotate(-7deg) translateY(14px); margin-right: -22px; z-index: 1;">
+        <div style="width: 176px; height: 250px; border-radius: 18px 18px 6px 18px; background: linear-gradient(160deg, #2c2650 0%, #221b3c 55%, #1b1531 100%); border: 1px solid #4a416f; box-shadow: 0 16px 38px rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 24px 22px;">
+          <div style="width: 46px; height: 46px; border-radius: 50%; border: 1px solid #55497e; display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#c6cae2"></path></svg></div>
+          <span class="en-serif" style="font-size: 20px; line-height: 26px; color: #e9e6f2; text-align: center; text-wrap: balance;">Thoth</span>
+        </div>
+      </div>
+      <!-- center card (gold, raised) -->
+      <div style="transform: translateY(-16px); z-index: 3; animation: floatCard 5200ms ease-in-out infinite;">
+        <div style="width: 188px; height: 268px; border-radius: 20px 20px 6px 20px; background: linear-gradient(160deg, #383158 0%, #292245 55%, #201a3b 100%); border: 1px solid #6b5a34; box-shadow: 0 22px 48px rgba(0,0,0,0.55), 0 0 30px rgba(232,201,138,0.22); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; padding: 26px 24px;">
+          <div style="width: 52px; height: 52px; border-radius: 50%; border: 1px solid #6b5a34; display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 12px rgba(232,201,138,0.12);"><svg viewBox="0 0 24 24" width="21" height="21"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
+          <span class="en-serif" style="font-size: 21px; line-height: 27px; color: #f3efe9; text-align: center; text-wrap: balance;">Rider–Waite–Smith</span>
+        </div>
+      </div>
+      <!-- right card -->
+      <div style="transform: rotate(7deg) translateY(14px); margin-left: -22px; z-index: 1;">
+        <div style="width: 176px; height: 250px; border-radius: 18px 18px 6px 18px; background: linear-gradient(160deg, #2c2650 0%, #221b3c 55%, #1b1531 100%); border: 1px solid #4a416f; box-shadow: 0 16px 38px rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 24px 22px;">
+          <div style="width: 46px; height: 46px; border-radius: 50%; border: 1px solid #55497e; display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#c6cae2"></path></svg></div>
+          <span class="en-serif" style="font-size: 20px; line-height: 26px; color: #e9e6f2; text-align: center; text-wrap: balance;">Marseille</span>
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- ═══════════ FROM ONE CYCLE TO MANY (rhythm + long view, merged) ═══════════ -->
+  <section id="practice" class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; background: #100d22; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834; position: relative; overflow: hidden;">
+
+    <div style="position: absolute; top: 14%; left: 10%; width: 3px; height: 3px; border-radius: 50%; background: #c6cae2; animation: twinkle 5s ease-in-out infinite;"></div>
+    <div style="position: absolute; top: 24%; left: 90%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; animation: twinkle 6.5s ease-in-out infinite 1s;"></div>
+    <div style="position: absolute; top: 70%; left: 6%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; animation: twinkle 7s ease-in-out infinite 2s;"></div>
+    <div style="position: absolute; top: 80%; left: 92%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; animation: twinkle 6s ease-in-out infinite 1.4s;"></div>
+    <div style="position: absolute; top: 12%; left: 62%; width: 3px; height: 3px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 6px rgba(232,201,138,0.7); animation: twinkle 4.5s ease-in-out infinite 0.3s;"></div>
+    <div style="position: absolute; top: 84%; left: 40%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 5.8s ease-in-out infinite 1.7s;"></div>
+    <div style="position: absolute; top: 30%; left: 30%; animation: twinkle 5.2s ease-in-out infinite 0.7s;"><svg viewBox="0 0 24 24" width="12" height="12"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a" opacity="0.85"></path></svg></div>
+    <div style="max-width: 1080px; margin: 0 auto; padding: 84px 40px 108px; position: relative;">
+      <div style="text-align: center; margin-bottom: 64px;">
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">From one cycle to many</div>
+        <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: 44px; line-height: 52px; color: #f3efe9; max-width: 640px; text-wrap: balance;">Every reading becomes part of your story.</h2>
+        <p class="en-serif" style="margin: 20px auto 0; font-size: 20px; line-height: 30px; color: #c6cae2; max-width: 560px; text-wrap: pretty;">A single reading offers insight. Months of readings reveal something more.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 44px; align-items: center;">
+        <!-- beat 1 — the rhythm (one cycle) -->
+        <div style="text-align: center;">
+          <div style="position: relative; display: flex; align-items: center; justify-content: center; height: 240px;">
+          <div style="position: absolute; width: 250px; height: 250px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.13), rgba(198,202,226,0.06) 55%, transparent 72%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
+          <div style="animation: breath 4800ms ease-in-out infinite;">
+            <div style="width: 168px; height: 168px; border-radius: 50%; background: radial-gradient(circle at 63% 41%, #342d5c 0%, #251f40 52%, #191529 100%); border: 1px solid #241f40; box-shadow: inset -26px 0 44px -8px rgba(198,202,226,0.5), inset -13px 0 27px -9px rgba(232,201,138,0.22), 0 0 60px rgba(232,201,138,0.16);"></div>
+          </div>
+        </div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: #e8c98a; margin-top: 22px;">The rhythm</div>
+          <h3 class="en-serif" style="margin: 10px 0 0; font-weight: 400; font-size: 23px; line-height: 30px; color: #f3efe9;">One turn of the moon</h3>
+          <p style="margin: 14px auto 0; max-width: 320px; font-size: 15.5px; line-height: 25px; color: #9aa0c2; text-wrap: pretty;">Set an intention at the new moon, return to your cards whenever you need to, and Enchantra keeps the whole cycle together.</p>
+        </div>
+
+        <!-- connector — time passing -->
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+          <svg viewBox="0 0 90 24" width="80" height="24"><line x1="2" y1="12" x2="74" y2="12" stroke="#6b5a34" stroke-width="1.4" stroke-dasharray="2 6" stroke-linecap="round"></line><path d="M70 6 L82 12 L70 18" fill="none" stroke="#e8c98a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <span style="font-size: 10.5px; letter-spacing: 1.3px; text-transform: uppercase; color: #6f6c86;">Over time</span>
+        </div>
+
+        <!-- beat 2 — the long view (many cycles) -->
+        <div style="text-align: center;">
+          <div style="display: flex; align-items: center; justify-content: center; height: 240px;">
+          <svg viewBox="0 0 460 290" width="100%" style="max-width: 380px; overflow: visible;">
+            <path d="M150 82 L232 104 L322 128 M232 104 L300 214 M150 82 L120 150" fill="none" stroke="rgba(232,201,138,0.16)" stroke-width="1"></path>
+            <circle cx="150" cy="82" r="11" fill="rgba(232,201,138,0.14)"></circle>
+            <circle cx="322" cy="128" r="11" fill="rgba(232,201,138,0.14)"></circle>
+            <circle cx="300" cy="214" r="11" fill="rgba(232,201,138,0.14)"></circle>
+            <circle cx="150" cy="82" r="4.5" fill="#e8c98a" style="animation: threadpulse 4800ms ease-in-out infinite;"></circle>
+            <circle cx="322" cy="128" r="4.5" fill="#e8c98a" style="animation: threadpulse 4800ms ease-in-out infinite 1s;"></circle>
+            <circle cx="300" cy="214" r="4.5" fill="#e8c98a" style="animation: threadpulse 4800ms ease-in-out infinite 2s;"></circle>
+            <g>
+              <circle cx="92" cy="120" r="2.5" fill="#c6cae2"></circle>
+              <circle cx="120" cy="60" r="2" fill="#e8c98a"></circle>
+              <circle cx="186" cy="44" r="2.5" fill="#c6cae2"></circle>
+              <circle cx="250" cy="54" r="2" fill="#a4c2ab"></circle>
+              <circle cx="302" cy="72" r="2.5" fill="#9a8fc0"></circle>
+              <circle cx="356" cy="104" r="2" fill="#c6cae2"></circle>
+              <circle cx="392" cy="152" r="2.5" fill="#e8c98a"></circle>
+              <circle cx="366" cy="198" r="2" fill="#c6cae2"></circle>
+              <circle cx="306" cy="228" r="2" fill="#9a8fc0"></circle>
+              <circle cx="244" cy="246" r="2.5" fill="#c6cae2"></circle>
+              <circle cx="176" cy="234" r="2" fill="#a4c2ab"></circle>
+              <circle cx="112" cy="206" r="2.5" fill="#c6cae2"></circle>
+              <circle cx="76" cy="166" r="2" fill="#9a8fc0"></circle>
+              <circle cx="134" cy="150" r="2" fill="#e8c98a"></circle>
+              <circle cx="210" cy="120" r="2.5" fill="#c6cae2"></circle>
+              <circle cx="270" cy="150" r="2" fill="#a4c2ab"></circle>
+              <circle cx="232" cy="188" r="2" fill="#c6cae2"></circle>
+              <circle cx="196" cy="92" r="2" fill="#c6cae2"></circle>
+            </g>
+          </svg>
+        </div>
+          <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.3px; text-transform: uppercase; color: #9a8fc0; margin-top: 22px;">The long view</div>
+          <h3 class="en-serif" style="margin: 10px 0 0; font-weight: 400; font-size: 23px; line-height: 30px; color: #f3efe9;">Many cycles, woven together</h3>
+          <p style="margin: 14px auto 0; max-width: 340px; font-size: 15.5px; line-height: 25px; color: #9aa0c2; text-wrap: pretty;">You'll notice which cards keep returning and the themes that quietly weave through your life — connections that only become visible with time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PRICING ═══════════ -->
+  <section id="pricing" style="position: relative; max-width: 640px; margin: 0 auto; padding: 100px 40px; text-align: center;">
+    <!-- ambient stars behind the pricing -->
+    <div style="position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); width: 100vw; pointer-events: none; z-index: 0; overflow: hidden;">
+      <div style="position: absolute; top: 12%; left: 16%; width: 3px; height: 3px; border-radius: 50%; background: #c6cae2; box-shadow: 0 0 6px rgba(198,202,226,0.7); animation: twinkle 5s ease-in-out infinite;"></div>
+      <div style="position: absolute; top: 24%; left: 84%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 6.5s ease-in-out infinite 1s;"></div>
+      <div style="position: absolute; top: 44%; left: 9%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 7s ease-in-out infinite 2s;"></div>
+      <div style="position: absolute; top: 62%; left: 90%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 5.5s ease-in-out infinite 0.5s;"></div>
+      <div style="position: absolute; top: 80%; left: 13%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 6s ease-in-out infinite 1.4s;"></div>
+      <div style="position: absolute; top: 86%; left: 80%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 7.5s ease-in-out infinite 2.6s;"></div>
+      <div style="position: absolute; top: 16%; left: 72%; width: 3px; height: 3px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 6px rgba(232,201,138,0.7); animation: twinkle 4.5s ease-in-out infinite 0.3s;"></div>
+      <div style="position: absolute; top: 68%; left: 28%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 5.8s ease-in-out infinite 1.7s;"></div>
+      <div style="position: absolute; top: 10%; left: 44%; animation: twinkle 5.2s ease-in-out infinite 0.7s;"><svg viewBox="0 0 24 24" width="12" height="12"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
+      <div style="position: absolute; top: 78%; left: 60%; animation: twinkle 7.2s ease-in-out infinite 1.1s;"><svg viewBox="0 0 24 24" width="10" height="10"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a" opacity="0.8"></path></svg></div>
+    </div>
+    <div class="reveal" style="position: relative; z-index: 1; opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease;">
+      <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">Simple, always</div>
+      <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: 38px; line-height: 46px; color: #f3efe9; max-width: 520px;">One plan. <br>Everything included.</h2>
+      <p style="margin: 18px auto 0; font-size: 17px; line-height: 27px; color: #9aa0c2; max-width: 480px;">Everything is included from day one. No tiers, no surprises, nothing held back for a higher plan.</p>
+
+      <div style="max-width: 420px; margin: 40px auto 0; text-align: left;">
+        <div style="border: 1px solid #6b5a34; background: #1c1832; border-radius: 16px; padding: 18px;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div class="en-serif" style="font-size: 22px; color: #e6e9f6;">Annual</div>
+            <div style="display: inline-flex; padding: 4px 11px; border-radius: 999px; background: #231e42; border: 1px solid #463c72; font-size: 11px; font-weight: 500; letter-spacing: 0.4px; color: #cbbff0;">Best value</div>
+          </div>
+          <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 6px;">
+            <span class="en-serif" style="font-size: 18px; color: #e8c98a;">A$59 / year</span>
+            <span style="font-size: 14px; color: #8b8fb2;">about A$4.92 / month</span>
+          </div>
+        </div>
+        <div style="border: 1px solid #2c284c; background: #1a1730; border-radius: 16px; padding: 18px; margin-top: 12px;">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div class="en-serif" style="font-size: 22px; color: #e6e9f6;">Monthly</div>
+            <span class="en-serif" style="font-size: 18px; color: #e8c98a;">A$6.50 / month</span>
+          </div>
+        </div>
+        <div style="font-size: 14px; line-height: 21px; color: #9aa0c2; text-align: center; margin-top: 18px;">Begin with a full lunar cycle, free. Enchantra renews after that. <br>You can step away and return anytime.&nbsp;</div>
+      </div>
+
+      <div style="display: flex; align-items: center; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 36px; font-size: 14px; color: #c6cae2;">
+        <span>No advertising</span>
+        <span style="color: #2c284c;">·</span>
+        <span>No premium tiers</span>
+        <span style="color: #2c284c;">·</span>
+        <span>No hidden upgrades</span>
+      </div>
+      <p class="en-serif" style="margin: 30px auto 0; font-size: 18px; line-height: 27px; font-style: italic; color: #e8c98a; max-width: 420px;">Made to be returned to, again and again.</p>
+      <div style="max-width: 480px; margin: 32px auto 0; display: flex; justify-content: center;">
+        <a href="https://cardswekeep.substack.com/subscribe" style="display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 24px; border-radius: 999px; border: none; background: #e8c98a; color: #191529; font-size: 15px; font-weight: 600; text-decoration: none; transition: background 200ms ease, transform 160ms ease; cursor: pointer;" onmouseover="this.style.background='#f0dcac'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#e8c98a'; this.style.transform='translateY(0)';"><span>Join the waitlist</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FOUNDER STORY ═══════════ -->
+  <section class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1080px; margin: 0 auto; padding: 116px 40px;">
+    <div style="text-align: center; margin-bottom: 22px;">
+      <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 20px;">Inside Enchantra</div>
+      <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: 40px; line-height: 48px; color: #f3efe9; max-width: 600px; text-wrap: balance;">Everything your practice needs, in one place.</h2>
+      <p style="margin: 24px auto 0; font-size: 17px; line-height: 28px; color: #9aa0c2; max-width: 540px; text-wrap: pretty;">You shuffle your own tarot cards. You set an intention. <br>The cards reveal. Enchantra remembers.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 56px;">
+      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 28px 20px;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #241e3c, #191529); border: 1px solid #2e2648; display: flex; align-items: center; justify-content: center; margin-bottom: 18px;"><div style="width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 63% 41%, #342d5c, #191529); box-shadow: inset -5px 0 9px -2px rgba(198,202,226,0.6), 0 0 8px rgba(232,201,138,0.14);"></div></div>
+        <div class="en-serif" style="font-size: 20px; color: #f3efe9; margin-bottom: 8px;">Moon</div>
+        <div style="font-size: 13.5px; line-height: 21px; color: #8b8fb2;"><span style="display: block; color: rgb(198, 202, 226); margin-bottom: 6px;">The rhythm of your practice.</span>Set an intention for the lunar cycle, then return to your cards whenever you need reflection. Enchantra keeps your intentions, readings and notes connected in one place.</div>
+      </div>
+      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 28px 20px;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #241e3c, #191529); border: 1px solid #2e2648; display: flex; align-items: center; justify-content: center; margin-bottom: 18px;"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#a4c2ab" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"></rect><line x1="9" y1="8" x2="15" y2="8"></line><line x1="9" y1="12" x2="15" y2="12"></line><line x1="9" y1="16" x2="13" y2="16"></line></svg></div>
+        <div class="en-serif" style="font-size: 20px; color: #f3efe9; margin-bottom: 8px;">Journal</div>
+        <div style="font-size: 13.5px; line-height: 21px; color: #8b8fb2;"><span style="display: block; color: rgb(198, 202, 226); margin-bottom: 6px;">Journal what comes up for you.</span><p style="margin: 0;">Write down what the card means to you, what stood out or anything you don't want to forget. Your reflections stay private and become part of your growing practice.</p></div>
+      </div>
+      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 28px 20px;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #241e3c, #191529); border: 1px solid #2e2648; display: flex; align-items: center; justify-content: center; margin-bottom: 18px;"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M5 8 L12 13 L19 7 M12 13 L14 19" fill="none" stroke="#9a8fc0" stroke-width="1.2" opacity="0.7"></path><circle cx="5" cy="8" r="1.8" fill="#9a8fc0"></circle><circle cx="12" cy="13" r="2" fill="#c6cae2"></circle><circle cx="19" cy="7" r="1.8" fill="#9a8fc0"></circle><circle cx="14" cy="19" r="1.6" fill="#9a8fc0"></circle></svg></div>
+        <div class="en-serif" style="font-size: 20px; color: #f3efe9; margin-bottom: 8px;">Patterns</div>
+        <div style="font-size: 13.5px; line-height: 21px; color: #8b8fb2;"><span style="display: block; color: rgb(198, 202, 226); margin-bottom: 6px;">See what returns over time.</span>Discover recurring cards, repeating themes and the connections between your readings. Over time, your practice reveals patterns that a single reading never could.</div>
+      </div>
+      <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; padding: 28px 20px;">
+        <div style="width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #2a2340, #1b1533); border: 1px solid #3a2f52; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; box-shadow: inset 0 0 10px 1px rgba(232,201,138,0.2);"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
+        <div class="en-serif" style="font-size: 20px; color: #f3efe9; margin-bottom: 8px;">Echoes</div>
+        <div style="font-size: 13.5px; line-height: 21px; color: #8b8fb2;"><span style="display: block; color: rgb(198, 202, 226); margin-bottom: 6px;">Notice what the cards call in.</span>The real world echoes that follow a reading: recurring symbols, dreams, people, places and meaningful moments. Note them, and Enchantra links them back to the cards that named them.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ WHY WE BUILT ENCHANTRA ═══════════ -->
+  <section style="background: #0e0b1e; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834;">
+    <div style="max-width: 780px; margin: 0 auto; padding: 100px 40px;" class="reveal">
+      <div style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; position: relative; background: radial-gradient(ellipse 100% 62% at 50% -6%, #17132e, #120f26 68%); border: 1px solid #2c284c; border-radius: 24px; padding: 54px 60px 48px; overflow: hidden;">
+        <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.12), transparent 70%); pointer-events: none;"></div>
+        <!-- ambient stars inside the card -->
+        <div style="position: absolute; inset: 0; pointer-events: none;">
+          <div style="position: absolute; top: 12%; left: 8%; width: 3px; height: 3px; border-radius: 50%; background: #c6cae2; box-shadow: 0 0 6px rgba(198,202,226,0.7); animation: twinkle 5s ease-in-out infinite;"></div>
+          <div style="position: absolute; top: 20%; left: 92%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 6.5s ease-in-out infinite 1s;"></div>
+          <div style="position: absolute; top: 52%; left: 5%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 7s ease-in-out infinite 2s;"></div>
+          <div style="position: absolute; top: 70%; left: 94%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 5.5s ease-in-out infinite 0.5s;"></div>
+          <div style="position: absolute; top: 86%; left: 12%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 6s ease-in-out infinite 1.4s;"></div>
+          <div style="position: absolute; top: 15%; left: 78%; width: 3px; height: 3px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 6px rgba(232,201,138,0.7); animation: twinkle 4.5s ease-in-out infinite 0.3s;"></div>
+          <div style="position: absolute; top: 80%; left: 82%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 5.8s ease-in-out infinite 1.7s;"></div>
+          <div style="position: absolute; top: 62%; left: 10%; animation: twinkle 5.2s ease-in-out infinite 0.7s;"><svg viewBox="0 0 24 24" width="11" height="11"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a" opacity="0.85"></path></svg></div>
+          <div style="position: absolute; top: 34%; left: 88%; animation: twinkle 7.2s ease-in-out infinite 1.1s;"><svg viewBox="0 0 24 24" width="10" height="10"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a" opacity="0.8"></path></svg></div>
+        </div>
+        <div style="display: flex; justify-content: center; margin-bottom: 26px; position: relative;">
+          <div style="animation: breath 4800ms ease-in-out infinite;">
+            <div style="width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 58% 40%, #3a3363, #201a3a); border: 1px solid #2e2648; box-shadow: inset 0 0 16px 1px rgba(232,201,138,0.4), 0 0 30px rgba(232,201,138,0.14); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
+          </div>
+        </div>
+        <div style="text-align: center; font-size: 12px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #e8c98a; margin-bottom: 22px; position: relative;">Why we built Enchantra</div>
+        <p class="en-serif" style="margin: 0; font-size: 24px; line-height: 36px; color: #e6e9f6; text-align: center; text-wrap: pretty; position: relative;">Tarot is more than the reflection you receive. It's the relationship you build with your intention, and the meaning you find over time.</p>
+        <div style="max-width: 600px; margin: 34px auto 0; position: relative; text-align: left;">
+          <p style="margin: 0; font-size: 17px; line-height: 29px; color: #b9bdd8; text-wrap: pretty;">Enchantra is a place to keep your tarot practice — to remember what so easily slips away: intentions set beneath a new moon, returning cards, and the quiet synchronicities that only make sense when you look back.</p>
+
+          <!-- pull line -->
+          <div style="display: flex; align-items: center; gap: 16px; margin: 32px 0;">
+            <span style="flex: 1; height: 1px; background: linear-gradient(90deg, transparent, #6b5a34);"></span>
+            <span class="en-serif" style="font-size: 19px; letter-spacing: 0.3px; color: #e8c98a; white-space: nowrap;">Your practice. Held.</span>
+            <span style="flex: 1; height: 1px; background: linear-gradient(90deg, #6b5a34, transparent);"></span>
+          </div>
+
+          <p style="margin: 0; font-size: 16.5px; line-height: 28px; color: #9aa0c2; text-wrap: pretty;">Bring your own deck. Shuffle your own cards. Draw them with your own hands. Enchantra simply helps you explore their meaning — and as your readings gather over months and years, the patterns begin to emerge.</p>
+
+          <p class="en-serif" style="margin: 28px 0 0; font-size: 18px; line-height: 28px; font-style: italic; color: #c6cae2; text-wrap: pretty;">Enchantra does not tell you what your future will be. It helps you pay closer attention to the life you are already living.</p>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 30px; position: relative;">
+          <div style="width: 13px; height: 13px; border: 1.3px solid #e8c98a; border-radius: 13px 0 13px 0; transform: rotate(45deg);"></div>
+          <span style="font-size: 14px; color: #8b8fb2;">The Enchantra team</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ THE ALMANAC (content hub) ═══════════ -->
+  <section id="almanac" style="background: #100d22; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834;">
+    <div style="max-width: 1080px; margin: 0 auto; padding: 100px 40px;">
+      <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 46px;">
+        <div>
+          <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 14px;">The Almanac</div>
+          <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: 38px; line-height: 44px; color: #f3efe9;">Your own relationship with the cards, cycle by cycle.</h2>
+        </div>
+        <a href="#join" style="font-size: 15px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Read the Almanac ›</a>
+      </div>
+      <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease 100ms, transform 900ms ease 100ms; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;">
+        <a href="#join" style="text-decoration: none; background: #15122a; border: 1px solid #2c284c; border-radius: 16px; overflow: hidden; display: block;">
+          <div style="height: 150px; background: radial-gradient(circle at 70% 40%, #241e3c, #14112a); display: flex; align-items: center; justify-content: center;"><div style="width: 66px; height: 66px; border-radius: 50%; background: radial-gradient(circle at 62% 42%, #322b57, #1a1730); box-shadow: inset -10px 0 18px -3px rgba(198,202,226,0.5);"></div></div>
+          <div style="padding: 22px;">
+            <div style="font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 10px;">Reading</div>
+            <div class="en-serif" style="font-size: 20px; line-height: 27px; color: #f3efe9; margin-bottom: 8px;">How to read tarot for reflection, not prediction</div>
+            <div style="font-size: 13.5px; line-height: 20px; color: #8b8fb2;">A beginner's way into the cards that never asks them to tell your future.</div>
+          </div>
+        </a>
+        <a href="#join" style="text-decoration: none; background: #15122a; border: 1px solid #2c284c; border-radius: 16px; overflow: hidden; display: block;">
+          <div style="height: 150px; background: radial-gradient(circle at 40% 40%, #241e3c, #14112a); display: flex; align-items: center; justify-content: center;"><div style="display: flex; gap: 12px; align-items: center;"><div style="width: 22px;height:22px;border-radius:50%;background:#1a1730;box-shadow:inset -3px 0 6px -1px rgba(198,202,226,0.4);"></div><div style="width: 40px;height:40px;border-radius:50%;background:#201a3a;box-shadow:inset -7px 0 12px -2px rgba(198,202,226,0.5);"></div><div style="width: 22px;height:22px;border-radius:50%;background:#1a1730;box-shadow:inset 3px 0 6px -1px rgba(198,202,226,0.4);"></div></div></div>
+          <div style="padding: 22px;">
+            <div style="font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 10px;">Lunar</div>
+            <div class="en-serif" style="font-size: 20px; line-height: 27px; color: #f3efe9; margin-bottom: 8px;">The lunar cycle, and what a keeper does with it</div>
+            <div style="font-size: 13.5px; line-height: 20px; color: #8b8fb2;">New moon to new moon: how the phases shape a reflective practice.</div>
+          </div>
+        </a>
+        <a href="#join" style="text-decoration: none; background: #15122a; border: 1px solid #2c284c; border-radius: 16px; overflow: hidden; display: block;">
+          <div style="height: 150px; background: radial-gradient(circle at 55% 40%, #241e3c, #14112a); display: flex; align-items: center; justify-content: center;"><div style="width: 3px; height: 70px; background: linear-gradient(#a4c2ab, transparent); border-radius: 2px;"></div></div>
+          <div style="padding: 22px;">
+            <div style="font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 10px;">Journaling</div>
+            <div class="en-serif" style="font-size: 20px; line-height: 27px; color: #f3efe9; margin-bottom: 8px;">Tarot journaling: a practice you can return to</div>
+            <div style="font-size: 13.5px; line-height: 20px; color: #8b8fb2;">Prompts and a simple rhythm for writing beside the cards.</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FAQ ═══════════ -->
+  <section id="faq" style="position: relative; overflow: hidden;">
+    <!-- ambient stars glowing behind the questions -->
+    <div style="position: absolute; inset: 0; pointer-events: none;">
+      <div style="position: absolute; top: 10%; left: 14%; width: 3px; height: 3px; border-radius: 50%; background: #c6cae2; animation: twinkle 5s ease-in-out infinite;"></div>
+      <div style="position: absolute; top: 22%; left: 86%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; animation: twinkle 6.5s ease-in-out infinite 1s;"></div>
+      <div style="position: absolute; top: 40%; left: 8%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; animation: twinkle 7s ease-in-out infinite 2s;"></div>
+      <div style="position: absolute; top: 58%; left: 92%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; animation: twinkle 5.5s ease-in-out infinite 0.5s;"></div>
+      <div style="position: absolute; top: 76%; left: 12%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; animation: twinkle 6s ease-in-out infinite 1.4s;"></div>
+      <div style="position: absolute; top: 86%; left: 82%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; animation: twinkle 7.5s ease-in-out infinite 2.6s;"></div>
+      <div style="position: absolute; top: 15%; left: 49%; width: 3px; height: 3px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 6px rgba(232,201,138,0.7); animation: twinkle 4.5s ease-in-out infinite 0.3s;"></div>
+      <div style="position: absolute; top: 66%; left: 30%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 5.8s ease-in-out infinite 1.7s;"></div>
+      <div style="position: absolute; top: 30%; left: 68%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 6.4s ease-in-out infinite 2.2s;"></div>
+      <div style="position: absolute; top: 8%; left: 72%; animation: twinkle 5.2s ease-in-out infinite 0.7s;"><svg viewBox="0 0 24 24" width="12" height="12"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
+      <div style="position: absolute; top: 70%; left: 78%; animation: twinkle 7.2s ease-in-out infinite 1.1s;"><svg viewBox="0 0 24 24" width="10" height="10"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a" opacity="0.8"></path></svg></div>
+      <div style="position: absolute; top: 6%; left: 50%; transform: translateX(-50%); width: 640px; height: 380px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.08), rgba(154,143,192,0.05) 55%, transparent 76%);"></div>
+    </div>
+    <div style="max-width: 800px; margin: 0 auto; padding: 100px 40px; position: relative;">
+    <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; text-align: center; margin-bottom: 50px;">
+      <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">Questions</div>
+      <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: 38px; line-height: 44px; color: #f3efe9;">Everything you need to know.</h2>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 2px;">
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+          <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">What is Enchantra?</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
+        </div>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;">Enchantra is a tarot reflection app that helps you build a deeper relationship with your own tarot deck. Draw cards from your physical deck, explore their meaning, record your reflections and discover patterns across your readings over time.</div>
+      </div>
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+          <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">What is a reflective tarot reading?</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
+        </div>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">A reflective tarot reading helps you explore your cards rather than predict your future.</p><p style="margin: 14px 0 0;">You draw from your own physical tarot deck, and Enchantra interprets the card in the context of your intention, your tarot tradition and the lunar cycle. It offers a place to begin. The meaning is always yours to make.</p></div>
+      </div>
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+          <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Do I need to know tarot already?</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
+        </div>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">No. Enchantra is designed for beginners and experienced tarot readers alike.</p><p style="margin: 14px 0 0;">If you're new to tarot, it explains each card in plain English while encouraging you to build confidence in your own intuition over time.</p></div>
+      </div>
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+          <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Can I use my own tarot deck?</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
+        </div>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Yes. Enchantra is built to work alongside your own physical tarot deck.</p><p style="margin: 14px 0 0;">It supports major tarot traditions, including Rider-Waite-Smith, Thoth and Marseille. You choose your deck's tradition, and each card is interpreted within its own system so the meaning stays true to the creator's intention.</p></div>
+      </div>
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+          <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Does Enchantra predict the future?</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
+        </div>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">No.</p><p style="margin: 14px 0 0;">Enchantra is not a fortune telling app. It helps you reflect on your readings, record what they mean to you and notice patterns across your practice over time.</p><p style="margin: 14px 0 0;">Rather than telling you what will happen, it helps you pay closer attention to the life you're already living.</p></div>
+      </div>
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+          <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">How does AI work in Enchantra?</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
+        </div>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">AI helps explain the symbolism and traditional meanings of your cards while remembering your readings, reflections and patterns over time.</p><p style="margin: 14px 0 0;">It doesn't replace your intuition or tell you what your reading means. Instead, it gives you a thoughtful place to begin. Every meaning remains yours to make.</p></div>
+      </div>
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+          <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Does AI make up my interpretation?</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
+        </div>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">No.</p><p style="margin: 14px 0 0;">Enchantra uses AI to provide thoughtful interpretations based on your chosen tarot tradition, your intention and your reading history. It never tells you what to believe. Your own reflections and lived experience are always the most important part of every reading.</p></div>
+      </div>
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+          <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Is my tarot journal private?</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
+        </div>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Yes.</p><p style="margin: 14px 0 0;">Your readings, reflections and notes are private by default. They're securely stored so you can revisit them whenever you like, but they are never shared with other users.</p></div>
+      </div>
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+          <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Can Enchantra help me notice patterns?</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
+        </div>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Yes.</p><p style="margin: 14px 0 0;">As your readings grow, Enchantra helps you discover recurring cards, repeating themes and, if you choose, real world echoes like dreams, symbols, people, places and meaningful moments.</p><p style="margin: 14px 0 0;">These are the connections that often only become visible with time.</p></div>
+      </div>
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+          <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">Is Enchantra a digital tarot deck?</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
+        </div>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">No.</p><p style="margin: 14px 0 0;">You continue using the physical tarot deck you already own and love. You shuffle, draw and read your own cards. Enchantra simply helps you understand, remember and build a deeper relationship with them over time.</p></div>
+      </div>
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+          <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">How is Enchantra different from other tarot apps?</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
+        </div>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Most tarot apps focus on digital card draws or one-off readings.</p><p style="margin: 14px 0 0;">Enchantra is designed to help you build an ongoing tarot practice. It combines your physical deck, thoughtful interpretations, private journalling and long-term pattern tracking, so every reading becomes part of a bigger story.</p></div>
+      </div>
+      <div class="faq-item" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+        <div class="faq-q" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; cursor: pointer;">
+          <span class="en-serif" style="font-size: 18px; color: #e6e9f6;">When will Enchantra be available?</span>
+          <span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;">+</span>
+        </div>
+        <div class="faq-answer" style="padding: 0 24px 22px; font-size: 15px; line-height: 24px; color: #9aa0c2;"><p style="margin: 0;">Enchantra is currently in development and available by waitlist.</p><p style="margin: 14px 0 0;">Joining is free, and waitlist members will receive early access on iPhone and Android as soon as it's ready.</p></div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FINAL CTA ═══════════ -->
+  <section id="join" style="background: #100d22; border-top: 1px solid #1c1834;">
+    <div style="max-width: 720px; margin: 0 auto; padding: 110px 40px 120px; text-align: center; position: relative;">
+      <div style="display: flex; justify-content: center; margin-bottom: 40px; position: relative;">
+        <div style="position: absolute; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.10), transparent 70%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
+        <div style="animation: breath 4800ms ease-in-out infinite;">
+          <div style="width: 150px; height: 150px; border-radius: 50%; background: radial-gradient(circle at 50% 42%, #3a3363, #201a3a); border: 1px solid #2e2648; box-shadow: inset 0 0 26px 2px rgba(232,201,138,0.4), 0 0 56px rgba(232,201,138,0.16); position: relative; display: flex; align-items: center; justify-content: center;">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg>
+          </div>
+        </div>
+      </div>
+      <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: 44px; line-height: 50px; color: #f3efe9;">She keeps your practice.</h2>
+      <p style="margin: 18px auto 0; font-size: 17px; line-height: 27px; color: #9aa0c2; max-width: 460px;">Join the waitlist for early access. <br>When the time is right, she'll write to you.</p>
+      <div style="max-width: 480px; margin: 32px auto 0; display: flex; justify-content: center;">
+        <a href="https://cardswekeep.substack.com/subscribe" style="display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 24px; border-radius: 999px; border: none; background: #e8c98a; color: #191529; font-size: 15px; font-weight: 600; text-decoration: none; transition: background 200ms ease, transform 160ms ease; cursor: pointer;" onmouseover="this.style.background='#f0dcac'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#e8c98a'; this.style.transform='translateY(0)';"><span>Join the waitlist</span><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 18px; font-size: 13.5px; color: #9aa0c2;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 8px rgba(232,201,138,0.7); flex: none;"></span>Launching end of August 2026 · First lunar cycle free, then A$6.50/month</div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
+    <div style="max-width: 1080px; margin: 0 auto; padding: 54px 40px 60px; display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px;">
+      <div>
+        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 16px;">
+          <svg viewBox="0 0 120 120" width="24" height="24" style="display: block; overflow: visible; flex: none;">
+            <path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path>
+            <path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path>
+          </svg>
+          <span class="en-serif" style="font-size: 19px; color: #f3efe9;">Enchantra</span>
+        </div>
+        <p class="en-serif" style="margin: 0; font-size: 15px; line-height: 23px; color: #8b8fb2; font-style: italic; max-width: 260px;">The moon keeps time. The meaning is yours.</p>
+        <div style="font-size: 12.5px; color: #4e4b64; margin-top: 20px;">enchantratarot.com</div>
+      </div>
+      <div>
+        <div style="font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">Practice</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="#practice" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The philosophy</a>
+          <a href="#how" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">How it works</a>
+          <a href="#almanac" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The Almanac</a>
+          <a href="#faq" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">FAQ</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">The app</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <span style="font-size: 14px; color: #9aa0c2;">iPhone · coming soon</span>
+          <span style="font-size: 14px; color: #9aa0c2;">Android · coming soon</span>
+          <a href="#join" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the waitlist</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">More</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="#" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Our ethic</a>
+          <a href="#" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Privacy</a>
+          <a href="#" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top: 1px solid #1c1834; padding: 22px 40px; text-align: center; font-size: 12.5px; color: #4e4b64;">© 2026 Enchantra · The meaning is always yours.</div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  // ── FAQ accordion ──
+  document.querySelectorAll('.faq-item').forEach(function (item) {
+    var q = item.querySelector('.faq-q');
+    var sign = item.querySelector('.faq-sign');
+    q.addEventListener('click', function () {
+      var open = item.classList.toggle('open');
+      sign.textContent = open ? '\u2013' : '+';
+    });
+  });
+
+  // ── Scroll reveal ──
+  function show(el) {
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+    if (el.firstElementChild) {
+      el.firstElementChild.style.opacity = '1';
+      el.firstElementChild.style.transform = 'translateY(0)';
+    }
+  }
+  var reveals = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { show(en.target); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    requestAnimationFrame(function () {
+      reveals.forEach(function (el) { io.observe(el); });
+    });
+  } else {
+    reveals.forEach(show);
+  }
+})();
+</script>
+</body>
+</html>

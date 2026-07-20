@@ -44,12 +44,12 @@
 
   <!-- NAV -->
   <nav style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) clamp(18px,5vw,40px) 14px; background: rgba(14,11,30,0.72); backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a;">
-    <a href="index.html" style="display: flex; align-items: center; gap: 7px; text-decoration: none; min-width: 0;">
+    <a href="Enchantra Website - Mobile-First.dc.html" style="display: flex; align-items: center; gap: 7px; text-decoration: none; min-width: 0;">
       <dc-import name="Moon Component" gold="#e8c98a" hint-size="26px,26px" style="width: 26px; height: 26px; flex: none;"></dc-import>
       <span class="en-serif en-nav-brand" style="font-size: 19px; letter-spacing: 0.5px; color: #f3efe9;">Enchantra</span>
       <span class="en-nav-tag" style="font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; color: #9a8fc0; margin-left: 4px; border-left: 1px solid #2c284c; padding-left: 10px;">Almanac</span>
     </a>
-    <a class="en-nav-cta" href="index.html#join" style="display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px; flex: none; border-radius: 999px; border: none; background: #e8c98a; color: #191529; font-size: 13px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; white-space: nowrap; transition: background 200ms ease, transform 160ms ease, box-shadow 200ms ease; box-shadow: 0 4px 16px rgba(232,201,138,0.22);" style-hover="background: #f0dcac; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,201,138,0.3);" style-active="transform: translateY(0);">Join the waitlist
+    <a class="en-nav-cta" href="Enchantra Website - Mobile-First.dc.html#join" style="display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px; flex: none; border-radius: 999px; border: none; background: #e8c98a; color: #191529; font-size: 13px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; white-space: nowrap; transition: background 200ms ease, transform 160ms ease, box-shadow 200ms ease; box-shadow: 0 4px 16px rgba(232,201,138,0.22);" style-hover="background: #f0dcac; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,201,138,0.3);" style-active="transform: translateY(0);">Join the waitlist
       <svg viewBox="0 0 24 24" width="13" height="13"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
   </nav>
 
@@ -77,7 +77,7 @@
   <!-- FEATURED -->
   <section class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1080px; margin: 0 auto; padding: clamp(48px,7vw,80px) clamp(18px,5vw,40px) 0;">
     <div style="font-size: 11.5px; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: clamp(20px,3vw,26px);">Latest</div>
-    <a href="reading-tarot-with-the-lunar-cycle.dc.html" style="text-decoration: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(24px,4vw,44px); align-items: stretch; background: #13102a; border: 1px solid #2c284c; border-radius: 22px; overflow: hidden; transition: border-color 200ms ease;" style-hover="border-color: #6b5a34;">
+    <a href="Almanac - Reading Tarot With the Lunar Cycle.dc.html" style="text-decoration: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(24px,4vw,44px); align-items: stretch; background: #13102a; border: 1px solid #2c284c; border-radius: 22px; overflow: hidden; transition: border-color 200ms ease;" style-hover="border-color: #6b5a34;">
       <div style="position: relative; min-height: clamp(180px,44vw,260px); background: radial-gradient(circle at 66% 42%, #241e3c, #14112a 72%); display: flex; align-items: center; justify-content: center; overflow: hidden;">
         <div style="position: absolute; top: 16%; left: 18%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 5s ease-in-out infinite;"></div>
         <div style="position: absolute; top: 74%; left: 24%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 6s ease-in-out infinite 1.4s;"></div>
@@ -138,16 +138,16 @@
       <div>
         <div style="font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">The Almanac</div>
         <div style="display: flex; flex-direction: column; gap: 11px;">
-          <a href="reading-tarot-with-the-lunar-cycle.dc.html" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Lunar cycle</a>
-          <a href="tarot-journaling.dc.html" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Tarot journaling</a>
+          <a href="Almanac - Reading Tarot With the Lunar Cycle.dc.html" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Lunar cycle</a>
+          <a href="Almanac - Tarot Journaling.dc.html" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Tarot journaling</a>
           <a href="#articles" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">All articles</a>
         </div>
       </div>
       <div>
         <div style="font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">Enchantra</div>
         <div style="display: flex; flex-direction: column; gap: 11px;">
-          <a href="index.html" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The app</a>
-          <a href="index.html#join" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the waitlist</a>
+          <a href="Enchantra Website - Mobile-First.dc.html" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The app</a>
+          <a href="Enchantra Website - Mobile-First.dc.html#join" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the waitlist</a>
         </div>
       </div>
     </div>
@@ -182,9 +182,9 @@ class Component extends DCLogic {
 
   renderVals() {
     const articles = [
-      { href: 'reading-tarot-with-the-lunar-cycle.dc.html', tag: 'Lunar', tint: '#e8c98a', read: '6 min read', title: 'Reading tarot with the lunar cycle', dek: 'How each moon phase shapes your intentions, daily cards and full moon reflections.', cta: 'Read the article ›', bg: 'radial-gradient(circle at 40% 40%, #241e3c, #14112a)', soon: false },
-      { href: 'tarot-journaling.dc.html', tag: 'Journaling', tint: '#a4c2ab', read: '9 min read', title: 'Tarot journaling: the smallest version that works', dek: 'A three-line format, prompts, and how to record the echoes that follow a reading.', cta: 'Read the article ›', bg: 'radial-gradient(circle at 55% 40%, #241e3c, #14112a)', soon: false },
-      { href: 'how-to-read-tarot-for-reflection.dc.html', tag: 'Reflection', tint: '#9a8fc0', read: '7 min read', title: 'How to read tarot for reflection, not prediction', dek: "A beginner's way into the cards that never asks them to tell your future.", cta: 'Read the article ›', bg: 'radial-gradient(circle at 70% 40%, #241e3c, #14112a)', soon: false },
+      { href: 'Almanac - Reading Tarot With the Lunar Cycle.dc.html', tag: 'Lunar', tint: '#e8c98a', read: '6 min read', title: 'Reading tarot with the lunar cycle', dek: 'How each moon phase shapes your intentions, daily cards and full moon reflections.', cta: 'Read the article ›', bg: 'radial-gradient(circle at 40% 40%, #241e3c, #14112a)', soon: false },
+      { href: 'Almanac - Tarot Journaling.dc.html', tag: 'Journaling', tint: '#a4c2ab', read: '9 min read', title: 'Tarot journaling: the smallest version that works', dek: 'A three-line format, prompts, and how to record the echoes that follow a reading.', cta: 'Read the article ›', bg: 'radial-gradient(circle at 55% 40%, #241e3c, #14112a)', soon: false },
+      { href: 'Almanac - Reading Tarot for Reflection.dc.html', tag: 'Reflection', tint: '#9a8fc0', read: '7 min read', title: 'How to read tarot for reflection, not prediction', dek: "A beginner's way into the cards that never asks them to tell your future.", cta: 'Read the article ›', bg: 'radial-gradient(circle at 70% 40%, #241e3c, #14112a)', soon: false },
     ];
     return {
       articles,

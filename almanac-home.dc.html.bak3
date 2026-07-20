@@ -139,7 +139,7 @@
         <div style="font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">The Almanac</div>
         <div style="display: flex; flex-direction: column; gap: 11px;">
           <a href="reading-tarot-with-the-lunar-cycle.dc.html" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Lunar cycle</a>
-          <a href="tarot-journaling.dc.html" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Tarot journaling</a>
+          <a href="Almanac - Tarot Journaling.dc.html" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Tarot journaling</a>
           <a href="#articles" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">All articles</a>
         </div>
       </div>
@@ -183,7 +183,7 @@ class Component extends DCLogic {
   renderVals() {
     const articles = [
       { href: 'reading-tarot-with-the-lunar-cycle.dc.html', tag: 'Lunar', tint: '#e8c98a', read: '6 min read', title: 'Reading tarot with the lunar cycle', dek: 'How each moon phase shapes your intentions, daily cards and full moon reflections.', cta: 'Read the article ›', bg: 'radial-gradient(circle at 40% 40%, #241e3c, #14112a)', soon: false },
-      { href: 'tarot-journaling.dc.html', tag: 'Journaling', tint: '#a4c2ab', read: '9 min read', title: 'Tarot journaling: the smallest version that works', dek: 'A three-line format, prompts, and how to record the echoes that follow a reading.', cta: 'Read the article ›', bg: 'radial-gradient(circle at 55% 40%, #241e3c, #14112a)', soon: false },
+      { href: 'Almanac - Tarot Journaling.dc.html', tag: 'Journaling', tint: '#a4c2ab', read: '9 min read', title: 'Tarot journaling: the smallest version that works', dek: 'A three-line format, prompts, and how to record the echoes that follow a reading.', cta: 'Read the article ›', bg: 'radial-gradient(circle at 55% 40%, #241e3c, #14112a)', soon: false },
       { href: 'how-to-read-tarot-for-reflection.dc.html', tag: 'Reflection', tint: '#9a8fc0', read: '7 min read', title: 'How to read tarot for reflection, not prediction', dek: "A beginner's way into the cards that never asks them to tell your future.", cta: 'Read the article ›', bg: 'radial-gradient(circle at 70% 40%, #241e3c, #14112a)', soon: false },
     ];
     return {
