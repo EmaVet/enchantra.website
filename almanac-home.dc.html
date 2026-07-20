@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>The Almanac — Enchantra</title>
+  <meta name="description" content="The Enchantra Almanac: reflective tarot, the lunar cycle and a journalling practice you can return to. Notes on reading the cards for reflection, not prediction.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;1,400&amp;display=swap" rel="stylesheet">
+  <style>
+    /* ── Intrinsic responsive system (mobile-first) ──
+       No breakpoints. Base layout is a single narrow column; type + spacing
+       scale up with clamp(); multi-column blocks use grid auto-fit + minmax so
+       they grow from phone → tablet → desktop on their own. New content dropped
+       into these patterns adapts automatically at every width. */
+    html, body { margin: 0; padding: 0; background: #0e0b1e; scroll-behavior: smooth; }
+    ::selection { background: #463c72; color: #e6e9f6; }
+    * { box-sizing: border-box; }
+    a { color: #e8c98a; }
+    a:hover { color: #f0dcac; }
+    @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.022); } }
+    @keyframes glowpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
+    @keyframes twinkle { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+    @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; scroll-behavior: auto; } }
+    .en-serif { font-family: 'Iowan Old Style', 'Noto Serif', Palatino, Georgia, serif; }
+    @media (max-width: 480px) {
+      .en-nav-tag { display: none !important; }
+      .en-nav-cta { height: 36px !important; padding: 0 14px !important; font-size: 12.5px !important; }
+      .en-nav-brand { font-size: 17px !important; }
+    }
+  </style>
+</helmet>
+
+<template id="__bundler_thumbnail"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#0e0b1e"></rect><defs><linearGradient id="tbMoon" x1="30" y1="30" x2="72" y2="72" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#f6f1e8"></stop><stop offset="1" stop-color="#8f84bc"></stop></linearGradient><mask id="tbMask"><rect width="100" height="100" fill="#fff"></rect><circle cx="63" cy="41" r="26" fill="#000"></circle></mask></defs><circle cx="46" cy="50" r="28" fill="url(#tbMoon)" mask="url(#tbMask)"></circle><path transform="translate(52,26) scale(0.95)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></template>
+
+<div style="min-height: 100vh; background: #0e0b1e; color: #cdd1e6; font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden;">
+
+  <!-- NAV -->
+  <nav style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) clamp(18px,5vw,40px) 14px; background: rgba(14,11,30,0.72); backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a;">
+    <a href="Enchantra Website - Mobile-First.dc.html" style="display: flex; align-items: center; gap: 7px; text-decoration: none; min-width: 0;">
+      <dc-import name="Moon Component" gold="#e8c98a" hint-size="26px,26px" style="width: 26px; height: 26px; flex: none;"></dc-import>
+      <span class="en-serif en-nav-brand" style="font-size: 19px; letter-spacing: 0.5px; color: #f3efe9;">Enchantra</span>
+      <span class="en-nav-tag" style="font-size: 12px; letter-spacing: 1.4px; text-transform: uppercase; color: #9a8fc0; margin-left: 4px; border-left: 1px solid #2c284c; padding-left: 10px;">Almanac</span>
+    </a>
+    <a class="en-nav-cta" href="Enchantra Website - Mobile-First.dc.html#join" style="display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px; flex: none; border-radius: 999px; border: none; background: #e8c98a; color: #191529; font-size: 13px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; white-space: nowrap; transition: background 200ms ease, transform 160ms ease, box-shadow 200ms ease; box-shadow: 0 4px 16px rgba(232,201,138,0.22);" style-hover="background: #f0dcac; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,201,138,0.3);" style-active="transform: translateY(0);">Join the waitlist
+      <svg viewBox="0 0 24 24" width="13" height="13"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+  </nav>
+
+  <!-- HERO -->
+  <header style="position: relative; overflow: hidden; border-bottom: 1px solid #1c1834; background: radial-gradient(ellipse 100% 80% at 50% -10%, #17132e, #0e0b1e 68%);">
+    <div style="position: absolute; inset: 0; pointer-events: none;">
+      <div style="position: absolute; top: 24%; left: 14%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 6px rgba(198,202,226,0.8); animation: twinkle 5s ease-in-out infinite;"></div>
+      <div style="position: absolute; top: 60%; left: 84%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 7s ease-in-out infinite 2s;"></div>
+      <div style="position: absolute; top: 34%; left: 78%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.7); animation: twinkle 4.5s ease-in-out infinite 0.3s;"></div>
+      <div style="position: absolute; top: 70%; left: 22%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 6s ease-in-out infinite 1.4s;"></div>
+    </div>
+    <div style="max-width: 760px; margin: 0 auto; padding: clamp(48px,7vw,84px) clamp(18px,5vw,40px) clamp(40px,6vw,60px); text-align: center; position: relative;">
+      <div style="display: flex; justify-content: center; margin-bottom: clamp(18px,4vw,26px);">
+        <div style="position: relative; width: clamp(60px,16vw,92px); aspect-ratio: 1;">
+          <div style="position: absolute; inset: -18%; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.16), transparent 70%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
+          <div style="position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 63% 41%, #342d5c 0%, #251f40 52%, #191529 100%); border: 1px solid #241f40; box-shadow: inset -16px 0 28px -6px rgba(198,202,226,0.55), inset -8px 0 18px -6px rgba(232,201,138,0.24), 0 0 48px rgba(232,201,138,0.15); animation: breath 4800ms ease-in-out infinite;"></div>
+        </div>
+      </div>
+      <div style="font-size: 11px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: clamp(14px,3vw,18px);">The Enchantra Almanac</div>
+      <h1 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: clamp(27px,6.4vw,56px); line-height: 1.1; color: #f3efe9; max-width: 620px; text-wrap: balance;">Notes for a reflective tarot practice.</h1>
+      <p style="margin: clamp(16px,3vw,26px) auto 0; font-size: clamp(14px,3.6vw,19px); line-height: 1.6; color: #c6cae2; max-width: 540px; text-wrap: pretty;">Reading the cards for reflection, with the help of the moon. Written by someone who built an app to help her with her tarot, for those who love tarot but never really knew what to do.</p>
+    </div>
+  </header>
+
+  <!-- FEATURED -->
+  <section class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1080px; margin: 0 auto; padding: clamp(48px,7vw,80px) clamp(18px,5vw,40px) 0;">
+    <div style="font-size: 11.5px; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: clamp(20px,3vw,26px);">Latest</div>
+    <a href="Almanac - Reading Tarot With the Lunar Cycle.dc.html" style="text-decoration: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(24px,4vw,44px); align-items: stretch; background: #13102a; border: 1px solid #2c284c; border-radius: 22px; overflow: hidden; transition: border-color 200ms ease;" style-hover="border-color: #6b5a34;">
+      <div style="position: relative; min-height: clamp(180px,44vw,260px); background: radial-gradient(circle at 66% 42%, #241e3c, #14112a 72%); display: flex; align-items: center; justify-content: center; overflow: hidden;">
+        <div style="position: absolute; top: 16%; left: 18%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 5s ease-in-out infinite;"></div>
+        <div style="position: absolute; top: 74%; left: 24%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 6s ease-in-out infinite 1.4s;"></div>
+        <div style="position: relative; width: clamp(150px,40%,190px); aspect-ratio: 1/1;">
+          <div style="position: absolute; inset: -8%; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.14), transparent 72%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
+          <div style="position: absolute; left: 50%; top: 50%; width: 92%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; border: 1px dashed rgba(232,201,138,0.18);"></div>
+          <div style="position: absolute; left: 50%; top: -4%; margin-left: -8px; width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #2e2850 0 48%, #14112a 52%);"></div>
+          <div style="position: absolute; right: -4%; top: 50%; margin-top: -8px; width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle at 30% 50%, #c6cae2, #45406e);"></div>
+          <div style="position: absolute; left: 50%; bottom: -4%; margin-left: -9px; width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #e8dfc6, #b7ad8f);"></div>
+          <div style="position: absolute; left: -4%; top: 50%; margin-top: -8px; width: 16px; height: 16px; border-radius: 50%; background: radial-gradient(circle at 70% 50%, #c6cae2, #45406e);"></div>
+          <div style="position: absolute; left: 50%; top: 50%; width: 54%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; background: radial-gradient(circle at 63% 41%, #342d5c 0%, #251f40 52%, #191529 100%); border: 1px solid #241f40; box-shadow: inset -24px 0 40px -8px rgba(198,202,226,0.5), inset -12px 0 24px -9px rgba(232,201,138,0.22), 0 0 56px rgba(232,201,138,0.14); animation: breath 4800ms ease-in-out infinite;"></div>
+        </div>
+      </div>
+      <div style="padding: clamp(28px,4vw,44px); display: flex; flex-direction: column; justify-content: center;">
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;"><span style="color: #e8c98a;">Lunar</span><span style="color: #2c284c;">·</span><span>12 July 2026</span><span style="color: #2c284c;">·</span><span>6 min read</span></div>
+        <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: clamp(21px,5.2vw,38px); line-height: 1.16; color: #f3efe9; text-wrap: balance;">Reading tarot with the lunar cycle</h2>
+        <p style="margin: 14px 0 0; font-size: clamp(14px,3.6vw,17px); line-height: 1.62; color: #9aa0c2; text-wrap: pretty;">Let each phase of the moon shape the intention you bring to the cards, new moon to new moon. You can still draw every day, once a month, or whenever you remember.</p>
+        <span style="margin-top: 24px; font-size: 15px; color: #e8c98a;">Read the article ›</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- ALL ARTICLES -->
+  <section id="articles" class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1080px; margin: 0 auto; padding: clamp(40px,6vw,64px) clamp(18px,5vw,40px) clamp(56px,8vw,88px);">
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: clamp(24px,4vw,32px);">
+      <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: clamp(22px,1.6vw+16px,30px); color: #f3efe9;">All articles</h2>
+      <span style="font-size: 13px; color: #6f6c86;">{{ count }} pieces</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); gap: clamp(14px,1.8vw,20px);">
+      <sc-for list="{{ articles }}" as="a" hint-placeholder-count="3">
+        <a href="{{ a.href }}" style="text-decoration: none; background: #15122a; border: 1px solid #2c284c; border-radius: 18px; overflow: hidden; display: flex; flex-direction: column; transition: border-color 200ms ease, transform 200ms ease;" style-hover="border-color: #3a3560; transform: translateY(-2px);">
+          <div style="position: relative; height: 168px; background: {{ a.bg }}; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            <div style="width: 62px; height: 62px; border-radius: 50%; background: radial-gradient(circle at 62% 42%, #322b57, #1a1730); box-shadow: inset -10px 0 18px -3px rgba(198,202,226,0.5), 0 0 20px rgba(232,201,138,0.08);"></div>
+            <sc-if value="{{ a.soon }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; top: 14px; right: 14px; font-size: 10.5px; letter-spacing: 1px; text-transform: uppercase; color: #191529; background: #e8c98a; border-radius: 999px; padding: 4px 10px; font-weight: 600;">Soon</span></sc-if>
+          </div>
+          <div style="padding: 22px 22px 24px; display: flex; flex-direction: column; flex: 1;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 10.5px; letter-spacing: 1px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 12px;"><span style="color: {{ a.tint }};">{{ a.tag }}</span><span style="color: #2c284c;">·</span><span>{{ a.read }}</span></div>
+            <div class="en-serif" style="font-size: clamp(18px,4.6vw,20px); line-height: 1.32; color: #f3efe9; margin-bottom: 10px;">{{ a.title }}</div>
+            <div style="font-size: 13.5px; line-height: 1.55; color: #8b8fb2; margin-bottom: 18px;">{{ a.dek }}</div>
+            <div style="margin-top: auto; font-size: 13px; color: #e8c98a;">{{ a.cta }}</div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
+    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(44px,6vw,54px) clamp(18px,5vw,40px); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
+      <div style="min-width: 200px;">
+        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 16px;">
+          <dc-import name="Moon Component" gold="#e8c98a" hint-size="24px,24px" style="width: 24px; height: 24px; flex: none;"></dc-import>
+          <span class="en-serif" style="font-size: 19px; color: #f3efe9;">Enchantra</span>
+        </div>
+        <p class="en-serif" style="margin: 0; font-size: 15px; line-height: 1.5; color: #8b8fb2; font-style: italic; max-width: 260px;">The moon keeps time. The meaning is yours.</p>
+        <div style="font-size: 12.5px; color: #4e4b64; margin-top: 20px;">enchantratarot.com/thealmanac</div>
+      </div>
+      <div>
+        <div style="font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">The Almanac</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="Almanac - Reading Tarot With the Lunar Cycle.dc.html" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Lunar cycle</a>
+          <a href="Almanac - Tarot Journaling.dc.html" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Tarot journaling</a>
+          <a href="#articles" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">All articles</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">Enchantra</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="Enchantra Website - Mobile-First.dc.html" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The app</a>
+          <a href="Enchantra Website - Mobile-First.dc.html#join" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the waitlist</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top: 1px solid #1c1834; padding: 22px 40px; text-align: center; font-size: 12.5px; color: #4e4b64;">© 2026 Enchantra · The meaning is always yours.</div>
+  </footer>
+
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    const show = (el) => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; };
+    if (typeof IntersectionObserver !== 'undefined') {
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach((en) => { if (en.isIntersecting) { show(en.target); this._io.unobserve(en.target); } });
+      }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
+      requestAnimationFrame(() => { document.querySelectorAll('.reveal').forEach((el) => this._io.observe(el)); });
+    } else {
+      document.querySelectorAll('.reveal').forEach(show);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+  }
+
+  renderVals() {
+    const articles = [
+      { href: 'Almanac - Reading Tarot With the Lunar Cycle.dc.html', tag: 'Lunar', tint: '#e8c98a', read: '6 min read', title: 'Reading tarot with the lunar cycle', dek: 'How each moon phase shapes your intentions, daily cards and full moon reflections.', cta: 'Read the article ›', bg: 'radial-gradient(circle at 40% 40%, #241e3c, #14112a)', soon: false },
+      { href: 'Almanac - Tarot Journaling.dc.html', tag: 'Journaling', tint: '#a4c2ab', read: '9 min read', title: 'Tarot journaling: the smallest version that works', dek: 'A three-line format, prompts, and how to record the echoes that follow a reading.', cta: 'Read the article ›', bg: 'radial-gradient(circle at 55% 40%, #241e3c, #14112a)', soon: false },
+      { href: 'Almanac - Reading Tarot for Reflection.dc.html', tag: 'Reflection', tint: '#9a8fc0', read: '7 min read', title: 'How to read tarot for reflection, not prediction', dek: "A beginner's way into the cards that never asks them to tell your future.", cta: 'Read the article ›', bg: 'radial-gradient(circle at 70% 40%, #241e3c, #14112a)', soon: false },
+    ];
+    return {
+      articles,
+      count: articles.length,
+    };
+  }
+}
+</script>
+</body>
+</html>
