@@ -1,0 +1,69 @@
+name: Generate sitemap
+
+# Regenerates sitemap.xml automatically on every push to main.
+# Lists the home page, the Almanac hub, and every /almanac/<slug>/ article,
+# using each page's last git commit date as <lastmod>. Root-level redirect
+# stubs are intentionally skipped (only pages under /almanac/ are articles).
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'sitemap.xml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sitemap-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build sitemap.xml
+        run: |
+          set -euo pipefail
+          BASE="https://enchantratarot.com"
+          OUT="sitemap.xml"
+
+          lastmod() { git log -1 --format=%cs -- "$1" 2>/dev/null || date +%F; }
+          emit() {
+            printf '  <url>\n    <loc>%s</loc>\n    <lastmod>%s</lastmod>\n    <changefreq>%s</changefreq>\n    <priority>%s</priority>\n  </url>\n' \
+              "$1" "$(lastmod "$2")" "$3" "$4"
+          }
+
+          {
+            printf '<?xml version="1.0" encoding="UTF-8"?>\n'
+            printf '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+            [ -f index.html ] && emit "$BASE/" "index.html" "weekly" "1.0"
+            [ -f almanac/index.html ] && emit "$BASE/almanac/" "almanac/index.html" "weekly" "0.8"
+            for f in almanac/*/index.html; do
+              [ -e "$f" ] || continue
+              slug=$(basename "$(dirname "$f")")
+              emit "$BASE/almanac/$slug/" "$f" "monthly" "0.7"
+            done
+            printf '</urlset>\n'
+          } > "$OUT"
+
+          echo "----- generated sitemap.xml -----"
+          cat "$OUT"
+
+      - name: Commit if changed
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- sitemap.xml; then
+            echo "sitemap.xml is already up to date."
+          else
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add sitemap.xml
+            git commit -m "chore: auto-update sitemap.xml"
+            git push
+            echo "sitemap.xml updated and pushed."
+          fi
