@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="For the Enchantra alpha team: what the alpha is, what Enchantra is, and how to tell us what you found.">
+<title>Enchantra for Keepers</title>
+
+<style>
+  :root {
+    color-scheme: dark;
+    --canvas: #0e0b1e;
+    --screen: #15122a;
+    --panel: #1a1730;
+    --panel-alt: #181528;
+    --hairline: #2c284c;
+    --hairline-deep: #241f40;
+    --text: #f3efe9;
+    --body: #cdd1e6;
+    --secondary: #9aa0c2;
+    --muted: #8b8fb2;
+    --faint: #6f6c86;
+    --gold: #e8c98a;
+    --gold-pale: #f7ecc9;
+    --sage: #a4c2ab;
+    --sage-border: #3c5045;
+    --sage-panel: #172019;
+    --lilac: #9a8fc0;
+    --silver: #c6cae2;
+    --serif: "Iowan Old Style", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, "Noto Serif", serif;
+    --sans: -apple-system, "SF Pro Text", "Helvetica Neue", system-ui, Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--canvas); color: var(--body);
+    font-family: var(--sans); font-size: 15px; line-height: 1.55;
+    padding-inline: 20px; padding-block: 0 80px; -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(232,201,138,.35); }
+  a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .wrap { max-width: 660px; margin: 0 auto; }
+
+  .hero { padding-block: 72px 44px; }
+  .moon {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: radial-gradient(circle at 72% 42%, #2e2850 0%, #221d38 55%, #1a1730 100%);
+    border: 1px solid var(--hairline-deep);
+    box-shadow: inset -8px 0 14px -6px rgba(232,201,138,.75), 0 0 32px rgba(232,201,138,.10);
+    margin-bottom: 30px;
+  }
+  .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: var(--lilac); margin: 0 0 14px; }
+  .eyebrow.gold { color: var(--gold); }
+  .eyebrow.sage { color: var(--sage); }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: 34px; line-height: 1.18; color: var(--text); margin: 0 0 18px; text-wrap: balance; }
+  .lede { font-family: var(--serif); font-size: 19px; line-height: 1.5; color: var(--body); margin: 0; max-width: 32em; }
+
+  section { padding-block: 40px; border-top: 1px solid var(--hairline); }
+  h2 { font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.25; color: var(--text); margin: 0 0 16px; text-wrap: balance; }
+  h3 { font-family: var(--serif); font-weight: 400; font-size: 20px; line-height: 1.3; color: var(--text); margin: 26px 0 10px; }
+  p { margin: 0 0 14px; max-width: 38em; }
+  p.read { font-family: var(--serif); font-size: 17px; line-height: 1.5; }
+  strong { color: var(--text); font-weight: 600; }
+  em { color: var(--silver); }
+  .ui { color: var(--text); font-weight: 600; }
+
+  ol.steps { list-style: none; padding: 0; margin: 18px 0 8px; counter-reset: step; display: grid; gap: 10px; }
+  ol.steps li { position: relative; padding: 12px 16px 12px 18px; background: var(--panel-alt); border-left: 2px solid var(--sage); border-radius: 0 12px 12px 0; counter-increment: step; }
+  ol.steps li::before { content: counter(step); position: absolute; left: -2px; top: -10px; font-size: 11px; letter-spacing: 1px; color: var(--sage); background: var(--canvas); padding: 0 6px; }
+
+  ul.plain { padding-left: 0; list-style: none; margin: 12px 0 0; display: grid; gap: 10px; max-width: 38em; }
+  ul.plain li { padding-left: 18px; position: relative; }
+  ul.plain li::before { content: "·"; position: absolute; left: 4px; color: var(--lilac); }
+
+  .rhythm { display: grid; gap: 12px; margin: 18px 0 6px; }
+  .rhythm div { border: 1px solid var(--hairline); background: var(--panel); border-radius: 14px; padding: 14px 16px; }
+  .rhythm .k { font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--lilac); margin-bottom: 4px; }
+  .rhythm .v { font-family: var(--serif); font-size: 16.5px; line-height: 1.45; color: var(--text); }
+
+  .powers { display: grid; gap: 12px; margin: 18px 0 6px; }
+  .powers div { border: 1px solid rgba(232,201,138,.35); background: var(--panel); border-radius: 14px; padding: 14px 16px; }
+  .powers .k { font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .powers .v { font-size: 14.5px; color: var(--body); }
+
+  .ask { display: grid; gap: 10px; margin: 18px 0 6px; }
+  .ask div { border-left: 2px solid var(--sage-border); padding: 4px 0 4px 16px; font-family: var(--serif); font-size: 17px; line-height: 1.45; color: var(--text); }
+
+  .note { border: 1px solid var(--hairline); background: var(--panel); border-radius: 14px; padding: 16px 18px; margin: 18px 0; font-size: 14px; color: var(--secondary); }
+  .note.person { background: var(--sage-panel); border-color: var(--sage-border); color: #aebfb1; font-family: var(--serif); font-size: 16px; font-style: italic; }
+
+  dl { margin: 12px 0 0; display: grid; gap: 10px; }
+  dl div { display: grid; grid-template-columns: 150px minmax(0,1fr); gap: 12px; align-items: baseline; }
+  @media (max-width: 480px) { dl div { grid-template-columns: minmax(0,1fr); gap: 2px; } }
+  dt { font-weight: 600; color: var(--text); font-size: 14px; }
+  dd { margin: 0; color: var(--body); font-size: 14.5px; }
+
+  details { border: 1px solid var(--hairline); border-radius: 14px; padding: 4px 18px; margin-top: 18px; background: var(--panel-alt); }
+  summary { cursor: pointer; padding: 10px 0; color: var(--lilac); font-size: 13px; letter-spacing: 1.2px; text-transform: uppercase; }
+  summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  details dl { padding-bottom: 14px; }
+
+  .fold { display: flex; align-items: center; gap: 14px; margin: 34px 0 10px; color: var(--faint); font-size: 11.5px; letter-spacing: 1.2px; text-transform: uppercase; }
+  .fold::before, .fold::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--hairline), transparent); }
+  footer { padding-top: 40px; border-top: 1px solid var(--hairline); color: var(--muted); font-size: 13px; }
+  footer p { max-width: none; }
+  @media (prefers-reduced-motion: no-preference) { .moon { animation: breath 4800ms ease-in-out infinite; } }
+  @keyframes breath { 0%,100% { box-shadow: inset -8px 0 14px -6px rgba(232,201,138,.75), 0 0 32px rgba(232,201,138,.10);} 50% { box-shadow: inset -8px 0 14px -6px rgba(232,201,138,.9), 0 0 44px rgba(232,201,138,.18);} }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="moon" aria-hidden="true"></div>
+    <p class="eyebrow gold">Keepers · the alpha team</p>
+    <h1>You are one of the first few people to hold Enchantra.</h1>
+    <p class="lede">Thank you for doing this. Enchantra has been made quietly, one moon at a time, and now it is time for others to help shape it. What you notice first will shape what it becomes.</p>
+  </header>
+
+  <section id="alpha">
+    <p class="eyebrow gold">What alpha means</p>
+    <h2>You get to move through the app like nobody else will.</h2>
+    <p class="read">Enchantra follows the real moon, so once it is released, everyone meets it one day at a time: a card today, the Full Moon in a fortnight, the close of the cycle a fortnight after that. You don't have to wait. Your build has a small <span class="ui">tester</span> button at the top right of every screen, and behind it, three powers.</p>
+    <div class="powers">
+      <div><div class="k">Load a season</div><div class="v">Drop months of history into your app in one tap, as if you had been using it since April, so you can see what Enchantra does once it knows you.</div></div>
+      <div><div class="k">Move the clock</div><div class="v"><span class="ui">+1 day</span> and <span class="ui">+7 days</span> move the whole app forward. Draw several days' cards in one sitting, reach the Full Moon this afternoon, close a cycle tonight.</div></div>
+      <div><div class="k">Go anywhere</div><div class="v">Jump straight to any part of the app, whatever the moon says.</div></div>
+    </div>
+    <p style="margin-top:16px">These powers exist only in the alpha. When the beta begins they go, and everyone after you will meet Enchantra at the moon's own pace. So use them, and enjoy them; you are seeing the whole of the app in a way nobody else will.</p>
+  </section>
+
+  <section id="thanks">
+    <p class="eyebrow gold">What is in it for you</p>
+    <h2>Enchantra is yours, for good.</h2>
+    <p class="read">When the app goes live, you move with it: first into the beta team, then into the app as everyone else will know it. You will never pay for Enchantra. Not a trial, not a discount, but the whole of it, free, for as long as it exists.</p>
+    <p>All we ask in return is that you keep telling us what you think and how it feels, for as long as you love using it. The day you stop loving it, we want to hear that most of all.</p>
+  </section>
+
+  <section id="what">
+    <p class="eyebrow">What Enchantra is</p>
+    <h2>A daily practice, kept in lunar cycles.</h2>
+    <p class="read">You pull real cards from your own deck. Enchantra reads with you, in your deck's own tradition, and remembers. It reflects; it never predicts.</p>
+    <div class="rhythm">
+      <div><div class="k">Every day</div><div class="v">One card. A short reading, and a deeper one if you want it.</div></div>
+      <div><div class="k">New Moon</div><div class="v">Three cards to open the cycle, and an intention to hold for the month ahead.</div></div>
+      <div><div class="k">Full Moon</div><div class="v">A three card check-in, to see how the intention is going.</div></div>
+      <div><div class="k">Before the next New Moon</div><div class="v">Enchantra gathers your readings, your journal and your echoes, and gives you a reflection on the cycle you are closing, before you set the next intention.</div></div>
+    </div>
+    <h3>Two places that are yours</h3>
+    <p><strong>Journal.</strong> What a card meant to you, what came up when you drew it, anything at all. You can come back to any entry and add to it; nothing here is ever written by Enchantra. This is your space.</p>
+    <p><strong>Echoes.</strong> Those small coincidences that seem to follow you around: the same number everywhere, a bird that keeps appearing, a song, a dream, a symbol you keep meeting. Some people call them synchronicities; we call them echoes. Note them as they happen, and Enchantra will notice when one returns.</p>
+  </section>
+
+  <section id="learn">
+    <p class="eyebrow sage">What we hope to learn from you</p>
+    <h2>Five questions. Keep them in the back of your mind.</h2>
+    <div class="ask">
+      <div>Did you understand what Enchantra was for, without being told?</div>
+      <div>Was it easy to use? Where did you hesitate, tap the wrong thing, or get lost?</div>
+      <div>How does it look and feel on your phone? Anything cramped, cut off, or hard to read?</div>
+      <div>Did you need more instruction, or was it intuitive enough on its own?</div>
+      <div>Did it feel like a wise companion who remembers your journey, or like a fortune teller?</div>
+    </div>
+    <p style="margin-top:16px">The last one matters most. Enchantra is meant to hand the meaning back to you. If a reading ever felt like it was telling your future, or telling you off, we want to know exactly where.</p>
+  </section>
+
+  <section id="get">
+    <p class="eyebrow">Getting in</p>
+    <h2>The app, and your account</h2>
+    <h3>On Android</h3>
+    <p>M will send you a link ending in <span class="ui">.apk</span>. Tap it on your phone, let it download, open the downloaded file and tap <span class="ui">Install</span>. Your phone will say the app comes from an unknown source and ask you to allow installs from your browser; allow it, that is normal for an app that isn't on the Play Store yet. If Play Protect says it doesn't recognise the app, let it scan, then choose to install anyway.</p>
+    <h3>On iPhone</h3>
+    <p>M will invite you by email to TestFlight, Apple's own app for trying apps before release. Install TestFlight from the App Store first, then open the invitation email on your phone and tap the button in it. TestFlight shows Enchantra with an <span class="ui">Install</span> button. Updates come through TestFlight too.</p>
+    <h3>Your account</h3>
+    <p>Open Enchantra, tap <span class="ui">New here? Create an account</span>, and enter your email and a password of at least eight characters. The app shows <span class="ui">Check your email</span>; within a minute or two an email arrives with the subject <em>Confirm your email address</em>. It comes from a plain technical address rather than from Enchantra and may land in spam. Tap the link, a page from the Enchantra website opens, and that means it worked. Back in the app, tap <span class="ui">Back to log in</span> and log in.</p>
+    <div class="note person">This is a real account. What you write is encrypted on your phone, and a copy is kept under your account on Enchantra's server so it survives a new phone. Nobody reads it. You can delete the account and everything in it from the You tab whenever you like.</div>
+    <h3>Before you do anything else</h3>
+    <p>Nobody has seen Enchantra on a phone like yours, and phones draw text differently. Take a screenshot of the first three screens you see (creating the account, the welcome screen, and <span class="ui">Which deck do you draw with?</span>), then one of the home screen with the moon once you reach it, and send the four to M. Then answer the setup questions as yourself, and read the page called <span class="ui">Before you begin</span>. It is the promise the app makes to you.</p>
+  </section>
+
+  <section id="firstrun">
+    <p class="eyebrow">Your first run</p>
+    <h2>Twenty minutes to begin, the rest whenever you like</h2>
+    <p>The first three steps take about twenty minutes and show you most of what Enchantra is. The other three can wait for another evening, or for the moon itself. Everything below starts from the <span class="ui">tester</span> button at the top right. The tester screen has three parts: <strong>the clock</strong>, <strong>load a season</strong>, and <strong>go to</strong>.</p>
+    <ol class="steps">
+      <li>Under <span class="ui">load a season</span>, load <span class="ui">Five cycles, Tarot de Marseille</span>. Five months of one person's practice appear, and the deck switches to match.</li>
+      <li>Look at <span class="ui">Moon home</span>. Then <span class="ui">Patterns</span>: tap a day on the ring, and tap <span class="ui">again today</span> on an echo. Then <span class="ui">Your moons</span>, and open a finished cycle's close. This is what Enchantra becomes once it knows you.</li>
+      <li>Under <span class="ui">go to</span>, tap <span class="ui">Daily draw</span>. Draw a real card from your own deck and read it. At the bottom of the reading there is a box to ask Enchantra a question about the card; try it. That is a good place to stop for the first sitting.</li>
+      <li><span class="ui">Full Moon draw</span>: make the check-in with three real cards.</li>
+      <li><span class="ui">New Moon: close and begin</span>: watch the cycle close (Enchantra writes this one, so give it a moment), then set an intention for the next.</li>
+      <li>Load <span class="ui">One cycle, Rider-Waite-Smith</span> and do the same, to see it with a thinner history: this is what someone sees in their first month.</li>
+    </ol>
+    <p style="margin-top:16px">Two things to know. Loading a season replaces whatever is in the app, and any cards you draw afterwards join that season's story. And the clock lives only while the app is open; close it fully and it returns to real time, so just load the season again.</p>
+
+    <h3>Then use it as yourself</h3>
+    <p class="read">This is the most useful thing you can do. On the <span class="ui">You</span> tab, tap <span class="ui">Start over</span>. It wipes the seasons and everything drawn during them and signs you out. Log back in, answer the setup questions again, and you begin clean: one real card a day from your own deck, for as many days as you like, without the tester button.</p>
+
+    <details>
+      <summary>Every button under go to, for reference</summary>
+      <dl>
+        <div><dt>Moon home, Journal, Patterns, Echoes, You</dt><dd>The five tabs at the bottom of the app.</dd></div>
+        <div><dt>Daily draw</dt><dd>Today's card. If today's card is already drawn, the clock moves one day on first.</dd></div>
+        <div><dt>Full Moon draw</dt><dd>The three card check-in. If the season already has this month's, the button takes it back out so you can make it yourself; if the Full Moon hasn't come, the clock moves to it.</dd></div>
+        <div><dt>New Moon: close and begin</dt><dd>The end of a cycle and the start of the next. The clock moves to the New Moon if needed.</dd></div>
+        <div><dt>A reading</dt><dd>Opens a saved reading from the season, so you can try <span class="ui">keep an eye on this</span> under a card.</dd></div>
+        <div><dt>The cycle close</dt><dd>The close of the most recent finished cycle.</dd></div>
+        <div><dt>Your moons</dt><dd>Every cycle so far. Tap a finished one to open its close.</dd></div>
+        <div><dt>Memory</dt><dd>What Enchantra remembers about your practice.</dd></div>
+        <div><dt>Welcome</dt><dd>The first screen again.</dd></div>
+        <div><dt>Care</dt><dd>The screen that appears if the app thinks you are having a hard time. Worth seeing once.</dd></div>
+        <div><dt>Paywall</dt><dd>The subscription screen. Nothing is charged in the alpha.</dd></div>
+      </dl>
+    </details>
+  </section>
+
+  <section id="found">
+    <p class="eyebrow">Telling us what you found</p>
+    <h2>Two ways, and both are easy</h2>
+    <p class="read">Every reading ends with the question <span class="ui">Did this land?</span> and two answers, <span class="ui">Yes</span> and <span class="ui">Not quite</span>. Either is useful. <span class="ui">Not quite</span> lets you say what was off in a couple of taps. These are sent without your name attached: we see what you said, not who said it.</p>
+    <p>For everything else, send it to M: email <a href="mailto:keeper@enchantratarot.com">keeper@enchantratarot.com</a>, or message M directly if you have her number. Screenshot freely. Take one of anything that strikes you, good or odd, and send it with a line about what you tapped just before; a screenshot is worth more to us than a paragraph, and you can never send too many. After your first run, three sentences alongside them is plenty: what confused you, what delighted you, what you would change. Worth a screenshot:</p>
+    <ul class="plain">
+      <li>anything that looks wrong, cut off or hard to read</li>
+      <li>anything that made you wait more than a few seconds</li>
+      <li>a reading that felt like prediction, or like a verdict</li>
+      <li>a word or phrase that didn't sound like the app</li>
+      <li>anything that made you smile</li>
+    </ul>
+    <p style="margin-top:14px">If a screen ever looks empty, load a season first; a few screens need a history behind them. If the app ever closes on its own, a crash report reaches us automatically with your writing stripped out, but a note saying what you were doing still helps.</p>
+  </section>
+
+  <footer>
+    <div class="fold">the small print</div>
+    <p>Nothing on the tester screen exists in the real app. Your own readings in the alpha are real, saved to your account, and yours to delete from You at any time. Enchantra reflects, it never predicts, and it is not a substitute for care from a person. If anything on this page is unclear, tell M; that is useful feedback too.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
