@@ -40,7 +40,7 @@
   a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(232,201,138,.35); }
   a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   .wrap { max-width: 1180px; margin: 0 auto; padding-inline: clamp(18px, 5vw, 40px); }
-  section > *, footer > * { max-width: 760px; }
+  section, footer { max-width: 720px; }
 
   /* Site navigation, the same bar as the homepage; links point back to it. */
   nav.site { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) clamp(18px, 5vw, 40px) 14px; background: rgba(14,11,30,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a; }
@@ -74,22 +74,22 @@
   .eyebrow.gold { color: var(--gold); }
   .eyebrow.sage { color: var(--sage); }
   h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 3vw + 16px, 46px); line-height: 1.18; color: var(--text); margin: 0 0 18px; text-wrap: balance; }
-  .lede { font-family: var(--serif); font-size: 19px; line-height: 1.5; color: var(--body); margin: 0; max-width: 32em; }
+  .lede { font-family: var(--serif); font-size: 19px; line-height: 1.5; color: var(--body); margin: 0; }
 
-  section { padding-block: 40px; border-top: 1px solid var(--hairline); }
+  section { padding-block: 44px; border-top: 1px solid var(--hairline); }
   h2 { font-family: var(--serif); font-weight: 400; font-size: 26px; line-height: 1.25; color: var(--text); margin: 0 0 16px; text-wrap: balance; }
   h3 { font-family: var(--serif); font-weight: 400; font-size: 20px; line-height: 1.3; color: var(--text); margin: 26px 0 10px; }
-  p { margin: 0 0 14px; max-width: 38em; }
+  p { margin: 0 0 14px; }
   p.read { font-family: var(--serif); font-size: 17px; line-height: 1.5; }
   strong { color: var(--text); font-weight: 600; }
   em { color: var(--silver); }
   .ui { color: var(--text); font-weight: 600; }
 
   ol.steps { list-style: none; padding: 0; margin: 18px 0 8px; counter-reset: step; display: grid; gap: 10px; }
-  ol.steps li { position: relative; padding: 12px 16px 12px 18px; background: var(--panel-alt); border-left: 2px solid var(--sage); border-radius: 0 12px 12px 0; counter-increment: step; }
-  ol.steps li::before { content: counter(step); position: absolute; left: -2px; top: -10px; font-size: 11px; letter-spacing: 1px; color: var(--sage); background: var(--canvas); padding: 0 6px; }
+  ol.steps li { position: relative; padding: 14px 18px 14px 56px; background: var(--panel-alt); border: 1px solid var(--hairline); border-radius: 14px; counter-increment: step; }
+  ol.steps li::before { content: counter(step); position: absolute; left: 18px; top: 13px; font-family: var(--serif); font-size: 20px; line-height: 1; color: var(--sage); }
 
-  ul.plain { padding-left: 0; list-style: none; margin: 12px 0 0; display: grid; gap: 10px; max-width: 38em; }
+  ul.plain { padding-left: 0; list-style: none; margin: 12px 0 0; display: grid; gap: 10px; }
   ul.plain li { padding-left: 18px; position: relative; }
   ul.plain li::before { content: "·"; position: absolute; left: 4px; color: var(--lilac); }
 
@@ -116,14 +116,16 @@
   dd { margin: 0; color: var(--body); font-size: 14.5px; }
 
   details { border: 1px solid var(--hairline); border-radius: 14px; padding: 4px 18px; margin-top: 18px; background: var(--panel-alt); }
-  summary { cursor: pointer; padding: 10px 0; color: var(--lilac); font-size: 13px; letter-spacing: 1.2px; text-transform: uppercase; }
+  summary { cursor: pointer; padding: 10px 0; color: var(--lilac); font-size: 13px; letter-spacing: 1.2px; text-transform: uppercase; list-style: none; display: flex; align-items: center; gap: 10px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "+"; font-size: 16px; color: var(--gold); width: 12px; }
+  details[open] summary::before { content: "\2212"; }
   summary:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   details dl { padding-bottom: 14px; }
 
   .fold { display: flex; align-items: center; gap: 14px; margin: 34px 0 10px; color: var(--faint); font-size: 11.5px; letter-spacing: 1.2px; text-transform: uppercase; }
   .fold::before, .fold::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--hairline), transparent); }
   footer { padding-top: 40px; border-top: 1px solid var(--hairline); color: var(--muted); font-size: 13px; }
-  footer p { max-width: none; }
   @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.022); } }
   @keyframes glowpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
   @keyframes spinslow { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
@@ -236,7 +238,7 @@
 
   <section id="get">
     <p class="eyebrow">Getting in</p>
-    <h2>A deck, the app, and your account</h2>
+    <h2>A deck, the app, and your account.</h2>
     <h3>A deck of your own</h3>
     <p>You will need a tarot deck. Any deck will do, and it does not need to be new or special. If you don't have one, tell M before you start and she will help you find one. You don't need to know what the cards mean; Enchantra reads them with you.</p>
     <h3>On Android</h3>
@@ -253,7 +255,7 @@
 
   <section id="firstrun">
     <p class="eyebrow">Your first run</p>
-    <h2>Twenty minutes to begin, the rest whenever you like</h2>
+    <h2>Twenty minutes to begin, the rest whenever you like.</h2>
     <p>The first three steps take about twenty minutes and show you most of what Enchantra is; longer if tarot is new to you, and that is fine. There is no wrong way to do this. The other three steps can wait for another evening, or for the moon itself. Everything below starts from the <span class="ui">tester</span> button at the top right. The tester screen has three parts: <strong>the clock</strong>, <strong>load a season</strong>, and <strong>go to</strong>.</p>
     <ol class="steps">
       <li>Under <span class="ui">load a season</span>, load <span class="ui">Five cycles, Tarot de Marseille</span>. Five months of one person's practice appear, drawn with a deck called the Tarot de Marseille. You don't need to own that deck; the app switches to it so the history makes sense.</li>
@@ -288,7 +290,7 @@
 
   <section id="found">
     <p class="eyebrow">Telling us what you found</p>
-    <h2>Two ways, and both are easy</h2>
+    <h2>Two ways, and both are easy.</h2>
     <p class="read">Every reading ends with the question <span class="ui">Did this land?</span> and two answers, <span class="ui">Yes</span> and <span class="ui">Not quite</span>. Either is useful. <span class="ui">Not quite</span> lets you say what was off in a couple of taps. These are sent without your name attached: we see what you said, not who said it.</p>
     <p>For everything else, send it to M: email <a href="mailto:keeper@enchantratarot.com">keeper@enchantratarot.com</a>, or message M directly if you have her number. Screenshot freely. Take one of anything that strikes you, good or odd, and send it with a line about what you tapped just before; a screenshot is worth more to us than a paragraph, and you can never send too many. After your first run, three sentences alongside them is plenty: what confused you, what delighted you, what you would change. Worth a screenshot:</p>
     <ul class="plain">
@@ -303,7 +305,7 @@
 
   <footer>
     <div class="fold">the small print</div>
-    <p>Nothing on the tester screen exists in the real app. Your own readings in the alpha are real, saved to your account, and yours to delete from You at any time. Enchantra reflects, it never predicts, and it is not a substitute for care from a person. If anything on this page is unclear, tell M; that is useful feedback too.</p>
+    <p>Nothing on the tester screen exists in the real app. Your own readings in the alpha are real, saved to your account, and yours to delete from the <span class="ui">You</span> tab at any time. Enchantra reflects, it never predicts, and it is not a substitute for care from a person. If anything on this page is unclear, tell M; that is useful feedback too.</p>
     <p>Curious about the rest? <a href="/">The Enchantra website</a> and <a href="/almanac">the Almanac</a> are open to everyone.</p>
   </footer>
 
