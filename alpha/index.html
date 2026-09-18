@@ -39,9 +39,12 @@
   }
   a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(232,201,138,.35); }
   a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-  .wrap { max-width: 660px; margin: 0 auto; }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .brand { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; border-bottom: none; margin-top: 22px; }
+  .brand .mk { width: 26px; height: 26px; flex: none; display: inline-flex; }
+  .brand .nm { font-family: var(--serif); font-size: 19px; letter-spacing: .5px; color: var(--text); }
 
-  .hero { padding-block: 72px 44px; }
+  .hero { padding-block: 48px 44px; }
   .moon {
     width: 64px; height: 64px; border-radius: 50%;
     background: radial-gradient(circle at 72% 42%, #2e2850 0%, #221d38 55%, #1a1730 100%);
@@ -110,6 +113,8 @@
 <body>
 
 <div class="wrap">
+
+  <a class="brand" href="/" aria-label="Enchantra home"><span class="mk"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;" aria-hidden="true"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span><span class="nm">Enchantra</span></a>
 
   <header class="hero">
     <div class="moon" aria-hidden="true"></div>
@@ -238,6 +243,7 @@
   <footer>
     <div class="fold">the small print</div>
     <p>Nothing on the tester screen exists in the real app. Your own readings in the alpha are real, saved to your account, and yours to delete from You at any time. Enchantra reflects, it never predicts, and it is not a substitute for care from a person. If anything on this page is unclear, tell M; that is useful feedback too.</p>
+    <p>Curious about the rest? <a href="/">The Enchantra website</a> and <a href="/almanac">the Almanac</a> are open to everyone.</p>
   </footer>
 
 </div>
