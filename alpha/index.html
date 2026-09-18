@@ -35,27 +35,45 @@
   body {
     margin: 0; background: var(--canvas); color: var(--body);
     font-family: var(--sans); font-size: 15px; line-height: 1.55;
-    padding-inline: 20px; padding-block: 0 80px; -webkit-font-smoothing: antialiased;
+    padding: 0 0 80px; -webkit-font-smoothing: antialiased;
   }
   a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(232,201,138,.35); }
   a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-  .wrap { max-width: 720px; margin: 0 auto; }
-  .brand { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; border-bottom: none; margin-top: 22px; }
-  .brand .mk { width: 26px; height: 26px; flex: none; display: inline-flex; }
-  .brand .nm { font-family: var(--serif); font-size: 19px; letter-spacing: .5px; color: var(--text); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-inline: clamp(18px, 5vw, 40px); }
+  section > *, footer > * { max-width: 760px; }
 
-  .hero { padding-block: 48px 44px; }
-  .moon {
-    width: 64px; height: 64px; border-radius: 50%;
-    background: radial-gradient(circle at 72% 42%, #2e2850 0%, #221d38 55%, #1a1730 100%);
-    border: 1px solid var(--hairline-deep);
-    box-shadow: inset -8px 0 14px -6px rgba(232,201,138,.75), 0 0 32px rgba(232,201,138,.10);
-    margin-bottom: 30px;
+  /* Site navigation, the same bar as the homepage; links point back to it. */
+  nav.site { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) clamp(18px, 5vw, 40px) 14px; background: rgba(14,11,30,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a; }
+  nav.site a { border-bottom: none; }
+  nav.site .brand { display: flex; align-items: center; gap: 7px; }
+  nav.site .brand .mk { width: 26px; height: 26px; flex: none; display: inline-flex; }
+  nav.site .brand .nm { font-family: var(--serif); font-size: 19px; letter-spacing: .5px; color: var(--text); }
+  nav.site .right { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px); }
+  .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px); }
+  .nav-links a { font-size: 14px; color: var(--silver); white-space: nowrap; }
+  .nav-links a:hover, .nav-menu a:hover { color: #f0dcac; }
+  .nav-join { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 999px; background: var(--gold); color: #191529; font-size: 13.5px; font-weight: 600; letter-spacing: .2px; white-space: nowrap; box-shadow: 0 4px 16px rgba(232,201,138,.22); transition: background 200ms ease, transform 160ms ease; }
+  .nav-join:hover { background: #f0dcac; transform: translateY(-1px); }
+  .nav-toggle { display: none; background: none; border: 0; padding: 4px; margin: -4px 0; cursor: pointer; line-height: 0; }
+  .nav-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--canvas); border-bottom: 1px solid #221d3a; box-shadow: 0 12px 24px rgba(0,0,0,.4); padding: 4px clamp(18px,5vw,40px) 14px; }
+  .nav-menu.open { display: flex; }
+  .nav-menu a { font-size: 16px; color: #e6e9f6; padding: 12px 2px; border-top: 1px solid #1c1834; }
+  .nav-menu a:first-child { border-top: 0; }
+  @media (max-width: 859px) {
+    .nav-links, .nav-join { display: none; }
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
   }
+  @media (min-width: 860px) { .nav-menu { display: none; } }
+
+  .hero { padding-block: clamp(40px,6vw,64px) clamp(40px,6vw,64px); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(30px, 5vw, 48px); align-items: center; min-height: 460px; }
+  .hero-text { max-width: 540px; }
+  .stage { position: relative; width: clamp(240px, 74vw, 400px); aspect-ratio: 1 / 1; margin: 0 auto; }
+  @media (max-width: 599px) { .hero { padding-top: 32px; } .stage { order: -1; margin-bottom: 36px; } }
   .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: var(--lilac); margin: 0 0 14px; }
   .eyebrow.gold { color: var(--gold); }
   .eyebrow.sage { color: var(--sage); }
-  h1 { font-family: var(--serif); font-weight: 400; font-size: 34px; line-height: 1.18; color: var(--text); margin: 0 0 18px; text-wrap: balance; }
+  h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 3vw + 16px, 46px); line-height: 1.18; color: var(--text); margin: 0 0 18px; text-wrap: balance; }
   .lede { font-family: var(--serif); font-size: 19px; line-height: 1.5; color: var(--body); margin: 0; max-width: 32em; }
 
   section { padding-block: 40px; border-top: 1px solid var(--hairline); }
@@ -76,24 +94,24 @@
   ul.plain li::before { content: "·"; position: absolute; left: 4px; color: var(--lilac); }
 
   .rhythm { display: grid; gap: 12px; margin: 18px 0 6px; }
-  .rhythm div { border: 1px solid var(--hairline); background: var(--panel); border-radius: 14px; padding: 14px 16px; }
+  .rhythm > div { border: 1px solid var(--hairline); background: var(--panel); border-radius: 14px; padding: 14px 16px; }
   .rhythm .k { font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--lilac); margin-bottom: 4px; }
   .rhythm .v { font-family: var(--serif); font-size: 16.5px; line-height: 1.45; color: var(--text); }
 
   .powers { display: grid; gap: 12px; margin: 18px 0 6px; }
-  .powers div { border: 1px solid rgba(232,201,138,.35); background: var(--panel); border-radius: 14px; padding: 14px 16px; }
+  .powers > div { border: 1px solid rgba(232,201,138,.35); background: var(--panel); border-radius: 14px; padding: 14px 16px; }
   .powers .k { font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
   .powers .v { font-size: 14.5px; color: var(--body); }
 
   .ask { display: grid; gap: 10px; margin: 18px 0 6px; }
-  .ask div { border-left: 2px solid var(--sage-border); padding: 4px 0 4px 16px; font-family: var(--serif); font-size: 17px; line-height: 1.45; color: var(--text); }
+  .ask > div { border-left: 2px solid var(--sage-border); padding: 4px 0 4px 16px; font-family: var(--serif); font-size: 17px; line-height: 1.45; color: var(--text); }
 
   .note { border: 1px solid var(--hairline); background: var(--panel); border-radius: 14px; padding: 16px 18px; margin: 18px 0; font-size: 14px; color: var(--secondary); }
   .note.person { background: var(--sage-panel); border-color: var(--sage-border); color: #aebfb1; font-family: var(--serif); font-size: 16px; font-style: italic; }
 
   dl { margin: 12px 0 0; display: grid; gap: 10px; }
-  dl div { display: grid; grid-template-columns: 150px minmax(0,1fr); gap: 12px; align-items: baseline; }
-  @media (max-width: 480px) { dl div { grid-template-columns: minmax(0,1fr); gap: 2px; } }
+  dl > div { display: grid; grid-template-columns: 150px minmax(0,1fr); gap: 12px; align-items: baseline; }
+  @media (max-width: 480px) { dl > div { grid-template-columns: minmax(0,1fr); gap: 2px; } }
   dt { font-weight: 600; color: var(--text); font-size: 14px; }
   dd { margin: 0; color: var(--body); font-size: 14.5px; }
 
@@ -106,22 +124,65 @@
   .fold::before, .fold::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--hairline), transparent); }
   footer { padding-top: 40px; border-top: 1px solid var(--hairline); color: var(--muted); font-size: 13px; }
   footer p { max-width: none; }
-  @media (prefers-reduced-motion: no-preference) { .moon { animation: breath 4800ms ease-in-out infinite; } }
-  @keyframes breath { 0%,100% { box-shadow: inset -8px 0 14px -6px rgba(232,201,138,.75), 0 0 32px rgba(232,201,138,.10);} 50% { box-shadow: inset -8px 0 14px -6px rgba(232,201,138,.9), 0 0 44px rgba(232,201,138,.18);} }
+  @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.022); } }
+  @keyframes glowpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
+  @keyframes spinslow { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+  @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes floatCardR { 0%,100% { transform: rotate(var(--r)) translateY(0); } 50% { transform: rotate(var(--r)) translateY(-9px); } }
+  @media (prefers-reduced-motion: reduce) { .stage * { animation: none !important; } }
 </style>
 </head>
 <body>
 
+<nav class="site" aria-label="Enchantra website">
+  <a class="brand" href="/" aria-label="Enchantra home"><span class="mk"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;" aria-hidden="true"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span><span class="nm">Enchantra</span></a>
+  <div class="right">
+    <div class="nav-links">
+      <a href="/#cards">Bring your cards</a>
+      <a href="/#how">How it works</a>
+      <a href="/almanac">The Almanac</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/#faq">FAQ</a>
+    </div>
+    <a href="https://cardswekeep.substack.com/subscribe" class="nav-join">Join the waitlist <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#f3efe9" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg></button>
+  </div>
+  <div class="nav-menu" id="navMenu">
+    <a href="/#cards">Bring your cards</a>
+    <a href="/#how">How it works</a>
+    <a href="/almanac">The Almanac</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+  </div>
+</nav>
+
 <div class="wrap">
 
-  <a class="brand" href="/" aria-label="Enchantra home"><span class="mk"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;" aria-hidden="true"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span><span class="nm">Enchantra</span></a>
-
   <header class="hero">
-    <div class="moon" aria-hidden="true"></div>
-    <p class="eyebrow gold">Keepers · the alpha team</p>
-    <h1>You are one of the first few people to hold Enchantra.</h1>
-    <p class="lede">Thank you for doing this. We call our testers Keepers. Enchantra has been made quietly, one moon at a time, and now it is time for others to help shape it. What you notice first will shape what it becomes.</p>
-    <p class="lede" style="margin-top:14px">You don't need to know tarot, and you don't need to have tested an app before. This page tells you everything, in order.</p>
+    <div class="hero-text">
+      <p class="eyebrow gold">Keepers · the alpha team</p>
+      <h1>You are one of the first few people to hold Enchantra.</h1>
+      <p class="lede">Thank you for doing this. We call our testers Keepers. Enchantra has been made quietly, one moon at a time, and now it is time for others to help shape it. What you notice first will shape what it becomes.</p>
+      <p class="lede" style="margin-top:14px">You don't need to know tarot, and you don't need to have tested an app before. This page tells you everything, in order.</p>
+    </div>
+    <!-- moon and cards, the same picture as the homepage hero; everything in %, scales with the box -->
+    <div class="stage" aria-hidden="true">
+      <div style="position: absolute; inset: -5%; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.12), rgba(198,202,226,0.05) 55%, transparent 72%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
+      <div style="position: absolute; left: 50%; top: 50%; width: 84%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; border: 1px dashed rgba(232,201,138,0.16); animation: spinslow 120s linear infinite;">
+        <div style="position: absolute; left: 50%; top: -6px; margin-left: -7px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 62% 42%, #45406e, #221c3c); box-shadow: inset -3px 0 8px rgba(232,201,138,0.5), 0 0 10px rgba(232,201,138,0.2);"></div>
+        <div style="position: absolute; right: -6px; top: 50%; margin-top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 30% 50%, #3a3363, #1a1730); box-shadow: inset 4px 0 7px -1px rgba(198,202,226,0.5);"></div>
+        <div style="position: absolute; left: 50%; bottom: -6px; margin-left: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #2e2850 0 48%, #14112a 52%); border: 1px solid #241f40;"></div>
+        <div style="position: absolute; left: -6px; top: 50%; margin-top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 70% 50%, #3a3363, #1a1730); box-shadow: inset -4px 0 7px -1px rgba(198,202,226,0.5);"></div>
+      </div>
+      <div style="position: absolute; left: 50%; top: 50%; width: 58%; aspect-ratio: 1; transform: translate(-50%,-50%);">
+        <div style="width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle at 63% 41%, #342d5c 0%, #251f40 52%, #191529 100%); border: 1px solid #241f40; box-shadow: inset -30px 0 52px -10px rgba(198,202,226,0.55), inset -16px 0 32px -12px rgba(232,201,138,0.24), 0 0 80px rgba(232,201,138,0.15); animation: breath 4800ms ease-in-out infinite;"></div>
+      </div>
+      <div style="position: absolute; left: 50%; bottom: 6%; width: 0; height: 0;">
+        <div style="--r: -22deg; position: absolute; left: -33%; bottom: -30px; width: 24%; aspect-ratio: 96 / 138; min-width: 74px; transform-origin: 50% 120%; animation: floatCardR 4800ms ease-in-out infinite; border-radius: 12px 12px 4px 12px; background: linear-gradient(160deg, #2c2648, #1c1733); border: 1px solid #4a4270; box-shadow: 0 16px 34px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="30%" style="max-width:16px;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#8f95bd"></path></svg></div>
+        <div style="--r: 22deg; position: absolute; left: 9%; bottom: -30px; width: 24%; aspect-ratio: 96 / 138; min-width: 74px; transform-origin: 50% 120%; animation: floatCardR 4800ms ease-in-out infinite 1s; border-radius: 12px 12px 4px 12px; background: linear-gradient(160deg, #2c2648, #1c1733); border: 1px solid #4a4270; box-shadow: 0 16px 34px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="30%" style="max-width:16px;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#8f95bd"></path></svg></div>
+        <div style="position: absolute; left: -14%; bottom: -14px; z-index: 3; width: 28%; aspect-ratio: 112 / 158; min-width: 88px; animation: floatCard 4800ms ease-in-out infinite 0.5s; border-radius: 14px 14px 4px 14px; background: linear-gradient(160deg, #363058, #1f1937); border: 1px solid #6b5a34; box-shadow: 0 24px 50px rgba(0,0,0,0.55), 0 0 34px rgba(232,201,138,0.26); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="34%" style="max-width:22px;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
+      </div>
+    </div>
   </header>
 
   <section id="what">
@@ -247,6 +308,22 @@
   </footer>
 
 </div>
+
+<script>
+  /* Mobile nav: the menu button opens the dropdown; tapping a link closes it. */
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var menu = document.getElementById('navMenu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function () {
+      var open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) { menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+    });
+  })();
+</script>
 
 </body>
 </html>
