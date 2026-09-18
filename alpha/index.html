@@ -35,12 +35,12 @@
   body {
     margin: 0; background: var(--canvas); color: var(--body);
     font-family: var(--sans); font-size: 15px; line-height: 1.55;
-    padding: 0 0 80px; -webkit-font-smoothing: antialiased;
+    padding: 0; -webkit-font-smoothing: antialiased;
   }
   a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(232,201,138,.35); }
   a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
   .wrap { max-width: 1180px; margin: 0 auto; padding-inline: clamp(18px, 5vw, 40px); }
-  section, footer { max-width: 720px; margin-inline: auto; }
+  section, footer.small { max-width: 720px; margin-inline: auto; }
 
   /* Site navigation, the same bar as the homepage; links point back to it. */
   nav.site { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) clamp(18px, 5vw, 40px) 14px; background: rgba(14,11,30,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a; }
@@ -107,6 +107,8 @@
   .ask > div { border-left: 2px solid var(--sage-border); padding: 4px 0 4px 16px; font-family: var(--serif); font-size: 17px; line-height: 1.45; color: var(--text); }
 
   .note { border: 1px solid var(--hairline); background: var(--panel); border-radius: 14px; padding: 16px 18px; margin: 18px 0; font-size: 14px; color: var(--secondary); }
+  .note.intro { font-family: var(--serif); font-size: 17px; line-height: 1.5; color: var(--text); }
+  .note.intro p { color: var(--text); }
   .note.person { background: var(--sage-panel); border-color: var(--sage-border); color: #aebfb1; font-family: var(--serif); font-size: 16px; font-style: italic; }
 
   dl { margin: 12px 0 0; display: grid; gap: 10px; }
@@ -125,13 +127,40 @@
 
   .fold { display: flex; align-items: center; gap: 14px; margin: 34px 0 10px; color: var(--faint); font-size: 11.5px; letter-spacing: 1.2px; text-transform: uppercase; }
   .fold::before, .fold::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--hairline), transparent); }
-  footer { padding-top: 40px; border-top: 1px solid var(--hairline); color: var(--muted); font-size: 13px; }
+  footer.small { padding-top: 40px; border-top: 1px solid var(--hairline); color: var(--muted); font-size: 13px; }
   @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.022); } }
   @keyframes glowpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
   @keyframes spinslow { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
   @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
   @keyframes floatCardR { 0%,100% { transform: rotate(var(--r)) translateY(0); } 50% { transform: rotate(var(--r)) translateY(-9px); } }
   @media (prefers-reduced-motion: reduce) { .stage * { animation: none !important; } }
+
+  /* Site footer, the same as the homepage and the beta page */
+  footer.site { border-top: 1px solid #1c1834; background: var(--canvas); margin-top: 64px; color: var(--secondary); }
+  footer.site .cols { max-width: 1080px; margin: 0 auto; padding: 48px clamp(18px,5vw,40px) 52px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px; }
+  footer.site .cols > div { display: flex; flex-direction: column; gap: 11px; }
+  footer.site a, footer.site span { font-size: 14px; color: var(--secondary); border-bottom: none; }
+  footer.site a.gold { color: var(--gold); }
+  footer.site .fh { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--faint); margin-bottom: 5px; }
+  footer.site .fbrand { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+  footer.site .fbrand .mk { width: 24px; height: 24px; flex: none; display: inline-flex; }
+  footer.site .fbrand .nm { font-family: var(--serif); font-size: 19px; color: var(--text); }
+  footer.site .tag { font-family: var(--serif); margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); font-style: italic; max-width: 260px; }
+  footer.site .abn { font-size: 12.5px; color: #4e4b64; margin-top: 9px; }
+  footer.site .legal { border-top: 1px solid #1c1834; padding: 22px 40px; text-align: center; font-size: 12.5px; color: #4e4b64; }
+  /* beta page pieces */
+  .care { background: rgba(198,139,150,.10); border: 1px solid rgba(198,139,150,.42); border-radius: 14px; padding: 18px 20px; margin: 18px 0; }
+  .care h3 { margin-top: 0; color: #e0b4bd; }
+  .care p { color: var(--text); } .care p:last-child { margin-bottom: 0; }
+  .cta { background: linear-gradient(180deg, #171233 0%, #141029 100%); border: 1px solid rgba(232,201,138,.34); border-radius: 20px; padding: clamp(26px,5vw,34px); margin: 8px 0 0; text-align: center; }
+  .cta h2 { margin: 0 0 10px; }
+  .cta p { max-width: 460px; margin-left: auto; margin-right: auto; }
+  .btn { display: inline-block; margin: 14px 0 10px; padding: 15px 30px; border-radius: 999px; background: var(--gold); color: #17122b; font-size: 16.5px; font-weight: 650; border-bottom: none; transition: background 200ms ease, transform 160ms ease; }
+  .btn:hover { background: #f0dcac; transform: translateY(-1px); }
+  .cta .fine { font-size: 13.5px; color: var(--faint); margin-bottom: 0; }
+  .pull { font-family: var(--serif); font-style: italic; font-size: clamp(19px,3.2vw,22px); line-height: 1.5; color: var(--text); text-align: center; margin: 40px auto 0; max-width: 520px; }
+  ul.list { margin: 12px 0 0; padding-left: 22px; }
+  ul.list li { margin-bottom: 8px; }
 </style>
 </head>
 <body>
@@ -303,13 +332,44 @@
     <p style="margin-top:14px">If a screen ever looks empty, load a season first; a few screens need a history behind them. If the app ever closes on its own, a crash report reaches us automatically with your writing stripped out, but a note saying what you were doing still helps.</p>
   </section>
 
-  <footer>
+  <footer class="small">
     <div class="fold">the small print</div>
     <p>Nothing on the tester screen exists in the real app. Your own readings in the alpha are real, saved to your account, and yours to delete from the <span class="ui">You</span> tab at any time. Enchantra reflects, it never predicts, and it is not a substitute for care from a person. If anything on this page is unclear, tell M; that is useful feedback too.</p>
     <p>Curious about the rest? <a href="/">The Enchantra website</a> and <a href="/almanac">the Almanac</a> are open to everyone.</p>
   </footer>
 
 </div>
+
+<footer class="site">
+  <div class="cols">
+    <div>
+      <div class="fbrand"><span class="mk"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;" aria-hidden="true"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span><span class="nm">Enchantra</span></div>
+      <p class="tag">The moon keeps time. The meaning is yours.</p>
+      <div class="abn">Enchantra (ABN 87 927 064 532)</div>
+    </div>
+    <div>
+      <div class="fh">Practice</div>
+      <a href="/#practice">The philosophy</a>
+      <a href="/#how">How it works</a>
+      <a href="/almanac/">The Almanac</a>
+      <a href="/#faq">FAQ</a>
+    </div>
+    <div>
+      <div class="fh">The app</div>
+      <a href="/beta/" class="gold">Join the Keepers</a>
+      <span>iPhone · coming soon</span>
+      <span>Android · coming soon</span>
+      <a href="https://cardswekeep.substack.com/subscribe">Join the waitlist</a>
+    </div>
+    <div>
+      <div class="fh">More</div>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="/support/">Support</a>
+    </div>
+  </div>
+  <div class="legal">© 2026 Enchantra · The meaning is always yours.</div>
+</footer>
 
 <script>
   /* Mobile nav: the menu button opens the dropdown; tapping a link closes it. */
