@@ -133,7 +133,6 @@
   footer.small { padding-top: 40px; border-top: 1px solid var(--hairline); color: var(--muted); font-size: 13px; }
   @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.022); } }
   @keyframes glowpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
-  @keyframes spinslow { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
   @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
   @keyframes floatCardR { 0%,100% { transform: rotate(var(--r)) translateY(0); } 50% { transform: rotate(var(--r)) translateY(-9px); } }
   @media (prefers-reduced-motion: reduce) { .stage * { animation: none !important; } }
@@ -144,13 +143,12 @@
   footer.site .cols > div { display: flex; flex-direction: column; gap: 11px; }
   footer.site a, footer.site span { font-size: 14px; color: var(--secondary); border-bottom: none; }
   footer.site a.gold { color: var(--gold); }
-  footer.site .fh { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--faint); margin-bottom: 5px; }
+  footer.site .fh { font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--faint); margin-bottom: 5px; }
   footer.site .fbrand { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
   footer.site .fbrand .mk { width: 24px; height: 24px; flex: none; display: inline-flex; }
   footer.site .fbrand .nm { font-family: var(--serif); font-size: 19px; color: var(--text); }
   footer.site .tag { font-family: var(--serif); margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); font-style: italic; max-width: 260px; }
-  footer.site .abn { font-size: 12.5px; color: #4e4b64; margin-top: 9px; }
-  footer.site .legal { border-top: 1px solid #1c1834; padding: 22px 40px; text-align: center; font-size: 12.5px; color: #4e4b64; }
+  footer.site .abn { font-size: 12.5px; color: #8b8fb2; margin-top: 9px; }
   /* beta page pieces */
   .care { background: rgba(198,139,150,.10); border: 1px solid rgba(198,139,150,.42); border-radius: 14px; padding: 18px 20px; margin: 18px 0; }
   .care h3 { margin-top: 0; color: #e0b4bd; }
@@ -164,6 +162,12 @@
   .pull { font-family: var(--serif); font-style: italic; font-size: clamp(19px,3.2vw,22px); line-height: 1.5; color: var(--text); text-align: center; margin: 40px auto 0; max-width: 520px; }
   ul.list { margin: 12px 0 0; padding-left: 22px; }
   ul.list li { margin-bottom: 8px; }
+</style>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+@font-face { font-family: 'Noto Serif'; font-style: normal; font-weight: 400 500; font-display: swap; src: url("/assets/fonts/noto-serif-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Noto Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url("/assets/fonts/noto-serif-latin-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 </style>
 </head>
 <body>
@@ -201,7 +205,7 @@
     <!-- moon and cards, the same picture as the homepage hero; everything in %, scales with the box -->
     <div class="stage" aria-hidden="true">
       <div style="position: absolute; inset: -5%; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.12), rgba(198,202,226,0.05) 55%, transparent 72%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
-      <div style="position: absolute; left: 50%; top: 50%; width: 84%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; border: 1px dashed rgba(232,201,138,0.16); animation: spinslow 120s linear infinite;">
+      <div style="position: absolute; left: 50%; top: 50%; width: 84%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; border: 1px dashed rgba(232,201,138,0.16);">
         <div style="position: absolute; left: 50%; top: -6px; margin-left: -7px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 62% 42%, #45406e, #221c3c); box-shadow: inset -3px 0 8px rgba(232,201,138,0.5), 0 0 10px rgba(232,201,138,0.2);"></div>
         <div style="position: absolute; right: -6px; top: 50%; margin-top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 30% 50%, #3a3363, #1a1730); box-shadow: inset 4px 0 7px -1px rgba(198,202,226,0.5);"></div>
         <div style="position: absolute; left: 50%; bottom: -6px; margin-left: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #2e2850 0 48%, #14112a 52%); border: 1px solid #241f40;"></div>
@@ -220,7 +224,7 @@
 
   <section id="keepers">
     <div class="note intro">
-      <p>Enchantra has been built quietly for months, and is ready now for real decks, in real hands, across real lunar cycles.</p>
+      <p>Enchantra has been built over months, and is ready now for real decks, in real hands, across real lunar cycles.</p>
       <p style="margin-bottom:0">Keepers are the people who test Enchantra and shape what comes next. You bring the deck you already love, live with the practice, and tell me what breaks and what sings. Every message reaches me directly, and changes what Enchantra becomes. <strong>And in return, Enchantra is always free, as long as you keep reading and sharing what you notice.</strong></p>
     </div>
   </section>
@@ -229,14 +233,14 @@
     <p class="eyebrow gold">What is in it for you</p>
     <h2>Everything is included, always.</h2>
     <p class="read"><strong>Every reading, every tradition, everything included from the first day.</strong> When Enchantra opens to everyone and the subscription begins, your account stays free.</p>
-    <p>You draw from your own deck, just as you always would. Thoth, Rider-Waite-Smith and Marseille are each complete at 78 cards, and decks that grow from those traditions are welcome too. Set an intention at the new moon, return to your cards when you need to, and write down what they stir in you. Over months, patterns emerge.</p>
+    <p>You draw from your own deck, just as you always would. Thoth, Rider–Waite–Smith and Marseille are each complete at 78 cards, and decks that grow from those traditions are welcome too. Set an intention at the new moon, return to your cards when you need to, and write down what they stir in you. Over months, patterns emerge.</p>
     <p>New features reach the Keepers first. What you notice becomes what I build.</p>
   </section>
 
   <section id="keeper">
     <p class="eyebrow">What a Keeper does</p>
     <h2>A Keeper keeps a regular practice, and shares the truth.</h2>
-    <p class="read">A keeper loves tarot, or is tarot curious. You don't have to know tarot to join. You just have to enjoy a regular practice, daily if possible, and keep me informed about what you love, what you like, and what you are unsure of.</p>
+    <p class="read">A keeper loves tarot, or is tarot curious. You don't have to know tarot to join. You have to enjoy a regular practice, daily if possible, and keep me informed about what you love, what you like, and what you are unsure of.</p>
     <p>You give this feedback in the app. Every so often I might send you a question about a new interface, or a new feature to test before it goes public, or ask how new brand and marketing feels.</p>
     <p>You are never locked in. If you need to step away when life asks, that is okay, and you are always welcome to return. Enchantra stays free as long as you are happy to give me feedback and share honestly what will make Enchantra better for you, and ultimately for others.</p>
   </section>
@@ -302,7 +306,7 @@
       <p>If a reading ever lands badly, tell me. There is a way to flag the reading in the app, and the flag comes straight to me. In the app, <strong>Feeling unsteady?</strong> sits at the foot of every screen and opens support lines checked for your region, any time you need them. In an emergency, call your local emergency number. <strong>000</strong> in Australia, <strong>111</strong> in New Zealand.</p>
     </div>
 
-    <p class="pull">You draw the cards. Enchantra keeps the thread. The meaning is always yours to make.</p>
+    <p class="pull">You draw the cards. Enchantra keeps the thread.</p>
   </section>
 
 </div>
@@ -311,7 +315,7 @@
   <div class="cols">
     <div>
       <div class="fbrand"><span class="mk"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;" aria-hidden="true"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span><span class="nm">Enchantra</span></div>
-      <p class="tag">The moon keeps time. The meaning is yours.</p>
+      <!-- Footer line: the replacement comes from the next brand board -->
       <div class="abn">Enchantra (ABN 87 927 064 532)</div>
     </div>
     <div>
@@ -335,7 +339,6 @@
       <a href="/support/">Support</a>
     </div>
   </div>
-  <div class="legal">© 2026 Enchantra · The meaning is always yours.</div>
 </footer>
 
 <script>

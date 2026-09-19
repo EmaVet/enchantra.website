@@ -130,7 +130,6 @@
   footer.small { padding-top: 40px; border-top: 1px solid var(--hairline); color: var(--muted); font-size: 13px; }
   @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.022); } }
   @keyframes glowpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
-  @keyframes spinslow { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
   @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
   @keyframes floatCardR { 0%,100% { transform: rotate(var(--r)) translateY(0); } 50% { transform: rotate(var(--r)) translateY(-9px); } }
   @media (prefers-reduced-motion: reduce) { .stage * { animation: none !important; } }
@@ -141,13 +140,12 @@
   footer.site .cols > div { display: flex; flex-direction: column; gap: 11px; }
   footer.site a, footer.site span { font-size: 14px; color: var(--secondary); border-bottom: none; }
   footer.site a.gold { color: var(--gold); }
-  footer.site .fh { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--faint); margin-bottom: 5px; }
+  footer.site .fh { font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--faint); margin-bottom: 5px; }
   footer.site .fbrand { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
   footer.site .fbrand .mk { width: 24px; height: 24px; flex: none; display: inline-flex; }
   footer.site .fbrand .nm { font-family: var(--serif); font-size: 19px; color: var(--text); }
   footer.site .tag { font-family: var(--serif); margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); font-style: italic; max-width: 260px; }
-  footer.site .abn { font-size: 12.5px; color: #4e4b64; margin-top: 9px; }
-  footer.site .legal { border-top: 1px solid #1c1834; padding: 22px 40px; text-align: center; font-size: 12.5px; color: #4e4b64; }
+  footer.site .abn { font-size: 12.5px; color: #8b8fb2; margin-top: 9px; }
   /* beta page pieces */
   .care { background: rgba(198,139,150,.10); border: 1px solid rgba(198,139,150,.42); border-radius: 14px; padding: 18px 20px; margin: 18px 0; }
   .care h3 { margin-top: 0; color: #e0b4bd; }
@@ -161,6 +159,12 @@
   .pull { font-family: var(--serif); font-style: italic; font-size: clamp(19px,3.2vw,22px); line-height: 1.5; color: var(--text); text-align: center; margin: 40px auto 0; max-width: 520px; }
   ul.list { margin: 12px 0 0; padding-left: 22px; }
   ul.list li { margin-bottom: 8px; }
+</style>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+@font-face { font-family: 'Noto Serif'; font-style: normal; font-weight: 400 500; font-display: swap; src: url("/assets/fonts/noto-serif-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Noto Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url("/assets/fonts/noto-serif-latin-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 </style>
 </head>
 <body>
@@ -199,7 +203,7 @@
     <!-- moon and cards, the same picture as the homepage hero; everything in %, scales with the box -->
     <div class="stage" aria-hidden="true">
       <div style="position: absolute; inset: -5%; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.12), rgba(198,202,226,0.05) 55%, transparent 72%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
-      <div style="position: absolute; left: 50%; top: 50%; width: 84%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; border: 1px dashed rgba(232,201,138,0.16); animation: spinslow 120s linear infinite;">
+      <div style="position: absolute; left: 50%; top: 50%; width: 84%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; border: 1px dashed rgba(232,201,138,0.16);">
         <div style="position: absolute; left: 50%; top: -6px; margin-left: -7px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 62% 42%, #45406e, #221c3c); box-shadow: inset -3px 0 8px rgba(232,201,138,0.5), 0 0 10px rgba(232,201,138,0.2);"></div>
         <div style="position: absolute; right: -6px; top: 50%; margin-top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 30% 50%, #3a3363, #1a1730); box-shadow: inset 4px 0 7px -1px rgba(198,202,226,0.5);"></div>
         <div style="position: absolute; left: 50%; bottom: -6px; margin-left: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #2e2850 0 48%, #14112a 52%); border: 1px solid #241f40;"></div>
@@ -220,10 +224,10 @@
     <p class="eyebrow">What Enchantra is</p>
     <h2>A daily practice, kept in lunar cycles.</h2>
     <p class="read">You pull real cards from your own tarot deck. Enchantra reads with you, in the way your particular deck is meant to be read, and remembers. It reflects; it never predicts.</p>
-    <p>The app keeps time by the moon. A lunar cycle runs from one New Moon to the next, about a month, with the Full Moon halfway through.</p>
+    <p>The app keeps time by the moon. A lunar cycle runs from one New Moon to the next, about twenty-nine days, with the Full Moon halfway through.</p>
     <div class="rhythm">
       <div><div class="k">Every day</div><div class="v">One card. A short reading, and a deeper one if you want it.</div></div>
-      <div><div class="k">New Moon</div><div class="v">Three cards to open the cycle, and an intention, something you want to hold in mind, for the month ahead.</div></div>
+      <div><div class="k">New Moon</div><div class="v">Three cards to open the cycle, and an intention, something you want to hold in mind, for the cycle ahead.</div></div>
       <div><div class="k">Full Moon</div><div class="v">A three card check-in, to see how the intention is going.</div></div>
       <div><div class="k">Before the next New Moon</div><div class="v">Enchantra gathers your readings, your journal and your echoes, and gives you a reflection on the cycle you are closing, before you set the next intention. We call that reflection the cycle close.</div></div>
     </div>
@@ -238,7 +242,7 @@
     <h2>You get to move through the app like nobody else will.</h2>
     <p class="read">An alpha is the first, unfinished version of an app, given to a few people to try before anyone else. Enchantra follows the real moon, so once it is released, everyone meets it one day at a time: a card today, the Full Moon in a fortnight, the close of the cycle a fortnight after that. You don't have to wait. Your copy of the app has a small <span class="ui">tester</span> button at the top right of every screen, and behind it, three powers.</p>
     <div class="powers">
-      <div><div class="k">Load a season</div><div class="v">Drop months of history into your app in one tap, as if you had been using it since April, so you can see what Enchantra does once it knows you.</div></div>
+      <div><div class="k">Load a season</div><div class="v">Drop cycles of history into your app in one tap, as if you had been using it since April, so you can see what Enchantra does once it knows you.</div></div>
       <div><div class="k">Move the clock</div><div class="v"><span class="ui">+1 day</span> and <span class="ui">+7 days</span> move the whole app forward. Draw several days' cards in one sitting, reach the Full Moon this afternoon, close a cycle tonight.</div></div>
       <div><div class="k">Go anywhere</div><div class="v">Jump straight to any part of the app, whatever the moon says.</div></div>
     </div>
@@ -287,12 +291,12 @@
     <h2>Twenty minutes to begin, the rest whenever you like.</h2>
     <p>The first three steps take about twenty minutes and show you most of what Enchantra is; longer if tarot is new to you, and that is fine. There is no wrong way to do this. The other three steps can wait for another evening, or for the moon itself. Everything below starts from the <span class="ui">tester</span> button at the top right. The tester screen has three parts: <strong>the clock</strong>, <strong>load a season</strong>, and <strong>go to</strong>.</p>
     <ol class="steps">
-      <li>Under <span class="ui">load a season</span>, load <span class="ui">Five cycles, Tarot de Marseille</span>. Five months of one person's practice appear, drawn with a deck called the Tarot de Marseille. You don't need to own that deck; the app switches to it so the history makes sense.</li>
+      <li>Under <span class="ui">load a season</span>, load <span class="ui">Five cycles, Tarot de Marseille</span>. Five cycles of one person's practice appear, drawn with a deck called the Tarot de Marseille. You don't need to own that deck; the app switches to it so the history makes sense.</li>
       <li>Look at <span class="ui">Moon home</span>. Then <span class="ui">Patterns</span>: tap a day on the ring, the circle of days, and tap <span class="ui">again today</span> on an echo. Then <span class="ui">Your moons</span>, and open the cycle close of a finished cycle, the reflection Enchantra wrote at its end. This is what Enchantra becomes once it knows you.</li>
       <li>Under <span class="ui">go to</span>, tap <span class="ui">Daily draw</span>. Draw a real card from your own deck and read it. At the bottom of the reading there is a box to ask Enchantra a question about the card; try it. That is a good place to stop for the first sitting.</li>
       <li><span class="ui">Full Moon draw</span>: make the check-in with three real cards.</li>
       <li><span class="ui">New Moon: close and begin</span>: watch the cycle close (Enchantra writes this one, so give it a moment), then set an intention for the next.</li>
-      <li>Load <span class="ui">One cycle, Rider-Waite-Smith</span> (another deck, the most common one) and do the same, to see it with a thinner history: this is what someone sees in their first month.</li>
+      <li>Load <span class="ui">One cycle, Rider–Waite–Smith</span> (another deck, the most common one) and do the same, to see it with a thinner history: this is what someone sees in their first cycle.</li>
     </ol>
     <p style="margin-top:16px">Two things to know. Loading a season replaces whatever is in the app, and any cards you draw afterwards join that season's story. And the clock lives only while the app is open; close it fully and it returns to real time, so just load the season again.</p>
 
@@ -304,7 +308,7 @@
       <dl>
         <div><dt>Moon home, Journal, Patterns, Echoes, You</dt><dd>The five tabs at the bottom of the app.</dd></div>
         <div><dt>Daily draw</dt><dd>Today's card. If today's card is already drawn, the clock moves one day on first.</dd></div>
-        <div><dt>Full Moon draw</dt><dd>The three card check-in. If the season already has this month's, the button takes it back out so you can make it yourself; if the Full Moon hasn't come, the clock moves to it.</dd></div>
+        <div><dt>Full Moon draw</dt><dd>The three card check-in. If the season already has this cycle's, the button takes it back out so you can make it yourself; if the Full Moon hasn't come, the clock moves to it.</dd></div>
         <div><dt>New Moon: close and begin</dt><dd>The end of a cycle and the start of the next. The clock moves to the New Moon if needed.</dd></div>
         <div><dt>A reading</dt><dd>Opens a saved reading from the season, so you can try <span class="ui">keep an eye on this</span> under a card.</dd></div>
         <div><dt>The cycle close</dt><dd>The close of the most recent finished cycle.</dd></div>
@@ -344,7 +348,7 @@
   <div class="cols">
     <div>
       <div class="fbrand"><span class="mk"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;" aria-hidden="true"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span><span class="nm">Enchantra</span></div>
-      <p class="tag">The moon keeps time. The meaning is yours.</p>
+      <!-- Footer line: the replacement comes from the next brand board -->
       <div class="abn">Enchantra (ABN 87 927 064 532)</div>
     </div>
     <div>
@@ -368,7 +372,6 @@
       <a href="/support/">Support</a>
     </div>
   </div>
-  <div class="legal">© 2026 Enchantra · The meaning is always yours.</div>
 </footer>
 
 <script>
