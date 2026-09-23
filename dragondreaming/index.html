@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You've met M · Enchantra</title>
+<meta name="description" content="Enchantra is a tarot reflection and journaling app for iPhone and Android. You met M at Dragon Dreaming. Join the waitlist, or ask to be a Keeper.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="You've met M · Enchantra">
+<meta property="og:description" content="Enchantra is a tarot reflection and journaling app for iPhone and Android.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://enchantratarot.com/dragondreaming/">
+<style>
+:root{
+  --canvas:#0e0b1e; --screen:#15122a; --panel:#1a1730; --panel-alt:#181528;
+  --hairline:#2c284c; --hairline-deep:#241f40;
+  --text:#f3efe9; --body:#cdd1e6; --secondary:#9aa0c2; --muted:#8b8fb2; --faint:#6f6c86;
+  --gold:#e8c98a; --gold-pale:#f7ecc9; --sage:#a4c2ab; --lilac:#9a8fc0; --silver:#c6cae2;
+  --serif:"Iowan Old Style", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, "Noto Serif", serif;
+  --sans:-apple-system, "SF Pro Text", "Helvetica Neue", system-ui, Roboto, sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans);
+  font-size:15px;line-height:1.55;padding:0;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+p a{color:var(--gold);border-bottom:1px solid rgba(232,201,138,.35)}
+p a:hover{color:var(--gold-pale)}
+
+nav.site{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  gap:12px;padding:calc(14px + env(safe-area-inset-top)) clamp(18px,5vw,40px) 14px;
+  background:rgba(14,11,30,.72);backdrop-filter:blur(14px);border-bottom:1px solid #221d3a}
+nav.site .brand{display:flex;align-items:center;gap:7px}
+nav.site .brand .mk{width:26px;height:26px;flex:0 0 auto;display:inline-flex}
+nav.site .brand .nm{font-family:var(--serif);font-size:19px;letter-spacing:.5px;color:var(--text)}
+nav.site .right{display:flex;align-items:center;gap:clamp(16px,2.4vw,28px)}
+.nav-links{display:flex;align-items:center;gap:clamp(16px,2.4vw,28px)}
+.nav-links a{font-size:14px;color:var(--silver);white-space:nowrap}
+.nav-links a:hover,.nav-join:hover{color:#f0dcac}
+.nav-join{font-size:14px;color:var(--gold);white-space:nowrap}
+@media (max-width:859px){.nav-links{display:none}}
+
+.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(18px,5vw,40px)}
+section{max-width:720px;margin-inline:auto}
+.hero{padding:clamp(48px,9vw,84px) 0 8px}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--lilac);margin:0 0 14px}
+.eyebrow.gold{color:var(--gold)}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,16px + 3vw,46px);line-height:1.18;
+  color:var(--text);margin:0 0 18px;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.25;color:var(--text);
+  margin:0 0 16px;text-wrap:balance}
+.lede{font-family:var(--serif);font-size:19px;line-height:1.5;color:var(--body);margin:0}
+.block{padding:clamp(30px,5vw,44px) 0}
+.block p{margin:0 0 14px}
+.block p:last-child{margin-bottom:0}
+
+.status{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--hairline);
+  border-radius:16px;background:var(--panel-alt);padding:18px 20px;margin:4px 0 0}
+.status .sp{flex:0 0 auto;width:15px;height:15px;margin-top:3px}
+.status p{margin:0;color:var(--body)}
+
+.cta{background:linear-gradient(#171233 0%,#141029 100%);border:1px solid rgba(232,201,138,.34);
+  border-radius:20px;padding:clamp(26px,5vw,34px);margin:8px 0 0;text-align:center}
+.cta h2{margin:0 0 10px}
+.cta p{max-width:460px;margin-left:auto;margin-right:auto}
+.btn{display:inline-block;margin:14px 0 10px;padding:15px 30px;border-radius:999px;
+  background:var(--gold);color:#17122b;font-size:16.5px;font-weight:650;border-bottom:none;
+  transition:background .2s,transform .16s}
+.btn:hover{background:#f0dcac;transform:translateY(-1px)}
+.cta .fine{font-size:13.5px;color:var(--faint);margin-bottom:0}
+
+.second{border:1px solid var(--hairline);border-radius:20px;background:var(--panel-alt);
+  padding:clamp(26px,5vw,34px);margin:18px 0 0;text-align:center}
+.second h2{font-size:23px}
+.second .mail{display:inline-block;margin:12px 0 8px;font-family:var(--serif);font-size:18px;
+  color:var(--gold);border-bottom:1px solid rgba(232,201,138,.4);padding-bottom:2px}
+.second .mail:hover{color:var(--gold-pale)}
+.second .fine{font-size:13.5px;color:var(--faint);margin:6px 0 0}
+
+footer.small{max-width:720px;margin:0 auto;padding:40px 0 56px;margin-top:40px;
+  border-top:1px solid var(--hairline);color:var(--muted);font-size:13px}
+footer.small .fbrand{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+footer.small .fbrand .mk{width:22px;height:22px;flex:0 0 auto;display:inline-flex}
+footer.small .fbrand .nm{font-family:var(--serif);font-size:18px;color:var(--text)}
+footer.small .links{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px}
+footer.small a{color:var(--secondary)}
+footer.small a:hover{color:#f0dcac}
+</style>
+</head>
+<body>
+
+<nav class="site" aria-label="Enchantra website">
+  <a class="brand" href="/" aria-label="Enchantra home">
+    <span class="mk"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;overflow:visible" aria-hidden="true"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span>
+    <span class="nm">Enchantra</span>
+  </a>
+  <div class="right">
+    <div class="nav-links">
+      <a href="/#cards">Bring your cards</a>
+      <a href="/#how">How it works</a>
+      <a href="/almanac">The Almanac</a>
+      <a href="/#faq">FAQ</a>
+    </div>
+    <a class="nav-join" href="https://cardswekeep.substack.com/subscribe">Join the waitlist</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section class="hero">
+    <p class="eyebrow gold">Dragon Dreaming</p>
+    <h1>You've met M.</h1>
+    <p class="lede">Our founder and Chief Enchantment Officer was at Dragon Dreaming, handing out
+      little tarot cards. If you're holding one, you found us early.</p>
+  </section>
+
+  <section class="block">
+    <p>Enchantra is a tarot reflection and journaling app for iPhone and Android. You draw from your
+      own deck. Enchantra helps you interpret each card and remembers every reading, one day and one
+      lunar cycle at a time.</p>
+    <p>The question on your card is a good first entry. Keep the card.</p>
+
+    <div class="status">
+      <svg class="sp" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg>
+      <p>Enchantra is in alpha right now. Beta opens very soon, and we'd love you in it.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="cta">
+      <h2>Join the waitlist.</h2>
+      <p>We'll write when beta opens. No spam, no countdowns.</p>
+      <a class="btn" href="https://cardswekeep.substack.com/subscribe">Join the waitlist</a>
+      <p class="fine">You'll also get Cards We Keep, M's letter about tarot and building this thing.</p>
+    </div>
+
+    <div class="second">
+      <h2>Or come in properly, as a Keeper.</h2>
+      <p>The Keepers are the people testing Enchantra now. You bring your own deck and a lunar cycle
+        of real use, and you keep Enchantra free for good. Email M and say you met her at
+        Dragon&nbsp;Dreaming.</p>
+      <a class="mail" href="mailto:keeper@enchantratarot.com?subject=Met%20at%20Dragon%20Dreaming%2C%20want%20to%20be%20a%20beta%20tester">keeper@enchantratarot.com</a>
+      <p class="fine">The subject line is already written for you. <a href="/beta/" style="color:var(--gold)">Read what a Keeper does first.</a></p>
+    </div>
+  </section>
+
+  <footer class="small">
+    <div class="fbrand">
+      <span class="mk"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;overflow:visible" aria-hidden="true"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span>
+      <span class="nm">Enchantra</span>
+    </div>
+    <p style="margin:0">Your tarot practice, remembered.</p>
+    <div class="links">
+      <a href="/">Home</a>
+      <a href="/beta/">Join the Keepers</a>
+      <a href="/almanac">The Almanac</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
