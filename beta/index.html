@@ -46,7 +46,7 @@
   section, footer.small { max-width: 720px; margin-inline: auto; }
 
   /* Site navigation, the same bar as the homepage; links point back to it. */
-  nav.site { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) clamp(18px, 5vw, 40px) 14px; background: rgba(14,11,30,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a; }
+  nav.site { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) max(clamp(18px, 5vw, 40px), calc((100% - 1180px) / 2 + clamp(18px, 5vw, 40px))) 14px; background: rgba(14,11,30,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a; }
   nav.site a { border-bottom: none; }
   nav.site .brand { display: flex; align-items: center; gap: 7px; }
   nav.site .brand .mk { width: 26px; height: 26px; flex: none; display: inline-flex; }
@@ -139,7 +139,7 @@
 
   /* Site footer, the same as the homepage and the beta page */
   footer.site { border-top: 1px solid #1c1834; background: var(--canvas); margin-top: 64px; color: var(--secondary); }
-  footer.site .cols { max-width: 1080px; margin: 0 auto; padding: 48px clamp(18px,5vw,40px) 52px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px; }
+  footer.site .cols { max-width: 1180px; margin: 0 auto; padding: 48px clamp(18px,5vw,40px) 52px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px; }
   footer.site .cols > div { display: flex; flex-direction: column; gap: 11px; }
   footer.site a, footer.site span { font-size: 14px; color: var(--secondary); border-bottom: none; }
   footer.site a.gold { color: var(--gold); }
@@ -169,6 +169,24 @@
 <style>
 @font-face { font-family: 'Noto Serif'; font-style: normal; font-weight: 400 500; font-display: swap; src: url("/assets/fonts/noto-serif-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: 'Noto Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url("/assets/fonts/noto-serif-latin-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+</style>
+<style id="site-layout">
+html, body { overflow-x: clip; }
+/* Hero: stacked on phones and tablets, side by side from 900px */
+.hero { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 900px) { .hero { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
+.stage { max-width: 100%; }
+
+/* Site layout: one container and one left edge on every page, fluid down to phone width. */
+:root { --page-max: 1180px; --gutter: clamp(18px, 5vw, 40px); --measure: 760px; }
+section, footer.small { max-width: none; margin-inline: 0; }
+section > p, section > h2, section > h3, section > ul, section > dl, .note, .care { max-width: var(--measure); }
+.pull { margin-inline: auto; }
+/* Card grids: 1 column on phones, then even rows */
+.powers, .rhythm { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 600px) { .rhythm { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 760px) { .powers { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .rhythm { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 </style>
 </head>
 <body>

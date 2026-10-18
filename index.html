@@ -267,13 +267,19 @@
 @font-face { font-family: 'Noto Serif'; font-style: normal; font-weight: 400 500; font-display: swap; src: url("/assets/fonts/noto-serif-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: 'Noto Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url("/assets/fonts/noto-serif-latin-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 </style>
+<style id="site-layout">
+html, body { overflow-x: clip; }
+
+/* Site layout: one container and one left edge on every page, fluid down to phone width. */
+:root { --page-max: 1180px; --gutter: clamp(18px, 5vw, 40px); --measure: 760px; }
+</style>
 </head>
 <body>
 
 <div style="min-height: 100vh; background: #0e0b1e; color: #cdd1e6; font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden;">
 
   <!-- ═══════════ NAV — minimal, safe-area aware ═══════════ -->
-  <nav style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) clamp(18px, 5vw, 40px) 14px; background: rgba(14,11,30,0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a;">
+  <nav style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) max(clamp(18px, 5vw, 40px), calc((100% - 1180px) / 2 + clamp(18px, 5vw, 40px))) 14px; background: rgba(14,11,30,0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a;">
     <a href="#top" style="display: flex; align-items: center; gap: 7px; text-decoration: none;">
       <span style="width: 26px; height: 26px; flex: none; display: inline-flex;">
         <svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;">
@@ -371,7 +377,7 @@
 
   <!-- ═══════════ TRUST STRIP ═══════════ -->
   <div style="border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834; background: #100d22;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: 20px clamp(18px,5vw,40px); display: flex; align-items: center; justify-content: center; gap: clamp(14px,3vw,40px); flex-wrap: wrap; font-size: 13px; color: #e8c98a; text-align: center;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 20px clamp(18px,5vw,40px); display: flex; align-items: center; justify-content: center; gap: clamp(14px,3vw,40px); flex-wrap: wrap; font-size: 13px; color: #e8c98a; text-align: center;">
       <span>Use your own tarot deck</span>
       <span style="color: #2c284c;">·</span>
       <span>Interpreted in your tradition</span>
@@ -384,7 +390,7 @@
 
   <!-- ═══════════ THE CARDS ARE YOURS ═══════════ -->
   <section id="cards" style="background: #100d22; border-bottom: 1px solid #1c1834;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(64px,9vw,108px) clamp(18px,5vw,40px);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(64px,9vw,108px) clamp(18px,5vw,40px);">
 
       <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(36px,5vw,60px); align-items: center;">
         <div style="display: flex; justify-content: center;">
@@ -423,7 +429,7 @@
 
   <!-- ═══════════ HOW IT WORKS — card grid ═══════════ -->
   <section id="how" style="background: #100d22; border-bottom: 1px solid #1c1834;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px);">
       <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; text-align: center; margin-bottom: clamp(36px,5vw,56px);">
         <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">How it works</div>
         <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: clamp(28px,2.6vw+16px,40px); line-height: 1.15; color: #f3efe9; max-width: 620px; text-wrap: balance;">From a single reading to patterns that unfold over time.</h2>
@@ -468,7 +474,7 @@
   </section>
 
   <!-- ═══════════ TRADITIONS ═══════════ -->
-  <section class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1080px; margin: 0 auto; padding: clamp(64px,9vw,96px) clamp(18px,5vw,40px);">
+  <section class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1180px; margin: 0 auto; padding: clamp(64px,9vw,96px) clamp(18px,5vw,40px);">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(36px,5vw,56px); align-items: center;">
       <div>
         <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">Traditions</div>
@@ -499,7 +505,7 @@
     <div style="position: absolute; top: 24%; left: 90%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; animation: twinkle 6.5s ease-in-out infinite 1s;"></div>
     <div style="position: absolute; top: 80%; left: 6%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 5.8s ease-in-out infinite 1.7s;"></div>
     <div style="position: absolute; top: 12%; left: 62%; width: 3px; height: 3px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 6px rgba(232,201,138,0.7); animation: twinkle 4.5s ease-in-out infinite 0.3s;"></div>
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(60px,8vw,84px) clamp(18px,5vw,40px) clamp(72px,9vw,108px); position: relative;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(60px,8vw,84px) clamp(18px,5vw,40px) clamp(72px,9vw,108px); position: relative;">
       <div style="text-align: center; margin-bottom: clamp(40px,6vw,64px);">
         <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">From one cycle to many</div>
         <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: clamp(30px,3vw+16px,44px); line-height: 1.18; color: #f3efe9; max-width: 640px; text-wrap: balance;">Every reading becomes part of your story.</h2>
@@ -585,7 +591,7 @@
   </section>
 
   <!-- ═══════════ FEATURES ═══════════ -->
-  <section class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1080px; margin: 0 auto; padding: clamp(72px,10vw,116px) clamp(18px,5vw,40px);">
+  <section class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1180px; margin: 0 auto; padding: clamp(72px,10vw,116px) clamp(18px,5vw,40px);">
     <div style="text-align: center; margin-bottom: clamp(40px,6vw,56px);">
       <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 20px;">Inside Enchantra</div>
       <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: clamp(28px,2.6vw+16px,40px); line-height: 1.2; color: #f3efe9; max-width: 600px; text-wrap: balance;">Everything your practice needs, in one place.</h2>
@@ -645,7 +651,7 @@
 
   <!-- ═══════════ ALMANAC ═══════════ -->
   <section id="almanac" style="background: #100d22; border-bottom: 1px solid #1c1834;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px);">
       <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: clamp(36px,5vw,46px);">
         <div style="max-width: 560px;">
           <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 14px;">The Almanac</div>
@@ -756,7 +762,7 @@
 
   <!-- ═══════════ FOOTER ═══════════ -->
   <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(48px,6vw,54px) clamp(18px,5vw,40px) clamp(52px,7vw,60px); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(48px,6vw,54px) clamp(18px,5vw,40px) clamp(52px,7vw,60px); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
       <div style="min-width: 200px;">
         <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 16px;">
           <span style="width: 24px; height: 24px; flex: none; display: inline-flex;">

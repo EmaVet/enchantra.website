@@ -33,10 +33,69 @@
 @font-face { font-family: 'Noto Serif'; font-style: normal; font-weight: 400 500; font-display: swap; src: url("/assets/fonts/noto-serif-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: 'Noto Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url("/assets/fonts/noto-serif-latin-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 </style>
+<style id="site-layout">
+html, body { overflow-x: clip; }
+:root { --canvas: #0e0b1e; --text: #f3efe9; --silver: #c6cae2; --gold: #e8c98a;
+  --serif: "Iowan Old Style", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, "Noto Serif", serif; }
+/* Site navigation, the same bar as the homepage; links point back to it. */
+  nav.site { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) max(clamp(18px, 5vw, 40px), calc((100% - 1180px) / 2 + clamp(18px, 5vw, 40px))) 14px; background: rgba(14,11,30,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a; }
+  nav.site a { border-bottom: none; }
+  nav.site .brand { display: flex; align-items: center; gap: 7px; }
+  nav.site .brand .mk { width: 26px; height: 26px; flex: none; display: inline-flex; }
+  nav.site .brand .nm { font-family: var(--serif); font-size: 19px; letter-spacing: .5px; color: var(--text); }
+  nav.site .right { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px); }
+  .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px); }
+  .nav-links a { font-size: 14px; color: var(--silver); white-space: nowrap; }
+  .nav-links a:hover, .nav-menu a:hover { color: #f0dcac; }
+  .nav-join { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 999px; background: var(--gold); color: #191529; font-size: 13.5px; font-weight: 600; letter-spacing: .2px; white-space: nowrap; box-shadow: 0 4px 16px rgba(232,201,138,.22); transition: background 200ms ease, transform 160ms ease; }
+  .nav-join:hover { background: #f0dcac; transform: translateY(-1px); }
+  .nav-toggle { display: none; background: none; border: 0; padding: 4px; margin: -4px 0; cursor: pointer; line-height: 0; }
+  .nav-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+  .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--canvas); border-bottom: 1px solid #221d3a; box-shadow: 0 12px 24px rgba(0,0,0,.4); padding: 4px clamp(18px,5vw,40px) 14px; }
+  .nav-menu.open { display: flex; }
+  .nav-menu a { font-size: 16px; color: #e6e9f6; padding: 12px 2px; border-top: 1px solid #1c1834; }
+  .nav-menu a:first-child { border-top: 0; }
+  @media (max-width: 859px) {
+    .nav-links, .nav-join { display: none; }
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  }
+  @media (min-width: 860px) { .nav-menu { display: none; } }
+nav.site .brand { margin: 0; text-decoration: none; }
+nav.site a { text-decoration: none; }
+/* Headings match the rest of the site */
+.wrap h1 { font-weight: 400; }
+.wrap h2 { font-weight: 400; color: var(--text); }
+.wrap h3 { font-weight: 600; }
+
+/* Site layout: one container and one left edge on every page, fluid down to phone width. */
+:root { --page-max: 1180px; --gutter: clamp(18px, 5vw, 40px); --measure: 760px; }
+.wrap { max-width: var(--page-max); padding-inline: var(--gutter); }
+.wrap > p, .wrap > h2, .wrap > h3, .wrap > ul, .wrap > ol, .wrap > table, .wrap > div, .lede, .care { max-width: var(--measure); }
+</style>
 </head>
 <body>
+<nav class="site" aria-label="Enchantra website">
+  <a class="brand" href="/" aria-label="Enchantra home"><span class="mk"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;" aria-hidden="true"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span><span class="nm">Enchantra</span></a>
+  <div class="right">
+    <div class="nav-links">
+      <a href="/#cards">Bring your cards</a>
+      <a href="/#how">How it works</a>
+      <a href="/almanac">The Almanac</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/#faq">FAQ</a>
+    </div>
+    <a href="https://cardswekeep.substack.com/subscribe" class="nav-join">Join the waitlist <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#f3efe9" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg></button>
+  </div>
+  <div class="nav-menu" id="navMenu">
+    <a href="/#cards">Bring your cards</a>
+    <a href="/#how">How it works</a>
+    <a href="/almanac">The Almanac</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/#faq">FAQ</a>
+  </div>
+</nav>
 <div class="wrap">
-  <a class="brand" href="/"><span class="mk"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span><span class="nm">Enchantra</span></a>
 
   <h1>Keeper Terms</h1>
   <p class="stand">For readers I have invited to keep with Enchantra. Last updated 22 August 2026 · Emily Shurey trading as Enchantra, ABN 87 927 064 532</p>
@@ -80,5 +139,60 @@
 
   <p class="foot">Questions about any of this go to <a href="mailto:keeper@enchantratarot.com">keeper@enchantratarot.com</a>, and a person will answer. That person is me.</p>
 </div>
+  <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 48px clamp(18px,5vw,40px) 52px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
+      <div style="min-width: 200px;">
+        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 16px;">
+          <span style="width: 24px; height: 24px; flex: none; display: inline-flex;"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span>
+          <span class="en-serif" style="font-size: 19px; color: #f3efe9;">Enchantra</span>
+        </div>
+        <!-- Footer line: the replacement comes from the next brand board -->
+        <div style="font-size: 12.5px; color: #8b8fb2; margin-top: 20px;">Enchantra (ABN 87 927 064 532)</div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">Practice</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="/#practice" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The philosophy</a>
+          <a href="/#how" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">How it works</a>
+          <a href="/almanac/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The Almanac</a>
+          <a href="/#faq" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">FAQ</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">The app</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="/beta/" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the Keepers</a>
+          <span style="font-size: 14px; color: #9aa0c2;">iPhone · coming soon</span>
+          <span style="font-size: 14px; color: #9aa0c2;">Android · coming soon</span>
+          <a href="https://cardswekeep.substack.com/subscribe" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the waitlist</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">More</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="/privacy/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Privacy</a>
+          <a href="/terms/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Terms</a>
+          <a href="/support/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Support</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="border-top: 1px solid #1c1834; padding: 22px 40px; text-align: center; font-size: 12.5px; color: #8b8fb2;">© 2026 Enchantra · Tarot reading and journaling app.</div>
+  </footer>
+<script>
+  /* Mobile nav: the menu button opens the dropdown; tapping a link closes it. */
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var menu = document.getElementById('navMenu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function () {
+      var open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) { menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+    });
+  })();
+</script>
 </body>
 </html>
