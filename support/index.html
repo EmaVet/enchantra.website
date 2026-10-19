@@ -80,6 +80,25 @@ nav.site a { text-decoration: none; }
 .wrap { max-width: var(--page-max); padding-inline: var(--gutter); }
 .wrap > p, .wrap > h2, .wrap > h3, .wrap > ul, .wrap > ol, .wrap > table, .wrap > div, .lede, .care { max-width: var(--measure); }
 </style>
+<style id="design-pass">
+/* Design pass: editorial two-column layout on desktop, single column on phones. */
+
+.doc-head { margin-bottom: 8px; }
+.wrap > .doc, .wrap > .doc-head { max-width: none; }
+.doc { display: block; }
+.toc { display: none; }
+@media (min-width: 1024px) {
+  .doc { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; }
+  .toc { display: block; position: sticky; top: 96px; padding: 4px 0; }
+  .toc .k { font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #9a8fc0; margin: 0 0 14px; }
+  .toc a { display: block; font-size: 14.5px; line-height: 1.4; color: #9aa0c2; text-decoration: none; padding: 7px 0 7px 14px; border-left: 2px solid #2c284c; }
+  .toc a:hover { color: #f0dcac; border-left-color: #e8c98a; }
+  .doc-body > :first-child { margin-top: 0; }
+  .doc-body > p, .doc-body > ul, .doc-body > ol, .doc-body > h2, .doc-body > h3, .doc-body > table, .doc-body > div, .doc-body .lede, .doc-body .care { max-width: none; }
+}
+.doc-body h2 { scroll-margin-top: 96px; }
+
+</style>
 </head>
 <body>
 <nav class="site" aria-label="Enchantra website">
@@ -104,8 +123,19 @@ nav.site a { text-decoration: none; }
   </div>
 </nav>
 <div class="wrap">
-  <h1>Support</h1>
+  <header class="doc-head">  <h1>Support</h1>
   <p class="stand">A person answers every message. Usually within two working days.</p>
+  </header>
+  <div class="doc">
+    <nav class="toc" aria-label="On this page">
+      <p class="k">On this page</p>
+      <a href="#getting-started">Getting started</a>
+      <a href="#your-subscription">Your subscription</a>
+      <a href="#your-account">Your account</a>
+      <a href="#if-a-reading-lands-badly">If a reading lands badly</a>
+      <a href="#something-s-broken">Something's broken</a>
+    </nav>
+    <div class="doc-body">
   <div class="lede">
     <p>Write to <a href="mailto:keeper@enchantratarot.com"><strong>keeper@enchantratarot.com</strong></a> about anything: a problem, a question, an idea, or a reading that didn't sit right. There's no ticket system and no bot. Tell us what happened in your own words.</p>
   </div>
@@ -116,7 +146,7 @@ nav.site a { text-decoration: none; }
     <p>In an emergency, call your local emergency number: <strong>000</strong> in Australia. In the app, <strong>Feeling unsteady?</strong> sits at the foot of every screen and opens support lines checked for your region, any time you need them.</p>
   </div>
 
-  <h2>Getting started</h2>
+  <h2 id="getting-started">Getting started</h2>
 
   <h3>Do I need a particular deck?</h3>
   <p>Bring the deck you already have. Enchantra reads alongside your physical cards. You draw them yourself and tell the app what came up.</p>
@@ -127,7 +157,7 @@ nav.site a { text-decoration: none; }
   <h3>What if I miss a day?</h3>
   <p>Nothing breaks and nothing is lost. There are no streaks in Enchantra and nothing to keep up. The practice waits for you.</p>
 
-  <h2>Your subscription</h2>
+  <h2 id="your-subscription">Your subscription</h2>
 
   <h3>What does it cost?</h3>
   <p>Your first lunar cycle is free. After that it's A$6.50 a month or A$59 a year. Full detail is in the <a href="/terms/">Terms of Use</a>.</p>
@@ -135,7 +165,7 @@ nav.site a { text-decoration: none; }
   <h3>How do I cancel?</h3>
   <p>Subscriptions are managed by Apple, not by us. On your iPhone: <strong>Settings → your name → Subscriptions → Enchantra → Cancel</strong>. Cancel at least 24 hours before the renewal date, and you keep access until the period you've paid for ends.</p>
 
-  <h2>Your account</h2>
+  <h2 id="your-account">Your account</h2>
 
   <h3>Changing your email or password</h3>
   <p>Profile → Email and sign in.</p>
@@ -149,13 +179,15 @@ nav.site a { text-decoration: none; }
   <h3>Starting fresh without deleting</h3>
   <p>Profile → Start over clears your practice and keeps your account.</p>
 
-  <h2>If a reading lands badly</h2>
+  <h2 id="if-a-reading-lands-badly">If a reading lands badly</h2>
   <p>Enchantra reflects; it doesn't predict, and it shouldn't ever tell you what will happen or frighten you. If one does, report it from the reading itself. Those reports reach a person <strong>within 24 hours</strong>. That's a commitment, not a target, and those reports are what we use to stop the same thing reaching someone else.</p>
   <p>You can also just write to us. Quoting what the reading said helps enormously.</p>
 
-  <h2>Something's broken</h2>
+  <h2 id="something-s-broken">Something's broken</h2>
   <p>Tell us what you were doing, what you expected, and what happened instead. Your phone model and whether you're on iPhone or Android helps us find it faster. Screenshots are welcome.</p>
 
+    </div>
+  </div>
 </div>
   <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
     <div style="max-width: 1180px; margin: 0 auto; padding: 48px clamp(18px,5vw,40px) 52px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">

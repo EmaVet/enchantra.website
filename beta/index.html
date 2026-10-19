@@ -188,6 +188,31 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
 @media (min-width: 760px) { .powers { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .rhythm { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 </style>
+<style id="design-pass">
+/* Design pass: editorial two-column layout on desktop, single column on phones. */
+
+section p, section li { font-size: 17px; line-height: 1.6; }
+section p.read { font-size: 19px; line-height: 1.55; }
+section dd { font-size: 16px; } section dt { font-size: 15px; }
+.powers .v, .rhythm .v { font-size: 16px; }
+.sec-body > p, .sec-body > ul, .sec-body > ol, .sec-body > dl, .sec-body > h3 { max-width: 720px; }
+.sec-head h2 { margin-bottom: 18px; }
+@media (min-width: 1024px) {
+  section.split, footer.small { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; padding-block: 64px; }
+  section.split > .sec-head { grid-column: 1; position: sticky; top: 96px; }
+  section.split > .sec-head h2 { margin-bottom: 0; }
+  section.split > .sec-body, footer.small > * { grid-column: 2; min-width: 0; }
+  section.split > .sec-body > :first-child { margin-top: 0; }
+  section.split .note, section.split .care { max-width: none; }
+  section.split > .pull { grid-column: 1 / -1; }
+  .rhythm { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .powers { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  section.wide { padding-block: 64px; }
+  .cta { padding: 48px clamp(28px, 6vw, 72px); }
+  .cta h2 { font-size: 30px; }
+}
+
+</style>
 </head>
 <body>
 
@@ -241,43 +266,60 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
     </div>
   </header>
 
-  <section id="keepers">
+  <section class="split" id="keepers">
+    <div class="sec-body">
     <div class="note intro">
       <p>Enchantra has been built over months, and is ready now for real decks, in real hands, across real lunar cycles.</p>
       <p style="margin-bottom:0">Keepers are the people who test Enchantra and shape what comes next. You bring the deck you already love, live with the practice, and tell me what breaks and what sings. Every message reaches me directly, and changes what Enchantra becomes. <strong>And in return, Enchantra is always free, as long as you keep reading and sharing what you notice.</strong></p>
     </div>
+    </div>
   </section>
 
-  <section id="included">
+  <section class="split" id="included">
+    <div class="sec-head">
     <p class="eyebrow gold">What is in it for you</p>
     <h2>Everything is included, always.</h2>
+    </div>
+    <div class="sec-body">
     <p class="read"><strong>Every reading, every tradition, everything included from the first day.</strong> When Enchantra opens to everyone and the subscription begins, your account stays free.</p>
     <p>You draw from your own deck, just as you always would. Thoth, Rider–Waite–Smith and Marseille are each complete at 78 cards, and decks that grow from those traditions are welcome too. Set an intention at the new moon, return to your cards when you need to, and write down what they stir in you. Over months, patterns emerge.</p>
     <p>New features reach the Keepers first. What you notice becomes what I build.</p>
+    </div>
   </section>
 
-  <section id="keeper">
+  <section class="split" id="keeper">
+    <div class="sec-head">
     <p class="eyebrow">What a Keeper does</p>
     <h2>A Keeper keeps a regular practice, and shares the truth.</h2>
+    </div>
+    <div class="sec-body">
     <p class="read">A keeper loves tarot, or is tarot curious. You don't have to know tarot to join. You have to enjoy a regular practice, daily if possible, and keep me informed about what you love, what you like, and what you are unsure of.</p>
     <p>You give this feedback in the app. Every so often I might send you a question about a new interface, or a new feature to test before it goes public, or ask how new brand and marketing feels.</p>
     <p>You are never locked in. If you need to step away when life asks, that is okay, and you are always welcome to return. Enchantra stays free as long as you are happy to give me feedback and share honestly what will make Enchantra better for you, and ultimately for others.</p>
+    </div>
   </section>
 
-  <section id="noticing">
+  <section class="split" id="noticing">
+    <div class="sec-head">
     <p class="eyebrow sage">What we hope to learn from you</p>
     <h2>You don't need to be an expert, just curious.</h2>
+    </div>
+    <div class="sec-body">
     <p class="read">Three kinds of noticing. An honest reaction is worth more than a careful one.</p>
     <div class="powers">
       <div><div class="k">The readings</div><div class="v">Did the reading land? Did it sound like a guide who knows the cards? Tell me where it rang true, and where it drifted.</div></div>
       <div><div class="k">The experience</div><div class="v">Where did you pause? What did you expect that did not arrive? Anything that made you stop and wonder is worth telling me.</div></div>
       <div><div class="k">The care</div><div class="v">Write to me while you are reading. A question, a problem, anything at all. Then tell me how it felt to be answered.</div></div>
     </div>
+    </div>
   </section>
 
-  <section id="moon">
+  <section class="split" id="moon">
+    <div class="sec-head">
     <p class="eyebrow">What Enchantra is</p>
     <h2>We love the moon, she keeps our time.</h2>
+    </div>
+    <div class="sec-body">
     <div class="rhythm">
       <div><div class="k">At the new moon</div><div class="v">You set an intention for the cycle, then shuffle and draw an opening spread from your own deck.</div></div>
       <div><div class="k">Through the month</div><div class="v">A single card on the days you reach for one. The practice waits for you, and you can step away and return whenever you like.</div></div>
@@ -285,20 +327,25 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
       <div><div class="k">As the cycle seals</div><div class="v">The month is gathered into something you keep. Then the next one begins.</div></div>
     </div>
     <p style="margin-top:16px">A full cycle runs about twenty nine days. You can join at any point in the month, and all I ask is that you stay for one whole cycle, new moon to new moon, so you meet the practice complete. Enchantra grows richer the longer she remembers you, so keep reading after that for as long as the practice serves you.</p>
+    </div>
   </section>
 
-  <section id="bring">
+  <section class="split" id="bring">
+    <div class="sec-head">
     <p class="eyebrow">What you need</p>
     <h2>Bring your deck, your phone, and curiosity.</h2>
+    </div>
+    <div class="sec-body">
     <ul class="list">
       <li><strong>A physical tarot deck</strong> you already own and like to hold</li>
       <li><strong>An iPhone or an Android phone</strong></li>
       <li>To be <strong>16 or over</strong></li>
       <li><strong>One full cycle</strong>, new moon to new moon, at whatever pace suits you, and the willingness to keep answering afterwards</li>
     </ul>
+    </div>
   </section>
 
-  <section id="apply">
+  <section class="wide" id="apply">
     <div class="cta">
       <h2>Tell me which deck you read with.</h2>
       <p>Send me an email with the deck you read with and why you are curious. That is the whole application.</p>
@@ -307,9 +354,12 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
     </div>
   </section>
 
-  <section id="promises">
+  <section class="split" id="promises">
+    <div class="sec-head">
     <p class="eyebrow gold">The small print</p>
     <h2>The promises I am making you.</h2>
+    </div>
+    <div class="sec-body">
     <dl>
       <div><dt>What it costs</dt><dd>Nothing. Enchantra stays free for as long as you are a Keeper.</dd></div>
       <div><dt>Your practice</dt><dd>Your practice stays with you and carries into the full release.</dd></div>
@@ -325,7 +375,10 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
       <p>If a reading ever lands badly, tell me. There is a way to flag the reading in the app, and the flag comes straight to me. In the app, <strong>Feeling unsteady?</strong> sits at the foot of every screen and opens support lines checked for your region, any time you need them. In an emergency, call your local emergency number. <strong>000</strong> in Australia, <strong>111</strong> in New Zealand.</p>
     </div>
 
+    </div>
+
     <p class="pull">You draw the cards. Enchantra keeps the thread.</p>
+  
   </section>
 
 </div>

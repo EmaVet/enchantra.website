@@ -72,6 +72,25 @@ nav.site a { text-decoration: none; }
 .wrap { max-width: var(--page-max); padding-inline: var(--gutter); }
 .wrap > p, .wrap > h2, .wrap > h3, .wrap > ul, .wrap > ol, .wrap > table, .wrap > div, .lede, .care { max-width: var(--measure); }
 </style>
+<style id="design-pass">
+/* Design pass: editorial two-column layout on desktop, single column on phones. */
+
+.doc-head { margin-bottom: 8px; }
+.wrap > .doc, .wrap > .doc-head { max-width: none; }
+.doc { display: block; }
+.toc { display: none; }
+@media (min-width: 1024px) {
+  .doc { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; }
+  .toc { display: block; position: sticky; top: 96px; padding: 4px 0; }
+  .toc .k { font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #9a8fc0; margin: 0 0 14px; }
+  .toc a { display: block; font-size: 14.5px; line-height: 1.4; color: #9aa0c2; text-decoration: none; padding: 7px 0 7px 14px; border-left: 2px solid #2c284c; }
+  .toc a:hover { color: #f0dcac; border-left-color: #e8c98a; }
+  .doc-body > :first-child { margin-top: 0; }
+  .doc-body > p, .doc-body > ul, .doc-body > ol, .doc-body > h2, .doc-body > h3, .doc-body > table, .doc-body > div, .doc-body .lede, .doc-body .care { max-width: none; }
+}
+.doc-body h2 { scroll-margin-top: 96px; }
+
+</style>
 </head>
 <body>
 <nav class="site" aria-label="Enchantra website">
@@ -96,36 +115,49 @@ nav.site a { text-decoration: none; }
   </div>
 </nav>
 <div class="wrap">
-
+  <header class="doc-head">
   <h1>Keeper Terms</h1>
   <p class="stand">For readers I have invited to keep with Enchantra. Last updated 22 August 2026 · Emily Shurey trading as Enchantra, ABN 87 927 064 532</p>
+  </header>
+  <div class="doc">
+    <nav class="toc" aria-label="On this page">
+      <p class="k">On this page</p>
+      <a href="#enchantra-costs-you-nothing-while-you-are-a-keep">Enchantra costs you nothing while you are a Keeper.</a>
+      <a href="#what-i-ask-in-return">What I ask in return.</a>
+      <a href="#your-ideas-become-part-of-enchantra">Your ideas become part of Enchantra.</a>
+      <a href="#please-keep-unreleased-things-between-us">Please keep unreleased things between us.</a>
+      <a href="#enchantra-will-change-while-you-are-using-her">Enchantra will change while you are using her.</a>
+      <a href="#either-of-us-can-end-this-and-nobody-gets-charge">Either of us can end this, and nobody gets charged by surprise.</a>
+      <a href="#these-terms-may-change">These terms may change.</a>
+    </nav>
+    <div class="doc-body">
 
   <div class="lede">
     <p>These terms are for you because I asked you to be a Keeper. They sit on top of the ordinary <a href="/terms/">Terms of Use</a> and the <a href="/privacy/">Privacy Policy</a>, both of which still apply.</p>
     <p><strong>Where these terms and the ordinary Terms of Use disagree, these ones win.</strong></p>
   </div>
 
-  <h2>Enchantra costs you nothing while you are a Keeper.</h2>
+  <h2 id="enchantra-costs-you-nothing-while-you-are-a-keep">Enchantra costs you nothing while you are a Keeper.</h2>
   <p>No subscription, no card, no charge, for as long as you are a Keeper. The prices in the ordinary Terms of Use do not apply to you.</p>
   <p>Being a Keeper is personal to you. Please keep your account to yourself rather than sharing the login.</p>
 
-  <h2>What I ask in return.</h2>
+  <h2 id="what-i-ask-in-return">What I ask in return.</h2>
   <p>Keep a regular practice, as often as suits your life, and tell me honestly what you find. Send that through the app, or write to me at <a href="mailto:keeper@enchantratarot.com">keeper@enchantratarot.com</a>.</p>
   <p>Every so often I will send you something. A question I am sitting with, a feature to try before it is public, or a piece of brand or marketing to react to. Answer when you have something to say. There is no quota and no schedule.</p>
 
-  <h2>Your ideas become part of Enchantra.</h2>
+  <h2 id="your-ideas-become-part-of-enchantra">Your ideas become part of Enchantra.</h2>
   <p>When you send me feedback or an idea, I can use it to build and improve Enchantra, freely and without owing you a payment or a credit. If you tell me a screen is confusing and I redesign it, that redesign is mine to keep and to sell.</p>
   <p>This does not touch your practice. Your intentions, journal entries and reflections remain yours, exactly as the <a href="/privacy/">Privacy Policy</a> describes. I am talking here about suggestions you make about the app, not the reading you did on Tuesday.</p>
   <p>If I ever want to quote you publicly, I will ask you first.</p>
 
-  <h2>Please keep unreleased things between us.</h2>
+  <h2 id="please-keep-unreleased-things-between-us">Please keep unreleased things between us.</h2>
   <p>You will see features before anyone else does. Some will change and some will be dropped. Please hold off on public posts, screenshots and reviews of anything unreleased until it ships.</p>
   <p>Talking privately about your own practice is always fine. This is about work in progress, not about your reading life.</p>
 
-  <h2>Enchantra will change while you are using her.</h2>
+  <h2 id="enchantra-will-change-while-you-are-using-her">Enchantra will change while you are using her.</h2>
   <p>Readings will shift as I tune the interpretation engine, and screens will move. That is the point of having Keepers. If anything ever needs resetting, I will tell you first.</p>
 
-  <h2>Either of us can end this, and nobody gets charged by surprise.</h2>
+  <h2 id="either-of-us-can-end-this-and-nobody-gets-charge">Either of us can end this, and nobody gets charged by surprise.</h2>
   <p>You can stop being a Keeper whenever you like. Write to me, or simply stop. You are welcome back later.</p>
   <p>I may end a Keeper arrangement too, if the feedback stops entirely over a long stretch, or if these terms are seriously or repeatedly broken. <strong>If that happens I will tell you before anything changes, and you will never be charged without agreeing to it first.</strong> Your practice stays yours either way, and you can export or delete it at any time.</p>
 
@@ -134,10 +166,12 @@ nav.site a { text-decoration: none; }
     <p>She sits alongside therapy, medicine and crisis care. If a reading ever lands badly, flag the reading in the app and the flag comes straight to me. In an emergency, call your local emergency number.</p>
   </div>
 
-  <h2>These terms may change.</h2>
+  <h2 id="these-terms-may-change">These terms may change.</h2>
   <p>If I need to change them in a way that affects you, I will tell you before the change takes effect rather than quietly updating the date at the top.</p>
 
   <p class="foot">Questions about any of this go to <a href="mailto:keeper@enchantratarot.com">keeper@enchantratarot.com</a>, and a person will answer. That person is me.</p>
+    </div>
+  </div>
 </div>
   <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
     <div style="max-width: 1180px; margin: 0 auto; padding: 48px clamp(18px,5vw,40px) 52px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">

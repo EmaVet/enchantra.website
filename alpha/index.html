@@ -185,6 +185,31 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
 @media (min-width: 760px) { .powers { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .rhythm { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 </style>
+<style id="design-pass">
+/* Design pass: editorial two-column layout on desktop, single column on phones. */
+
+section p, section li { font-size: 17px; line-height: 1.6; }
+section p.read { font-size: 19px; line-height: 1.55; }
+section dd { font-size: 16px; } section dt { font-size: 15px; }
+.powers .v, .rhythm .v { font-size: 16px; }
+.sec-body > p, .sec-body > ul, .sec-body > ol, .sec-body > dl, .sec-body > h3 { max-width: 720px; }
+.sec-head h2 { margin-bottom: 18px; }
+@media (min-width: 1024px) {
+  section.split, footer.small { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; padding-block: 64px; }
+  section.split > .sec-head { grid-column: 1; position: sticky; top: 96px; }
+  section.split > .sec-head h2 { margin-bottom: 0; }
+  section.split > .sec-body, footer.small > * { grid-column: 2; min-width: 0; }
+  section.split > .sec-body > :first-child { margin-top: 0; }
+  section.split .note, section.split .care { max-width: none; }
+  section.split > .pull { grid-column: 1 / -1; }
+  .rhythm { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+  .powers { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  section.wide { padding-block: 64px; }
+  .cta { padding: 48px clamp(28px, 6vw, 72px); }
+  .cta h2 { font-size: 30px; }
+}
+
+</style>
 </head>
 <body>
 
@@ -239,9 +264,12 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
     </div>
   </header>
 
-  <section id="what">
+  <section class="split" id="what">
+    <div class="sec-head">
     <p class="eyebrow">What Enchantra is</p>
     <h2>A daily practice, kept in lunar cycles.</h2>
+    </div>
+    <div class="sec-body">
     <p class="read">You pull real cards from your own tarot deck. Enchantra reads with you, in the way your particular deck is meant to be read, and remembers. It reflects; it never predicts.</p>
     <p>The app keeps time by the moon. A lunar cycle runs from one New Moon to the next, about twenty-nine days, with the Full Moon halfway through.</p>
     <div class="rhythm">
@@ -254,11 +282,15 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
     <p><strong>Journal.</strong> What a card meant to you, what came up when you drew it, anything at all. You can come back to any entry and add to it; nothing here is ever written by Enchantra. This is your space.</p>
     <p><strong>Echoes.</strong> Those small coincidences that seem to follow you around: the same number everywhere, a bird that keeps appearing, a song, a dream, a symbol you keep meeting. Some people call them synchronicities; we call them echoes. Note them as they happen, and Enchantra will notice when one returns.</p>
     <p>The app has five tabs along the bottom: <span class="ui">Moon home</span>, <span class="ui">Journal</span>, <span class="ui">Patterns</span>, <span class="ui">Echoes</span> and <span class="ui">You</span>. <span class="ui">You</span> is where your account and settings live.</p>
+    </div>
   </section>
 
-  <section id="alpha">
+  <section class="split" id="alpha">
+    <div class="sec-head">
     <p class="eyebrow gold">What alpha means</p>
     <h2>You get to move through the app like nobody else will.</h2>
+    </div>
+    <div class="sec-body">
     <p class="read">An alpha is the first, unfinished version of an app, given to a few people to try before anyone else. Enchantra follows the real moon, so once it is released, everyone meets it one day at a time: a card today, the Full Moon in a fortnight, the close of the cycle a fortnight after that. You don't have to wait. Your copy of the app has a small <span class="ui">tester</span> button at the top right of every screen, and behind it, three powers.</p>
     <div class="powers">
       <div><div class="k">Load a season</div><div class="v">Drop cycles of history into your app in one tap, as if you had been using it since April, so you can see what Enchantra does once it knows you.</div></div>
@@ -266,18 +298,26 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
       <div><div class="k">Go anywhere</div><div class="v">Jump straight to any part of the app, whatever the moon says.</div></div>
     </div>
     <p style="margin-top:16px">These powers exist only in the alpha. When the beta begins they go, and everyone after you will meet Enchantra at the moon's own pace. So use them, and enjoy them; you are seeing the whole of the app in a way nobody else will.</p>
+    </div>
   </section>
 
-  <section id="thanks">
+  <section class="split" id="thanks">
+    <div class="sec-head">
     <p class="eyebrow gold">What is in it for you</p>
     <h2>Enchantra is yours, for good.</h2>
+    </div>
+    <div class="sec-body">
     <p class="read">When the app goes live, you move with it: first into the beta, the next and larger round of testers, then into the app as everyone else will know it. You will never pay for Enchantra. Not a trial, not a discount, but the whole of it, free, for as long as it exists.</p>
     <p>All we ask in return is that you keep telling us what you think and how it feels, for as long as you love using it. The day you stop loving it, we want to hear that most of all.</p>
+    </div>
   </section>
 
-  <section id="learn">
+  <section class="split" id="learn">
+    <div class="sec-head">
     <p class="eyebrow sage">What we hope to learn from you</p>
     <h2>Five questions. Keep them in the back of your mind.</h2>
+    </div>
+    <div class="sec-body">
     <div class="ask">
       <div>Do you understand what Enchantra is for, without being told?</div>
       <div>Is it easy to use? Where do you hesitate, tap the wrong thing, or get lost?</div>
@@ -286,11 +326,15 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
       <div>Does it feel like a wise companion who remembers your journey, or like a fortune teller?</div>
     </div>
     <p style="margin-top:16px">The last one matters most. Enchantra is meant to hand the meaning back to you. If a reading ever felt like it was telling your future, or telling you off, we want to know exactly where.</p>
+    </div>
   </section>
 
-  <section id="get">
+  <section class="split" id="get">
+    <div class="sec-head">
     <p class="eyebrow">Getting in</p>
     <h2>A deck, the app, and your account.</h2>
+    </div>
+    <div class="sec-body">
     <h3>A deck of your own</h3>
     <p>You will need a tarot deck. Any deck will do, and it does not need to be new or special. If you don't have one, tell M before you start and she will help you find one. You don't need to know what the cards mean; Enchantra reads them with you.</p>
     <h3>On Android</h3>
@@ -303,11 +347,15 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
     <h3>Before you do anything else</h3>
     <p>Nobody has seen Enchantra on a phone like yours, and phones draw text differently. Take a screenshot of the first three screens you see (creating the account, the welcome screen, and <span class="ui">Which deck do you draw with?</span>), then one of the home screen with the moon once you reach it, and email the four to <a href="mailto:keeper@enchantratarot.com">keeper@enchantratarot.com</a>. Then answer the setup questions as yourself, and read the page called <span class="ui">Before you begin</span>. It is the promise the app makes to you.</p>
     <div class="note">To take a screenshot on an iPhone, press the side button and the volume up button at the same time. On Android, press the power button and the volume down button at the same time. The picture lands in your photos.</div>
+    </div>
   </section>
 
-  <section id="firstrun">
+  <section class="split" id="firstrun">
+    <div class="sec-head">
     <p class="eyebrow">Your first run</p>
     <h2>Twenty minutes to begin, the rest whenever you like.</h2>
+    </div>
+    <div class="sec-body">
     <p>The first three steps take about twenty minutes and show you most of what Enchantra is; longer if tarot is new to you, and that is fine. There is no wrong way to do this. The other three steps can wait for another evening, or for the moon itself. Everything below starts from the <span class="ui">tester</span> button at the top right. The tester screen has three parts: <strong>the clock</strong>, <strong>load a season</strong>, and <strong>go to</strong>.</p>
     <ol class="steps">
       <li>Under <span class="ui">load a season</span>, load <span class="ui">Five cycles, Tarot de Marseille</span>. Five cycles of one person's practice appear, drawn with a deck called the Tarot de Marseille. You don't need to own that deck; the app switches to it so the history makes sense.</li>
@@ -338,11 +386,15 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
         <div><dt>Paywall</dt><dd>The subscription screen. Nothing is charged in the alpha.</dd></div>
       </dl>
     </details>
+    </div>
   </section>
 
-  <section id="found">
+  <section class="split" id="found">
+    <div class="sec-head">
     <p class="eyebrow">Telling us what you found</p>
     <h2>Two ways, and both are easy.</h2>
+    </div>
+    <div class="sec-body">
     <p class="read">Every reading ends with the question <span class="ui">Did this land?</span> and two answers, <span class="ui">Yes</span> and <span class="ui">Not quite</span>. Either is useful. <span class="ui">Not quite</span> lets you say what was off in a couple of taps. These are sent without your name attached: we see what you said, not who said it.</p>
     <p>For everything else, send it to M: email <a href="mailto:keeper@enchantratarot.com">keeper@enchantratarot.com</a>, or message M directly if you have her number. Screenshot freely. Take one of anything that strikes you, good or odd, and send it with a line about what you tapped just before; a screenshot is worth more to us than a paragraph, and you can never send too many. After your first run, three sentences alongside them is plenty: what confused you, what delighted you, what you would change. Worth a screenshot:</p>
     <ul class="plain">
@@ -353,6 +405,7 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
       <li>anything that made you smile</li>
     </ul>
     <p style="margin-top:14px">If a screen ever looks empty, load a season first; a few screens need a history behind them. If the app ever closes on its own, a crash report reaches us automatically with your writing stripped out, but a note saying what you were doing still helps.</p>
+    </div>
   </section>
 
   <footer class="small">

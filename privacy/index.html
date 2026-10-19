@@ -80,6 +80,25 @@ nav.site a { text-decoration: none; }
 .wrap { max-width: var(--page-max); padding-inline: var(--gutter); }
 .wrap > p, .wrap > h2, .wrap > h3, .wrap > ul, .wrap > ol, .wrap > table, .wrap > div, .lede, .care { max-width: var(--measure); }
 </style>
+<style id="design-pass">
+/* Design pass: editorial two-column layout on desktop, single column on phones. */
+
+.doc-head { margin-bottom: 8px; }
+.wrap > .doc, .wrap > .doc-head { max-width: none; }
+.doc { display: block; }
+.toc { display: none; }
+@media (min-width: 1024px) {
+  .doc { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; }
+  .toc { display: block; position: sticky; top: 96px; padding: 4px 0; }
+  .toc .k { font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #9a8fc0; margin: 0 0 14px; }
+  .toc a { display: block; font-size: 14.5px; line-height: 1.4; color: #9aa0c2; text-decoration: none; padding: 7px 0 7px 14px; border-left: 2px solid #2c284c; }
+  .toc a:hover { color: #f0dcac; border-left-color: #e8c98a; }
+  .doc-body > :first-child { margin-top: 0; }
+  .doc-body > p, .doc-body > ul, .doc-body > ol, .doc-body > h2, .doc-body > h3, .doc-body > table, .doc-body > div, .doc-body .lede, .doc-body .care { max-width: none; }
+}
+.doc-body h2 { scroll-margin-top: 96px; }
+
+</style>
 </head>
 <body>
 <nav class="site" aria-label="Enchantra website">
@@ -104,17 +123,35 @@ nav.site a { text-decoration: none; }
   </div>
 </nav>
 <div class="wrap">
-  <h1>Privacy</h1>
+  <header class="doc-head">  <h1>Privacy</h1>
   <p class="stand">Last updated 10 August 2026 · Emily Shurey trading as Enchantra, ABN 87 927 064 532</p>
+  </header>
+  <div class="doc">
+    <nav class="toc" aria-label="On this page">
+      <p class="k">On this page</p>
+      <a href="#who-we-are">Who we are</a>
+      <a href="#what-we-hold">What we hold</a>
+      <a href="#where-it-lives">Where it lives</a>
+      <a href="#what-the-ai-sees">What the AI sees</a>
+      <a href="#when-a-reading-goes-wrong">When a reading goes wrong</a>
+      <a href="#what-we-never-do">What we never do</a>
+      <a href="#your-controls">Your controls</a>
+      <a href="#how-long-we-keep-things">How long we keep things</a>
+      <a href="#where-your-data-travels">Where your data travels</a>
+      <a href="#your-rights">Your rights</a>
+      <a href="#age">Age</a>
+      <a href="#changes">Changes</a>
+    </nav>
+    <div class="doc-body">
   <div class="lede">
     <p><strong>The short version.</strong> Your practice is yours. What you write in Enchantra, your intentions, your journal and your reflections, is stored encrypted, kept for you alone, and available to take back or erase at any moment.</p>
     <p>We sell nothing, advertise nothing, and no one trains an AI model on your journal. When a reading is written, the words you chose to share travel to our AI provider for that reading and are not kept there.</p>
   </div>
 
-  <h2>Who we are</h2>
+  <h2 id="who-we-are">Who we are</h2>
   <p>Enchantra is made by <strong>Emily Shurey trading as Enchantra</strong> (ABN 87 927 064 532), based in Australia. Emily is responsible for how your information is handled. If you have a question about anything here, write to <a href="mailto:keeper@enchantratarot.com">keeper@enchantratarot.com</a> and a person will answer.</p>
 
-  <h2>What we hold</h2>
+  <h2 id="what-we-hold">What we hold</h2>
 
   <h3>Your account</h3>
   <p>An email address and a password, so your practice can find you again on a new phone. Passwords are hashed by our authentication provider. We never see them.</p>
@@ -130,7 +167,7 @@ nav.site a { text-decoration: none; }
 
   <p><strong>Enchantra contains no analytics, no advertising SDK, and no third-party trackers.</strong> Nothing in the app watches how you use it.</p>
 
-  <h2>Where it lives</h2>
+  <h2 id="where-it-lives">Where it lives</h2>
 
   <h3>On your phone</h3>
   <p>Your practice is stored encrypted with AES-256-GCM. The key that opens it is held in your device's secure hardware, the iOS Keychain or the Android Keystore, and never leaves the device, never syncs to iCloud, and never travels in a backup. If someone takes your phone apart, they find sealed data and no way in.</p>
@@ -138,16 +175,16 @@ nav.site a { text-decoration: none; }
   <h3>On our servers</h3>
   <p>So your practice survives a lost phone, it also syncs to a database hosted by Supabase. Access there is row-level: your rows answer to your account and no other. Connections are encrypted in transit, and the database is encrypted at rest. Backups are held for a limited period and then written over.</p>
 
-  <h2>What the AI sees</h2>
+  <h2 id="what-the-ai-sees">What the AI sees</h2>
   <p>Readings are written by a large language model provided by Anthropic. To write one, we send what that reading needs: the cards drawn and their orientation, the intention you set, the current moon phase, your reading tier and, where they give the reading its memory, short excerpts of your own recent journal and the echoes you've noted.</p>
   <p>Anthropic's terms state that API content is <strong>not used to train their models</strong> and is <strong>not retained after the response is returned</strong>, except where their automated safety systems flag a request, in which case it may be held for up to two years, or where the law requires it.</p>
   <p>Your email address, your name and your account identity are never sent with a reading. The model receives your words, never who you are.</p>
 
-  <h2>When a reading goes wrong</h2>
+  <h2 id="when-a-reading-goes-wrong">When a reading goes wrong</h2>
   <p>Sometimes a reading lands badly: it reads as a prediction, or as fear, or as harm. You can report it, and a person reads that report within 24 hours. That's a commitment, and keeping it means those reports are stored separately from your practice and are kept even if you later delete your account, with your account identity removed. We keep them so the same failure doesn't reach someone else.</p>
   <p>Enchantra is a reflective practice. It is not therapy, medical advice, or crisis care, and it does not replace them. When something in what you write suggests you may be struggling, the app pauses the reading and offers real support lines for your region.</p>
 
-  <h2>What we never do</h2>
+  <h2 id="what-we-never-do">What we never do</h2>
   <ul>
     <li>Sell, rent or trade your information. There is no version of Enchantra where your journal is a product.</li>
     <li>Show advertising, or share your data with advertisers.</li>
@@ -155,7 +192,7 @@ nav.site a { text-decoration: none; }
     <li>Read your journal, except in the narrow case above where you report a reading and ask us to look.</li>
   </ul>
 
-  <h2>Your controls</h2>
+  <h2 id="your-controls">Your controls</h2>
   <table>
     <tr><th>What</th><th>How</th></tr>
     <tr><td><strong>Delete everything</strong></td><td>Profile → Delete account. Removes your account, your practice, and the key that could read what's stored on your phone. Immediate and permanent.</td></tr>
@@ -165,7 +202,7 @@ nav.site a { text-decoration: none; }
   </table>
   <p>Deleting your account removes it from our database at once. Encrypted backups may hold a copy briefly before they roll over, after which nothing remains.</p>
 
-  <h2>How long we keep things</h2>
+  <h2 id="how-long-we-keep-things">How long we keep things</h2>
   <table>
     <tr><th>What</th><th>Held for</th></tr>
     <tr><td>Your account and practice</td><td>As long as you have an account. Deleted when you delete it.</td></tr>
@@ -173,19 +210,21 @@ nav.site a { text-decoration: none; }
     <tr><td>Crash reports</td><td>A limited period set by our error-reporting provider, already stripped of personal content.</td></tr>
   </table>
 
-  <h2>Where your data travels</h2>
+  <h2 id="where-your-data-travels">Where your data travels</h2>
   <p>Enchantra is run from Australia. Our database, our servers and our AI provider may process your information in other countries, including the United States. Wherever it goes, it stays under the terms described here, and under contracts requiring equivalent protection.</p>
 
-  <h2>Your rights</h2>
+  <h2 id="your-rights">Your rights</h2>
   <p>Under the Australian Privacy Principles you may ask what we hold about you, ask us to correct it, and complain if you think we've handled it poorly. If you're in the UK or the European Economic Area, the UK GDPR and GDPR give you rights of access, correction, erasure, restriction, portability and objection. Ask, and we'll act. We don't require a legal formula.</p>
   <p>If our answer doesn't satisfy you, you may complain to the Office of the Australian Information Commissioner at <a href="https://www.oaic.gov.au">oaic.gov.au</a>, or to your local supervisory authority.</p>
 
-  <h2>Age</h2>
+  <h2 id="age">Age</h2>
   <p>Enchantra is for people aged 16 and over. Tarot itself belongs to anyone, but this app keeps a record of your inner life, responds to what you write, and offers support when something sounds hard. That asks more of a person than a deck of cards does, and 16 is the age at which you can consent to it yourself everywhere we operate. We don't knowingly collect anything from someone younger. If you believe a child has an account, write to us and we'll remove it.</p>
 
-  <h2>Changes</h2>
+  <h2 id="changes">Changes</h2>
   <p>If this policy changes in a way that affects you, we'll say so in the app before it takes effect, rather than quietly updating a date at the top of a page.</p>
 
+    </div>
+  </div>
 </div>
   <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
     <div style="max-width: 1180px; margin: 0 auto; padding: 48px clamp(18px,5vw,40px) 52px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
