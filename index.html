@@ -276,6 +276,40 @@ html, body { overflow-x: clip; }
 <style id="design-pass">
 /* Design pass */
 
+/* Layout rhythm: each section gets its own format so no layout repeats back to back (desktop) */
+@media (min-width: 1024px) {
+  /* A reading to reflect with: a centred statement, picture above, after the picture-left block before it */
+  #cards > div > .reveal:nth-of-type(2) { grid-template-columns: minmax(0, 1fr) !important; justify-items: center; text-align: center; margin-top: clamp(72px, 8vw, 112px) !important; gap: 28px !important; }
+  #cards > div > .reveal:nth-of-type(2) > :first-child { order: 1 !important; }
+  #cards > div > .reveal:nth-of-type(2) > :last-child { order: 2 !important; max-width: 640px; }
+  #cards > div > .reveal:nth-of-type(2) > :last-child > div[style*="max-width: 460px"] { max-width: 600px !important; margin-left: auto !important; margin-right: auto !important; }
+
+  /* How it works: heading set left over the steps */
+  #how .reveal[style*="text-align: center"] { text-align: left !important; }
+  #how .reveal[style*="text-align: center"] h2, #how .reveal[style*="text-align: center"] p { margin-left: 0 !important; }
+
+  /* Traditions: a centred stage, the three decks large beneath the heading */
+  #traditions > div { grid-template-columns: minmax(0, 1fr) !important; justify-items: center; text-align: center; gap: 44px !important; }
+  #traditions > div > div:first-child h2, #traditions > div > div:first-child p { margin-left: auto !important; margin-right: auto !important; max-width: 560px !important; }
+  #traditions > div > div:last-child > div { width: 200px !important; }
+  #traditions > div > div:last-child > div:nth-child(2) { width: 224px !important; }
+
+  /* Pricing: words on the left, the plans on the right */
+  #pricing { max-width: 1180px !important; text-align: left !important; }
+  #pricing > .reveal { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); grid-template-rows: auto auto auto auto 1fr; column-gap: clamp(48px, 7vw, 120px); align-items: start; }
+  #pricing > .reveal > :nth-child(1) { grid-column: 1; grid-row: 1; }
+  #pricing > .reveal > :nth-child(2) { grid-column: 1; grid-row: 2; margin: 0 !important; }
+  #pricing > .reveal > :nth-child(3) { grid-column: 1; grid-row: 3; margin: 18px 0 0 !important; }
+  #pricing > .reveal > :nth-child(4) { grid-column: 2; grid-row: 1 / span 5; margin: 0 !important; max-width: none !important; align-self: center; }
+  #pricing > .reveal > :nth-child(5) { grid-column: 1; grid-row: 4; justify-content: flex-start !important; }
+  #pricing > .reveal > :nth-child(6) { grid-column: 1; grid-row: 5; justify-content: flex-start !important; margin: 28px 0 0 !important; }
+
+  /* Questions: heading held on the left, the questions on the right */
+  #faq > div:last-child { max-width: 1180px !important; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; }
+  #faq > div:last-child > .reveal { text-align: left !important; position: sticky; top: 96px; margin-bottom: 0 !important; }
+  #faq > div:first-child { left: 30% !important; }
+}
+
 /* Hero: wider text column so the descriptor sits on one line */
 @media (min-width: 900px) { div[style*="min-height: 460px"] { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) !important; } }
 @media (max-width: 899px) { div[style*="min-height: 460px"] { grid-template-columns: minmax(0, 1fr) !important; } }
@@ -494,7 +528,7 @@ h2 { text-wrap: balance; }
   </section>
 
   <!-- ═══════════ TRADITIONS ═══════════ -->
-  <section class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1180px; margin: 0 auto; padding: clamp(64px,9vw,96px) clamp(18px,5vw,40px);">
+  <section id="traditions" class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1180px; margin: 0 auto; padding: clamp(64px,9vw,96px) clamp(18px,5vw,40px);">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(36px,5vw,56px); align-items: center;">
       <div>
         <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">Traditions</div>

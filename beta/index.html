@@ -189,6 +189,35 @@ section > p, section > h2, section > h3, section > ul, section > dl, .note, .car
 @media (min-width: 1024px) { .rhythm { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 </style>
 <style id="design-pass">
+/* Layout rhythm: one format per section, never the same twice in a row (desktop) */
+.hero.hero--centre { grid-template-columns: minmax(0, 1fr) !important; justify-items: center; text-align: center; min-height: 0; padding-bottom: clamp(48px, 6vw, 72px); }
+.hero.hero--centre .stage { order: -1; width: clamp(220px, 34vw, 300px); margin: 0 auto -8px; }
+.hero.hero--centre .hero-text { max-width: 680px; margin: 0 auto; }
+.hero.hero--centre .hero-text p { margin-left: auto; margin-right: auto; }
+@media (min-width: 1024px) {
+  section.lay-single .sec-body > * { max-width: var(--measure); }
+  section.lay-single, section.lay-centre, section.lay-band, section.lay-statement, section.lay-letter { padding-block: 72px; }
+
+  section.lay-centre .sec-head { text-align: center; max-width: 680px; margin: 0 auto 28px; }
+  section.lay-centre .sec-body > p { max-width: 640px; margin-left: auto; margin-right: auto; text-align: center; }
+
+  section.lay-band { border-top: 0; background: var(--panel-alt); box-shadow: 0 0 0 100vmax var(--panel-alt); clip-path: inset(0 -100vmax); }
+  section.lay-band + section { border-top: 0; }
+  section.lay-band .sec-head { max-width: 720px; margin-bottom: 28px; }
+  section.lay-band .rhythm { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  section.lay-band .rhythm > div { background: var(--panel); }
+  section.lay-band .sec-body > ol, section.lay-band .sec-body > .rhythm, section.lay-band .sec-body > .powers { max-width: none; }
+  section.lay-band ol.steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  section.lay-band ol.steps li { background: var(--panel); }
+
+  section.lay-statement { text-align: center; }
+  section.lay-statement .sec-head h2 { font-size: clamp(30px, 2.6vw, 40px); }
+  section.lay-statement .sec-body > p { max-width: 680px; margin-left: auto; margin-right: auto; }
+  section.lay-statement .sec-body > p.read { font-size: 21px; }
+
+  section.lay-letter .note.intro { max-width: 720px; margin: 0 auto; padding: 32px 40px; }
+}
+
 /* Design pass: editorial two-column layout on desktop, single column on phones. */
 
 section p, section li { font-size: 17px; line-height: 1.6; }
@@ -244,7 +273,7 @@ section dd { font-size: 16px; } section dt { font-size: 15px; }
 
 <div class="wrap">
 
-  <header class="hero">
+  <header class="hero hero--centre">
     <div class="hero-text">
       <p class="eyebrow gold">Keepers · join the beta</p>
       <h1>Become an Enchantra Keeper.</h1>
@@ -270,7 +299,7 @@ section dd { font-size: 16px; } section dt { font-size: 15px; }
     </div>
   </header>
 
-  <section class="split" id="keepers">
+  <section class="lay-letter" id="keepers">
     <div class="sec-body">
     <div class="note intro">
       <p>Enchantra has been built over months, and is ready now for real decks, in real hands, across real lunar cycles.</p>
@@ -291,7 +320,7 @@ section dd { font-size: 16px; } section dt { font-size: 15px; }
     </div>
   </section>
 
-  <section class="split" id="keeper">
+  <section class="lay-single" id="keeper">
     <div class="sec-head">
     <p class="eyebrow">What a Keeper does</p>
     <h2>A Keeper keeps a regular practice, and shares the truth.</h2>
@@ -303,7 +332,7 @@ section dd { font-size: 16px; } section dt { font-size: 15px; }
     </div>
   </section>
 
-  <section class="split" id="noticing">
+  <section class="lay-centre" id="noticing">
     <div class="sec-head">
     <p class="eyebrow sage">What we hope to learn from you</p>
     <h2>You don't need to be an expert, just curious.</h2>
@@ -318,7 +347,7 @@ section dd { font-size: 16px; } section dt { font-size: 15px; }
     </div>
   </section>
 
-  <section class="split" id="moon">
+  <section class="lay-band" id="moon">
     <div class="sec-head">
     <p class="eyebrow">What Enchantra is</p>
     <h2>We love the moon, she keeps our time.</h2>
