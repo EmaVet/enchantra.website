@@ -253,4 +253,18 @@ html, body { overflow-x: clip; }
 
 
 
+<script>
+  /* Hide the featured article's card in the list below it, so no article appears twice. */
+  (function () {
+    var featured = document.querySelector('a.scp2');
+    if (!featured) return;
+    var href = featured.getAttribute('href');
+    var cards = [].slice.call(document.querySelectorAll('#articles a.scp3'));
+    var dup = cards.filter(function (a) { return a.getAttribute('href') === href; });
+    if (!dup.length || cards.length - dup.length === 0) return;
+    dup.forEach(function (a) { a.style.display = 'none'; });
+    var h = document.querySelector('#articles h2'); if (h) h.textContent = 'More from the Almanac';
+    var n = h && h.nextElementSibling; if (n) n.style.display = 'none';
+  })();
+</script>
 </body></html>

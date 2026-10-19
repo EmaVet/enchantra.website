@@ -286,6 +286,12 @@ h2 { text-wrap: balance; }
 /* Descriptor: one line on wide screens, natural wrap below */
 @media (min-width: 1200px) { div[style*="min-height: 460px"] h1 { white-space: nowrap; } }
 #almanac h2 { max-width: 620px; }
+/* Sticky bar: one waitlist button on screen at a time */
+@media (max-width: 759px) {
+  .sticky-join { transform: translateY(110%); transition: transform 320ms ease; }
+  .sticky-join.show { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .sticky-join { transition: none; } }
 </style>
 </head>
 <body>
@@ -889,6 +895,20 @@ h2 { text-wrap: balance; }
       entries.forEach(function (e) { e.target.classList.toggle('is-offscreen', !e.isIntersecting); });
     }, { rootMargin: '120px 0px' });
     [].forEach.call(document.querySelectorAll('header, section'), function (el) { io.observe(el); });
+  })();
+</script>
+<script>
+  /* Sticky bar appears once the hero's waitlist button is off screen, and steps aside while another waitlist button is showing. */
+  (function () {
+    var bar = document.querySelector('.sticky-join');
+    if (!bar || !('IntersectionObserver' in window)) { if (bar) bar.classList.add('show'); return; }
+    var buttons = [].slice.call(document.querySelectorAll('a.btn-gold')).filter(function (a) { return !bar.contains(a) && !a.closest('nav'); });
+    var visible = new Set();
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) visible.add(e.target); else visible.delete(e.target); });
+      bar.classList.toggle('show', visible.size === 0);
+    });
+    buttons.forEach(function (b) { io.observe(b); });
   })();
 </script>
 </body>
