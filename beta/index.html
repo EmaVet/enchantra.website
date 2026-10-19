@@ -106,24 +106,36 @@
   .bring-grid > h2 { grid-column: 1; grid-row: 2; margin: 0 !important; align-self: start; }
   .bring-list { grid-column: 2; grid-row: 1 / span 2; margin: 0 !important; max-width: none !important; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  /* Email: the closing band, words left and the glowing moon right */
-  .apply-grid { max-width: 1180px !important; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(48px, 6vw, 96px); align-items: center; text-align: left !important; }
-  .apply-grid > :first-child { grid-column: 2; grid-row: 1 / span 4; margin: 0 !important; }
-  .apply-grid > :not(:first-child) { grid-column: 1; }
-  .apply-grid > p, .apply-grid > div:nth-child(4) { margin-left: 0 !important; justify-content: flex-start !important; }
-  .apply-grid > :first-child > div:last-child { width: 200px !important; height: 200px !important; }
-  .apply-grid > :first-child > div:first-child { width: 360px !important; height: 360px !important; }
+  /* Email: centred call to action, no picture */
 
-  /* Promises: heading held on the left, the promises and the care note on the right */
-  .promises-grid { max-width: 1180px !important; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; }
-  .promises-head { grid-column: 1; grid-row: 1 / span 3; text-align: left !important; position: sticky; top: 96px; margin: 0 !important; }
-  .promises-list { grid-column: 2; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .promises-list > :last-child { grid-column: 1 / -1; }
-  .promises-terms { grid-column: 2; text-align: left !important; }
-  .promises-care { grid-column: 2; }
-  .promises-pull { grid-column: 1 / -1; }
-  .promises-head h2, .bring-grid > h2, .apply-grid > h2 { text-wrap: balance; }
+  /* Your cards pair: each drawing sits on its own lit stage, the words beside it at a comfortable width */
+  .pair-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; gap: clamp(56px, 6vw, 104px) !important; }
+  .art-stage { position: relative; min-height: clamp(360px, 30vw, 460px); border-radius: 24px; border: 1px solid #241f40; overflow: hidden;
+               background: radial-gradient(ellipse 62% 58% at 50% 46%, rgba(154,143,192,0.18), transparent 72%), linear-gradient(160deg, #17132e, #110e24); }
+  .art-stage::before { content: ""; position: absolute; left: 50%; top: 50%; width: 74%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; border: 1px dashed rgba(154,143,192,0.16); pointer-events: none; }
+  .stage-star { display: block !important; }
+  .art-a > div:last-child { width: min(78%, 460px) !important; }
+  .art-b > div { zoom: 1.6; }
+  .pair-text > div[style*="max-width: 480px"] { max-width: 540px !important; }
+
+  /* Promises: heading and the Keeper terms on the left; the five promises as one clean list on the right */
+  .promises-grid { max-width: 1180px !important; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); grid-template-rows: auto 1fr; column-gap: clamp(48px, 6vw, 104px); align-items: start; }
+  .promises-head { grid-column: 1; grid-row: 1; text-align: left !important; margin: 0 !important; }
+  .promises-head h2 { text-wrap: balance; }
+  .promises-terms { grid-column: 1; grid-row: 2; text-align: left !important; margin: 24px 0 0 !important; max-width: 360px; }
+  .promises-list { grid-column: 2; grid-row: 1 / span 2; display: block !important; border-bottom: 1px solid #2c284c; }
+  .promises-list > div { display: grid; grid-template-columns: minmax(0, 200px) minmax(0, 1fr); column-gap: 32px; align-items: baseline;
+                         background: none !important; border: 0 !important; border-top: 1px solid #2c284c !important; border-radius: 0 !important; padding: 22px 0 !important; }
+  .promises-list > div > :first-child { margin: 0 !important; color: #f3efe9 !important; }
+  .promises-list > div > :last-child { font-size: 16px !important; }
+  .promises-care { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(48px, 6vw, 104px); align-items: start;
+                   margin-top: clamp(64px, 6vw, 88px) !important; padding: clamp(32px, 3vw, 44px) !important; border-radius: 24px !important; }
+  .promises-care > h3 { grid-column: 1; grid-row: 1 / span 2; margin: 0 !important; font-size: 24px !important; text-wrap: balance; }
+  .promises-care > p { grid-column: 2; }
+  .promises-pull { grid-column: 1 / -1; font-size: clamp(22px, 1.4vw + 12px, 28px) !important; margin-top: clamp(64px, 6vw, 88px) !important; }
+  .bring-grid > h2 { text-wrap: balance; }
 }
+.stage-star { display: none; position: absolute; border-radius: 50%; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -238,15 +250,16 @@
   <section id="included" style="background: #100d22; border-bottom: 1px solid #1c1834;">
     <div style="max-width: 1180px; margin: 0 auto; padding: clamp(64px,9vw,108px) clamp(18px,5vw,40px);">
 
-      <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(36px,5vw,60px); align-items: center;">
-        <div style="display: flex; justify-content: center;">
+      <div class="reveal pair-row" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(36px,5vw,60px); align-items: center;">
+        <div class="art-stage art-a" style="display: flex; justify-content: center;">
+          <span class="stage-star" style="top:14%;left:18%;width:3px;height:3px;background:#d6d9ee;box-shadow:0 0 6px #d6d9ee;animation:twinkle 5.5s ease-in-out infinite 0s;"></span><span class="stage-star" style="top:22%;left:82%;width:2px;height:2px;background:#e8c98a;box-shadow:0 0 6px #e8c98a;animation:twinkle 6.4s ease-in-out infinite 1.2s;"></span><span class="stage-star" style="top:76%;left:12%;width:2px;height:2px;background:#d6d9ee;box-shadow:0 0 6px #d6d9ee;animation:twinkle 7s ease-in-out infinite 2s;"></span><span class="stage-star" style="top:82%;left:74%;width:3px;height:3px;background:#d6d9ee;box-shadow:0 0 6px #d6d9ee;animation:twinkle 6s ease-in-out infinite 0.6s;"></span><span class="stage-star" style="top:48%;left:90%;width:2px;height:2px;background:#e8c98a;box-shadow:0 0 6px #e8c98a;animation:twinkle 5.2s ease-in-out infinite 1.8s;"></span>
           <div style="position: relative; width: clamp(240px,70vw,360px); aspect-ratio: 380 / 260;">
             <div style="position: absolute; left: 50%; top: 50%; width: 30%; aspect-ratio: 112 / 160; margin-left: -15%; margin-top: -30%; border-radius: 16px 16px 4px 16px; background: linear-gradient(160deg, #322b52 0%, #241d3e 55%, #1d1733 100%); border: 1px solid #5f5896; display: flex; align-items: center; justify-content: center; transform: rotate(-13deg) translate(-58%,8%);"><svg viewBox="0 0 24 24" width="34%" style="max-width:16px;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#c6cae2"></path></svg></div>
             <div style="position: absolute; left: 50%; top: 50%; width: 30%; aspect-ratio: 112 / 160; margin-left: -15%; margin-top: -30%; border-radius: 16px 16px 4px 16px; background: linear-gradient(160deg, #322b52 0%, #241d3e 55%, #1d1733 100%); border: 1px solid #5f5896; display: flex; align-items: center; justify-content: center; transform: rotate(13deg) translate(58%,8%);"><svg viewBox="0 0 24 24" width="34%" style="max-width:16px;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#c6cae2"></path></svg></div>
             <div style="position: absolute; left: 50%; top: 50%; z-index: 2; width: 30%; aspect-ratio: 112 / 160; margin-left: -15%; margin-top: -30%; border-radius: 16px 16px 4px 16px; background: linear-gradient(160deg, #363058 0%, #272042 55%, #1f1937 100%); border: 1px solid #5f5896; display: flex; align-items: center; justify-content: center; transform: translateY(-6%); animation: floatCard 4800ms ease-in-out 0.6s infinite, cardglow 4800ms ease-in-out 0.6s infinite;"><svg viewBox="0 0 24 24" width="36%" style="max-width:18px;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
           </div>
         </div>
-        <div>
+        <div class="pair-text">
           <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #e8c98a; margin-bottom: 16px;">What is in it for you</div>
           <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: clamp(27px,2.4vw+16px,38px); line-height: 1.18; color: #f3efe9; text-wrap: balance;">Everything is included, always.</h2>
           <div style="margin: 20px 0 0; font-size: clamp(15px,0.4vw+14px,17px); line-height: 1.6; color: #9aa0c2; max-width: 480px; text-wrap: pretty;"><p style="margin: 0;"><strong style="color: #f3efe9; font-weight: 600;">Every reading, every tradition, everything included from the first day.</strong> When Enchantra opens to everyone and the subscription begins, your account stays free.</p><p style="margin: 14px 0 0;">You draw from your own deck, just as you always would. Thoth, Rider–Waite–Smith and Marseille are each complete at 78 cards, and decks that grow from those traditions are welcome too. Set an intention at the new moon, return to your cards when you need to, and write down what they stir in you. Over months, patterns emerge.</p></div>
@@ -254,13 +267,14 @@
         </div>
       </div>
 
-      <div id="keeper" class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease 100ms, transform 900ms ease 100ms; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(36px,5vw,60px); align-items: center; margin-top: clamp(64px,8vw,104px);">
-        <div style="display: flex; align-items: center; justify-content: center; order: 2;">
+      <div id="keeper" class="reveal pair-row" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease 100ms, transform 900ms ease 100ms; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(36px,5vw,60px); align-items: center; margin-top: clamp(64px,8vw,104px);">
+        <div class="art-stage art-b" style="display: flex; align-items: center; justify-content: center; order: 2;">
+          <span class="stage-star" style="top:14%;left:18%;width:3px;height:3px;background:#d6d9ee;box-shadow:0 0 6px #d6d9ee;animation:twinkle 5.5s ease-in-out infinite 0s;"></span><span class="stage-star" style="top:22%;left:82%;width:2px;height:2px;background:#e8c98a;box-shadow:0 0 6px #e8c98a;animation:twinkle 6.4s ease-in-out infinite 1.2s;"></span><span class="stage-star" style="top:76%;left:12%;width:2px;height:2px;background:#d6d9ee;box-shadow:0 0 6px #d6d9ee;animation:twinkle 7s ease-in-out infinite 2s;"></span><span class="stage-star" style="top:82%;left:74%;width:3px;height:3px;background:#d6d9ee;box-shadow:0 0 6px #d6d9ee;animation:twinkle 6s ease-in-out infinite 0.6s;"></span><span class="stage-star" style="top:48%;left:90%;width:2px;height:2px;background:#e8c98a;box-shadow:0 0 6px #e8c98a;animation:twinkle 5.2s ease-in-out infinite 1.8s;"></span>
           <div style="width: 76px; height: 76px; border-radius: 50%; background: radial-gradient(circle at 62% 42%, #2e2850, #1a1730); border: 1px solid #241f40; box-shadow: inset -13px 0 22px -4px rgba(198,202,226,0.5), 0 0 34px rgba(198,202,226,0.12); flex: none;"></div>
           <div style="position: relative; width: 56px; height: 1px; background: linear-gradient(90deg, #463c72, #6b5a34); margin: 0 8px; flex: none;"><div style="position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; transform: translate(-50%,-50%); box-shadow: 0 0 8px rgba(232,201,138,0.7);"></div></div>
           <div style="width: 86px; height: 122px; border-radius: 14px 14px 4px 14px; background: linear-gradient(160deg, #363058 0%, #272042 55%, #1f1937 100%); border: 1px solid #5f5896; display: flex; align-items: center; justify-content: center; flex: none; animation: floatCard 4800ms ease-in-out infinite, cardglow 4800ms ease-in-out infinite;"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
         </div>
-        <div style="order: 1;">
+        <div class="pair-text" style="order: 1;">
           <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">What a Keeper does</div>
           <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: clamp(27px,2.4vw+16px,38px); line-height: 1.18; color: #f3efe9; text-wrap: balance;">A Keeper keeps a regular practice, and shares the truth.</h2>
           <div style="margin: 20px 0 0; font-size: clamp(15px,0.4vw+14px,17px); line-height: 1.6; color: #9aa0c2; max-width: 480px; text-wrap: pretty;"><p style="margin: 0;">A keeper loves tarot, or is tarot curious. You don't have to know tarot to join. You have to enjoy a regular practice, daily if possible, and keep me informed about what you love, what you like, and what you are unsure of.</p><p style="margin: 14px 0 0;">You give this feedback in the app. Every so often I might send you a question about a new interface, or a new feature to test before it goes public, or ask how new brand and marketing feels.</p><p style="margin: 14px 0 0;">You are never locked in. If you need to step away when life asks, that is okay, and you are always welcome to return. Enchantra stays free as long as you are happy to give me feedback and share honestly what will make Enchantra better for you, and ultimately for others.</p></div>
@@ -357,10 +371,6 @@
   <!-- ═══════════ APPLY — the homepage final call to action ═══════════ -->
   <section id="apply" style="background: #100d22; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834;">
     <div class="apply-grid" style="max-width: 720px; margin: 0 auto; padding: clamp(72px,10vw,110px) clamp(18px,5vw,40px) clamp(80px,11vw,120px); text-align: center; position: relative;">
-      <div style="display: flex; justify-content: center; margin-bottom: clamp(28px,5vw,40px); position: relative;">
-        <div style="position: absolute; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.10), transparent 70%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
-        <div style="width: clamp(120px,32vw,150px); height: clamp(120px,32vw,150px); border-radius: 50%; background: radial-gradient(circle at 50% 42%, #3a3363, #201a3a); border: 1px solid #2e2648; box-shadow: inset 0 0 26px 2px rgba(232,201,138,0.4), 0 0 56px rgba(232,201,138,0.16); position: relative; display: flex; align-items: center; justify-content: center; animation: breath 4800ms ease-in-out infinite;"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
-      </div>
       <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: clamp(30px,3vw+16px,44px); line-height: 1.15; color: #f3efe9; text-wrap: balance;">Tell me which deck you read with.</h2>
       <p style="margin: 18px auto 0; font-size: clamp(15px,0.4vw+14px,17px); line-height: 1.6; color: #9aa0c2; max-width: 460px; text-wrap: pretty;">Send me an email with the deck you read with and why you are curious. That is the whole application.</p>
       <div style="margin: 32px auto 0; display: flex; justify-content: center;">
