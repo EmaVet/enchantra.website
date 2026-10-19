@@ -11,240 +11,242 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://enchantratarot.com/dragondreaming/">
 <style>
-:root{
-  --canvas:#0e0b1e; --screen:#15122a; --panel:#1a1730; --panel-alt:#181528;
-  --hairline:#2c284c; --hairline-deep:#241f40;
-  --text:#f3efe9; --body:#cdd1e6; --secondary:#9aa0c2; --muted:#8b8fb2; --faint:#6f6c86;
-  --gold:#e8c98a; --gold-pale:#f7ecc9; --sage:#a4c2ab; --lilac:#9a8fc0; --silver:#c6cae2;
-  --serif:"Iowan Old Style", Palatino, "Palatino Linotype", "Book Antiqua", Georgia, "Noto Serif", serif;
-  --sans:-apple-system, "SF Pro Text", "Helvetica Neue", system-ui, Roboto, sans-serif;
-}
-*{box-sizing:border-box}
-body{margin:0;background:var(--canvas);color:var(--body);font-family:var(--sans);
-  font-size:15px;line-height:1.55;padding:0;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-p a{color:var(--gold);border-bottom:1px solid rgba(232,201,138,.35)}
-p a:hover{color:var(--gold-pale)}
+  /* ── Intrinsic responsive system ──
+     No layout media queries. Type + spacing scale with clamp(); multi-column
+     blocks use grid auto-fit + minmax so they reflow from desktop → tablet →
+     phone on their own. New content dropped into these patterns adapts
+     automatically at every width. The only width rule is the mobile sticky bar. */
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; background: #0e0b1e; }
+  ::selection { background: #463c72; color: #e6e9f6; }
+  * { box-sizing: border-box; }
+  a { color: #e8c98a; }
+  a:hover { color: #f0dcac; }
 
-nav.site{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
-  gap:12px;padding:calc(14px + env(safe-area-inset-top)) max(clamp(18px, 5vw, 40px), calc((100% - 1180px) / 2 + clamp(18px, 5vw, 40px))) 14px;
-  background:rgba(14,11,30,.72);backdrop-filter:blur(14px);border-bottom:1px solid #221d3a}
-nav.site .brand{display:flex;align-items:center;gap:7px}
-nav.site .brand .mk{width:26px;height:26px;flex:0 0 auto;display:inline-flex}
-nav.site .brand .nm{font-family:var(--serif);font-size:19px;letter-spacing:.5px;color:var(--text)}
-nav.site .right{display:flex;align-items:center;gap:clamp(16px,2.4vw,28px)}
-.nav-links{display:flex;align-items:center;gap:clamp(16px,2.4vw,28px)}
-.nav-links a{font-size:14px;color:var(--silver);white-space:nowrap}
-.nav-links a:hover,.nav-join:hover{color:#f0dcac}
-.nav-join{font-size:14px;color:var(--gold);white-space:nowrap}
-@media (max-width:859px){.nav-links{display:none}}
+  @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.022); } }
+  @keyframes glowpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
+  @keyframes twinkle { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+  @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes cardglow { 0%,100% { box-shadow: 0 12px 30px rgba(0,0,0,0.45); } 50% { box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 24px rgba(232,201,138,0.22); } }
+  @keyframes threadpulse { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+  @keyframes floatCardR { 0%,100% { transform: rotate(var(--r)) translateY(0); } 50% { transform: rotate(var(--r)) translateY(-9px); } }
 
-.wrap{max-width:1180px;margin:0 auto;padding-inline:clamp(18px,5vw,40px)}
-section{max-width:720px;margin-inline:auto}
-.hero{padding:clamp(48px,9vw,84px) 0 8px}
-.eyebrow{font-size:12px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;
-  color:var(--lilac);margin:0 0 14px}
-.eyebrow.gold{color:var(--gold)}
-h1{font-family:var(--serif);font-weight:400;font-size:clamp(34px,16px + 3vw,46px);line-height:1.18;
-  color:var(--text);margin:0 0 18px;text-wrap:balance}
-h2{font-family:var(--serif);font-weight:400;font-size:26px;line-height:1.25;color:var(--text);
-  margin:0 0 16px;text-wrap:balance}
-.lede{font-family:var(--serif);font-size:19px;line-height:1.5;color:var(--body);margin:0}
-.block{padding:clamp(30px,5vw,44px) 0}
-.block p{margin:0 0 14px}
-.block p:last-child{margin-bottom:0}
+  .en-serif { font-family: 'Iowan Old Style', 'Noto Serif', Palatino, Georgia, serif; }
 
-.status{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--hairline);
-  border-radius:16px;background:var(--panel-alt);padding:18px 20px;margin:4px 0 0}
-.status .sp{flex:0 0 auto;width:15px;height:15px;margin-top:3px}
-.status p{margin:0;color:var(--body)}
+  /* Gold buttons — hover/active as real CSS (was runtime style-hover/style-active) */
+  .btn-gold { transition: background 200ms ease, transform 160ms ease, box-shadow 200ms ease; }
+  .btn-gold:hover { background: #f0dcac !important; transform: translateY(-1px); box-shadow: 0 6px 22px rgba(232,201,138,0.32); }
+  .btn-gold:active { transform: translateY(0); }
 
-.cta{background:linear-gradient(#171233 0%,#141029 100%);border:1px solid rgba(232,201,138,.34);
-  border-radius:20px;padding:clamp(26px,5vw,34px);margin:8px 0 0;text-align:center}
-.cta h2{margin:0 0 10px}
-.cta p{max-width:460px;margin-left:auto;margin-right:auto}
-.btn{display:inline-block;margin:14px 0 10px;padding:15px 30px;border-radius:999px;
-  background:var(--gold);color:#17122b;font-size:16.5px;font-weight:650;border-bottom:none;
-  transition:background .2s,transform .16s}
-.btn:hover{background:#f0dcac;transform:translateY(-1px)}
-.cta .fine{font-size:13.5px;color:var(--faint);margin-bottom:0}
+  /* FAQ accordion (native <details>, independent items) */
+  details.faq > summary { list-style: none; }
+  details.faq > summary::-webkit-details-marker { display: none; }
+  .faq-sign::after { content: "+"; }
+  details.faq[open] .faq-sign::after { content: "\2013"; }
 
-.second{border:1px solid var(--hairline);border-radius:20px;background:var(--panel-alt);
-  padding:clamp(26px,5vw,34px);margin:18px 0 0;text-align:center}
-.second h2{font-size:23px}
-.second .mail{display:inline-block;margin:12px 0 8px;font-family:var(--serif);font-size:18px;
-  color:var(--gold);border-bottom:1px solid rgba(232,201,138,.4);padding-bottom:2px}
-.second .mail:hover{color:var(--gold-pale)}
-.second .fine{font-size:13.5px;color:var(--faint);margin:6px 0 0}
+  /* Mobile sticky "Join the waitlist" bar + hamburger nav share one breakpoint (860px).
+     Below 860: hamburger menu + sticky bottom bar (no nav Join pill).
+     860 and up: full nav bar with links + Join pill (no sticky bar, no hamburger). */
+  .sticky-join, .sticky-spacer { display: none; }
+  .nav-toggle { display: none; background: none; border: 0; padding: 4px; margin: -4px 0; cursor: pointer; line-height: 0; }
+  .nav-links a:hover, .nav-menu a:hover { color: #f0dcac !important; }
+  .nav-menu {
+    display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column;
+    background: #0e0b1e; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid #221d3a; box-shadow: 0 12px 24px rgba(0,0,0,0.4); padding: 4px clamp(18px,5vw,40px) 14px;
+  }
+  .nav-menu.open { display: flex; }
+  .nav-menu a { border-top: 1px solid #1c1834; }
+  .nav-menu a:first-child { border-top: 0; }
+  @media (max-width: 859px) {
+    .sticky-join, .sticky-spacer { display: block; }
+    .nav-links, .nav-join { display: none !important; }
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  }
+  @media (min-width: 860px) { .nav-menu { display: none !important; } }
 
-footer.small{max-width:720px;margin:0 auto;padding:40px 0 56px;margin-top:40px;
-  border-top:1px solid var(--hairline);color:var(--muted);font-size:13px}
-footer.small .fbrand{display:flex;align-items:center;gap:6px;margin-bottom:8px}
-footer.small .fbrand .mk{width:22px;height:22px;flex:0 0 auto;display:inline-flex}
-footer.small .fbrand .nm{font-family:var(--serif);font-size:18px;color:var(--text)}
-footer.small .links{display:flex;flex-wrap:wrap;gap:16px;margin-top:12px}
-footer.small a{color:var(--secondary)}
-footer.small a:hover{color:#f0dcac}
+  /* Motion pauses while its section is off-screen (IntersectionObserver below) */
+  .is-offscreen, .is-offscreen * { animation-play-state: paused !important; }
+
+  /* Accessibility: motion off → reveal immediately, no transforms */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; }
+    .reveal, .reveal > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
 </style>
+<noscript><style>.reveal, .reveal > * { opacity: 1 !important; transform: none !important; }</style></noscript>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <style>
 @font-face { font-family: 'Noto Serif'; font-style: normal; font-weight: 400 500; font-display: swap; src: url("/assets/fonts/noto-serif-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: 'Noto Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url("/assets/fonts/noto-serif-latin-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 </style>
-<style id="site-layout">
-html, body { overflow-x: clip; }
-
-/* Site layout: one container and one left edge on every page, fluid down to phone width. */
-:root { --page-max: 1180px; --gutter: clamp(18px, 5vw, 40px); --measure: 760px; }
-section { max-width: none; margin-inline: 0; }
-section > p, section > h2, .block p, .hero p { max-width: var(--measure); }
-/* Site navigation, the same bar as the homepage; links point back to it. */
-  nav.site { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) max(clamp(18px, 5vw, 40px), calc((100% - 1180px) / 2 + clamp(18px, 5vw, 40px))) 14px; background: rgba(14,11,30,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a; }
-  nav.site a { border-bottom: none; }
-  nav.site .brand { display: flex; align-items: center; gap: 7px; }
-  nav.site .brand .mk { width: 26px; height: 26px; flex: none; display: inline-flex; }
-  nav.site .brand .nm { font-family: var(--serif); font-size: 19px; letter-spacing: .5px; color: var(--text); }
-  nav.site .right { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px); }
-  .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px); }
-  .nav-links a { font-size: 14px; color: var(--silver); white-space: nowrap; }
-  .nav-links a:hover, .nav-menu a:hover { color: #f0dcac; }
-  .nav-join { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 999px; background: var(--gold); color: #191529; font-size: 13.5px; font-weight: 600; letter-spacing: .2px; white-space: nowrap; box-shadow: 0 4px 16px rgba(232,201,138,.22); transition: background 200ms ease, transform 160ms ease; }
-  .nav-join:hover { background: #f0dcac; transform: translateY(-1px); }
-  .nav-toggle { display: none; background: none; border: 0; padding: 4px; margin: -4px 0; cursor: pointer; line-height: 0; }
-  .nav-toggle:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
-  .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: var(--canvas); border-bottom: 1px solid #221d3a; box-shadow: 0 12px 24px rgba(0,0,0,.4); padding: 4px clamp(18px,5vw,40px) 14px; }
-  .nav-menu.open { display: flex; }
-  .nav-menu a { font-size: 16px; color: #e6e9f6; padding: 12px 2px; border-top: 1px solid #1c1834; }
-  .nav-menu a:first-child { border-top: 0; }
-  @media (max-width: 859px) {
-    .nav-links, .nav-join { display: none; }
-    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
-  }
-  @media (min-width: 860px) { .nav-menu { display: none; } }
-/* Site footer, the same as the homepage and the beta page */
-  footer.site { border-top: 1px solid #1c1834; background: var(--canvas); margin-top: 64px; color: var(--secondary); }
-  footer.site .cols { max-width: 1180px; margin: 0 auto; padding: 48px clamp(18px,5vw,40px) 52px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px; }
-  footer.site .cols > div { display: flex; flex-direction: column; gap: 11px; }
-  footer.site a, footer.site span { font-size: 14px; color: var(--secondary); border-bottom: none; }
-  footer.site a.gold { color: var(--gold); }
-  footer.site .fh { font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: var(--faint); margin-bottom: 5px; }
-  footer.site .fbrand { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
-  footer.site .fbrand .mk { width: 24px; height: 24px; flex: none; display: inline-flex; }
-  footer.site .fbrand .nm { font-family: var(--serif); font-size: 19px; color: var(--text); }
-  footer.site .tag { font-family: var(--serif); margin: 0; font-size: 15px; line-height: 1.5; color: var(--muted); font-style: italic; max-width: 260px; }
-  footer.site .legal { border-top: 1px solid #1c1834; padding: 22px 40px; text-align: center; font-size: 12.5px; color: #8b8fb2; }
-  footer.site .abn { font-size: 12.5px; color: #8b8fb2; margin-top: 9px; }
-</style>
-<style id="design-pass">
-/* Design pass: editorial two-column layout on desktop, single column on phones. */
-
-.block p { font-size: 17px; line-height: 1.6; }
-@media (min-width: 1024px) {
-  main.wrap, body > .wrap { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-rows: auto 1fr; column-gap: clamp(40px, 5vw, 80px); align-items: start; }
-  .wrap > .hero, .wrap > section:not(:has(.cta)) { grid-column: 1; }
-  .wrap > section:has(.cta) { grid-column: 2; grid-row: 1 / span 2; align-self: center; padding-top: clamp(48px, 9vw, 84px); }
-  .wrap > section:has(.cta) .cta, .wrap > section:has(.cta) .second { margin-top: 0; }
-  .wrap > section:has(.cta) .second { margin-top: 18px; }
-}
+<style id="page-layout">
+  html, body { overflow-x: clip; }
+  .btn-outline { transition: background 200ms ease, color 200ms ease; }
+  .btn-outline:hover { background: rgba(232,201,138,0.10); color: #f0dcac !important; }
 
 </style>
 </head>
 <body>
 
-<nav class="site" aria-label="Enchantra website">
-  <a class="brand" href="/" aria-label="Enchantra home"><span class="mk"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;" aria-hidden="true"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span><span class="nm">Enchantra</span></a>
-  <div class="right">
-    <div class="nav-links">
-      <a href="/#cards">Bring your cards</a>
-      <a href="/#how">How it works</a>
-      <a href="/almanac">The Almanac</a>
-      <a href="/#pricing">Pricing</a>
-      <a href="/#faq">FAQ</a>
+<div style="min-height: 100vh; background: #0e0b1e; color: #cdd1e6; font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden;">
+
+  <!-- ═══════════ NAV — minimal, safe-area aware ═══════════ -->
+  <nav style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) max(clamp(18px, 5vw, 40px), calc((100% - 1180px) / 2 + clamp(18px, 5vw, 40px))) 14px; background: rgba(14,11,30,0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a;">
+    <a href="/#top" style="display: flex; align-items: center; gap: 7px; text-decoration: none;">
+      <span style="width: 26px; height: 26px; flex: none; display: inline-flex;">
+        <svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;">
+          <path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path>
+          <path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path>
+        </svg>
+      </span>
+      <span class="en-serif" style="font-size: 19px; letter-spacing: 0.5px; color: #f3efe9;">Enchantra</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px);">
+      <div class="nav-links" style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px);">
+        <a href="/#cards" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Bring your cards</a>
+        <a href="/#how" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">How it works</a>
+        <a href="/almanac" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">The Almanac</a>
+        <a href="/#pricing" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Pricing</a>
+        <a href="/#faq" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">FAQ</a>
+      </div>
+      <a href="https://cardswekeep.substack.com/subscribe" class="btn-gold nav-join" style="display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 999px; border: none; background: #e8c98a; color: #191529; font-size: 13.5px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; white-space: nowrap; box-shadow: 0 4px 16px rgba(232,201,138,0.22);">
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="flex: none;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#191529"></path></svg>
+        Join the waitlist
+        <svg viewBox="0 0 24 24" width="13" height="13"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#f3efe9" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+      </button>
     </div>
-    <a href="https://cardswekeep.substack.com/subscribe" class="nav-join">Join the waitlist <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
-    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#f3efe9" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg></button>
-  </div>
-  <div class="nav-menu" id="navMenu">
-    <a href="/#cards">Bring your cards</a>
-    <a href="/#how">How it works</a>
-    <a href="/almanac">The Almanac</a>
-    <a href="/#pricing">Pricing</a>
-    <a href="/#faq">FAQ</a>
-  </div>
-</nav>
+    <div class="nav-menu" id="navMenu">
+      <a href="/#cards" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">Bring your cards</a>
+      <a href="/#how" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">How it works</a>
+      <a href="/almanac" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">The Almanac</a>
+      <a href="/#pricing" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">Pricing</a>
+      <a href="/#faq" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">FAQ</a>
+    </div>
+  </nav>
 
-<div class="wrap">
+  <!-- ═══════════ HERO — Dragon Dreaming (the homepage moon + rising cards) ═══════════ -->
+  <header style="position: relative; max-width: 1180px; margin: 0 auto; padding: clamp(40px,7vw,72px) clamp(18px,5vw,40px) clamp(56px,8vw,96px); overflow: hidden;">
+    <!-- ambient stars -->
+    <div style="position: absolute; inset: 0; pointer-events: none;">
+      <div style="position: absolute; top: 14%; left: 48%; width: 4px; height: 4px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 6px rgba(198,202,226,0.8); animation: twinkle 5s ease-in-out infinite;"></div>
+      <div style="position: absolute; top: 30%; left: 88%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 6.5s ease-in-out infinite 1s;"></div>
+      <div style="position: absolute; top: 66%; left: 60%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 7s ease-in-out infinite 2s;"></div>
+      <div style="position: absolute; top: 20%; left: 68%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 5.5s ease-in-out infinite 0.5s;"></div>
+      <div style="position: absolute; top: 80%; left: 84%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 6s ease-in-out infinite 1.4s;"></div>
+      <div style="position: absolute; top: 8%; left: 76%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 7.5s ease-in-out infinite 2.6s;"></div>
+      <div style="position: absolute; top: 16%; left: 82%; width: 3px; height: 3px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 6px rgba(232,201,138,0.7); animation: twinkle 4.5s ease-in-out infinite 0.3s;"></div>
+      <div style="position: absolute; top: 46%; left: 62%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 5.8s ease-in-out infinite 1.7s;"></div>
+      <div style="position: absolute; top: 72%; left: 71%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 6.4s ease-in-out infinite 2.2s;"></div>
+      <div style="position: absolute; top: 26%; left: 92%; animation: twinkle 5.2s ease-in-out infinite 0.7s;"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
+      <div style="position: absolute; top: 60%; left: 52%; animation: twinkle 7.2s ease-in-out infinite 1.1s;"><svg viewBox="0 0 24 24" width="10" height="10"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a" opacity="0.8"></path></svg></div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(30px,5vw,48px); align-items: center; min-height: 460px; position: relative;">
+      <div style="text-align: left;">
+        <p style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: #e8c98a; margin: 0 0 20px;">Dragon Dreaming</p>
+        <h1 class="en-serif" style="text-wrap: balance; margin: 0; font-weight: 400; font-size: clamp(38px, 4.4vw + 16px, 58px); line-height: 1.08; color: #f3efe9;">You've met M.</h1>
+        <p class="en-serif" style="margin: clamp(18px,3vw,24px) 0 0; font-size: clamp(18px,0.8vw+15px,21px); line-height: 1.5; color: #e6e9f6; max-width: 520px; text-wrap: pretty;">Our founder and Chief Enchantment Officer was at Dragon Dreaming, handing out little tarot cards. If you're holding one, you found us early.</p>
+        <p style="margin: 22px 0 0; font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.62; color: #c6cae2; max-width: 520px; text-wrap: pretty;">Enchantra is a tarot reflection and journaling app for iPhone and Android. You draw from your own deck. Enchantra helps you interpret each card and remembers every reading, one day and one lunar cycle at a time.</p>
+        <p style="margin: 14px 0 0; font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.62; color: #c6cae2; max-width: 520px;">The question on your card is a good first entry. Keep the card.</p>
+        <div style="margin-top: 22px; font-size: 14px; line-height: 1.5; color: #9aa0c2; display: flex; align-items: center; gap: 10px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 8px rgba(232,201,138,0.7); flex: none;"></span>Enchantra is in alpha right now. Beta opens very soon, and we'd love you in it.</div>
+      </div>
 
-  <section class="hero">
-    <p class="eyebrow gold">Dragon Dreaming</p>
-    <h1>You've met M.</h1>
-    <p class="lede">Our founder and Chief Enchantment Officer was at Dragon Dreaming, handing out
-      little tarot cards. If you're holding one, you found us early.</p>
+      <!-- moon + cards stage — everything positioned in %, scales with the box -->
+      <div style="position: relative; width: clamp(240px, 74vw, 400px); aspect-ratio: 1 / 1; margin: 0 auto;">
+        <div style="position: absolute; inset: -5%; border-radius: 50%; background: radial-gradient(closest-side, rgba(198,202,226,0.10), rgba(198,202,226,0.04) 55%, transparent 72%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
+        <div style="position: absolute; left: 50%; top: 50%; width: 84%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; border: 1px dashed rgba(232,201,138,0.16);">
+          <div style="position: absolute; left: 50%; top: -6px; margin-left: -7px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 62% 42%, #45406e, #221c3c); box-shadow: inset -3px 0 8px rgba(232,201,138,0.5), 0 0 10px rgba(232,201,138,0.2);"></div>
+          <div style="position: absolute; right: -6px; top: 50%; margin-top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 30% 50%, #3a3363, #1a1730); box-shadow: inset 4px 0 7px -1px rgba(198,202,226,0.5);"></div>
+          <div style="position: absolute; left: 50%; bottom: -6px; margin-left: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #2e2850 0 48%, #14112a 52%); border: 1px solid #241f40;"></div>
+          <div style="position: absolute; left: -6px; top: 50%; margin-top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 70% 50%, #3a3363, #1a1730); box-shadow: inset -4px 0 7px -1px rgba(198,202,226,0.5);"></div>
+        </div>
+        <div style="position: absolute; left: 50%; top: 50%; width: 58%; aspect-ratio: 1; transform: translate(-50%,-50%);">
+          <div style="width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle closest-side at 62% 42%, #2e2850 0%, #221d38 55%, #1a1730 100%); border: 1px solid #241f40; box-shadow: inset -30px 0 52px -10px rgba(198,202,226,0.55), 0 0 80px rgba(198,202,226,0.10); animation: breath 4800ms ease-in-out infinite;"></div>
+        </div>
+        <div style="position: absolute; left: 50%; bottom: 6%; width: 0; height: 0;">
+          <div style="--r: -22deg; position: absolute; left: -33%; bottom: -30px; width: 24%; aspect-ratio: 96 / 138; min-width: 74px; transform-origin: 50% 120%; animation: floatCardR 4800ms ease-in-out infinite; border-radius: 12px 12px 4px 12px; background: linear-gradient(160deg, #2c2648, #1c1733); border: 1px solid #4a4270; box-shadow: 0 16px 34px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="30%" style="max-width:16px;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#8f95bd"></path></svg></div>
+          <div style="--r: 22deg; position: absolute; left: 9%; bottom: -30px; width: 24%; aspect-ratio: 96 / 138; min-width: 74px; transform-origin: 50% 120%; animation: floatCardR 4800ms ease-in-out infinite 1s; border-radius: 12px 12px 4px 12px; background: linear-gradient(160deg, #2c2648, #1c1733); border: 1px solid #4a4270; box-shadow: 0 16px 34px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="30%" style="max-width:16px;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#8f95bd"></path></svg></div>
+          <div style="position: absolute; left: -14%; bottom: -14px; z-index: 3; width: 28%; aspect-ratio: 112 / 158; min-width: 88px; animation: floatCard 4800ms ease-in-out infinite 0.5s; border-radius: 14px 14px 4px 14px; background: linear-gradient(160deg, #363058, #1f1937); border: 1px solid #6b5a34; box-shadow: 0 24px 50px rgba(0,0,0,0.55), 0 0 34px rgba(232,201,138,0.26); display: flex; align-items: center; justify-content: center;"><svg viewBox="0 0 24 24" width="34%" style="max-width:22px;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════ TWO INVITATIONS — side by side, full width ═══════════ -->
+  <section id="join" style="background: #100d22; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834;">
+    <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1180px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px);">
+      <div class="invites" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(14px,2vw,24px);">
+        <div style="border: 1px solid rgba(232,201,138,0.34); background: linear-gradient(180deg, #171233 0%, #141029 100%); border-radius: 20px; padding: clamp(28px,4vw,44px); display: flex; flex-direction: column; align-items: flex-start;">
+          <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: clamp(26px,1.6vw+16px,34px); line-height: 1.2; color: #f3efe9; text-wrap: balance;">Join the waitlist.</h2>
+          <p style="margin: 14px 0 0; font-size: clamp(15px,0.4vw+14px,17px); line-height: 1.65; color: #9aa0c2; text-wrap: pretty; flex: 1;">We'll write when beta opens. No spam, no countdowns.</p>
+          <div style="margin-top: 26px;"><a href="https://cardswekeep.substack.com/subscribe" class="btn-gold" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 52px; padding: 0 30px; border-radius: 999px; background: #e8c98a; color: #191529; font-size: 15px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; box-shadow: 0 6px 20px rgba(232,201,138,0.25);"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="flex: none;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#191529"></path></svg> Join the waitlist <svg viewBox="0 0 24 24" width="14" height="14"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#191529" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></div>
+          <p style="margin: 16px 0 0; font-size: 13.5px; line-height: 1.55; color: #8b8fb2;">You'll also get Cards We Keep, M's letter about tarot and building this thing.</p>
+        </div>
+        <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 16px; border-radius: 20px; padding: clamp(28px,4vw,44px); display: flex; flex-direction: column; align-items: flex-start;">
+          <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: clamp(26px,1.6vw+16px,34px); line-height: 1.2; color: #f3efe9; text-wrap: balance;">Or come in properly, as a Keeper.</h2>
+          <p style="margin: 14px 0 0; font-size: clamp(15px,0.4vw+14px,17px); line-height: 1.65; color: #9aa0c2; text-wrap: pretty; flex: 1;">The Keepers are the people testing Enchantra now. You bring your own deck and a lunar cycle of real use, and you keep Enchantra free for good. Email M and say you met her at Dragon&nbsp;Dreaming.</p>
+          <div style="margin-top: 26px;"><a href="mailto:keeper@enchantratarot.com?subject=Met%20at%20Dragon%20Dreaming%2C%20want%20to%20be%20a%20beta%20tester" class="btn-outline" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 52px; padding: 0 30px; border-radius: 999px; border: 1px solid #e8c98a; color: #e8c98a; font-size: 15px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none;"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="flex: none;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg> Email to become a Keeper</a></div>
+          <p style="margin: 16px 0 0; font-size: 13.5px; line-height: 1.55; color: #8b8fb2;">The subject line is already written for you. <a href="/beta/" style="color: #e8c98a;">Read what a Keeper does first.</a></p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section class="block">
-    <p>Enchantra is a tarot reflection and journaling app for iPhone and Android. You draw from your
-      own deck. Enchantra helps you interpret each card and remembers every reading, one day and one
-      lunar cycle at a time.</p>
-    <p>The question on your card is a good first entry. Keep the card.</p>
-
-    <div class="status">
-      <svg class="sp" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg>
-      <p>Enchantra is in alpha right now. Beta opens very soon, and we'd love you in it.</p>
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(48px,6vw,54px) clamp(18px,5vw,40px) clamp(52px,7vw,60px); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
+      <div style="min-width: 200px;">
+        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 16px;">
+          <span style="width: 24px; height: 24px; flex: none; display: inline-flex;">
+            <svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;">
+              <path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path>
+              <path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path>
+            </svg>
+          </span>
+          <span class="en-serif" style="font-size: 19px; color: #f3efe9;">Enchantra</span>
+        </div>
+        <!-- Footer line: the replacement comes from the next brand board -->
+        <div style="font-size: 12.5px; color: #8b8fb2; margin-top: 20px;">Enchantra (ABN 87 927 064 532)</div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">Practice</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="/#practice" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The philosophy</a>
+          <a href="/#how" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">How it works</a>
+          <a href="/#almanac" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The Almanac</a>
+          <a href="/#faq" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">FAQ</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">The app</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="/beta/" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the Keepers</a>
+          <span style="font-size: 14px; color: #9aa0c2;">iPhone · coming soon</span>
+          <span style="font-size: 14px; color: #9aa0c2;">Android · coming soon</span>
+          <a href="https://cardswekeep.substack.com/subscribe" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the waitlist</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">More</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="/privacy/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Privacy</a>
+          <a href="/terms/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Terms</a>
+          <a href="/support/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Support</a>
+        </div>
+      </div>
     </div>
-  </section>
-
-  <section>
-    <div class="cta">
-      <h2>Join the waitlist.</h2>
-      <p>We'll write when beta opens. No spam, no countdowns.</p>
-      <a class="btn" href="https://cardswekeep.substack.com/subscribe">Join the waitlist</a>
-      <p class="fine">You'll also get Cards We Keep, M's letter about tarot and building this thing.</p>
-    </div>
-
-    <div class="second">
-      <h2>Or come in properly, as a Keeper.</h2>
-      <p>The Keepers are the people testing Enchantra now. You bring your own deck and a lunar cycle
-        of real use, and you keep Enchantra free for good. Email M and say you met her at
-        Dragon&nbsp;Dreaming.</p>
-      <a class="mail" href="mailto:keeper@enchantratarot.com?subject=Met%20at%20Dragon%20Dreaming%2C%20want%20to%20be%20a%20beta%20tester">keeper@enchantratarot.com</a>
-      <p class="fine">The subject line is already written for you. <a href="/beta/" style="color:var(--gold)">Read what a Keeper does first.</a></p>
-    </div>
-  </section>
+  
+    <div style="border-top: 1px solid #1c1834; padding: 22px 40px; text-align: center; font-size: 12.5px; color: #8b8fb2;">© 2026 Enchantra · Tarot reading and journaling app.</div>
+  </footer>
 
 </div>
-<footer class="site">
-  <div class="cols">
-    <div>
-      <div class="fbrand"><span class="mk"><svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;" aria-hidden="true"><path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path><path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></span><span class="nm">Enchantra</span></div>
-      <!-- Footer line: the replacement comes from the next brand board -->
-      <div class="abn">Enchantra (ABN 87 927 064 532)</div>
-    </div>
-    <div>
-      <div class="fh">Practice</div>
-      <a href="/#practice">The philosophy</a>
-      <a href="/#how">How it works</a>
-      <a href="/almanac/">The Almanac</a>
-      <a href="/#faq">FAQ</a>
-    </div>
-    <div>
-      <div class="fh">The app</div>
-      <a href="/beta/" class="gold">Join the Keepers</a>
-      <span>iPhone · coming soon</span>
-      <span>Android · coming soon</span>
-      <a href="https://cardswekeep.substack.com/subscribe">Join the waitlist</a>
-    </div>
-    <div>
-      <div class="fh">More</div>
-      <a href="/privacy/">Privacy</a>
-      <a href="/terms/">Terms</a>
-      <a href="/support/">Support</a>
-    </div>
-  </div>
 
-  <div class="legal">© 2026 Enchantra · Tarot reading and journaling app.</div>
-  </footer>
 <script>
-  /* Mobile nav: the menu button opens the dropdown; tapping a link closes it. */
+  /* Mobile nav: hamburger toggles the dropdown menu; tapping a link closes it. */
   (function () {
     var btn = document.querySelector('.nav-toggle');
     var menu = document.getElementById('navMenu');
@@ -256,6 +258,49 @@ section > p, section > h2, .block p, .hero p { max-width: var(--measure); }
     menu.addEventListener('click', function (e) {
       if (e.target.closest('a')) { menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
     });
+  })();
+</script>
+<script>
+  /* Scroll reveal WITH a hard visibility guarantee. Content reveals as it
+     scrolls into view for the fade animation, but if scroll detection ever
+     fails to fire (happens on some mobile browsers), everything is force-shown
+     shortly after load — so no section can ever stay hidden below the hero. */
+  (function () {
+    var els = [].slice.call(document.querySelectorAll('.reveal'));
+    function show(el) {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+      var c = el.firstElementChild;
+      if (c) { c.style.opacity = '1'; c.style.transform = 'translateY(0)'; }
+    }
+    function check() {
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      for (var i = els.length - 1; i >= 0; i--) {
+        if (els[i].getBoundingClientRect().top < vh * 0.92) { show(els[i]); els.splice(i, 1); }
+      }
+    }
+    var ticking = false;
+    function onScroll() {
+      if (!ticking) { ticking = true; requestAnimationFrame(function () { check(); ticking = false; }); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('touchmove', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    window.addEventListener('load', function () { check(); });
+    check();
+    /* Hard guarantee: reveal everything shortly after load, no matter what. */
+    setTimeout(function () { els.slice().forEach(show); els.length = 0; }, 1600);
+  })();
+</script>
+<script>
+  /* Motion: float, twinkle and glow pause while their section is off-screen.
+     prefers-reduced-motion already stops all animation in the CSS. */
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { e.target.classList.toggle('is-offscreen', !e.isIntersecting); });
+    }, { rootMargin: '120px 0px' });
+    [].forEach.call(document.querySelectorAll('header, section'), function (el) { io.observe(el); });
   })();
 </script>
 </body>
