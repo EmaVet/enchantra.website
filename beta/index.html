@@ -85,6 +85,46 @@
   html, body { overflow-x: clip; }
   :root { --page-max: 1180px; --gutter: clamp(18px, 5vw, 40px); }
 </style>
+<style id="wide-sections">
+/* Wide screens (1024px and up): every section uses the full 1180px page width. Phones and tablets keep the stacked layout. */
+@media (min-width: 1024px) {
+  /* Opening note: a full-width band, not a floating card. Lead line left, the note right. */
+  #keepers { background: radial-gradient(ellipse 60% 120% at 18% 0%, #17132e, #0e0b1e 70%) !important; }
+  .letter-wrap { max-width: 1180px !important; }
+  .letter { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: clamp(48px, 7vw, 112px); align-items: center;
+            background: none !important; border: 0 !important; border-radius: 0 !important; padding: 0 !important; overflow: visible !important; }
+  .letter-glow { left: 14% !important; top: -120px !important; }
+  .letter-orb { grid-column: 1; grid-row: 1; justify-content: flex-start !important; }
+  .letter-lead { grid-column: 1; grid-row: 2; text-align: left !important; font-size: clamp(26px, 1.4vw + 14px, 34px) !important; line-height: 1.35 !important; }
+  .letter-body { grid-column: 2; grid-row: 1 / span 2; margin: 0 !important; max-width: none !important; border-left: 1px solid #2c284c; padding-left: clamp(32px, 4vw, 56px); }
+  .letter-body p.en-serif { text-align: left !important; }
+
+  /* What you need: heading left, the four needs in a 2 by 2 grid right */
+  #bring { max-width: 1180px !important; text-align: left !important; }
+  .bring-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); column-gap: clamp(48px, 6vw, 96px); align-items: center; }
+  .bring-grid > :nth-child(1) { grid-column: 1; grid-row: 1; align-self: end; }
+  .bring-grid > h2 { grid-column: 1; grid-row: 2; margin: 0 !important; align-self: start; }
+  .bring-list { grid-column: 2; grid-row: 1 / span 2; margin: 0 !important; max-width: none !important; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  /* Email: the closing band, words left and the glowing moon right */
+  .apply-grid { max-width: 1180px !important; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: clamp(48px, 6vw, 96px); align-items: center; text-align: left !important; }
+  .apply-grid > :first-child { grid-column: 2; grid-row: 1 / span 4; margin: 0 !important; }
+  .apply-grid > :not(:first-child) { grid-column: 1; }
+  .apply-grid > p, .apply-grid > div:nth-child(4) { margin-left: 0 !important; justify-content: flex-start !important; }
+  .apply-grid > :first-child > div:last-child { width: 200px !important; height: 200px !important; }
+  .apply-grid > :first-child > div:first-child { width: 360px !important; height: 360px !important; }
+
+  /* Promises: heading held on the left, the promises and the care note on the right */
+  .promises-grid { max-width: 1180px !important; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; }
+  .promises-head { grid-column: 1; grid-row: 1 / span 3; text-align: left !important; position: sticky; top: 96px; margin: 0 !important; }
+  .promises-list { grid-column: 2; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .promises-list > :last-child { grid-column: 1 / -1; }
+  .promises-terms { grid-column: 2; text-align: left !important; }
+  .promises-care { grid-column: 2; }
+  .promises-pull { grid-column: 1 / -1; }
+  .promises-head h2, .bring-grid > h2, .apply-grid > h2 { text-wrap: balance; }
+}
+</style>
 </head>
 <body>
 
@@ -151,7 +191,7 @@
         <div style="margin-top: clamp(26px,4vw,34px);">
           <a href="mailto:keeper@enchantratarot.com?subject=Becoming%20a%20Keeper" class="btn-gold" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 52px; padding: 0 30px; border-radius: 999px; background: #e8c98a; color: #191529; font-size: 15px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; box-shadow: 0 6px 20px rgba(232,201,138,0.25);">
             <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="flex: none;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#191529"></path></svg>
-            keeper@enchantratarot.com
+            Email to become a Keeper
           </a>
         </div>
       </div>
@@ -179,14 +219,14 @@
 
   <!-- ═══════════ KEEPERS — letter card (homepage "Why we built Enchantra") ═══════════ -->
   <section id="keepers" style="background: #0e0b1e; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834;">
-    <div style="max-width: 780px; margin: 0 auto; padding: clamp(64px,9vw,100px) clamp(18px,5vw,40px);" class="reveal">
-      <div style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; position: relative; background: radial-gradient(ellipse 100% 62% at 50% -6%, #17132e, #120f26 68%); border: 1px solid #2c284c; border-radius: 24px; padding: clamp(36px,6vw,54px) clamp(24px,6vw,60px) clamp(36px,5vw,48px); overflow: hidden;">
-        <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.12), transparent 70%); pointer-events: none;"></div>
-        <div style="display: flex; justify-content: center; margin-bottom: 26px; position: relative;">
+    <div style="max-width: 780px; margin: 0 auto; padding: clamp(64px,9vw,100px) clamp(18px,5vw,40px);" class="reveal letter-wrap">
+      <div class="letter" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; position: relative; background: radial-gradient(ellipse 100% 62% at 50% -6%, #17132e, #120f26 68%); border: 1px solid #2c284c; border-radius: 24px; padding: clamp(36px,6vw,54px) clamp(24px,6vw,60px) clamp(36px,5vw,48px); overflow: hidden;">
+        <div class="letter-glow" style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.12), transparent 70%); pointer-events: none;"></div>
+        <div class="letter-orb" style="display: flex; justify-content: center; margin-bottom: 26px; position: relative;">
           <div style="width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 58% 40%, #3a3363, #201a3a); border: 1px solid #2e2648; box-shadow: inset 0 0 16px 1px rgba(232,201,138,0.4), 0 0 30px rgba(232,201,138,0.14); display: flex; align-items: center; justify-content: center; animation: breath 4800ms ease-in-out infinite;"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
         </div>
-        <p class="en-serif" style="margin: 0; font-size: clamp(20px,1.5vw+14px,24px); line-height: 1.5; color: #e6e9f6; text-align: center; text-wrap: pretty; position: relative;">Enchantra has been built over months, and is ready now for real decks, in real hands, across real lunar cycles.</p>
-        <div style="max-width: 600px; margin: 34px auto 0; position: relative; text-align: left;">
+        <p class="en-serif letter-lead" style="margin: 0; font-size: clamp(20px,1.5vw+14px,24px); line-height: 1.5; color: #e6e9f6; text-align: center; text-wrap: pretty; position: relative;">Enchantra has been built over months, and is ready now for real decks, in real hands, across real lunar cycles.</p>
+        <div class="letter-body" style="max-width: 600px; margin: 34px auto 0; position: relative; text-align: left;">
           <p style="margin: 0; font-size: clamp(15px,0.5vw+14px,17px); line-height: 1.7; color: #b9bdd8; text-wrap: pretty;">Keepers are the people who test Enchantra and shape what comes next. You bring the deck you already love, live with the practice, and tell me what breaks and what sings. Every message reaches me directly, and changes what Enchantra becomes.</p>
           <p class="en-serif" style="margin: 28px 0 0; font-size: 18px; line-height: 1.55; font-style: italic; color: #e8c98a; text-wrap: pretty; text-align: center;">And in return, Enchantra is always free, as long as you keep reading and sharing what you notice.</p>
         </div>
@@ -290,10 +330,10 @@
 
   <!-- ═══════════ WHAT YOU NEED — the homepage pricing panels ═══════════ -->
   <section id="bring" style="position: relative; max-width: 640px; margin: 0 auto; padding: clamp(64px,9vw,100px) clamp(18px,5vw,40px); text-align: center;">
-    <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease;">
+    <div class="reveal bring-grid" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease;">
       <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">What you need</div>
       <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: clamp(28px,2.6vw+16px,40px); line-height: 1.15; color: #f3efe9; max-width: 620px; text-wrap: balance;">Bring your deck, your phone, and curiosity.</h2>
-      <div style="display: flex; flex-direction: column; gap: 10px; margin: 40px auto 0; max-width: 520px;">
+      <div class="bring-list" style="display: flex; flex-direction: column; gap: 10px; margin: 40px auto 0; max-width: 520px;">
         <div style="display: flex; align-items: flex-start; gap: 14px; border: 1px solid #2c284c; background: #15122a; border-radius: 16px; padding: 18px 20px;">
           <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="flex: none; margin-top: 5px;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg>
           <div style="font-size: 16px; line-height: 1.55; color: #c6cae2; text-align: left;"><strong style="color: #f3efe9; font-weight: 600;">A physical tarot deck</strong> you already own and like to hold</div>
@@ -316,7 +356,7 @@
 
   <!-- ═══════════ APPLY — the homepage final call to action ═══════════ -->
   <section id="apply" style="background: #100d22; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834;">
-    <div style="max-width: 720px; margin: 0 auto; padding: clamp(72px,10vw,110px) clamp(18px,5vw,40px) clamp(80px,11vw,120px); text-align: center; position: relative;">
+    <div class="apply-grid" style="max-width: 720px; margin: 0 auto; padding: clamp(72px,10vw,110px) clamp(18px,5vw,40px) clamp(80px,11vw,120px); text-align: center; position: relative;">
       <div style="display: flex; justify-content: center; margin-bottom: clamp(28px,5vw,40px); position: relative;">
         <div style="position: absolute; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.10), transparent 70%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
         <div style="width: clamp(120px,32vw,150px); height: clamp(120px,32vw,150px); border-radius: 50%; background: radial-gradient(circle at 50% 42%, #3a3363, #201a3a); border: 1px solid #2e2648; box-shadow: inset 0 0 26px 2px rgba(232,201,138,0.4), 0 0 56px rgba(232,201,138,0.16); position: relative; display: flex; align-items: center; justify-content: center; animation: breath 4800ms ease-in-out infinite;"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
@@ -326,7 +366,7 @@
       <div style="margin: 32px auto 0; display: flex; justify-content: center;">
         <a href="mailto:keeper@enchantratarot.com?subject=Becoming%20a%20Keeper" class="btn-gold" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 54px; padding: 0 34px; border-radius: 999px; background: #e8c98a; color: #191529; font-size: 15.5px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; box-shadow: 0 6px 22px rgba(232,201,138,0.28);">
           <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="flex: none;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#191529"></path></svg>
-          keeper@enchantratarot.com
+          Email to become a Keeper
         </a>
       </div>
       <div style="margin-top: 20px; font-size: 13px; line-height: 1.5; color: #9aa0c2;">A person reads every message. That person is me.</div>
@@ -335,12 +375,12 @@
 
   <!-- ═══════════ THE SMALL PRINT — the homepage questions list, open ═══════════ -->
   <section id="promises" style="position: relative; overflow: hidden;">
-    <div style="max-width: 800px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px); position: relative;">
-      <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; text-align: center; margin-bottom: clamp(36px,5vw,50px);">
+    <div class="promises-grid" style="max-width: 800px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px); position: relative;">
+      <div class="reveal promises-head" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; text-align: center; margin-bottom: clamp(36px,5vw,50px);">
         <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #e8c98a; margin-bottom: 16px;">The small print</div>
         <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: clamp(27px,2.4vw+16px,38px); line-height: 1.18; color: #f3efe9;">The promises I am making you.</h2>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div class="promises-list" style="display: flex; flex-direction: column; gap: 8px;">
         <div style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; padding: 20px clamp(18px,4vw,24px);">
           <div class="en-serif" style="font-size: clamp(16px,0.5vw+15px,18px); color: #f3efe9; margin-bottom: 6px;">What it costs</div>
           <div style="font-size: 15px; line-height: 1.6; color: #9aa0c2;">Nothing. Enchantra stays free for as long as you are a Keeper.</div>
@@ -362,15 +402,15 @@
           <div style="font-size: 15px; line-height: 1.6; color: #9aa0c2;">Whenever you like. Life gets busy and seasons change. Write to me when you want to pick your practice back up.</div>
         </div>
       </div>
-      <p style="margin: 24px 0 0; font-size: 15px; line-height: 1.6; color: #9aa0c2; text-align: center;">The <a href="/beta/terms/" style="color: #e8c98a;">Keeper terms</a> set all of this out properly, including what happens to the ideas you send me and what stays yours.</p>
+      <p class="promises-terms" style="margin: 24px 0 0; font-size: 15px; line-height: 1.6; color: #9aa0c2; text-align: center;">The <a href="/beta/terms/" style="color: #e8c98a;">Keeper terms</a> set all of this out properly, including what happens to the ideas you send me and what stays yours.</p>
 
-      <div style="background: rgba(198,139,150,0.10); border: 1px solid rgba(198,139,150,0.42); border-radius: 16px; padding: clamp(22px,4vw,28px); margin-top: clamp(36px,5vw,48px);">
+      <div class="promises-care" style="background: rgba(198,139,150,0.10); border: 1px solid rgba(198,139,150,0.42); border-radius: 16px; padding: clamp(22px,4vw,28px); margin-top: clamp(36px,5vw,48px);">
         <h3 class="en-serif" style="margin: 0 0 12px; font-weight: 400; font-size: 21px; line-height: 1.3; color: #e0b4bd;">If a reading ever lands badly, this is what happens.</h3>
         <p style="margin: 0 0 12px; font-size: 15.5px; line-height: 1.65; color: #f3efe9;">Enchantra is a reflective practice that sits alongside therapy, medicine and crisis care.</p>
         <p style="margin: 0; font-size: 15.5px; line-height: 1.65; color: #f3efe9;">If a reading ever lands badly, tell me. There is a way to flag the reading in the app, and the flag comes straight to me. In the app, <strong>Feeling unsteady?</strong> sits at the foot of every screen and opens support lines checked for your region, any time you need them. In an emergency, call your local emergency number. <strong>000</strong> in Australia, <strong>111</strong> in New Zealand.</p>
       </div>
 
-      <p class="en-serif" style="margin: clamp(44px,6vw,60px) auto 0; font-size: clamp(19px,1.2vw+14px,22px); line-height: 1.5; font-style: italic; color: #c6cae2; text-align: center;">You draw the cards. Enchantra keeps the thread.</p>
+      <p class="en-serif promises-pull" style="margin: clamp(44px,6vw,60px) auto 0; font-size: clamp(19px,1.2vw+14px,22px); line-height: 1.5; font-style: italic; color: #c6cae2; text-align: center;">You draw the cards. Enchantra keeps the thread.</p>
     </div>
   </section>
 
