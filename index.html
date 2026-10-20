@@ -294,15 +294,6 @@ h2 { text-wrap: balance; }
   #how .reveal[style*="text-align: center"] h2, #how .reveal[style*="text-align: center"] p { margin-left: 0 !important; }
   div[style*="minmax(240px, 1fr)"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
 
-  /* Why we built Enchantra: photo of M's own cards across the top, words in two columns beneath */
-  #philosophy > div { max-width: 1080px !important; }
-  #philosophy > div > div { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto auto auto 1fr; column-gap: clamp(48px, 6vw, 88px); align-items: start; }
-  #philosophy .founder-photo { grid-column: 1 / -1; grid-row: 1; margin-bottom: clamp(40px, 4vw, 52px) !important; }
-  #philosophy > div > div > :nth-child(3) { grid-column: 1; grid-row: 2; text-align: left !important; }
-  #philosophy > div > div > :nth-child(4) { grid-column: 1; grid-row: 3; text-align: left !important; font-size: clamp(26px, 1.2vw + 16px, 32px) !important; line-height: 1.35 !important; text-wrap: pretty !important; }
-  #philosophy > div > div > :nth-child(5) { grid-column: 2; grid-row: 2 / span 3; margin: 0 !important; max-width: none !important; }
-  #philosophy > div > div > :nth-child(6) { grid-column: 1; grid-row: 4; justify-content: flex-start !important; margin-top: 28px !important; }
-
   /* Questions: heading held on the left, the questions on the right */
   #faq > div:last-child { max-width: 1080px !important; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; }
   #faq > div:last-child > .reveal { text-align: left !important; position: sticky; top: 96px; margin-bottom: 0 !important; }
@@ -310,20 +301,29 @@ h2 { text-wrap: balance; }
 }
 @media (min-width: 640px) and (max-width: 1023px) { div[style*="minmax(240px, 1fr)"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
 #almanac h2 { max-width: 620px; }
-/* Why we built Enchantra: M's own cards melt into the card. The photo is dimmed to candlelight,
-   its edges fade into the card surface, and the words rise into the fade. */
-#philosophy > div > div { --pt: clamp(36px, 5vw, 56px); --px: clamp(24px, 6vw, 64px); padding: var(--pt) var(--px) var(--pt) !important; overflow: hidden !important; }
+/* Why we built Enchantra: M's own cards, full-bleed, exactly as photographed.
+   No filter on the photo; the fades touch only the wood at the edges, never the cards. */
+#philosophy { position: relative; overflow: hidden; background: #0e0b1e !important; }
+#philosophy > div, #philosophy > div > div { position: static !important; }
+#philosophy > div, #philosophy > div > div { transform: none !important; } /* a transform would trap the full-bleed photo inside the card */
+#philosophy > div > div { background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; overflow: visible !important;
+  padding-top: calc(min(100vw, 1456px) * 0.6 - 30px) !important; }
 #philosophy > div > div > :nth-child(1) { display: none; }
-#philosophy .founder-photo { margin: calc(-1 * var(--pt)) calc(-1 * var(--px)) 4px !important; aspect-ratio: 3 / 2; position: relative; z-index: 0; }
-#philosophy .founder-photo img { object-position: 50% 42%; filter: brightness(0.78) saturate(0.88) contrast(1.04); }
+#philosophy > div > div > :not(figure) { position: relative; z-index: 1; }
+#philosophy .founder-photo { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: min(100%, 1456px); aspect-ratio: 3 / 2; margin: 0 !important; z-index: 0; }
+#philosophy .founder-photo picture, #philosophy .founder-photo img { display: block; width: 100%; height: 100%; }
+#philosophy .founder-photo img { object-fit: cover; object-position: 50% 48%; }
 #philosophy .founder-photo::after { content: ""; position: absolute; inset: 0; pointer-events: none;
-  background:
-    linear-gradient(to bottom, rgba(19,16,42,0.35) 0%, rgba(19,16,42,0) 18%, rgba(19,16,42,0) 74%, rgba(19,16,42,0.8) 90%, #13102a 100%),
-    radial-gradient(ellipse 85% 95% at 50% 40%, rgba(14,11,30,0) 55%, rgba(14,11,30,0.55) 100%),
-    radial-gradient(ellipse 60% 50% at 50% 35%, rgba(232,201,138,0.10), transparent 70%); }
-#philosophy > div > div > :not(.founder-photo) { position: relative; z-index: 1; }
-@media (min-width: 768px) {
-  #philosophy .founder-photo { aspect-ratio: 2 / 1; margin-bottom: 8px !important; }
+  background: linear-gradient(to bottom, #0e0b1e 0%, rgba(14,11,30,0) 11%, rgba(14,11,30,0) 90%, #0e0b1e 100%),
+              linear-gradient(to right, #0e0b1e 0%, rgba(14,11,30,0) 10%, rgba(14,11,30,0) 90%, #0e0b1e 100%); }
+@media (min-width: 1024px) {
+  #philosophy > div { max-width: 1080px !important; }
+  #philosophy > div > div { padding-top: calc(min(100vw, 1456px) * 0.5 - 70px) !important; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto auto 1fr; column-gap: clamp(48px, 6vw, 88px); }
+  #philosophy .founder-photo { aspect-ratio: 2 / 1; }
+  #philosophy > div > div > :nth-child(3) { grid-column: 1; grid-row: 1; text-align: left !important; }
+  #philosophy > div > div > :nth-child(4) { grid-column: 1; grid-row: 2; text-align: left !important; font-size: clamp(26px, 1.2vw + 16px, 32px) !important; line-height: 1.35 !important; text-wrap: pretty !important; }
+  #philosophy > div > div > :nth-child(5) { grid-column: 2; grid-row: 1 / span 3; margin: 0 !important; max-width: none !important; }
+  #philosophy > div > div > :nth-child(6) { grid-column: 1; grid-row: 3; justify-content: flex-start !important; margin-top: 28px !important; align-self: start; }
 }
 
 /* Tighter space around How it works */
@@ -711,10 +711,10 @@ h2 { text-wrap: balance; }
     <div style="max-width: 780px; margin: 0 auto; padding: clamp(64px,9vw,100px) clamp(18px,5vw,40px);" class="reveal">
       <div style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; position: relative; background: radial-gradient(ellipse 100% 62% at 50% -6%, #17132e, #120f26 68%); border: 1px solid #2c284c; border-radius: 24px; padding: clamp(36px,6vw,54px) clamp(24px,6vw,60px) clamp(36px,5vw,48px); overflow: hidden;">
         <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.12), transparent 70%); pointer-events: none;"></div>
-        <figure class="founder-photo" style="margin: 0 0 30px; position: relative;">
+        <figure class="founder-photo">
           <picture>
-            <source type="image/webp" srcset="/assets/images/people/m-thoth-spread-800.webp 800w, /assets/images/people/m-thoth-spread-1456.webp 1456w" sizes="(min-width: 1080px) 1080px, 100vw">
-            <img src="/assets/images/people/m-thoth-spread-1456.jpg" srcset="/assets/images/people/m-thoth-spread-800.jpg 800w, /assets/images/people/m-thoth-spread-1456.jpg 1456w" sizes="(min-width: 1080px) 1080px, 100vw" width="1456" height="971" loading="lazy" decoding="async" alt="Three cards from M's own Thoth deck on a wooden table: the Knight of Disks, the Queen of Cups and The Star." style="display: block; width: 100%; height: 100%; object-fit: cover;">
+            <source type="image/webp" srcset="/assets/images/people/m-thoth-spread-800.webp 800w, /assets/images/people/m-thoth-spread-1456.webp 1456w" sizes="(min-width: 1456px) 1456px, 100vw">
+            <img src="/assets/images/people/m-thoth-spread-1456.jpg" srcset="/assets/images/people/m-thoth-spread-800.jpg 800w, /assets/images/people/m-thoth-spread-1456.jpg 1456w" sizes="(min-width: 1456px) 1456px, 100vw" width="1456" height="971" loading="lazy" decoding="async" alt="Three cards from M's own Thoth deck on a wooden table: the Knight of Disks, the Queen of Cups and The Star." style="display: block; width: 100%; height: 100%; object-fit: cover;">
           </picture>
         </figure>
         <div style="text-align: center; font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #e8c98a; margin-bottom: 22px; position: relative;">Why we built Enchantra</div>
