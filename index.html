@@ -294,16 +294,13 @@ h2 { text-wrap: balance; }
   #how .reveal[style*="text-align: center"] h2, #how .reveal[style*="text-align: center"] p { margin-left: 0 !important; }
   div[style*="minmax(240px, 1fr)"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
 
-  /* Why we built Enchantra: the founder card at full section width, two columns inside; the moon glow sits on the orb */
+  /* Why we built Enchantra: photo of M's own cards across the top, words in two columns beneath */
   #philosophy > div { max-width: 1080px !important; }
-  #philosophy > div > div { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto auto auto 1fr; column-gap: clamp(48px, 6vw, 88px); align-items: start;
-                            padding: clamp(44px, 4.5vw, 60px) clamp(40px, 5vw, 64px) !important; }
-  #philosophy > div > div > :nth-child(1) { left: clamp(70px, 8vw, 100px) !important; top: -40px !important; width: 340px !important; height: 340px !important; transform: translateX(-50%) !important; }
-  #philosophy > div > div > :nth-child(2) { grid-column: 1; grid-row: 1; justify-content: flex-start !important; margin-bottom: 24px !important; }
-  #philosophy > div > div > :nth-child(2) > div { width: 72px !important; height: 72px !important; }
+  #philosophy > div > div { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto auto auto 1fr; column-gap: clamp(48px, 6vw, 88px); align-items: start; }
+  #philosophy .founder-photo { grid-column: 1 / -1; grid-row: 1; margin-bottom: clamp(40px, 4vw, 52px) !important; }
   #philosophy > div > div > :nth-child(3) { grid-column: 1; grid-row: 2; text-align: left !important; }
   #philosophy > div > div > :nth-child(4) { grid-column: 1; grid-row: 3; text-align: left !important; font-size: clamp(26px, 1.2vw + 16px, 32px) !important; line-height: 1.35 !important; text-wrap: pretty !important; }
-  #philosophy > div > div > :nth-child(5) { grid-column: 2; grid-row: 1 / span 4; align-self: center; margin: 0 !important; max-width: none !important; }
+  #philosophy > div > div > :nth-child(5) { grid-column: 2; grid-row: 2 / span 3; margin: 0 !important; max-width: none !important; }
   #philosophy > div > div > :nth-child(6) { grid-column: 1; grid-row: 4; justify-content: flex-start !important; margin-top: 28px !important; }
 
   /* Questions: heading held on the left, the questions on the right */
@@ -313,6 +310,33 @@ h2 { text-wrap: balance; }
 }
 @media (min-width: 640px) and (max-width: 1023px) { div[style*="minmax(240px, 1fr)"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
 #almanac h2 { max-width: 620px; }
+/* Why we built Enchantra: the photo runs edge to edge across the top of the card, at every width */
+#philosophy > div > div { --pt: clamp(36px, 5vw, 56px); --px: clamp(24px, 6vw, 64px); padding: var(--pt) var(--px) var(--pt) !important; overflow: hidden !important; }
+#philosophy > div > div > :nth-child(1) { display: none; }
+#philosophy .founder-photo { margin: calc(-1 * var(--pt)) calc(-1 * var(--px)) 30px !important; aspect-ratio: 3 / 2; border-bottom: 1px solid #2c284c; }
+@media (min-width: 768px) { #philosophy .founder-photo { aspect-ratio: 21 / 9; } }
+
+/* Tighter space around How it works */
+#cards > div { padding-bottom: clamp(48px, 6vw, 72px) !important; }
+#how > div { padding-top: clamp(48px, 6vw, 72px) !important; padding-bottom: clamp(48px, 6vw, 72px) !important; }
+#traditions { padding-top: clamp(56px, 7vw, 84px) !important; }
+
+/* Traditions: decks left, words right (stacked words first on phones) */
+@media (min-width: 768px) {
+  #traditions > div > div:first-child { order: 2; }
+  #traditions > div > div:last-child { order: 1; }
+}
+
+/* Pricing: wider on big screens, the two plans side by side; phones keep the stacked list */
+@media (min-width: 900px) {
+  #pricing { max-width: 920px !important; }
+  #pricing > .reveal > div[style*="max-width: 420px"] { max-width: 760px !important; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  #pricing > .reveal > div[style*="max-width: 420px"] > div { margin-top: 0 !important; padding: 26px 26px !important; }
+  #pricing > .reveal > div[style*="max-width: 420px"] > div:nth-child(2) > div { flex-direction: column; align-items: flex-start !important; gap: 6px !important; }
+  #pricing > .reveal > div[style*="max-width: 420px"] > div:last-child { grid-column: 1 / -1; margin-top: 4px !important; max-width: 520px; justify-self: center; }
+  #pricing h2 { max-width: none !important; }
+}
+
 /* How it works: brand card lift and larger step icons */
 #how div[style*="padding: 28px 26px"] { box-shadow: 0 14px 30px rgba(0,0,0,0.35); }
 #how div[style*="width: 46px; height: 46px"] { width: 54px !important; height: 54px !important; }
@@ -677,9 +701,12 @@ h2 { text-wrap: balance; }
     <div style="max-width: 780px; margin: 0 auto; padding: clamp(64px,9vw,100px) clamp(18px,5vw,40px);" class="reveal">
       <div style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; position: relative; background: radial-gradient(ellipse 100% 62% at 50% -6%, #17132e, #120f26 68%); border: 1px solid #2c284c; border-radius: 24px; padding: clamp(36px,6vw,54px) clamp(24px,6vw,60px) clamp(36px,5vw,48px); overflow: hidden;">
         <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.12), transparent 70%); pointer-events: none;"></div>
-        <div style="display: flex; justify-content: center; margin-bottom: 26px; position: relative;">
-          <div style="width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle at 58% 40%, #3a3363, #201a3a); border: 1px solid #2e2648; box-shadow: inset 0 0 16px 1px rgba(232,201,138,0.4), 0 0 30px rgba(232,201,138,0.14); display: flex; align-items: center; justify-content: center; animation: breath 4800ms ease-in-out infinite;"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path></svg></div>
-        </div>
+        <figure class="founder-photo" style="margin: 0 0 30px; position: relative;">
+          <picture>
+            <source type="image/webp" srcset="/assets/images/people/m-thoth-spread-800.webp 800w, /assets/images/people/m-thoth-spread-1456.webp 1456w" sizes="(min-width: 1080px) 1080px, 100vw">
+            <img src="/assets/images/people/m-thoth-spread-1456.jpg" srcset="/assets/images/people/m-thoth-spread-800.jpg 800w, /assets/images/people/m-thoth-spread-1456.jpg 1456w" sizes="(min-width: 1080px) 1080px, 100vw" width="1456" height="971" loading="lazy" decoding="async" alt="Three cards from M's own Thoth deck on a wooden table: the Knight of Disks, the Queen of Cups and The Star." style="display: block; width: 100%; height: 100%; object-fit: cover;">
+          </picture>
+        </figure>
         <div style="text-align: center; font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #e8c98a; margin-bottom: 22px; position: relative;">Why we built Enchantra</div>
         <p class="en-serif" style="margin: 0; font-size: clamp(20px,1.5vw+14px,24px); line-height: 1.5; color: #e6e9f6; text-align: center; text-wrap: pretty; position: relative;">Tarot is a relationship you build with your intention, and the meaning you find over time.</p>
         <div style="max-width: 600px; margin: 34px auto 0; position: relative; text-align: left;">
