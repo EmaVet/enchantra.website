@@ -12,7 +12,7 @@ Read this before you change or create any page on this site. The full rulebook, 
 6. **Nothing floats on wide screens.** No narrow card alone in the middle of a wide page. At 1024px and up, long sections use two columns (heading or picture on one side, content on the other) or a full-width band.
 7. **Images.** Code-drawn moons, cards and sparks first. Real photos of M's own decks are welcome. Never redraw, cut out or recreate a real card; show the photograph. Keep approved photo treatments exactly as approved.
 8. **Colour is voice.** Gold = the oracle and the one forward action. Sage = the person's own words. Lilac = structure and echoes. Silver = moonlight. Rose = care. No red, no success green. Icons follow the same colours.
-9. **Words.** Never change M's copy while doing design work. If copy looks wrong, list it and ask.
+9. **Words.** Never change M's copy while doing design work. If copy looks wrong, list it and ask. **Real names are exempt from the copy rules:** a shop, business, deck or person's own name (on Where Decks Find You and anywhere else) is used exactly as its owner writes it, even if it contains a banned word ("Sacred", "Divine") or anything else the copy law would catch. Never flag, change or soften a real name.
 10. **Buttons.** Waitlist: "Join the waitlist" (gold, spark first, arrow after). Keepers: "Email to become a Keeper" (mailto with the subject filled in). Never use an email address as button text. One waitlist button on screen at a time on phones.
 
 ## How we work
