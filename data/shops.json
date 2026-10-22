@@ -1,49 +1,259 @@
 {
   "_readme": "Where Decks Find You (/shops/). To add a shop, add one entry to \"shops\" with the same fields, then run: python3 scripts/build_shops.py. Region must match a name in \"regions\". Leave website as \"\" when there isn't one. Shops are sorted by town inside each region automatically.",
   "regions": [
-    { "name": "New South Wales", "short": "New South Wales", "id": "new-south-wales", "country": "Australia", "note": "" },
-    { "name": "Victoria", "short": "Victoria", "id": "victoria", "country": "Australia", "note": "" },
-    { "name": "Queensland", "short": "Queensland", "id": "queensland", "country": "Australia", "note": "" },
-    { "name": "Western Australia", "short": "Western Australia", "id": "western-australia", "country": "Australia", "note": "" },
-    { "name": "South Australia", "short": "South Australia", "id": "south-australia", "country": "Australia", "note": "" },
-    { "name": "Tasmania", "short": "Tasmania", "id": "tasmania", "country": "Australia", "note": "" },
-    { "name": "Australian Capital Territory", "short": "ACT", "id": "act", "country": "Australia", "note": "" },
-    { "name": "Northern Territory", "short": "Northern Territory", "id": "northern-territory", "country": "Australia", "note": "We're still looking for a shop in Alice Springs." },
-    { "name": "New Zealand", "short": "New Zealand", "id": "new-zealand", "country": "New Zealand", "note": "" }
+    {
+      "name": "New South Wales",
+      "short": "New South Wales",
+      "id": "new-south-wales",
+      "country": "Australia",
+      "note": ""
+    },
+    {
+      "name": "Victoria",
+      "short": "Victoria",
+      "id": "victoria",
+      "country": "Australia",
+      "note": ""
+    },
+    {
+      "name": "Queensland",
+      "short": "Queensland",
+      "id": "queensland",
+      "country": "Australia",
+      "note": ""
+    },
+    {
+      "name": "Western Australia",
+      "short": "Western Australia",
+      "id": "western-australia",
+      "country": "Australia",
+      "note": ""
+    },
+    {
+      "name": "South Australia",
+      "short": "South Australia",
+      "id": "south-australia",
+      "country": "Australia",
+      "note": ""
+    },
+    {
+      "name": "Tasmania",
+      "short": "Tasmania",
+      "id": "tasmania",
+      "country": "Australia",
+      "note": ""
+    },
+    {
+      "name": "Australian Capital Territory",
+      "short": "ACT",
+      "id": "act",
+      "country": "Australia",
+      "note": ""
+    },
+    {
+      "name": "Northern Territory",
+      "short": "Northern Territory",
+      "id": "northern-territory",
+      "country": "Australia",
+      "note": "We're still looking for a shop in Alice Springs."
+    },
+    {
+      "name": "New Zealand",
+      "short": "New Zealand",
+      "id": "new-zealand",
+      "country": "New Zealand",
+      "note": ""
+    }
   ],
   "shops": [
-    { "name": "Crow and Cauldron", "region": "New South Wales", "town": "Peakhurst, Sydney", "address": "50 Baumans Rd, Peakhurst NSW", "days": "Monday to Saturday", "description": "A witch shop in Sydney's south, run by Violet, with a warm community feel.", "website": "thecrowandcauldron.com" },
-    { "name": "The Cauldron of Wellbeing", "region": "New South Wales", "town": "Penrith", "address": "Shop 7, Parker Arcade, 476 High St, Penrith NSW", "days": "Monday to Saturday", "description": "Lynne's shop of witchcraft books, herbs and altar pieces, at the foot of the Blue Mountains.", "website": "" },
-    { "name": "Kiki The Hippie Shop", "region": "New South Wales", "town": "Huskisson, Jervis Bay", "address": "5/62 Owen St, Huskisson NSW", "days": "Every day", "description": "A Huskisson favourite for books, crystals and herbs, a short walk from the bay.", "website": "" },
-    { "name": "Soulife", "region": "New South Wales", "town": "Byron Bay", "address": "84 Jonson St, Byron Bay NSW", "days": "Every day", "description": "Tarot and oracle cards, second-hand books and a couch to sit and read on.", "website": "" },
-
-    { "name": "Temple of the Divine", "region": "Victoria", "town": "Windsor, Melbourne", "address": "48 Chapel St, Windsor VIC", "days": "Monday to Saturday", "description": "Jocelyne's carefully kept shop of tarot, books and candles, and a good place to ask questions.", "website": "templeofthedivine.com.au" },
-    { "name": "The Empress & Wolf", "region": "Victoria", "town": "Daylesford", "address": "35 Vincent St, Daylesford VIC", "days": "Closed Wednesday and Thursday", "description": "Tarot and oracle cards, books on tarot and a courtyard out the back.", "website": "" },
-    { "name": "Phoenix Alternative Body & Soul", "region": "Victoria", "town": "Ballarat", "address": "73 Bridge Mall, Ballarat VIC", "days": "Monday to Saturday", "description": "A carefully curated shop in the Bridge Mall with crystals, herbs and spiritual books.", "website": "" },
-
-    { "name": "Tarotopia", "region": "Queensland", "town": "Strathpine, Brisbane", "address": "Shop 4, 4 Lincoln St, Strathpine QLD", "days": "Tuesday to Sunday", "description": "Rebecca's shop is all about cards, with one of the biggest deck walls around and quick online orders.", "website": "tarotopia.com.au" },
-    { "name": "Gypsy Moon", "region": "Queensland", "town": "Labrador, Gold Coast", "address": "29C Musgrave Ave, Labrador QLD", "days": "Every day", "description": "Kim's crystal and tarot shop in the middle of Chirn Park.", "website": "" },
-    { "name": "Crystal Ball Bookstore", "region": "Queensland", "town": "Cairns", "address": "91 Grafton St, Cairns QLD", "days": "Every day", "description": "A long-loved Cairns bookstore with crystals and books for curious minds, a few steps from Rusty's Markets.", "website": "" },
-
-    { "name": "Ritual Reverie", "region": "Western Australia", "town": "Malaga, Perth", "address": "Stall 70, Malaga Markets, 7 Bonner Dr, Malaga WA", "days": "Friday to Sunday", "description": "Hayley's market shop of books, herbs and candles, and a friendly first stop for the curious.", "website": "" },
-    { "name": "Enchanted Margaret River", "region": "Western Australia", "town": "Margaret River", "address": "3/109 Bussell Hwy, Margaret River WA", "days": "Call ahead for hours", "description": "A big tarot card collection, journals and books on the main street.", "website": "" },
-    { "name": "Boodi Crystals", "region": "Western Australia", "town": "Bunbury", "address": "18A Prosser St, South Bunbury WA", "days": "Monday to Saturday", "description": "A calm crystal and metaphysical shop with knowledgeable staff.", "website": "" },
-
-    { "name": "Eternal Spirit", "region": "South Australia", "town": "Unley, Adelaide", "address": "52 Unley Rd, Unley SA", "days": "Tuesday to Saturday", "description": "More than five hundred tarot and oracle decks, from a shop Adelaide has loved since 1997.", "website": "eternalspirit.com.au" },
-    { "name": "Spellbound Magical Gifts", "region": "South Australia", "town": "Gawler", "address": "72 Murray St, Gawler SA", "days": "Monday to Saturday", "description": "Books and witchcraft supplies, with staff who let you browse in peace.", "website": "" },
-    { "name": "Sacred Sage Emporium", "region": "South Australia", "town": "Strathalbyn", "address": "31 High St, Strathalbyn SA", "days": "Closed Friday", "description": "Lauren's shop of ethically sourced crystals and goods from local makers.", "website": "" },
-
-    { "name": "The Page and Cup", "region": "Tasmania", "town": "Hobart", "address": "204 Elizabeth St, Hobart TAS", "days": "Call ahead for hours", "description": "Books, loose leaf tea, journals and tarot. Bring time.", "website": "thepageandcup.com.au" },
-    { "name": "Just Magic", "region": "Tasmania", "town": "Launceston", "address": "176 Charles St, Launceston TAS", "days": "Monday to Saturday", "description": "Tarot cards, spiritual books and gemstones in the middle of town.", "website": "" },
-
-    { "name": "The Crystal Chalice", "region": "Australian Capital Territory", "town": "Braddon, Canberra", "address": "Ori Building, 30 Lonsdale St, Braddon ACT", "days": "Every day", "description": "Tarot and oracle decks, books and herbs. A shop where plenty of Canberra readers found their first deck.", "website": "thecrystalchalice.com.au" },
-
-    { "name": "Spiritual Dreaming", "region": "Northern Territory", "town": "Coolalinga, Darwin", "address": "Shop 5, 452 Stuart Hwy, Coolalinga NT", "days": "Tuesday to Saturday", "description": "A small local shop that keeps tarot decks on the shelf.", "website": "" },
-
-    { "name": "Rekkies Oracle", "region": "New Zealand", "town": "Onehunga, Auckland", "address": "2/17 Spring St, Onehunga, Auckland", "days": "Tuesday to Saturday", "description": "A large, carefully curated shop of cards, crystals and jewellery. A little hard to find, and worth it.", "website": "rekkies.co.nz" },
-    { "name": "The Serenity Room", "region": "New Zealand", "town": "Cambridge, Waikato", "address": "Shop F, 14 Empire St, Leamington, Cambridge", "days": "Monday to Saturday", "description": "Crystals, tarot cards, journals and candles, chosen with care.", "website": "" },
-    { "name": "The Woo-Woo Shop", "region": "New Zealand", "town": "Whanganui", "address": "33 Waireka Rd, Whanganui", "days": "Visits by appointment, ships across New Zealand", "description": "Denita's shop of new and pre-loved decks. She'll also take the decks you've finished with.", "website": "thewoowooshop.co.nz" },
-    { "name": "Covenant", "region": "New Zealand", "town": "Te Aro, Wellington", "address": "8b/97 Taranaki St, Te Aro, Wellington", "days": "Wednesday to Sunday", "description": "An independent witch shop that shows local artists' work and is happy to talk tarot. Cash only.", "website": "" },
-    { "name": "Mystic Journey", "region": "New Zealand", "town": "Nelson", "address": "328 Annesbrook Dr, Annesbrook, Nelson", "days": "Monday to Saturday", "description": "A crystal and gift shop with a warm welcome and a good yarn.", "website": "" }
+    {
+      "name": "Crow and Cauldron",
+      "region": "New South Wales",
+      "town": "Peakhurst, Sydney",
+      "address": "50 Baumans Rd, Peakhurst NSW",
+      "days": "Monday to Saturday",
+      "description": "Violet's witch shop in Sydney's south, stocking tarot cards and spell supplies. She reads and teaches there too.",
+      "website": "thecrowandcauldron.com"
+    },
+    {
+      "name": "The Cauldron of Wellbeing",
+      "region": "New South Wales",
+      "town": "Penrith",
+      "address": "Shop 7–9, Parker Arcade, 476 High St, Penrith NSW",
+      "days": "Monday to Saturday",
+      "description": "Lynne's witchcraft and Pagan shop at the back of Parker Arcade, with a large range of tarot and oracle cards. Free parking across the road.",
+      "website": "cauldronofwellbeing.com.au"
+    },
+    {
+      "name": "Kiki The Hippie Shop",
+      "region": "New South Wales",
+      "town": "Huskisson, Jervis Bay",
+      "address": "5/62 Owen St, Huskisson NSW",
+      "days": "Every day",
+      "description": "A colourful shop between the post office and the bakery, with tarot and oracle cards, crystals, handmade jewellery and upcycled clothing.",
+      "website": "thehippieshop.com.au"
+    },
+    {
+      "name": "Soulife",
+      "region": "New South Wales",
+      "town": "Byron Bay",
+      "address": "2/84 Jonson St, Byron Bay NSW",
+      "days": "Every day",
+      "description": "Tarot and oracle cards, crystals, second-hand books and records on Jonson Street.",
+      "website": ""
+    },
+    {
+      "name": "Temple of the Divine",
+      "region": "Victoria",
+      "town": "Windsor, Melbourne",
+      "address": "48 Chapel St, Windsor VIC",
+      "days": "Tuesday to Saturday",
+      "description": "Jocelyne turned the hair salon where she trained as a teenager into a witch shop. Ask about the unopened vintage tarot decks.",
+      "website": "templeofthedivine.com.au"
+    },
+    {
+      "name": "The Empress & Wolf",
+      "region": "Victoria",
+      "town": "Daylesford",
+      "address": "35 Vincent St, Daylesford VIC",
+      "days": "Closed Wednesday and Thursday",
+      "description": "Elicia's shop began as a gallery. Tarot, oracle and Lenormand decks downstairs, and readers in the rooms upstairs.",
+      "website": "theempressandwolf.com"
+    },
+    {
+      "name": "Phoenix Alternative Body & Soul",
+      "region": "Victoria",
+      "town": "Ballarat",
+      "address": "73 Bridge Mall, Ballarat VIC",
+      "days": "Monday to Saturday",
+      "description": "A crystal shop in the Bridge Mall with tarot cards and its own oils, and an upstairs studio for sound baths and Reiki classes.",
+      "website": "phoenixalternative.org"
+    },
+    {
+      "name": "Tarotopia",
+      "region": "Queensland",
+      "town": "Strathpine, Brisbane",
+      "address": "Shop 3, 4 Lincoln St, Strathpine QLD",
+      "days": "Tuesday to Saturday, and the second and fourth Sunday",
+      "description": "Rebecca's shop is all about cards, with more than 2,500 tarot and oracle products. She reads in store too.",
+      "website": "tarotopia.com.au"
+    },
+    {
+      "name": "Gypsy Moon",
+      "region": "Queensland",
+      "town": "Labrador, Gold Coast",
+      "address": "29C Musgrave Ave, Labrador QLD",
+      "days": "Every day",
+      "description": "Kim's family-run shop carries more than 180 tarot decks and 240 oracle decks, beside her own dreamcatchers and mandalas.",
+      "website": "gypsymoon.com.au"
+    },
+    {
+      "name": "Crystal Ball Bookstore",
+      "region": "Queensland",
+      "town": "Cairns",
+      "address": "91 Grafton St, Cairns QLD",
+      "days": "Every day",
+      "description": "An independent Cairns bookstore since 1988, a few steps from Rusty's Markets, with a tarot reader in store every day.",
+      "website": "crystalball.com.au"
+    },
+    {
+      "name": "Enchanted Margaret River",
+      "region": "Western Australia",
+      "town": "Margaret River",
+      "address": "3/109 Bussell Hwy, Margaret River WA",
+      "days": "Call ahead for hours",
+      "description": "A faery-themed shop on the main street with tarot and oracle cards and books on divination.",
+      "website": "enchantedmargaretriver.com"
+    },
+    {
+      "name": "Boodi Crystals",
+      "region": "Western Australia",
+      "town": "Bunbury",
+      "address": "18A Prosser St, South Bunbury WA",
+      "days": "Monday to Saturday",
+      "description": "A crystal and mineral shop in South Bunbury with a shelf of tarot and oracle decks.",
+      "website": "boodi.com.au"
+    },
+    {
+      "name": "Eternal Spirit",
+      "region": "South Australia",
+      "town": "Unley, Adelaide",
+      "address": "52 Unley Rd, Unley SA",
+      "days": "Tuesday to Saturday",
+      "description": "Open since 1997 and now in Yasmine's care, with tarot, oracle and Lenormand decks and a blog on choosing one.",
+      "website": "eternalspirit.com.au"
+    },
+    {
+      "name": "Spellbound Magical Gifts",
+      "region": "South Australia",
+      "town": "Gawler",
+      "address": "72 Murray St, Gawler SA",
+      "days": "Monday to Saturday",
+      "description": "Family run and on Murray Street since 2001 (it began as Fairy Secrets). Book a reading, or bring the kids to Saturday story time.",
+      "website": "spellboundmagicalgifts.com.au"
+    },
+    {
+      "name": "Sacred Sage Emporium",
+      "region": "South Australia",
+      "town": "Strathalbyn",
+      "address": "31 High St, Strathalbyn SA",
+      "days": "Closed Friday",
+      "description": "Tarot and crystals beside goods from local makers, on Strathalbyn's High Street.",
+      "website": ""
+    },
+    {
+      "name": "The Page and Cup",
+      "region": "Tasmania",
+      "town": "Hobart",
+      "address": "204 Elizabeth St, Hobart TAS",
+      "days": "Call ahead for hours",
+      "description": "Lynn's shop of tarot and oracle decks from around the world, with new and used books and Tasmanian herbal teas. Bring time.",
+      "website": "thepageandcup.com.au"
+    },
+    {
+      "name": "Just Magic",
+      "region": "Tasmania",
+      "town": "Launceston",
+      "address": "176 Charles St, Launceston TAS",
+      "days": "Monday to Saturday",
+      "description": "An ethical clothing and gift shop on Charles Street that keeps tarot cards beside its crystals and spiritual books.",
+      "website": ""
+    },
+    {
+      "name": "The Crystal Chalice",
+      "region": "Australian Capital Territory",
+      "town": "Braddon, Canberra",
+      "address": "Shop 66, Ori Building, 30 Lonsdale St, Braddon ACT",
+      "days": "Every day",
+      "description": "Lilitu has run this Pagan shop since 2004, with tarot and oracle decks and readings by booking.",
+      "website": "thecrystalchalice.com.au"
+    },
+    {
+      "name": "Spiritual Dreaming",
+      "region": "Northern Territory",
+      "town": "Coolalinga, Darwin",
+      "address": "Shop 5, 452 Stuart Hwy, Coolalinga NT",
+      "days": "Tuesday to Saturday",
+      "description": "Two doors from the Coolalinga Post Office, with tarot and oracle cards among the crystals. It posts Australia-wide.",
+      "website": ""
+    },
+    {
+      "name": "The Woo-Woo Shop",
+      "region": "New Zealand",
+      "town": "Whanganui",
+      "address": "33 Waireka Rd, Whanganui",
+      "days": "Visits by appointment, ships across New Zealand",
+      "description": "Denita opened the shop in 2017 for new and pre-loved decks, and runs a yearly Introduction to Tarot workshop. She'll also take the decks you've finished with.",
+      "website": "thewoowooshop.co.nz"
+    },
+    {
+      "name": "Mystic Journey",
+      "region": "New Zealand",
+      "town": "Nelson",
+      "address": "328 Annesbrook Dr, Annesbrook, Nelson",
+      "days": "Monday to Saturday",
+      "description": "Sally and Tim's crystal shop, open since 2016, with tarot and oracle cards and books alongside.",
+      "website": "mysticjournies.co.nz"
+    }
   ]
 }
