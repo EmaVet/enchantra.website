@@ -39,6 +39,20 @@ MAP = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill=
        'stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>')
 
 
+def icon(paths):
+    return ('<svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" '
+            'stroke-linecap="round" stroke-linejoin="round">' + paths + '</svg>')
+
+
+# Plain line icons in the site's own style (generic shapes, not the platforms' trademarked logos)
+I_GLOBE = icon('<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/>')
+I_BAG = icon('<path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/>')
+I_MAP = icon('<path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/>')
+I_CAMERA = icon('<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="0.6" fill="currentColor"/>')
+I_PEOPLE = icon('<circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M15.5 14.1c2.7.2 5 2.2 5 4.9"/>')
+I_NOTE = icon('<path d="M9 18V5.5l10-2V16"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>')
+
+
 def e(text):
     return html.escape(text, quote=True)
 
@@ -59,16 +73,19 @@ def card(shop, country):
     for k, v in OPTIONAL.items():
         shop.setdefault(k, v)
     name = e(shop["name"])
-    actions, socials = [], []
+    actions = []
+    def btn(href, label, ico, main=False):
+        cls = "act act-main" if main else "act"
+        return f'<a class="{cls}" href="{e(href)}" rel="noopener" aria-label="{label}" title="{label}">{ico}</a>'
     if shop["website"]:
         if shop["shop_online"]:
-            actions.append(f'<a class="act act-main" href="{e(site_url(shop["website"]))}" rel="noopener" aria-label="Shop online at {name}">{BAG}Shop online</a>')
+            actions.append(btn(site_url(shop["website"]), f"Shop online at {shop['name']}", I_BAG, True))
         else:
-            actions.append(f'<a class="act act-main" href="{e(site_url(shop["website"]))}" rel="noopener" aria-label="{name} website">{GLOBE}Website</a>')
-    actions.append(f'<a class="act" href="{e(maps_url(shop["address"], country))}" rel="noopener" aria-label="Open {name} in Maps">{MAP}Maps</a>')
-    for key, label in (("instagram", "Instagram"), ("facebook", "Facebook"), ("tiktok", "TikTok")):
+            actions.append(btn(site_url(shop["website"]), f"{shop['name']} website", I_GLOBE, True))
+    actions.append(btn(maps_url(shop["address"], country), f"Open {shop['name']} in Maps", I_MAP))
+    for key, label, ico in (("instagram", "Instagram", I_CAMERA), ("facebook", "Facebook", I_PEOPLE), ("tiktok", "TikTok", I_NOTE)):
         if shop[key]:
-            socials.append(f'<a class="act" href="{e(shop[key])}" rel="noopener" aria-label="{name} on {label}">{label}</a>')
+            actions.append(btn(shop[key], f"{shop['name']} on {label}", ico))
     if shop["logo"]:
         logo = (f'            <span class="shop-logo"><img src="/{e(shop["logo"].lstrip("/"))}" alt="{name} logo" '
                 'width="56" height="56" loading="lazy" decoding="async"></span>\n')
@@ -85,10 +102,7 @@ def card(shop, country):
         f'            <li><span class="sr-only">Address: </span>{PIN}<span>{e(shop["address"])}</span></li>\n'
         f'            <li><span class="sr-only">Open: </span>{CLOCK}<span>{e(shop["days"])}</span></li>\n'
         '          </ul>\n'
-        '          <div class="shop-foot">\n'
-        f'            <div class="shop-actions">{"".join(actions)}</div>\n'
-        f'            <div class="shop-socials">{"".join(socials)}</div>\n'
-        '          </div>\n'
+        f'          <div class="shop-actions">{"".join(actions)}</div>\n'
         '        </article>\n'
     )
 
