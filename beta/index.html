@@ -180,6 +180,14 @@ body::after {
 }
 @media print { body::after { display: none; } }
 </style>
+<style id="centred-blocks">
+/* Centred sections: full container, headline up to 960px, intro up to 700px (rulebook section 2) */
+#noticing h2.en-serif{max-width:960px!important;}
+#noticing h2.en-serif + p{max-width:700px!important;}
+#apply > div:not(.cta-sky){max-width:1180px!important;}
+#apply h2{max-width:960px!important;margin-left:auto!important;margin-right:auto!important;}
+#apply p{max-width:700px!important;margin-left:auto!important;margin-right:auto!important;}
+</style>
 </head>
 <body>
 
