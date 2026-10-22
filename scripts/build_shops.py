@@ -50,6 +50,9 @@ I_BAG = icon('<path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 
 I_MAP = icon('<path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/>')
 I_CAMERA = icon('<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="0.6" fill="currentColor"/>')
 I_PEOPLE = icon('<circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M15.5 14.1c2.7.2 5 2.2 5 4.9"/>')
+# Official marks, used as published by Meta (Instagram glyph, Facebook logo), shown in one colour
+I_INSTAGRAM = '<span class="brand-ico ico-instagram" aria-hidden="true"></span>'
+I_FACEBOOK = '<span class="brand-ico ico-facebook" aria-hidden="true"></span>'
 I_NOTE = icon('<path d="M9 18V5.5l10-2V16"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>')
 
 
@@ -83,7 +86,7 @@ def card(shop, country):
         else:
             actions.append(btn(site_url(shop["website"]), f"{shop['name']} website", I_GLOBE, True))
     actions.append(btn(maps_url(shop["address"], country), f"Open {shop['name']} in Maps", I_MAP))
-    for key, label, ico in (("instagram", "Instagram", I_CAMERA), ("facebook", "Facebook", I_PEOPLE), ("tiktok", "TikTok", I_NOTE)):
+    for key, label, ico in (("instagram", "Instagram", I_INSTAGRAM), ("facebook", "Facebook", I_FACEBOOK), ("tiktok", "TikTok", I_NOTE)):
         if shop[key]:
             actions.append(btn(shop[key], f"{shop['name']} on {label}", ico))
     # Logo band: the shop's own logo on the background it was made for (logo_bg: light, dark or black).
