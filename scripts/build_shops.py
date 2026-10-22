@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "shops.json"
 PAGE = ROOT / "shops" / "index.html"
 FIELDS = ("name", "region", "town", "address", "days", "description", "website")
+OPTIONAL = {"instagram": "", "facebook": "", "tiktok": "", "shop_online": False}
 
 PIN = ('<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" '
        'stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/>'
@@ -29,6 +30,8 @@ CLOCK = ('<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fil
          'stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>')
 GLOBE = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" '
          'stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg>')
+BAG = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" '
+       'stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>')
 MAP = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" '
        'stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>')
 
@@ -50,21 +53,32 @@ def maps_url(address, country):
 
 
 def card(shop, country):
+    for k, v in OPTIONAL.items():
+        shop.setdefault(k, v)
+    name = e(shop["name"])
     links = []
     if shop["website"]:
-        links.append(f'<a href="{e(site_url(shop["website"]))}" rel="noopener">{GLOBE}{e(shop["website"])}</a>')
+        label = "Shop online" if shop["shop_online"] else e(shop["website"])
+        icon = BAG if shop["shop_online"] else GLOBE
+        aria = f' aria-label="Shop online at {name}"' if shop["shop_online"] else ""
+        links.append(f'<a href="{e(site_url(shop["website"]))}" rel="noopener"{aria}>{icon}{label}</a>')
     links.append(f'<a href="{e(maps_url(shop["address"], country))}" rel="noopener" '
-                 f'aria-label="Open {e(shop["name"])} in Maps">{MAP}Open in Maps</a>')
+                 f'aria-label="Open {name} in Maps">{MAP}Open in Maps</a>')
+    socials = []
+    for key, label in (("instagram", "Instagram"), ("facebook", "Facebook"), ("tiktok", "TikTok")):
+        if shop[key]:
+            socials.append(f'<a href="{e(shop[key])}" rel="noopener" aria-label="{name} on {label}">{label}</a>')
+    social_html = f'\n          <div class="shop-socials">{"".join(socials)}</div>' if socials else ""
     return (
         '        <article class="shop">\n'
-        f'          <h3 class="en-serif">{e(shop["name"])}</h3>\n'
+        f'          <h3 class="en-serif">{name}</h3>\n'
         f'          <p class="shop-town">{e(shop["town"])}</p>\n'
         '          <ul class="shop-facts">\n'
         f'            <li><span class="sr-only">Address: </span>{PIN}<span>{e(shop["address"])}</span></li>\n'
         f'            <li><span class="sr-only">Open: </span>{CLOCK}<span>{e(shop["days"])}</span></li>\n'
         '          </ul>\n'
         f'          <p class="shop-desc">{e(shop["description"])}</p>\n'
-        f'          <div class="shop-links">{"".join(links)}</div>\n'
+        f'          <div class="shop-links">{"".join(links)}</div>{social_html}\n'
         '        </article>\n'
     )
 
@@ -106,6 +120,9 @@ def build():
             item = {"@type": "Store", "name": s["name"]}
             if s["website"]:
                 item["url"] = site_url(s["website"])
+            same = [s[k] for k in ("instagram", "facebook", "tiktok") if s.get(k)]
+            if same:
+                item["sameAs"] = same
             items.append({"@type": "ListItem", "position": position, "item": item})
     ld = {
         "@context": "https://schema.org",
