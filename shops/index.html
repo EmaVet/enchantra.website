@@ -368,15 +368,20 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
    across the row (CSS subgrid), and the row is only as tall as its longest card. No fixed heights, so no empty gaps. */
 .shop-grid { grid-auto-rows: auto; }
 @supports (grid-template-rows: subgrid) {
-  .shop { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 0; }
+  .shop { display: grid; grid-row: span 5; grid-template-rows: subgrid; row-gap: 0; }
   .shop-desc { align-self: start; }
   .shop-facts { align-self: end; }
 }
 .shop-head { display: flex; align-items: center; gap: 14px; }
-.shop-logo { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 12px; overflow: hidden;
-  background: #f3efe9; border: 2px solid var(--partner); }
-.shop-logo img { display: block; width: 100%; height: 100%; object-fit: contain; padding: 6px; }
-.shop-logo-empty { background: #1a1730; color: var(--partner-ink); }
+.shop-logo { display: flex; align-items: center; justify-content: center; height: 96px; margin-bottom: 18px; border-radius: 10px; overflow: hidden; }
+.shop-logo picture { display: contents; }
+.shop-logo img { display: block; max-width: 78%; max-height: 72px; width: auto; height: auto; object-fit: contain; }
+/* tall stacked logos get a little more height */
+.shop-logo img[height]:is([src*="eternal-spirit"]) { max-height: 84px; }
+.logo-light { background: #ffffff; }
+.logo-dark { background: #0f0c20; border: 1px solid rgba(154,143,192,0.16); }
+.logo-black { background: #000000; }
+.logo-none { background: #0f0c20; border: 1px solid rgba(var(--partner-rgb),0.30); color: var(--partner-ink); }
 .shop-title { min-width: 0; }
 .shop h3 { margin: 0; font-weight: 400; font-size: clamp(20px, 0.5vw + 17px, 23px); line-height: 1.22; color: #f3efe9; text-wrap: balance; }
 .shop-town { margin: 3px 0 0; font-size: 17px; line-height: 1.4; color: var(--partner-ink); }
@@ -534,8 +539,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
       </div>
       <div class="shop-grid">
         <article class="shop">
+          <div class="shop-logo logo-light"><picture><source srcset="/assets/images/shops/kiki-the-hippie-shop.webp" type="image/webp"><img src="/assets/images/shops/kiki-the-hippie-shop.png" alt="Kiki The Hippie Shop logo" width="220" height="160" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Kiki The Hippie Shop</h3>
               <p class="shop-town">Huskisson, Jervis Bay</p>
@@ -549,8 +554,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
           <div class="shop-actions"><a class="act act-main" href="https://thehippieshop.com.au" rel="noopener" aria-label="Shop online at Kiki The Hippie Shop" title="Shop online at Kiki The Hippie Shop"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg></a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=5%2F62%20Owen%20St%2C%20Huskisson%20NSW%2C%20Australia" rel="noopener" aria-label="Open Kiki The Hippie Shop in Maps" title="Open Kiki The Hippie Shop in Maps"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg></a><a class="act" href="https://www.instagram.com/kikithehippieshop/" rel="noopener" aria-label="Kiki The Hippie Shop on Instagram" title="Kiki The Hippie Shop on Instagram"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="0.6" fill="currentColor"/></svg></a><a class="act" href="https://www.facebook.com/kikijewelleryandgifts/" rel="noopener" aria-label="Kiki The Hippie Shop on Facebook" title="Kiki The Hippie Shop on Facebook"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M15.5 14.1c2.7.2 5 2.2 5 4.9"/></svg></a></div>
         </article>
         <article class="shop">
+          <div class="shop-logo logo-none" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Crow and Cauldron</h3>
               <p class="shop-town">Peakhurst, Sydney</p>
@@ -564,8 +569,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
           <div class="shop-actions"><a class="act act-main" href="https://thecrowandcauldron.com" rel="noopener" aria-label="Crow and Cauldron website" title="Crow and Cauldron website"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg></a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=50%20Baumans%20Rd%2C%20Peakhurst%20NSW%2C%20Australia" rel="noopener" aria-label="Open Crow and Cauldron in Maps" title="Open Crow and Cauldron in Maps"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg></a></div>
         </article>
         <article class="shop">
+          <div class="shop-logo logo-dark"><picture><source srcset="/assets/images/shops/the-cauldron-of-wellbeing.webp" type="image/webp"><img src="/assets/images/shops/the-cauldron-of-wellbeing.png" alt="The Cauldron of Wellbeing logo" width="159" height="160" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">The Cauldron of Wellbeing</h3>
               <p class="shop-town">Penrith</p>
@@ -594,8 +599,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
       </div>
       <div class="shop-grid">
         <article class="shop">
+          <div class="shop-logo logo-black"><picture><source srcset="/assets/images/shops/phoenix-alternative-body-soul.webp" type="image/webp"><img src="/assets/images/shops/phoenix-alternative-body-soul.png" alt="Phoenix Alternative Body &amp; Soul logo" width="248" height="160" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Phoenix Alternative Body &amp; Soul</h3>
               <p class="shop-town">Ballarat</p>
@@ -609,8 +614,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
           <div class="shop-actions"><a class="act act-main" href="https://phoenixalternative.org" rel="noopener" aria-label="Phoenix Alternative Body & Soul website" title="Phoenix Alternative Body & Soul website"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg></a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=73%20Bridge%20Mall%2C%20Ballarat%20VIC%2C%20Australia" rel="noopener" aria-label="Open Phoenix Alternative Body & Soul in Maps" title="Open Phoenix Alternative Body & Soul in Maps"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg></a><a class="act" href="https://www.instagram.com/phoenixalternative107/" rel="noopener" aria-label="Phoenix Alternative Body & Soul on Instagram" title="Phoenix Alternative Body & Soul on Instagram"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="0.6" fill="currentColor"/></svg></a><a class="act" href="https://www.facebook.com/phoenixalternativebodyandsoul" rel="noopener" aria-label="Phoenix Alternative Body & Soul on Facebook" title="Phoenix Alternative Body & Soul on Facebook"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M15.5 14.1c2.7.2 5 2.2 5 4.9"/></svg></a></div>
         </article>
         <article class="shop">
+          <div class="shop-logo logo-dark"><picture><source srcset="/assets/images/shops/the-empress-wolf.webp" type="image/webp"><img src="/assets/images/shops/the-empress-wolf.png" alt="The Empress &amp; Wolf logo" width="296" height="160" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">The Empress &amp; Wolf</h3>
               <p class="shop-town">Daylesford</p>
@@ -624,8 +629,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
           <div class="shop-actions"><a class="act act-main" href="https://theempressandwolf.com" rel="noopener" aria-label="Shop online at The Empress & Wolf" title="Shop online at The Empress & Wolf"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg></a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=35%20Vincent%20St%2C%20Daylesford%20VIC%2C%20Australia" rel="noopener" aria-label="Open The Empress & Wolf in Maps" title="Open The Empress & Wolf in Maps"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg></a><a class="act" href="https://www.instagram.com/theempressandwolf/" rel="noopener" aria-label="The Empress & Wolf on Instagram" title="The Empress & Wolf on Instagram"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="0.6" fill="currentColor"/></svg></a><a class="act" href="https://www.facebook.com/theempressandwolf" rel="noopener" aria-label="The Empress & Wolf on Facebook" title="The Empress & Wolf on Facebook"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M15.5 14.1c2.7.2 5 2.2 5 4.9"/></svg></a><a class="act" href="https://www.tiktok.com/@theempressandwolf" rel="noopener" aria-label="The Empress & Wolf on TikTok" title="The Empress & Wolf on TikTok"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5.5l10-2V16"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></a></div>
         </article>
         <article class="shop">
+          <div class="shop-logo logo-dark"><picture><source srcset="/assets/images/shops/temple-of-the-divine.webp" type="image/webp"><img src="/assets/images/shops/temple-of-the-divine.png" alt="Temple of the Divine logo" width="198" height="87" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Temple of the Divine</h3>
               <p class="shop-town">Windsor, Melbourne</p>
@@ -654,8 +659,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
       </div>
       <div class="shop-grid">
         <article class="shop">
+          <div class="shop-logo logo-dark"><picture><source srcset="/assets/images/shops/crystal-ball-bookstore.webp" type="image/webp"><img src="/assets/images/shops/crystal-ball-bookstore.png" alt="Crystal Ball Bookstore logo" width="178" height="160" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Crystal Ball Bookstore</h3>
               <p class="shop-town">Cairns</p>
@@ -669,8 +674,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
           <div class="shop-actions"><a class="act act-main" href="https://crystalball.com.au" rel="noopener" aria-label="Crystal Ball Bookstore website" title="Crystal Ball Bookstore website"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg></a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=91%20Grafton%20St%2C%20Cairns%20QLD%2C%20Australia" rel="noopener" aria-label="Open Crystal Ball Bookstore in Maps" title="Open Crystal Ball Bookstore in Maps"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg></a><a class="act" href="https://www.facebook.com/www.crystalball.com.au/" rel="noopener" aria-label="Crystal Ball Bookstore on Facebook" title="Crystal Ball Bookstore on Facebook"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M15.5 14.1c2.7.2 5 2.2 5 4.9"/></svg></a></div>
         </article>
         <article class="shop">
+          <div class="shop-logo logo-light"><picture><source srcset="/assets/images/shops/gypsy-moon.webp" type="image/webp"><img src="/assets/images/shops/gypsy-moon.png" alt="Gypsy Moon logo" width="340" height="100" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Gypsy Moon</h3>
               <p class="shop-town">Labrador, Gold Coast</p>
@@ -684,8 +689,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
           <div class="shop-actions"><a class="act act-main" href="https://gypsymoon.com.au" rel="noopener" aria-label="Shop online at Gypsy Moon" title="Shop online at Gypsy Moon"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg></a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=29C%20Musgrave%20Ave%2C%20Labrador%20QLD%2C%20Australia" rel="noopener" aria-label="Open Gypsy Moon in Maps" title="Open Gypsy Moon in Maps"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg></a><a class="act" href="https://www.instagram.com/gypsy_moon_gc/" rel="noopener" aria-label="Gypsy Moon on Instagram" title="Gypsy Moon on Instagram"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="0.6" fill="currentColor"/></svg></a><a class="act" href="https://www.facebook.com/gypsymoongc/" rel="noopener" aria-label="Gypsy Moon on Facebook" title="Gypsy Moon on Facebook"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M15.5 14.1c2.7.2 5 2.2 5 4.9"/></svg></a><a class="act" href="https://www.tiktok.com/@gypsymoon2216" rel="noopener" aria-label="Gypsy Moon on TikTok" title="Gypsy Moon on TikTok"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5.5l10-2V16"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg></a></div>
         </article>
         <article class="shop">
+          <div class="shop-logo logo-dark"><picture><source srcset="/assets/images/shops/tarotopia.webp" type="image/webp"><img src="/assets/images/shops/tarotopia.png" alt="Tarotopia logo" width="440" height="82" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Tarotopia</h3>
               <p class="shop-town">Strathpine, Brisbane</p>
@@ -714,8 +719,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
       </div>
       <div class="shop-grid">
         <article class="shop">
+          <div class="shop-logo logo-light"><picture><source srcset="/assets/images/shops/boodi-crystals.webp" type="image/webp"><img src="/assets/images/shops/boodi-crystals.png" alt="Boodi Crystals logo" width="126" height="160" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Boodi Crystals</h3>
               <p class="shop-town">Bunbury</p>
@@ -729,8 +734,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
           <div class="shop-actions"><a class="act act-main" href="https://boodi.com.au" rel="noopener" aria-label="Shop online at Boodi Crystals" title="Shop online at Boodi Crystals"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg></a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=18A%20Prosser%20St%2C%20South%20Bunbury%20WA%2C%20Australia" rel="noopener" aria-label="Open Boodi Crystals in Maps" title="Open Boodi Crystals in Maps"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg></a><a class="act" href="https://www.instagram.com/boodi_bunbury/" rel="noopener" aria-label="Boodi Crystals on Instagram" title="Boodi Crystals on Instagram"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="0.6" fill="currentColor"/></svg></a><a class="act" href="https://www.facebook.com/boodi.com.au/" rel="noopener" aria-label="Boodi Crystals on Facebook" title="Boodi Crystals on Facebook"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M15.5 14.1c2.7.2 5 2.2 5 4.9"/></svg></a></div>
         </article>
         <article class="shop">
+          <div class="shop-logo logo-light"><picture><source srcset="/assets/images/shops/enchanted-margaret-river.webp" type="image/webp"><img src="/assets/images/shops/enchanted-margaret-river.png" alt="Enchanted Margaret River logo" width="211" height="160" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Enchanted Margaret River</h3>
               <p class="shop-town">Margaret River</p>
@@ -759,8 +764,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
       </div>
       <div class="shop-grid">
         <article class="shop">
+          <div class="shop-logo logo-light"><picture><source srcset="/assets/images/shops/spellbound-magical-gifts.webp" type="image/webp"><img src="/assets/images/shops/spellbound-magical-gifts.png" alt="Spellbound Magical Gifts logo" width="187" height="71" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Spellbound Magical Gifts</h3>
               <p class="shop-town">Gawler</p>
@@ -774,8 +779,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
           <div class="shop-actions"><a class="act act-main" href="https://spellboundmagicalgifts.com.au" rel="noopener" aria-label="Spellbound Magical Gifts website" title="Spellbound Magical Gifts website"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg></a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=72%20Murray%20St%2C%20Gawler%20SA%2C%20Australia" rel="noopener" aria-label="Open Spellbound Magical Gifts in Maps" title="Open Spellbound Magical Gifts in Maps"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg></a><a class="act" href="https://www.instagram.com/spellbound.magical.gifts/" rel="noopener" aria-label="Spellbound Magical Gifts on Instagram" title="Spellbound Magical Gifts on Instagram"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="0.6" fill="currentColor"/></svg></a><a class="act" href="https://www.facebook.com/SpellboundMagicalGifts/" rel="noopener" aria-label="Spellbound Magical Gifts on Facebook" title="Spellbound Magical Gifts on Facebook"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M15.5 14.1c2.7.2 5 2.2 5 4.9"/></svg></a></div>
         </article>
         <article class="shop">
+          <div class="shop-logo logo-dark"><picture><source srcset="/assets/images/shops/eternal-spirit.webp" type="image/webp"><img src="/assets/images/shops/eternal-spirit.png" alt="Eternal Spirit logo" width="140" height="160" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Eternal Spirit</h3>
               <p class="shop-town">Unley, Adelaide</p>
@@ -804,8 +809,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
       </div>
       <div class="shop-grid">
         <article class="shop">
+          <div class="shop-logo logo-none" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">The Crystal Chalice</h3>
               <p class="shop-town">Braddon, Canberra</p>
@@ -835,8 +840,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
       </div>
       <div class="shop-grid">
         <article class="shop">
+          <div class="shop-logo logo-none" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Spiritual Dreaming</h3>
               <p class="shop-town">Coolalinga, Darwin</p>
@@ -865,8 +870,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
       </div>
       <div class="shop-grid">
         <article class="shop">
+          <div class="shop-logo logo-none" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">Mystic Journey</h3>
               <p class="shop-town">Nelson</p>
@@ -880,8 +885,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
           <div class="shop-actions"><a class="act act-main" href="https://mysticjournies.co.nz" rel="noopener" aria-label="Shop online at Mystic Journey" title="Shop online at Mystic Journey"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg></a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=328%20Annesbrook%20Dr%2C%20Annesbrook%2C%20Nelson%2C%20New%20Zealand" rel="noopener" aria-label="Open Mystic Journey in Maps" title="Open Mystic Journey in Maps"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg></a><a class="act" href="https://www.instagram.com/mysticjourneynelson/" rel="noopener" aria-label="Mystic Journey on Instagram" title="Mystic Journey on Instagram"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="0.6" fill="currentColor"/></svg></a><a class="act" href="https://www.facebook.com/mysticjourneynelson" rel="noopener" aria-label="Mystic Journey on Facebook" title="Mystic Journey on Facebook"><svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3 2.5-5.2 5.5-5.2s5.5 2.2 5.5 5.2"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M15.5 14.1c2.7.2 5 2.2 5 4.9"/></svg></a></div>
         </article>
         <article class="shop">
+          <div class="shop-logo logo-light"><picture><source srcset="/assets/images/shops/the-woo-woo-shop.webp" type="image/webp"><img src="/assets/images/shops/the-woo-woo-shop.png" alt="The Woo-Woo Shop logo" width="309" height="160" loading="lazy" decoding="async"></picture></div>
           <div class="shop-head">
-            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
             <div class="shop-title">
               <h3 class="en-serif">The Woo-Woo Shop</h3>
               <p class="shop-town">Whanganui</p>

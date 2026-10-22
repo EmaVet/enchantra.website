@@ -77,7 +77,9 @@
       "shop_online": false,
       "instagram": "",
       "facebook": "",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "",
+      "logo_bg": ""
     },
     {
       "name": "The Cauldron of Wellbeing",
@@ -90,7 +92,11 @@
       "shop_online": false,
       "instagram": "https://www.instagram.com/cauldronofwellbeing/",
       "facebook": "https://www.facebook.com/thecauldronofwellbeing/",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "assets/images/shops/the-cauldron-of-wellbeing",
+      "logo_bg": "dark",
+      "logo_w": 159,
+      "logo_h": 160
     },
     {
       "name": "Kiki The Hippie Shop",
@@ -103,7 +109,11 @@
       "shop_online": true,
       "instagram": "https://www.instagram.com/kikithehippieshop/",
       "facebook": "https://www.facebook.com/kikijewelleryandgifts/",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "assets/images/shops/kiki-the-hippie-shop",
+      "logo_bg": "light",
+      "logo_w": 220,
+      "logo_h": 160
     },
     {
       "name": "Temple of the Divine",
@@ -116,7 +126,11 @@
       "shop_online": true,
       "instagram": "https://www.instagram.com/temple_ofthe_divine/",
       "facebook": "",
-      "tiktok": "https://www.tiktok.com/@templeofthedivine"
+      "tiktok": "https://www.tiktok.com/@templeofthedivine",
+      "logo": "assets/images/shops/temple-of-the-divine",
+      "logo_bg": "dark",
+      "logo_w": 198,
+      "logo_h": 87
     },
     {
       "name": "The Empress & Wolf",
@@ -129,7 +143,11 @@
       "shop_online": true,
       "instagram": "https://www.instagram.com/theempressandwolf/",
       "facebook": "https://www.facebook.com/theempressandwolf",
-      "tiktok": "https://www.tiktok.com/@theempressandwolf"
+      "tiktok": "https://www.tiktok.com/@theempressandwolf",
+      "logo": "assets/images/shops/the-empress-wolf",
+      "logo_bg": "dark",
+      "logo_w": 296,
+      "logo_h": 160
     },
     {
       "name": "Phoenix Alternative Body & Soul",
@@ -142,7 +160,11 @@
       "shop_online": false,
       "instagram": "https://www.instagram.com/phoenixalternative107/",
       "facebook": "https://www.facebook.com/phoenixalternativebodyandsoul",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "assets/images/shops/phoenix-alternative-body-soul",
+      "logo_bg": "black",
+      "logo_w": 248,
+      "logo_h": 160
     },
     {
       "name": "Tarotopia",
@@ -155,7 +177,11 @@
       "shop_online": true,
       "instagram": "https://www.instagram.com/tarotopia/",
       "facebook": "https://www.facebook.com/Tarotopia/",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "assets/images/shops/tarotopia",
+      "logo_bg": "dark",
+      "logo_w": 440,
+      "logo_h": 82
     },
     {
       "name": "Gypsy Moon",
@@ -168,7 +194,11 @@
       "shop_online": true,
       "instagram": "https://www.instagram.com/gypsy_moon_gc/",
       "facebook": "https://www.facebook.com/gypsymoongc/",
-      "tiktok": "https://www.tiktok.com/@gypsymoon2216"
+      "tiktok": "https://www.tiktok.com/@gypsymoon2216",
+      "logo": "assets/images/shops/gypsy-moon",
+      "logo_bg": "light",
+      "logo_w": 340,
+      "logo_h": 100
     },
     {
       "name": "Crystal Ball Bookstore",
@@ -181,7 +211,11 @@
       "shop_online": false,
       "instagram": "",
       "facebook": "https://www.facebook.com/www.crystalball.com.au/",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "assets/images/shops/crystal-ball-bookstore",
+      "logo_bg": "dark",
+      "logo_w": 178,
+      "logo_h": 160
     },
     {
       "name": "Enchanted Margaret River",
@@ -194,7 +228,11 @@
       "shop_online": true,
       "instagram": "https://www.instagram.com/enchanted_margaret_river/",
       "facebook": "https://www.facebook.com/enchanted1111",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "assets/images/shops/enchanted-margaret-river",
+      "logo_bg": "light",
+      "logo_w": 211,
+      "logo_h": 160
     },
     {
       "name": "Boodi Crystals",
@@ -207,7 +245,11 @@
       "shop_online": true,
       "instagram": "https://www.instagram.com/boodi_bunbury/",
       "facebook": "https://www.facebook.com/boodi.com.au/",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "assets/images/shops/boodi-crystals",
+      "logo_bg": "light",
+      "logo_w": 126,
+      "logo_h": 160
     },
     {
       "name": "Eternal Spirit",
@@ -220,7 +262,11 @@
       "shop_online": true,
       "instagram": "https://www.instagram.com/eternalspirit.shop/",
       "facebook": "https://www.facebook.com/eternalspirit88",
-      "tiktok": "https://www.tiktok.com/@eternalspirit.shop"
+      "tiktok": "https://www.tiktok.com/@eternalspirit.shop",
+      "logo": "assets/images/shops/eternal-spirit",
+      "logo_bg": "dark",
+      "logo_w": 140,
+      "logo_h": 160
     },
     {
       "name": "Spellbound Magical Gifts",
@@ -233,7 +279,11 @@
       "shop_online": false,
       "instagram": "https://www.instagram.com/spellbound.magical.gifts/",
       "facebook": "https://www.facebook.com/SpellboundMagicalGifts/",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "assets/images/shops/spellbound-magical-gifts",
+      "logo_bg": "light",
+      "logo_w": 187,
+      "logo_h": 71
     },
     {
       "name": "The Crystal Chalice",
@@ -246,7 +296,9 @@
       "shop_online": false,
       "instagram": "",
       "facebook": "https://www.facebook.com/crystalchaliceGCS/",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "",
+      "logo_bg": ""
     },
     {
       "name": "Spiritual Dreaming",
@@ -259,7 +311,9 @@
       "shop_online": false,
       "instagram": "",
       "facebook": "",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "",
+      "logo_bg": ""
     },
     {
       "name": "The Woo-Woo Shop",
@@ -272,7 +326,11 @@
       "shop_online": true,
       "instagram": "https://www.instagram.com/thewoowooshop/",
       "facebook": "https://www.facebook.com/thewoowooshop",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "assets/images/shops/the-woo-woo-shop",
+      "logo_bg": "light",
+      "logo_w": 309,
+      "logo_h": 160
     },
     {
       "name": "Mystic Journey",
@@ -285,7 +343,9 @@
       "shop_online": true,
       "instagram": "https://www.instagram.com/mysticjourneynelson/",
       "facebook": "https://www.facebook.com/mysticjourneynelson",
-      "tiktok": ""
+      "tiktok": "",
+      "logo": "",
+      "logo_bg": ""
     }
   ]
 }

@@ -22,8 +22,8 @@ DATA = ROOT / "data" / "shops.json"
 PAGE = ROOT / "shops" / "index.html"
 FIELDS = ("name", "region", "town", "address", "days", "description", "website")
 COUNT_WORDS = {1: "One shop", 2: "Two shops", 3: "Three shops", 4: "Four shops", 5: "Five shops", 6: "Six shops", 7: "Seven shops", 8: "Eight shops", 9: "Nine shops"}
-OPTIONAL = {"instagram": "", "facebook": "", "tiktok": "", "shop_online": False, "logo": ""}
-SHOPFRONT = ('<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" '
+OPTIONAL = {"instagram": "", "facebook": "", "tiktok": "", "shop_online": False, "logo": "", "logo_bg": ""}
+SHOPFRONT = ('<svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" '
              'stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg>')
 
 PIN = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" '
@@ -86,15 +86,20 @@ def card(shop, country):
     for key, label, ico in (("instagram", "Instagram", I_CAMERA), ("facebook", "Facebook", I_PEOPLE), ("tiktok", "TikTok", I_NOTE)):
         if shop[key]:
             actions.append(btn(shop[key], f"{shop['name']} on {label}", ico))
+    # Logo band: the shop's own logo on the background it was made for (logo_bg: light, dark or black).
+    # Shops without a logo get Enchantra's own shopfront icon.
     if shop["logo"]:
-        logo = (f'            <span class="shop-logo"><img src="/{e(shop["logo"].lstrip("/"))}" alt="{name} logo" '
-                'width="56" height="56" loading="lazy" decoding="async"></span>\n')
+        base = "/" + shop["logo"].lstrip("/")
+        w, h = shop.get("logo_w", 240), shop.get("logo_h", 120)
+        logo = (f'          <div class="shop-logo logo-{e(shop.get("logo_bg") or "light")}">'
+                f'<picture><source srcset="{e(base)}.webp" type="image/webp">'
+                f'<img src="{e(base)}.png" alt="{name} logo" width="{w}" height="{h}" loading="lazy" decoding="async"></picture></div>\n')
     else:
-        logo = f'            <span class="shop-logo shop-logo-empty" aria-hidden="true">{SHOPFRONT}</span>\n'
+        logo = f'          <div class="shop-logo logo-none" aria-hidden="true">{SHOPFRONT}</div>\n'
     return (
         '        <article class="shop">\n'
-        '          <div class="shop-head">\n'
         + logo +
+        '          <div class="shop-head">\n'
         f'            <div class="shop-title">\n              <h3 class="en-serif">{name}</h3>\n              <p class="shop-town">{e(shop["town"])}</p>\n            </div>\n'
         '          </div>\n'
         f'          <p class="shop-desc">{e(shop["description"])}</p>\n'
