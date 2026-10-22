@@ -416,6 +416,29 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
 }
 @media (prefers-reduced-motion: reduce) { .sticky-join { transition: none; } .jump a { transition: none; } }
 </style>
+<style id="region-bands">
+/* Option C, lilac and silver (approved by M, 23 Oct): region bands, card keyline, lilac-lit cards, sage closing link */
+.region { position: relative; overflow: hidden; }
+.region-inner { position: relative; z-index: 1; }
+.shop { background: linear-gradient(165deg, #211b48 0%, #171334 55%, #131029 100%); border-color: rgba(154,143,192,0.40); transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease; }
+.shop:hover { border-color: rgba(154,143,192,0.55); transform: translateY(-2px); box-shadow: 0 18px 36px rgba(0,0,0,0.38), 0 0 28px rgba(154,143,192,0.10); }
+.shop-facts li svg { box-sizing: content-box; width: 15px; height: 15px; padding: 6px; margin-top: -2px; border-radius: 50%; background: #221d3a; box-shadow: inset 0 0 0 1px rgba(154,143,192,0.28); }
+.jump a { background: rgba(154,143,192,0.10); border-color: rgba(154,143,192,0.38); color: #e6e9f6; }
+.jump a:hover { background: rgba(154,143,192,0.20); border-color: #9a8fc0; }
+@media (prefers-reduced-motion: reduce) { .shop { transition: none; } .shop:hover { transform: none; } }
+
+.region:nth-of-type(odd) { background: linear-gradient(180deg, #151133 0%, #0e0b1e 70%); }
+.region:nth-of-type(even) { background: linear-gradient(180deg, #1c1748 0%, #120f2a 70%); }
+.region { border-top: 1px solid rgba(154,143,192,0.22); }
+.region-eyebrow { margin: 0 0 14px; font-size: 12px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: #9a8fc0; display: inline-flex; align-items: center; gap: 8px; }
+.region-eyebrow::before { content: ''; width: 18px; height: 1px; background: #9a8fc0; }
+.region-count { margin: 14px 0 0; font-size: 15px; color: #9aa0c2; }
+.shop { position: relative; overflow: hidden; }
+.shop::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: linear-gradient(90deg, #9a8fc0, #c6cae2 55%, rgba(198,202,226,0.15)); }
+.closing { background: linear-gradient(180deg, #0e0b1e, #121a1c); }
+.closing a { color: #a4c2ab; text-decoration-color: rgba(164,194,171,0.55); }
+.closing a:hover { color: #c3d9c8; text-decoration-color: #c3d9c8; }
+</style>
 <style id="final-cta">
 /* Final call to action: option A, the finale under the stars (as on the homepage) */
 #join { position: relative; overflow: hidden; }
@@ -532,7 +555,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
   <section class="region" id="new-south-wales" aria-labelledby="new-south-wales-h">
     <div class="region-inner">
       <div class="region-head">
+        <p class="region-eyebrow">Australia</p>
         <h2 class="en-serif" id="new-south-wales-h">New South Wales</h2>
+        <p class="region-count">Three shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
@@ -573,7 +598,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
   <section class="region" id="victoria" aria-labelledby="victoria-h">
     <div class="region-inner">
       <div class="region-head">
+        <p class="region-eyebrow">Australia</p>
         <h2 class="en-serif" id="victoria-h">Victoria</h2>
+        <p class="region-count">Three shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
@@ -615,7 +642,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
   <section class="region" id="queensland" aria-labelledby="queensland-h">
     <div class="region-inner">
       <div class="region-head">
+        <p class="region-eyebrow">Australia</p>
         <h2 class="en-serif" id="queensland-h">Queensland</h2>
+        <p class="region-count">Three shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
@@ -657,7 +686,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
   <section class="region" id="western-australia" aria-labelledby="western-australia-h">
     <div class="region-inner">
       <div class="region-head">
+        <p class="region-eyebrow">Australia</p>
         <h2 class="en-serif" id="western-australia-h">Western Australia</h2>
+        <p class="region-count">Two shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
@@ -688,7 +719,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
   <section class="region" id="south-australia" aria-labelledby="south-australia-h">
     <div class="region-inner">
       <div class="region-head">
+        <p class="region-eyebrow">Australia</p>
         <h2 class="en-serif" id="south-australia-h">South Australia</h2>
+        <p class="region-count">Three shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
@@ -729,7 +762,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
   <section class="region" id="tasmania" aria-labelledby="tasmania-h">
     <div class="region-inner">
       <div class="region-head">
+        <p class="region-eyebrow">Australia</p>
         <h2 class="en-serif" id="tasmania-h">Tasmania</h2>
+        <p class="region-count">Two shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
@@ -760,7 +795,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
   <section class="region" id="act" aria-labelledby="act-h">
     <div class="region-inner">
       <div class="region-head">
+        <p class="region-eyebrow">Australia</p>
         <h2 class="en-serif" id="act-h">Australian Capital Territory</h2>
+        <p class="region-count">One shop</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
@@ -780,7 +817,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
   <section class="region" id="northern-territory" aria-labelledby="northern-territory-h">
     <div class="region-inner">
       <div class="region-head">
+        <p class="region-eyebrow">Australia</p>
         <h2 class="en-serif" id="northern-territory-h">Northern Territory</h2>
+        <p class="region-count">One shop</p>
         <p class="region-note">We&#x27;re still looking for a shop in Alice Springs.</p>
       </div>
       <div class="shop-grid">
@@ -800,7 +839,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
   <section class="region" id="new-zealand" aria-labelledby="new-zealand-h">
     <div class="region-inner">
       <div class="region-head">
+        <p class="region-eyebrow">Aotearoa New Zealand</p>
         <h2 class="en-serif" id="new-zealand-h">New Zealand</h2>
+        <p class="region-count">Two shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">

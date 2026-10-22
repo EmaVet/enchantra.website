@@ -21,6 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "shops.json"
 PAGE = ROOT / "shops" / "index.html"
 FIELDS = ("name", "region", "town", "address", "days", "description", "website")
+COUNT_WORDS = {1: "One shop", 2: "Two shops", 3: "Three shops", 4: "Four shops", 5: "Five shops", 6: "Six shops", 7: "Seven shops", 8: "Eight shops", 9: "Nine shops"}
 OPTIONAL = {"instagram": "", "facebook": "", "tiktok": "", "shop_online": False}
 
 PIN = ('<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" '
@@ -102,10 +103,12 @@ def build():
             continue
         jump.append(f'      <li><a href="#{r["id"]}">{e(r["short"])}</a></li>')
         note = f'\n        <p class="region-note">{e(r["note"])}</p>' if r.get("note") else ""
+        eyebrow = "Aotearoa New Zealand" if r["country"] == "New Zealand" else r["country"]
+        count = COUNT_WORDS.get(len(shops), f"{len(shops)} shops")
         sections.append(
             f'  <section class="region" id="{r["id"]}" aria-labelledby="{r["id"]}-h">\n'
             '    <div class="region-inner">\n'
-            f'      <div class="region-head">\n        <h2 class="en-serif" id="{r["id"]}-h">{e(r["name"])}</h2>{note}\n      </div>\n'
+            f'      <div class="region-head">\n        <p class="region-eyebrow">{e(eyebrow)}</p>\n        <h2 class="en-serif" id="{r["id"]}-h">{e(r["name"])}</h2>\n        <p class="region-count">{count}</p>{note}\n      </div>\n'
             '      <div class="shop-grid">\n'
             + "".join(card(s, r["country"]) for s in shops)
             + '      </div>\n    </div>\n  </section>\n'
