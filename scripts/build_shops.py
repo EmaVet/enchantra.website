@@ -22,18 +22,20 @@ DATA = ROOT / "data" / "shops.json"
 PAGE = ROOT / "shops" / "index.html"
 FIELDS = ("name", "region", "town", "address", "days", "description", "website")
 COUNT_WORDS = {1: "One shop", 2: "Two shops", 3: "Three shops", 4: "Four shops", 5: "Five shops", 6: "Six shops", 7: "Seven shops", 8: "Eight shops", 9: "Nine shops"}
-OPTIONAL = {"instagram": "", "facebook": "", "tiktok": "", "shop_online": False}
+OPTIONAL = {"instagram": "", "facebook": "", "tiktok": "", "shop_online": False, "logo": ""}
+SHOPFRONT = ('<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" '
+             'stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg>')
 
-PIN = ('<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" '
+PIN = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" '
        'stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/>'
        '<circle cx="12" cy="10" r="2.4"/></svg>')
-CLOCK = ('<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" '
+CLOCK = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" '
          'stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>')
-GLOBE = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" '
+GLOBE = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" '
          'stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg>')
-BAG = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" '
+BAG = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" '
        'stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>')
-MAP = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" '
+MAP = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" '
        'stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>')
 
 
@@ -57,30 +59,53 @@ def card(shop, country):
     for k, v in OPTIONAL.items():
         shop.setdefault(k, v)
     name = e(shop["name"])
-    links = []
+    actions, socials = [], []
     if shop["website"]:
-        label = "Shop online" if shop["shop_online"] else e(shop["website"])
-        icon = BAG if shop["shop_online"] else GLOBE
-        aria = f' aria-label="Shop online at {name}"' if shop["shop_online"] else ""
-        links.append(f'<a href="{e(site_url(shop["website"]))}" rel="noopener"{aria}>{icon}{label}</a>')
-    links.append(f'<a href="{e(maps_url(shop["address"], country))}" rel="noopener" '
-                 f'aria-label="Open {name} in Maps">{MAP}Open in Maps</a>')
-    socials = []
+        if shop["shop_online"]:
+            actions.append(f'<a class="act act-main" href="{e(site_url(shop["website"]))}" rel="noopener" aria-label="Shop online at {name}">{BAG}Shop online</a>')
+        else:
+            actions.append(f'<a class="act act-main" href="{e(site_url(shop["website"]))}" rel="noopener" aria-label="{name} website">{GLOBE}Website</a>')
+    actions.append(f'<a class="act" href="{e(maps_url(shop["address"], country))}" rel="noopener" aria-label="Open {name} in Maps">{MAP}Maps</a>')
     for key, label in (("instagram", "Instagram"), ("facebook", "Facebook"), ("tiktok", "TikTok")):
         if shop[key]:
-            socials.append(f'<a href="{e(shop[key])}" rel="noopener" aria-label="{name} on {label}">{label}</a>')
-    social_html = f'\n          <div class="shop-socials">{"".join(socials)}</div>' if socials else ""
+            socials.append(f'<a class="act" href="{e(shop[key])}" rel="noopener" aria-label="{name} on {label}">{label}</a>')
+    if shop["logo"]:
+        logo = (f'            <span class="shop-logo"><img src="/{e(shop["logo"].lstrip("/"))}" alt="{name} logo" '
+                'width="56" height="56" loading="lazy" decoding="async"></span>\n')
+    else:
+        logo = f'            <span class="shop-logo shop-logo-empty" aria-hidden="true">{SHOPFRONT}</span>\n'
     return (
         '        <article class="shop">\n'
-        f'          <h3 class="en-serif">{name}</h3>\n'
-        f'          <p class="shop-town">{e(shop["town"])}</p>\n'
+        '          <div class="shop-head">\n'
+        + logo +
+        f'            <div class="shop-title">\n              <h3 class="en-serif">{name}</h3>\n              <p class="shop-town">{e(shop["town"])}</p>\n            </div>\n'
+        '          </div>\n'
+        f'          <p class="shop-desc">{e(shop["description"])}</p>\n'
         '          <ul class="shop-facts">\n'
         f'            <li><span class="sr-only">Address: </span>{PIN}<span>{e(shop["address"])}</span></li>\n'
         f'            <li><span class="sr-only">Open: </span>{CLOCK}<span>{e(shop["days"])}</span></li>\n'
         '          </ul>\n'
-        f'          <p class="shop-desc">{e(shop["description"])}</p>\n'
-        f'          <div class="shop-links">{"".join(links)}</div>{social_html}\n'
+        '          <div class="shop-foot">\n'
+        f'            <div class="shop-actions">{"".join(actions)}</div>\n'
+        f'            <div class="shop-socials">{"".join(socials)}</div>\n'
+        '          </div>\n'
         '        </article>\n'
+    )
+
+
+def region_block(r, shops, tag="section"):
+    note = f'\n          <p class="region-note">{e(r["note"])}</p>' if r.get("note") else ""
+    eyebrow = "Aotearoa New Zealand" if r["country"] == "New Zealand" else r["country"]
+    count = COUNT_WORDS.get(len(shops), f"{len(shops)} shops")
+    return (
+        f'    <{tag} class="region" id="{r["id"]}" aria-labelledby="{r["id"]}-h">\n'
+        '      <div class="region-head">\n'
+        f'        <div>\n          <p class="region-eyebrow">{e(eyebrow)}</p>\n          <h2 class="en-serif" id="{r["id"]}-h">{e(r["name"])}</h2>{note}\n        </div>\n'
+        f'        <p class="region-count">{count}</p>\n'
+        '      </div>\n'
+        '      <div class="shop-grid">\n'
+        + "".join(card(s, r["country"]) for s in shops)
+        + f'      </div>\n    </{tag}>\n'
     )
 
 
@@ -97,22 +122,16 @@ def build():
 
     jump = ['    <ul>']
     sections = []
+    groups = []
     for r in regions:
         shops = sorted((s for s in data["shops"] if s["region"] == r["name"]), key=lambda s: s["town"].lower())
         if not shops:
             continue
-        jump.append(f'      <li><a href="#{r["id"]}">{e(r["short"])}</a></li>')
-        note = f'\n        <p class="region-note">{e(r["note"])}</p>' if r.get("note") else ""
-        eyebrow = "Aotearoa New Zealand" if r["country"] == "New Zealand" else r["country"]
-        count = COUNT_WORDS.get(len(shops), f"{len(shops)} shops")
-        sections.append(
-            f'  <section class="region" id="{r["id"]}" aria-labelledby="{r["id"]}-h">\n'
-            '    <div class="region-inner">\n'
-            f'      <div class="region-head">\n        <p class="region-eyebrow">{e(eyebrow)}</p>\n        <h2 class="en-serif" id="{r["id"]}-h">{e(r["name"])}</h2>\n        <p class="region-count">{count}</p>{note}\n      </div>\n'
-            '      <div class="shop-grid">\n'
-            + "".join(card(s, r["country"]) for s in shops)
-            + '      </div>\n    </div>\n  </section>\n'
-        )
+        jump.append(f'      <li><a href="#{r["id"]}">{e(r["short"])}<span class="jump-count">{len(shops)}</span></a></li>')
+        groups.append([(r, shops)])
+    for i, g in enumerate(groups):
+        band = "band-a" if i % 2 == 0 else "band-b"
+        sections.append(f'  <div class="band {band}">\n  <div class="band-inner">\n' + region_block(*g[0]) + '  </div>\n  </div>\n')
     jump.append('    </ul>')
 
     items = []
@@ -144,7 +163,7 @@ def build():
             raise SystemExit(f"marker shops:{key} not found in {PAGE}")
         page = pattern.sub(lambda m: f"{m.group(1)}\n{body}\n{m.group(3)}", page)
     PAGE.write_text(page, encoding="utf-8")
-    print(f"Built {PAGE.relative_to(ROOT)}: {position} shops in {len(sections)} regions.")
+    print(f"Built {PAGE.relative_to(ROOT)}: {position} shops in {sum(len(g) for g in groups)} regions.")
 
 
 if __name__ == "__main__":

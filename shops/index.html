@@ -317,94 +317,104 @@ section:not(#join) h2.en-serif { font-size: clamp(30px, 2.2vw + 14px, 44px) !imp
 @media (max-width: 599px) { .hero-stage { display: none; } }
 </style>
 <style id="shops">
-/* Where Decks Find You: the region jump list, the region sections and the shop cards */
+/* Where Decks Find You
+   Enchantra's own voice frames the page: lilac for structure (bands, region labels, jump list).
+   The partner shops carry their own colour, Tide teal (--partner, #6cc4bf), used only on their cards and the
+   invitation to suggest one: a solid top band, their town, their logo frame, their icons and their links.
+   No glows: the colour is shown flat and solid.
+   Gold stays the one waitlist button. */
+:root { --partner: #6cc4bf; --partner-ink: #93d6d2; --partner-rgb: 108,196,191; }
 
-/* Visible keyboard focus everywhere on this page (silver ring, 11:1 on the night) */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offset: 3px; border-radius: 8px; }
 .btn-gold:focus-visible { outline-offset: 4px; border-radius: 999px; }
 
-/* Read aloud only (labels for address and open days) */
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-
-/* Jump list: lilac is structure */
+/* Jump list: lilac is structure; each region shows how many shops it holds */
 .jump { background: #100d22; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834; }
 .jump ul { list-style: none; margin: 0 auto; max-width: 1080px; padding: 22px clamp(18px,5vw,40px); display: flex; flex-wrap: wrap; gap: 10px; }
-.jump a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid #3a3466; background: #15122a;
-  color: #c6cae2; font-size: 15px; text-decoration: none; white-space: nowrap; transition: border-color 200ms ease, color 200ms ease, background 200ms ease; }
-.jump a:hover { border-color: #9a8fc0; color: #f3efe9; background: #1a1730; }
+.jump a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 8px 0 18px; border-radius: 999px; border: 1px solid rgba(154,143,192,0.38);
+  background: rgba(154,143,192,0.10); color: #e6e9f6; font-size: 15px; text-decoration: none; white-space: nowrap; transition: background 200ms ease, border-color 200ms ease; }
+.jump a:hover { background: rgba(154,143,192,0.20); border-color: #9a8fc0; color: #f3efe9; }
 .jump a:focus-visible { border-radius: 999px; }
+.jump-count { display: inline-flex; align-items: center; justify-content: center; min-width: 28px; height: 28px; padding: 0 8px; border-radius: 999px; background: rgba(154,143,192,0.22); color: #f3efe9; font-size: 13px; font-weight: 500; }
 
-/* Regions: alternate the night as the homepage does */
-.region { scroll-margin-top: 76px; border-bottom: 1px solid #1c1834; }
-.region:nth-of-type(odd) { background: #0e0b1e; }
-.region:nth-of-type(even) { background: #100d22; }
-.region-inner { max-width: 1080px; margin: 0 auto; padding: clamp(52px,7vw,84px) clamp(18px,5vw,40px); display: grid; gap: clamp(24px,3vw,32px); }
+/* Region bands: alternating night, lilac hairline between them */
+.band { border-top: 1px solid rgba(154,143,192,0.22); }
+.band-a { background: linear-gradient(180deg, #151133 0%, #0e0b1e 70%); }
+.band-b { background: linear-gradient(180deg, #1c1748 0%, #120f2a 70%); }
+.band-inner { max-width: 1080px; margin: 0 auto; padding: clamp(52px,7vw,84px) clamp(18px,5vw,40px); }
+.region { scroll-margin-top: 76px; }
+.region-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap;
+  padding-bottom: 18px; margin-bottom: clamp(22px,3vw,30px); border-bottom: 1px solid rgba(154,143,192,0.20); }
 .region h2 { margin: 0; font-weight: 400; color: #f3efe9; }
-.region-note { margin: 18px 0 0; font-size: 17px; line-height: 1.6; color: #9aa0c2; text-wrap: pretty; }
-.shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: clamp(14px,2vw,20px); align-items: stretch; }
+.region-eyebrow { margin: 0 0 12px; font-size: 12px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: #9a8fc0; display: inline-flex; align-items: center; gap: 8px; }
+.region-eyebrow::before { content: ''; width: 18px; height: 1px; background: #9a8fc0; }
+.region-count { margin: 0 0 6px; font-size: 15px; color: #9aa0c2; white-space: nowrap; }
+.region-note { margin: 12px 0 0; font-size: 17px; line-height: 1.6; color: #9aa0c2; text-wrap: pretty; }
 
-/* From 1024px: heading held on the left, the shops on the right (rulebook pattern 3) */
-@media (min-width: 1024px) {
-  .region-inner { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(36px, 4vw, 56px); align-items: start; }
-  .region-head { position: sticky; top: 96px; }
-}
-/* Two shops a row from tablet width up */
+/* Shop grid: three a row on laptops, two on tablets, one on phones */
+.shop-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(14px,2vw,20px); align-items: stretch; }
 @media (min-width: 640px) { .shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .shop-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
-/* Shop card: the brand card corner, panel on hairline */
-.shop { display: flex; flex-direction: column; background: #15122a; border: 1px solid #2c284c; border-radius: 14px 14px 4px 14px; padding: clamp(22px,3vw,28px); box-shadow: 0 14px 30px rgba(0,0,0,0.30); }
-.shop h3 { margin: 0; font-weight: 400; font-size: clamp(21px, 0.6vw + 18px, 24px); line-height: 1.25; color: #f3efe9; text-wrap: balance; }
-.shop-town { margin: 6px 0 0; font-size: 17px; line-height: 1.45; color: #9a8fc0; }
-.shop-facts { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; }
-.shop-facts li { display: flex; gap: 10px; align-items: flex-start; font-size: 17px; line-height: 1.5; color: #cdd1e6; }
-.shop-facts svg { flex: none; margin-top: 4px; }
-.shop-desc { margin: 16px 0 0; font-size: 17px; line-height: 1.6; color: #9aa0c2; text-wrap: pretty; flex: 1; }
-.shop-links { margin: 20px 0 0; padding-top: 16px; border-top: 1px solid #2c284c; display: flex; flex-wrap: wrap; gap: 6px 22px; }
-.shop-links a { display: inline-flex; align-items: center; gap: 7px; min-height: 32px; font-size: 15px; color: #c6cae2; text-decoration: underline; text-decoration-color: rgba(154,143,192,0.6); text-underline-offset: 4px; overflow-wrap: anywhere; }
-.shop-links a:hover { color: #f3efe9; text-decoration-color: #c6cae2; }
-.shop-links svg { flex: none; }
-.shop-socials { margin: 14px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.shop-socials a { display: inline-flex; align-items: center; min-height: 34px; padding: 0 14px; border-radius: 999px; border: 1px solid rgba(154,143,192,0.38); background: rgba(154,143,192,0.08);
-  font-size: 14px; color: #c6cae2; text-decoration: none; transition: background 200ms ease, border-color 200ms ease, color 200ms ease; }
-.shop-socials a:hover { background: rgba(154,143,192,0.18); border-color: #9a8fc0; color: #f3efe9; }
-.shop-socials a:focus-visible { border-radius: 999px; }
+/* Partner card: their own candlelight on our night */
+.shop { position: relative; overflow: hidden; display: flex; flex-direction: column; padding: clamp(22px,2.6vw,28px);
+  background: linear-gradient(165deg, #1d1838 0%, #161230 55%, #131029 100%); border: 1px solid #2c284c; border-radius: 14px 14px 4px 14px;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.32); transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease; }
+.shop::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--partner); }
+.shop:hover { border-color: rgba(var(--partner-rgb),0.6); transform: translateY(-2px); box-shadow: 0 18px 36px rgba(0,0,0,0.38); }
+.shop > * { position: relative; z-index: 1; }
+/* Every card the same size, with each part at the same level on every card:
+   each part is held at the height of the tallest one at that screen size, so the description, the address panel
+   and the buttons start at the same line on every card. Measured from the listings; re-measure if a longer one is added. */
+.shop-foot { margin-top: 16px; }
+.shop-foot .shop-actions { margin-top: 0; }
+.shop-facts { align-content: start; }
+.shop-desc { flex: none; }
+.shop-head { min-height: 76px; } .shop-desc { min-height: 136px; } .shop-facts { min-height: 158px; } .shop-foot { min-height: 80px; }
+@media (min-width: 640px) { .shop-head { min-height: 101px; } .shop-desc { min-height: 256px; } .shop-facts { min-height: 158px; } .shop-foot { min-height: 124px; } }
+@media (min-width: 1024px) { .shop-head { min-height: 114px; } .shop-desc { min-height: 234px; } .shop-facts { min-height: 158px; } .shop-foot { min-height: 124px; } }
+@media (min-width: 1280px) { .shop-head { min-height: 111px; } .shop-desc { min-height: 209px; } .shop-facts { min-height: 158px; } .shop-foot { min-height: 124px; } }
+.shop-head { display: flex; align-items: center; gap: 14px; }
+.shop-logo { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 12px; overflow: hidden;
+  background: #f3efe9; border: 2px solid var(--partner); }
+.shop-logo img { display: block; width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+.shop-logo-empty { background: #1a1730; color: var(--partner-ink); }
+.shop-title { min-width: 0; }
+.shop h3 { margin: 0; font-weight: 400; font-size: clamp(20px, 0.5vw + 17px, 23px); line-height: 1.22; color: #f3efe9; text-wrap: balance; }
+.shop-town { margin: 3px 0 0; font-size: 17px; line-height: 1.4; color: var(--partner-ink); }
+.shop-desc { margin: 18px 0 0; font-size: 17px; line-height: 1.6; color: #cdd1e6; text-wrap: pretty; flex: 1; }
+.shop-facts { margin: 18px 0 0; padding: 12px 14px; list-style: none; display: grid; gap: 8px; border-radius: 10px; background: rgba(14,11,30,0.45); border: 1px solid rgba(154,143,192,0.12); }
+.shop-facts li { display: flex; gap: 10px; align-items: flex-start; font-size: 17px; line-height: 1.45; color: #c6cae2; }
+.shop-facts svg { flex: none; margin-top: 4px; color: var(--partner-ink); }
+.shop-actions, .shop-socials { display: flex; flex-wrap: wrap; gap: 8px; min-height: 36px; }
+.shop-actions { margin: 16px 0 0; }
+.shop-socials { margin: 8px 0 0; }
+.act { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 13px; border-radius: 999px; border: 1px solid rgba(var(--partner-rgb),0.30);
+  background: rgba(var(--partner-rgb),0.05); color: #e6e9f6; font-size: 14px; text-decoration: none; white-space: nowrap; transition: background 200ms ease, border-color 200ms ease; }
+.act svg { color: var(--partner-ink); }
+.act:hover { background: rgba(var(--partner-rgb),0.15); border-color: rgba(var(--partner-rgb),0.6); color: #f3efe9; }
+.act-main { background: var(--partner); border-color: var(--partner); color: #191529; font-weight: 600; }
+.act-main svg { color: #191529; }
+.act-main:hover { background: var(--partner-ink); border-color: var(--partner-ink); color: #191529; }
+.act:focus-visible { border-radius: 999px; }
 
-/* Closing note: a full-width band, left-aligned */
-.closing { background: #0e0b1e; }
+/* Closing note: the invitation to suggest a partner, in the partners' light */
+.closing { background: #0e0b1e; border-top: 1px solid rgba(154,143,192,0.22); }
 .closing-inner { max-width: 1080px; margin: 0 auto; padding: clamp(56px,7vw,88px) clamp(18px,5vw,40px); }
-.closing p { margin: 0; font-size: clamp(24px, 1.4vw + 16px, 32px); line-height: 1.35; color: #f3efe9; max-width: 760px; text-wrap: pretty; }
-.closing a { color: #e8c98a; text-decoration: underline; text-decoration-color: rgba(232,201,138,0.5); text-underline-offset: 6px; text-decoration-thickness: 1px; }
-.closing a:hover { color: #f0dcac; text-decoration-color: #f0dcac; }
+.closing-panel { position: relative; overflow: hidden; padding: clamp(28px,4vw,44px); border-radius: 14px 14px 4px 14px; border: 1px solid rgba(var(--partner-rgb),0.30);
+  background: linear-gradient(165deg, #1d1838 0%, #151130 60%, #120f2a 100%); }
+.closing-panel::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--partner); }
+.closing p { position: relative; margin: 0; font-size: clamp(24px, 1.4vw + 16px, 32px); line-height: 1.35; color: #f3efe9; max-width: 760px; text-wrap: pretty; }
+.closing a { color: var(--partner-ink); text-decoration: underline; text-decoration-color: rgba(var(--partner-rgb),0.5); text-underline-offset: 6px; text-decoration-thickness: 1px; }
+.closing a:hover { text-decoration-color: var(--partner); }
 
 /* Phones: one waitlist button on screen at a time (as on the homepage) */
 @media (max-width: 759px) {
   .sticky-join { transform: translateY(110%); transition: transform 320ms ease; }
   .sticky-join.show { transform: none; }
 }
-@media (prefers-reduced-motion: reduce) { .sticky-join { transition: none; } .jump a { transition: none; } }
-</style>
-<style id="region-bands">
-/* Option C, lilac and silver (approved by M, 23 Oct): region bands, card keyline, lilac-lit cards, sage closing link */
-.region { position: relative; overflow: hidden; }
-.region-inner { position: relative; z-index: 1; }
-.shop { background: linear-gradient(165deg, #211b48 0%, #171334 55%, #131029 100%); border-color: rgba(154,143,192,0.40); transition: border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease; }
-.shop:hover { border-color: rgba(154,143,192,0.55); transform: translateY(-2px); box-shadow: 0 18px 36px rgba(0,0,0,0.38), 0 0 28px rgba(154,143,192,0.10); }
-.shop-facts li svg { box-sizing: content-box; width: 15px; height: 15px; padding: 6px; margin-top: -2px; border-radius: 50%; background: #221d3a; box-shadow: inset 0 0 0 1px rgba(154,143,192,0.28); }
-.jump a { background: rgba(154,143,192,0.10); border-color: rgba(154,143,192,0.38); color: #e6e9f6; }
-.jump a:hover { background: rgba(154,143,192,0.20); border-color: #9a8fc0; }
-@media (prefers-reduced-motion: reduce) { .shop { transition: none; } .shop:hover { transform: none; } }
-
-.region:nth-of-type(odd) { background: linear-gradient(180deg, #151133 0%, #0e0b1e 70%); }
-.region:nth-of-type(even) { background: linear-gradient(180deg, #1c1748 0%, #120f2a 70%); }
-.region { border-top: 1px solid rgba(154,143,192,0.22); }
-.region-eyebrow { margin: 0 0 14px; font-size: 12px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: #9a8fc0; display: inline-flex; align-items: center; gap: 8px; }
-.region-eyebrow::before { content: ''; width: 18px; height: 1px; background: #9a8fc0; }
-.region-count { margin: 14px 0 0; font-size: 15px; color: #9aa0c2; }
-.shop { position: relative; overflow: hidden; }
-.shop::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: linear-gradient(90deg, #9a8fc0, #c6cae2 55%, rgba(198,202,226,0.15)); }
-.closing { background: linear-gradient(180deg, #0e0b1e, #121a1c); }
-.closing a { color: #a4c2ab; text-decoration-color: rgba(164,194,171,0.55); }
-.closing a:hover { color: #c3d9c8; text-decoration-color: #c3d9c8; }
+@media (prefers-reduced-motion: reduce) { .sticky-join, .jump a, .act, .shop { transition: none; } .shop:hover { transform: none; } }
 </style>
 <style id="final-cta">
 /* Final call to action: option A, the finale under the stars (as on the homepage) */
@@ -483,9 +493,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
       <div style="text-align: left;">
         <h1 class="en-serif" style="text-wrap: balance; margin: 0; font-weight: 400; font-size: clamp(34px, 4.4vw + 16px, 54px); line-height: 1.09; color: #f3efe9;">Where Decks Find You</h1>
         <p class="en-serif" style="margin: clamp(14px,2.4vw,20px) 0 0; font-size: clamp(19px,0.8vw + 15px,22px); line-height: 1.45; color: #e6e9f6; max-width: 560px; text-wrap: pretty;">A small woo woo directory of shops worth the trip.</p>
-        <p style="margin: clamp(22px,3vw,28px) 0 0; font-size: clamp(17px,0.4vw + 15.5px,18px); line-height: 1.65; color: #c6cae2; max-width: 600px; text-wrap: pretty;">Some people choose a deck. Some walk into a shop and a deck chooses them. These are shops across Australia and Aotearoa New Zealand where you can hold the cards before you take them home, picked for their decks and for how it feels to walk in.</p>
-        <p style="margin: 16px 0 0; font-size: clamp(17px,0.4vw + 15.5px,18px); line-height: 1.65; color: #c6cae2; max-width: 600px; text-wrap: pretty;">No shop pays to be here, and we earn nothing from your visit. Many of these shops also offer readings. We list them for their decks and their welcome, so ask the shop about anything else.</p>
-        <p style="margin: 16px 0 0; font-size: clamp(17px,0.4vw + 15.5px,18px); line-height: 1.65; color: #c6cae2; max-width: 600px; text-wrap: pretty;">Hours change, especially in smaller towns. Call ahead if you're driving a long way.</p>
+        <p style="margin: clamp(22px,3vw,28px) 0 0; font-size: clamp(17px,0.4vw + 15.5px,18px); line-height: 1.65; color: #c6cae2; max-width: 600px; text-wrap: pretty;">Some people choose a deck. Some walk into a shop and a deck chooses them. These are shops across Australia and Aotearoa New Zealand where you can hold the cards before you take them home.</p>
+        <p style="margin: 16px 0 0; font-size: clamp(17px,0.4vw + 15.5px,18px); line-height: 1.65; color: #c6cae2; max-width: 600px; text-wrap: pretty;">No shop pays to be here. Call ahead if you're driving a long way.</p>
         <p style="margin: 22px 0 0; font-size: 13.5px; line-height: 1.5; color: #9aa0c2; display: flex; align-items: center; gap: 8px;"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #c6cae2; box-shadow: 0 0 8px rgba(198,202,226,0.6); flex: none;"></span>Last checked October 2026.</p>
       </div>
 
@@ -504,300 +513,455 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
   <nav class="jump" aria-label="Regions">
 <!-- shops:jump:start -->
     <ul>
-      <li><a href="#new-south-wales">New South Wales</a></li>
-      <li><a href="#victoria">Victoria</a></li>
-      <li><a href="#queensland">Queensland</a></li>
-      <li><a href="#western-australia">Western Australia</a></li>
-      <li><a href="#south-australia">South Australia</a></li>
-      <li><a href="#act">ACT</a></li>
-      <li><a href="#northern-territory">Northern Territory</a></li>
-      <li><a href="#new-zealand">New Zealand</a></li>
+      <li><a href="#new-south-wales">New South Wales<span class="jump-count">3</span></a></li>
+      <li><a href="#victoria">Victoria<span class="jump-count">3</span></a></li>
+      <li><a href="#queensland">Queensland<span class="jump-count">3</span></a></li>
+      <li><a href="#western-australia">Western Australia<span class="jump-count">2</span></a></li>
+      <li><a href="#south-australia">South Australia<span class="jump-count">2</span></a></li>
+      <li><a href="#act">ACT<span class="jump-count">1</span></a></li>
+      <li><a href="#northern-territory">Northern Territory<span class="jump-count">1</span></a></li>
+      <li><a href="#new-zealand">New Zealand<span class="jump-count">2</span></a></li>
     </ul>
 <!-- shops:jump:end -->
   </nav>
 
   <!-- ═══════════ SHOPS BY REGION (generated from data/shops.json by scripts/build_shops.py; edit the data, then rebuild) ═══════════ -->
 <!-- shops:regions:start -->
-  <section class="region" id="new-south-wales" aria-labelledby="new-south-wales-h">
-    <div class="region-inner">
+  <div class="band band-a">
+  <div class="band-inner">
+    <section class="region" id="new-south-wales" aria-labelledby="new-south-wales-h">
       <div class="region-head">
-        <p class="region-eyebrow">Australia</p>
-        <h2 class="en-serif" id="new-south-wales-h">New South Wales</h2>
+        <div>
+          <p class="region-eyebrow">Australia</p>
+          <h2 class="en-serif" id="new-south-wales-h">New South Wales</h2>
+        </div>
         <p class="region-count">Three shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
-          <h3 class="en-serif">Kiki The Hippie Shop</h3>
-          <p class="shop-town">Huskisson, Jervis Bay</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>5/62 Owen St, Huskisson NSW</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Kiki The Hippie Shop</h3>
+              <p class="shop-town">Huskisson, Jervis Bay</p>
+            </div>
+          </div>
           <p class="shop-desc">A colourful shop between the post office and the bakery, with tarot and oracle cards, crystals, handmade jewellery and upcycled clothing.</p>
-          <div class="shop-links"><a href="https://thehippieshop.com.au" rel="noopener" aria-label="Shop online at Kiki The Hippie Shop"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a href="https://www.google.com/maps/search/?api=1&amp;query=5%2F62%20Owen%20St%2C%20Huskisson%20NSW%2C%20Australia" rel="noopener" aria-label="Open Kiki The Hippie Shop in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/kikithehippieshop/" rel="noopener" aria-label="Kiki The Hippie Shop on Instagram">Instagram</a><a href="https://www.facebook.com/kikijewelleryandgifts/" rel="noopener" aria-label="Kiki The Hippie Shop on Facebook">Facebook</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>5/62 Owen St, Huskisson NSW</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://thehippieshop.com.au" rel="noopener" aria-label="Shop online at Kiki The Hippie Shop"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=5%2F62%20Owen%20St%2C%20Huskisson%20NSW%2C%20Australia" rel="noopener" aria-label="Open Kiki The Hippie Shop in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/kikithehippieshop/" rel="noopener" aria-label="Kiki The Hippie Shop on Instagram">Instagram</a><a class="act" href="https://www.facebook.com/kikijewelleryandgifts/" rel="noopener" aria-label="Kiki The Hippie Shop on Facebook">Facebook</a></div>
+          </div>
         </article>
         <article class="shop">
-          <h3 class="en-serif">Crow and Cauldron</h3>
-          <p class="shop-town">Peakhurst, Sydney</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>50 Baumans Rd, Peakhurst NSW</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Crow and Cauldron</h3>
+              <p class="shop-town">Peakhurst, Sydney</p>
+            </div>
+          </div>
           <p class="shop-desc">Violet&#x27;s witch shop in Sydney&#x27;s south, stocking tarot cards and spell supplies. She reads and teaches there too.</p>
-          <div class="shop-links"><a href="https://thecrowandcauldron.com" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg>thecrowandcauldron.com</a><a href="https://www.google.com/maps/search/?api=1&amp;query=50%20Baumans%20Rd%2C%20Peakhurst%20NSW%2C%20Australia" rel="noopener" aria-label="Open Crow and Cauldron in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>50 Baumans Rd, Peakhurst NSW</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://thecrowandcauldron.com" rel="noopener" aria-label="Crow and Cauldron website"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg>Website</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=50%20Baumans%20Rd%2C%20Peakhurst%20NSW%2C%20Australia" rel="noopener" aria-label="Open Crow and Cauldron in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"></div>
+          </div>
         </article>
         <article class="shop">
-          <h3 class="en-serif">The Cauldron of Wellbeing</h3>
-          <p class="shop-town">Penrith</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Shop 7–9, Parker Arcade, 476 High St, Penrith NSW</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Monday to Saturday</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">The Cauldron of Wellbeing</h3>
+              <p class="shop-town">Penrith</p>
+            </div>
+          </div>
           <p class="shop-desc">Lynne&#x27;s witchcraft and Pagan shop at the back of Parker Arcade, with a large range of tarot and oracle cards. Free parking across the road.</p>
-          <div class="shop-links"><a href="https://cauldronofwellbeing.com.au" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg>cauldronofwellbeing.com.au</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Shop%207%E2%80%939%2C%20Parker%20Arcade%2C%20476%20High%20St%2C%20Penrith%20NSW%2C%20Australia" rel="noopener" aria-label="Open The Cauldron of Wellbeing in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/cauldronofwellbeing/" rel="noopener" aria-label="The Cauldron of Wellbeing on Instagram">Instagram</a><a href="https://www.facebook.com/thecauldronofwellbeing/" rel="noopener" aria-label="The Cauldron of Wellbeing on Facebook">Facebook</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Shop 7–9, Parker Arcade, 476 High St, Penrith NSW</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Monday to Saturday</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://cauldronofwellbeing.com.au" rel="noopener" aria-label="The Cauldron of Wellbeing website"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg>Website</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=Shop%207%E2%80%939%2C%20Parker%20Arcade%2C%20476%20High%20St%2C%20Penrith%20NSW%2C%20Australia" rel="noopener" aria-label="Open The Cauldron of Wellbeing in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/cauldronofwellbeing/" rel="noopener" aria-label="The Cauldron of Wellbeing on Instagram">Instagram</a><a class="act" href="https://www.facebook.com/thecauldronofwellbeing/" rel="noopener" aria-label="The Cauldron of Wellbeing on Facebook">Facebook</a></div>
+          </div>
         </article>
       </div>
-    </div>
-  </section>
-  <section class="region" id="victoria" aria-labelledby="victoria-h">
-    <div class="region-inner">
+    </section>
+  </div>
+  </div>
+  <div class="band band-b">
+  <div class="band-inner">
+    <section class="region" id="victoria" aria-labelledby="victoria-h">
       <div class="region-head">
-        <p class="region-eyebrow">Australia</p>
-        <h2 class="en-serif" id="victoria-h">Victoria</h2>
+        <div>
+          <p class="region-eyebrow">Australia</p>
+          <h2 class="en-serif" id="victoria-h">Victoria</h2>
+        </div>
         <p class="region-count">Three shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
-          <h3 class="en-serif">Phoenix Alternative Body &amp; Soul</h3>
-          <p class="shop-town">Ballarat</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>73 Bridge Mall, Ballarat VIC</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Monday to Saturday</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Phoenix Alternative Body &amp; Soul</h3>
+              <p class="shop-town">Ballarat</p>
+            </div>
+          </div>
           <p class="shop-desc">A crystal shop in the Bridge Mall with tarot cards and its own oils, and an upstairs studio for sound baths and Reiki classes.</p>
-          <div class="shop-links"><a href="https://phoenixalternative.org" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg>phoenixalternative.org</a><a href="https://www.google.com/maps/search/?api=1&amp;query=73%20Bridge%20Mall%2C%20Ballarat%20VIC%2C%20Australia" rel="noopener" aria-label="Open Phoenix Alternative Body &amp; Soul in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/phoenixalternative107/" rel="noopener" aria-label="Phoenix Alternative Body &amp; Soul on Instagram">Instagram</a><a href="https://www.facebook.com/phoenixalternativebodyandsoul" rel="noopener" aria-label="Phoenix Alternative Body &amp; Soul on Facebook">Facebook</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>73 Bridge Mall, Ballarat VIC</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Monday to Saturday</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://phoenixalternative.org" rel="noopener" aria-label="Phoenix Alternative Body &amp; Soul website"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg>Website</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=73%20Bridge%20Mall%2C%20Ballarat%20VIC%2C%20Australia" rel="noopener" aria-label="Open Phoenix Alternative Body &amp; Soul in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/phoenixalternative107/" rel="noopener" aria-label="Phoenix Alternative Body &amp; Soul on Instagram">Instagram</a><a class="act" href="https://www.facebook.com/phoenixalternativebodyandsoul" rel="noopener" aria-label="Phoenix Alternative Body &amp; Soul on Facebook">Facebook</a></div>
+          </div>
         </article>
         <article class="shop">
-          <h3 class="en-serif">The Empress &amp; Wolf</h3>
-          <p class="shop-town">Daylesford</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>35 Vincent St, Daylesford VIC</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">The Empress &amp; Wolf</h3>
+              <p class="shop-town">Daylesford</p>
+            </div>
+          </div>
           <p class="shop-desc">Elicia&#x27;s shop began as a gallery. Tarot, oracle and Lenormand decks downstairs, and readers in the rooms upstairs.</p>
-          <div class="shop-links"><a href="https://theempressandwolf.com" rel="noopener" aria-label="Shop online at The Empress &amp; Wolf"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a href="https://www.google.com/maps/search/?api=1&amp;query=35%20Vincent%20St%2C%20Daylesford%20VIC%2C%20Australia" rel="noopener" aria-label="Open The Empress &amp; Wolf in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/theempressandwolf/" rel="noopener" aria-label="The Empress &amp; Wolf on Instagram">Instagram</a><a href="https://www.facebook.com/theempressandwolf" rel="noopener" aria-label="The Empress &amp; Wolf on Facebook">Facebook</a><a href="https://www.tiktok.com/@theempressandwolf" rel="noopener" aria-label="The Empress &amp; Wolf on TikTok">TikTok</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>35 Vincent St, Daylesford VIC</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://theempressandwolf.com" rel="noopener" aria-label="Shop online at The Empress &amp; Wolf"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=35%20Vincent%20St%2C%20Daylesford%20VIC%2C%20Australia" rel="noopener" aria-label="Open The Empress &amp; Wolf in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/theempressandwolf/" rel="noopener" aria-label="The Empress &amp; Wolf on Instagram">Instagram</a><a class="act" href="https://www.facebook.com/theempressandwolf" rel="noopener" aria-label="The Empress &amp; Wolf on Facebook">Facebook</a><a class="act" href="https://www.tiktok.com/@theempressandwolf" rel="noopener" aria-label="The Empress &amp; Wolf on TikTok">TikTok</a></div>
+          </div>
         </article>
         <article class="shop">
-          <h3 class="en-serif">Temple of the Divine</h3>
-          <p class="shop-town">Windsor, Melbourne</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>48 Chapel St, Windsor VIC</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Tuesday to Saturday</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Temple of the Divine</h3>
+              <p class="shop-town">Windsor, Melbourne</p>
+            </div>
+          </div>
           <p class="shop-desc">Jocelyne turned the hair salon where she trained as a teenager into a witch shop. Ask about the unopened vintage tarot decks.</p>
-          <div class="shop-links"><a href="https://templeofthedivine.com.au" rel="noopener" aria-label="Shop online at Temple of the Divine"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a href="https://www.google.com/maps/search/?api=1&amp;query=48%20Chapel%20St%2C%20Windsor%20VIC%2C%20Australia" rel="noopener" aria-label="Open Temple of the Divine in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/temple_ofthe_divine/" rel="noopener" aria-label="Temple of the Divine on Instagram">Instagram</a><a href="https://www.tiktok.com/@templeofthedivine" rel="noopener" aria-label="Temple of the Divine on TikTok">TikTok</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>48 Chapel St, Windsor VIC</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Tuesday to Saturday</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://templeofthedivine.com.au" rel="noopener" aria-label="Shop online at Temple of the Divine"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=48%20Chapel%20St%2C%20Windsor%20VIC%2C%20Australia" rel="noopener" aria-label="Open Temple of the Divine in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/temple_ofthe_divine/" rel="noopener" aria-label="Temple of the Divine on Instagram">Instagram</a><a class="act" href="https://www.tiktok.com/@templeofthedivine" rel="noopener" aria-label="Temple of the Divine on TikTok">TikTok</a></div>
+          </div>
         </article>
       </div>
-    </div>
-  </section>
-  <section class="region" id="queensland" aria-labelledby="queensland-h">
-    <div class="region-inner">
+    </section>
+  </div>
+  </div>
+  <div class="band band-a">
+  <div class="band-inner">
+    <section class="region" id="queensland" aria-labelledby="queensland-h">
       <div class="region-head">
-        <p class="region-eyebrow">Australia</p>
-        <h2 class="en-serif" id="queensland-h">Queensland</h2>
+        <div>
+          <p class="region-eyebrow">Australia</p>
+          <h2 class="en-serif" id="queensland-h">Queensland</h2>
+        </div>
         <p class="region-count">Three shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
-          <h3 class="en-serif">Crystal Ball Bookstore</h3>
-          <p class="shop-town">Cairns</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>91 Grafton St, Cairns QLD</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Every day</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Crystal Ball Bookstore</h3>
+              <p class="shop-town">Cairns</p>
+            </div>
+          </div>
           <p class="shop-desc">An independent Cairns bookstore since 1988, a few steps from Rusty&#x27;s Markets, with a tarot reader in store every day.</p>
-          <div class="shop-links"><a href="https://crystalball.com.au" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg>crystalball.com.au</a><a href="https://www.google.com/maps/search/?api=1&amp;query=91%20Grafton%20St%2C%20Cairns%20QLD%2C%20Australia" rel="noopener" aria-label="Open Crystal Ball Bookstore in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.facebook.com/www.crystalball.com.au/" rel="noopener" aria-label="Crystal Ball Bookstore on Facebook">Facebook</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>91 Grafton St, Cairns QLD</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Every day</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://crystalball.com.au" rel="noopener" aria-label="Crystal Ball Bookstore website"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg>Website</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=91%20Grafton%20St%2C%20Cairns%20QLD%2C%20Australia" rel="noopener" aria-label="Open Crystal Ball Bookstore in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.facebook.com/www.crystalball.com.au/" rel="noopener" aria-label="Crystal Ball Bookstore on Facebook">Facebook</a></div>
+          </div>
         </article>
         <article class="shop">
-          <h3 class="en-serif">Gypsy Moon</h3>
-          <p class="shop-town">Labrador, Gold Coast</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>29C Musgrave Ave, Labrador QLD</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Gypsy Moon</h3>
+              <p class="shop-town">Labrador, Gold Coast</p>
+            </div>
+          </div>
           <p class="shop-desc">Kim&#x27;s family-run shop carries more than 180 tarot decks and 240 oracle decks, beside her own dreamcatchers and mandalas.</p>
-          <div class="shop-links"><a href="https://gypsymoon.com.au" rel="noopener" aria-label="Shop online at Gypsy Moon"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a href="https://www.google.com/maps/search/?api=1&amp;query=29C%20Musgrave%20Ave%2C%20Labrador%20QLD%2C%20Australia" rel="noopener" aria-label="Open Gypsy Moon in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/gypsy_moon_gc/" rel="noopener" aria-label="Gypsy Moon on Instagram">Instagram</a><a href="https://www.facebook.com/gypsymoongc/" rel="noopener" aria-label="Gypsy Moon on Facebook">Facebook</a><a href="https://www.tiktok.com/@gypsymoon2216" rel="noopener" aria-label="Gypsy Moon on TikTok">TikTok</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>29C Musgrave Ave, Labrador QLD</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://gypsymoon.com.au" rel="noopener" aria-label="Shop online at Gypsy Moon"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=29C%20Musgrave%20Ave%2C%20Labrador%20QLD%2C%20Australia" rel="noopener" aria-label="Open Gypsy Moon in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/gypsy_moon_gc/" rel="noopener" aria-label="Gypsy Moon on Instagram">Instagram</a><a class="act" href="https://www.facebook.com/gypsymoongc/" rel="noopener" aria-label="Gypsy Moon on Facebook">Facebook</a><a class="act" href="https://www.tiktok.com/@gypsymoon2216" rel="noopener" aria-label="Gypsy Moon on TikTok">TikTok</a></div>
+          </div>
         </article>
         <article class="shop">
-          <h3 class="en-serif">Tarotopia</h3>
-          <p class="shop-town">Strathpine, Brisbane</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Shop 3, 4 Lincoln St, Strathpine QLD</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Tuesday to Saturday, and the second and fourth Sunday</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Tarotopia</h3>
+              <p class="shop-town">Strathpine, Brisbane</p>
+            </div>
+          </div>
           <p class="shop-desc">Rebecca&#x27;s shop is all about cards, with more than 2,500 tarot and oracle products. She reads in store too.</p>
-          <div class="shop-links"><a href="https://tarotopia.com.au" rel="noopener" aria-label="Shop online at Tarotopia"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a href="https://www.google.com/maps/search/?api=1&amp;query=Shop%203%2C%204%20Lincoln%20St%2C%20Strathpine%20QLD%2C%20Australia" rel="noopener" aria-label="Open Tarotopia in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/tarotopia/" rel="noopener" aria-label="Tarotopia on Instagram">Instagram</a><a href="https://www.facebook.com/Tarotopia/" rel="noopener" aria-label="Tarotopia on Facebook">Facebook</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Shop 3, 4 Lincoln St, Strathpine QLD</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Tuesday to Saturday, and the second and fourth Sunday</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://tarotopia.com.au" rel="noopener" aria-label="Shop online at Tarotopia"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=Shop%203%2C%204%20Lincoln%20St%2C%20Strathpine%20QLD%2C%20Australia" rel="noopener" aria-label="Open Tarotopia in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/tarotopia/" rel="noopener" aria-label="Tarotopia on Instagram">Instagram</a><a class="act" href="https://www.facebook.com/Tarotopia/" rel="noopener" aria-label="Tarotopia on Facebook">Facebook</a></div>
+          </div>
         </article>
       </div>
-    </div>
-  </section>
-  <section class="region" id="western-australia" aria-labelledby="western-australia-h">
-    <div class="region-inner">
+    </section>
+  </div>
+  </div>
+  <div class="band band-b">
+  <div class="band-inner">
+    <section class="region" id="western-australia" aria-labelledby="western-australia-h">
       <div class="region-head">
-        <p class="region-eyebrow">Australia</p>
-        <h2 class="en-serif" id="western-australia-h">Western Australia</h2>
+        <div>
+          <p class="region-eyebrow">Australia</p>
+          <h2 class="en-serif" id="western-australia-h">Western Australia</h2>
+        </div>
         <p class="region-count">Two shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
-          <h3 class="en-serif">Boodi Crystals</h3>
-          <p class="shop-town">Bunbury</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>18A Prosser St, South Bunbury WA</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Boodi Crystals</h3>
+              <p class="shop-town">Bunbury</p>
+            </div>
+          </div>
           <p class="shop-desc">A crystal and mineral shop in South Bunbury with a shelf of tarot and oracle decks.</p>
-          <div class="shop-links"><a href="https://boodi.com.au" rel="noopener" aria-label="Shop online at Boodi Crystals"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a href="https://www.google.com/maps/search/?api=1&amp;query=18A%20Prosser%20St%2C%20South%20Bunbury%20WA%2C%20Australia" rel="noopener" aria-label="Open Boodi Crystals in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/boodi_bunbury/" rel="noopener" aria-label="Boodi Crystals on Instagram">Instagram</a><a href="https://www.facebook.com/boodi.com.au/" rel="noopener" aria-label="Boodi Crystals on Facebook">Facebook</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>18A Prosser St, South Bunbury WA</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://boodi.com.au" rel="noopener" aria-label="Shop online at Boodi Crystals"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=18A%20Prosser%20St%2C%20South%20Bunbury%20WA%2C%20Australia" rel="noopener" aria-label="Open Boodi Crystals in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/boodi_bunbury/" rel="noopener" aria-label="Boodi Crystals on Instagram">Instagram</a><a class="act" href="https://www.facebook.com/boodi.com.au/" rel="noopener" aria-label="Boodi Crystals on Facebook">Facebook</a></div>
+          </div>
         </article>
         <article class="shop">
-          <h3 class="en-serif">Enchanted Margaret River</h3>
-          <p class="shop-town">Margaret River</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>3/109 Bussell Hwy, Margaret River WA</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Enchanted Margaret River</h3>
+              <p class="shop-town">Margaret River</p>
+            </div>
+          </div>
           <p class="shop-desc">A faery-themed shop on the main street with tarot and oracle cards and books on divination.</p>
-          <div class="shop-links"><a href="https://enchantedmargaretriver.com" rel="noopener" aria-label="Shop online at Enchanted Margaret River"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a href="https://www.google.com/maps/search/?api=1&amp;query=3%2F109%20Bussell%20Hwy%2C%20Margaret%20River%20WA%2C%20Australia" rel="noopener" aria-label="Open Enchanted Margaret River in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/enchanted_margaret_river/" rel="noopener" aria-label="Enchanted Margaret River on Instagram">Instagram</a><a href="https://www.facebook.com/enchanted1111" rel="noopener" aria-label="Enchanted Margaret River on Facebook">Facebook</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>3/109 Bussell Hwy, Margaret River WA</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://enchantedmargaretriver.com" rel="noopener" aria-label="Shop online at Enchanted Margaret River"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=3%2F109%20Bussell%20Hwy%2C%20Margaret%20River%20WA%2C%20Australia" rel="noopener" aria-label="Open Enchanted Margaret River in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/enchanted_margaret_river/" rel="noopener" aria-label="Enchanted Margaret River on Instagram">Instagram</a><a class="act" href="https://www.facebook.com/enchanted1111" rel="noopener" aria-label="Enchanted Margaret River on Facebook">Facebook</a></div>
+          </div>
         </article>
       </div>
-    </div>
-  </section>
-  <section class="region" id="south-australia" aria-labelledby="south-australia-h">
-    <div class="region-inner">
+    </section>
+  </div>
+  </div>
+  <div class="band band-a">
+  <div class="band-inner">
+    <section class="region" id="south-australia" aria-labelledby="south-australia-h">
       <div class="region-head">
-        <p class="region-eyebrow">Australia</p>
-        <h2 class="en-serif" id="south-australia-h">South Australia</h2>
+        <div>
+          <p class="region-eyebrow">Australia</p>
+          <h2 class="en-serif" id="south-australia-h">South Australia</h2>
+        </div>
         <p class="region-count">Two shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
-          <h3 class="en-serif">Spellbound Magical Gifts</h3>
-          <p class="shop-town">Gawler</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>72 Murray St, Gawler SA</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Monday to Saturday</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Spellbound Magical Gifts</h3>
+              <p class="shop-town">Gawler</p>
+            </div>
+          </div>
           <p class="shop-desc">Family run and on Murray Street since 2001 (it began as Fairy Secrets). Book a reading, or bring the kids to Saturday story time.</p>
-          <div class="shop-links"><a href="https://spellboundmagicalgifts.com.au" rel="noopener"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg>spellboundmagicalgifts.com.au</a><a href="https://www.google.com/maps/search/?api=1&amp;query=72%20Murray%20St%2C%20Gawler%20SA%2C%20Australia" rel="noopener" aria-label="Open Spellbound Magical Gifts in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/spellbound.magical.gifts/" rel="noopener" aria-label="Spellbound Magical Gifts on Instagram">Instagram</a><a href="https://www.facebook.com/SpellboundMagicalGifts/" rel="noopener" aria-label="Spellbound Magical Gifts on Facebook">Facebook</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>72 Murray St, Gawler SA</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Monday to Saturday</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://spellboundmagicalgifts.com.au" rel="noopener" aria-label="Spellbound Magical Gifts website"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.4 3.4 5.2 3.4 8.5s-1.1 6.1-3.4 8.5c-2.3-2.4-3.4-5.2-3.4-8.5S9.7 5.9 12 3.5Z"/></svg>Website</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=72%20Murray%20St%2C%20Gawler%20SA%2C%20Australia" rel="noopener" aria-label="Open Spellbound Magical Gifts in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/spellbound.magical.gifts/" rel="noopener" aria-label="Spellbound Magical Gifts on Instagram">Instagram</a><a class="act" href="https://www.facebook.com/SpellboundMagicalGifts/" rel="noopener" aria-label="Spellbound Magical Gifts on Facebook">Facebook</a></div>
+          </div>
         </article>
         <article class="shop">
-          <h3 class="en-serif">Eternal Spirit</h3>
-          <p class="shop-town">Unley, Adelaide</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>52 Unley Rd, Unley SA</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Eternal Spirit</h3>
+              <p class="shop-town">Unley, Adelaide</p>
+            </div>
+          </div>
           <p class="shop-desc">Open since 1997 and now in Yasmine&#x27;s care, with tarot, oracle and Lenormand decks and a blog on choosing one.</p>
-          <div class="shop-links"><a href="https://eternalspirit.com.au" rel="noopener" aria-label="Shop online at Eternal Spirit"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a href="https://www.google.com/maps/search/?api=1&amp;query=52%20Unley%20Rd%2C%20Unley%20SA%2C%20Australia" rel="noopener" aria-label="Open Eternal Spirit in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/eternalspirit.shop/" rel="noopener" aria-label="Eternal Spirit on Instagram">Instagram</a><a href="https://www.facebook.com/eternalspirit88" rel="noopener" aria-label="Eternal Spirit on Facebook">Facebook</a><a href="https://www.tiktok.com/@eternalspirit.shop" rel="noopener" aria-label="Eternal Spirit on TikTok">TikTok</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>52 Unley Rd, Unley SA</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://eternalspirit.com.au" rel="noopener" aria-label="Shop online at Eternal Spirit"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=52%20Unley%20Rd%2C%20Unley%20SA%2C%20Australia" rel="noopener" aria-label="Open Eternal Spirit in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/eternalspirit.shop/" rel="noopener" aria-label="Eternal Spirit on Instagram">Instagram</a><a class="act" href="https://www.facebook.com/eternalspirit88" rel="noopener" aria-label="Eternal Spirit on Facebook">Facebook</a><a class="act" href="https://www.tiktok.com/@eternalspirit.shop" rel="noopener" aria-label="Eternal Spirit on TikTok">TikTok</a></div>
+          </div>
         </article>
       </div>
-    </div>
-  </section>
-  <section class="region" id="act" aria-labelledby="act-h">
-    <div class="region-inner">
+    </section>
+  </div>
+  </div>
+  <div class="band band-b">
+  <div class="band-inner">
+    <section class="region" id="act" aria-labelledby="act-h">
       <div class="region-head">
-        <p class="region-eyebrow">Australia</p>
-        <h2 class="en-serif" id="act-h">Australian Capital Territory</h2>
+        <div>
+          <p class="region-eyebrow">Australia</p>
+          <h2 class="en-serif" id="act-h">Australian Capital Territory</h2>
+        </div>
         <p class="region-count">One shop</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
-          <h3 class="en-serif">The Crystal Chalice</h3>
-          <p class="shop-town">Braddon, Canberra</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Shop 66, Ori Building, 30 Lonsdale St, Braddon ACT</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">The Crystal Chalice</h3>
+              <p class="shop-town">Braddon, Canberra</p>
+            </div>
+          </div>
           <p class="shop-desc">Lilitu has run this Pagan shop since 2004, with tarot and oracle decks and readings by booking.</p>
-          <div class="shop-links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Shop%2066%2C%20Ori%20Building%2C%2030%20Lonsdale%20St%2C%20Braddon%20ACT%2C%20Australia" rel="noopener" aria-label="Open The Crystal Chalice in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.facebook.com/crystalchaliceGCS/" rel="noopener" aria-label="The Crystal Chalice on Facebook">Facebook</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Shop 66, Ori Building, 30 Lonsdale St, Braddon ACT</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=Shop%2066%2C%20Ori%20Building%2C%2030%20Lonsdale%20St%2C%20Braddon%20ACT%2C%20Australia" rel="noopener" aria-label="Open The Crystal Chalice in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.facebook.com/crystalchaliceGCS/" rel="noopener" aria-label="The Crystal Chalice on Facebook">Facebook</a></div>
+          </div>
         </article>
       </div>
-    </div>
-  </section>
-  <section class="region" id="northern-territory" aria-labelledby="northern-territory-h">
-    <div class="region-inner">
+    </section>
+  </div>
+  </div>
+  <div class="band band-a">
+  <div class="band-inner">
+    <section class="region" id="northern-territory" aria-labelledby="northern-territory-h">
       <div class="region-head">
-        <p class="region-eyebrow">Australia</p>
-        <h2 class="en-serif" id="northern-territory-h">Northern Territory</h2>
+        <div>
+          <p class="region-eyebrow">Australia</p>
+          <h2 class="en-serif" id="northern-territory-h">Northern Territory</h2>
+          <p class="region-note">We&#x27;re still looking for a shop in Alice Springs.</p>
+        </div>
         <p class="region-count">One shop</p>
-        <p class="region-note">We&#x27;re still looking for a shop in Alice Springs.</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
-          <h3 class="en-serif">Spiritual Dreaming</h3>
-          <p class="shop-town">Coolalinga, Darwin</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Shop 5, 452 Stuart Hwy, Coolalinga NT</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Tuesday to Saturday</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Spiritual Dreaming</h3>
+              <p class="shop-town">Coolalinga, Darwin</p>
+            </div>
+          </div>
           <p class="shop-desc">Two doors from the Coolalinga Post Office, with tarot and oracle cards among the crystals. It posts Australia-wide.</p>
-          <div class="shop-links"><a href="https://www.google.com/maps/search/?api=1&amp;query=Shop%205%2C%20452%20Stuart%20Hwy%2C%20Coolalinga%20NT%2C%20Australia" rel="noopener" aria-label="Open Spiritual Dreaming in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>Shop 5, 452 Stuart Hwy, Coolalinga NT</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Tuesday to Saturday</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=Shop%205%2C%20452%20Stuart%20Hwy%2C%20Coolalinga%20NT%2C%20Australia" rel="noopener" aria-label="Open Spiritual Dreaming in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"></div>
+          </div>
         </article>
       </div>
-    </div>
-  </section>
-  <section class="region" id="new-zealand" aria-labelledby="new-zealand-h">
-    <div class="region-inner">
+    </section>
+  </div>
+  </div>
+  <div class="band band-b">
+  <div class="band-inner">
+    <section class="region" id="new-zealand" aria-labelledby="new-zealand-h">
       <div class="region-head">
-        <p class="region-eyebrow">Aotearoa New Zealand</p>
-        <h2 class="en-serif" id="new-zealand-h">New Zealand</h2>
+        <div>
+          <p class="region-eyebrow">Aotearoa New Zealand</p>
+          <h2 class="en-serif" id="new-zealand-h">New Zealand</h2>
+        </div>
         <p class="region-count">Two shops</p>
       </div>
       <div class="shop-grid">
         <article class="shop">
-          <h3 class="en-serif">Mystic Journey</h3>
-          <p class="shop-town">Nelson</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>328 Annesbrook Dr, Annesbrook, Nelson</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">Mystic Journey</h3>
+              <p class="shop-town">Nelson</p>
+            </div>
+          </div>
           <p class="shop-desc">Sally and Tim&#x27;s crystal shop, open since 2016, with tarot and oracle cards and books alongside.</p>
-          <div class="shop-links"><a href="https://mysticjournies.co.nz" rel="noopener" aria-label="Shop online at Mystic Journey"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a href="https://www.google.com/maps/search/?api=1&amp;query=328%20Annesbrook%20Dr%2C%20Annesbrook%2C%20Nelson%2C%20New%20Zealand" rel="noopener" aria-label="Open Mystic Journey in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/mysticjourneynelson/" rel="noopener" aria-label="Mystic Journey on Instagram">Instagram</a><a href="https://www.facebook.com/mysticjourneynelson" rel="noopener" aria-label="Mystic Journey on Facebook">Facebook</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>328 Annesbrook Dr, Annesbrook, Nelson</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Call ahead for hours</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://mysticjournies.co.nz" rel="noopener" aria-label="Shop online at Mystic Journey"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=328%20Annesbrook%20Dr%2C%20Annesbrook%2C%20Nelson%2C%20New%20Zealand" rel="noopener" aria-label="Open Mystic Journey in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/mysticjourneynelson/" rel="noopener" aria-label="Mystic Journey on Instagram">Instagram</a><a class="act" href="https://www.facebook.com/mysticjourneynelson" rel="noopener" aria-label="Mystic Journey on Facebook">Facebook</a></div>
+          </div>
         </article>
         <article class="shop">
-          <h3 class="en-serif">The Woo-Woo Shop</h3>
-          <p class="shop-town">Whanganui</p>
-          <ul class="shop-facts">
-            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>33 Waireka Rd, Whanganui</span></li>
-            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Visits by appointment, ships across New Zealand</span></li>
-          </ul>
+          <div class="shop-head">
+            <span class="shop-logo shop-logo-empty" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span>
+            <div class="shop-title">
+              <h3 class="en-serif">The Woo-Woo Shop</h3>
+              <p class="shop-town">Whanganui</p>
+            </div>
+          </div>
           <p class="shop-desc">Denita opened the shop in 2017 for new and pre-loved decks, and runs a yearly Introduction to Tarot workshop. She&#x27;ll also take the decks you&#x27;ve finished with.</p>
-          <div class="shop-links"><a href="https://thewoowooshop.co.nz" rel="noopener" aria-label="Shop online at The Woo-Woo Shop"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a href="https://www.google.com/maps/search/?api=1&amp;query=33%20Waireka%20Rd%2C%20Whanganui%2C%20New%20Zealand" rel="noopener" aria-label="Open The Woo-Woo Shop in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="#9a8fc0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Open in Maps</a></div>
-          <div class="shop-socials"><a href="https://www.instagram.com/thewoowooshop/" rel="noopener" aria-label="The Woo-Woo Shop on Instagram">Instagram</a><a href="https://www.facebook.com/thewoowooshop" rel="noopener" aria-label="The Woo-Woo Shop on Facebook">Facebook</a></div>
+          <ul class="shop-facts">
+            <li><span class="sr-only">Address: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span>33 Waireka Rd, Whanganui</span></li>
+            <li><span class="sr-only">Open: </span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Visits by appointment, ships across New Zealand</span></li>
+          </ul>
+          <div class="shop-foot">
+            <div class="shop-actions"><a class="act act-main" href="https://thewoowooshop.co.nz" rel="noopener" aria-label="Shop online at The Woo-Woo Shop"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11l-1-12Z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg>Shop online</a><a class="act" href="https://www.google.com/maps/search/?api=1&amp;query=33%20Waireka%20Rd%2C%20Whanganui%2C%20New%20Zealand" rel="noopener" aria-label="Open The Woo-Woo Shop in Maps"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></svg>Maps</a></div>
+            <div class="shop-socials"><a class="act" href="https://www.instagram.com/thewoowooshop/" rel="noopener" aria-label="The Woo-Woo Shop on Instagram">Instagram</a><a class="act" href="https://www.facebook.com/thewoowooshop" rel="noopener" aria-label="The Woo-Woo Shop on Facebook">Facebook</a></div>
+          </div>
         </article>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
+  </div>
 <!-- shops:regions:end -->
 
   <!-- ═══════════ CLOSING NOTE ═══════════ -->
   <section class="closing" aria-label="Suggest a shop">
     <div class="closing-inner">
+      <div class="closing-panel">
       <p class="en-serif">Know a shop we're missing? <a href="mailto:keeper@enchantratarot.com?subject=A%20shop%20for%20Where%20Decks%20Find%20You">We'd love to hear about it.</a></p>
+      </div>
     </div>
   </section>
 
