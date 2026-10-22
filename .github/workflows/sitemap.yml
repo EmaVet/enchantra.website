@@ -1,7 +1,7 @@
 name: Generate sitemap
 
 # Regenerates sitemap.xml automatically on every push to main.
-# Lists the home page, the Almanac hub, and every /almanac/<slug>/ article,
+# Lists the home page, the Almanac hub, Where Decks Find You (/shops/), and every /almanac/<slug>/ article,
 # using each page's last git commit date as <lastmod>. Root-level redirect
 # stubs are intentionally skipped (only pages under /almanac/ are articles).
 
@@ -43,6 +43,7 @@ jobs:
             printf '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             [ -f index.html ] && emit "$BASE/" "index.html" "weekly" "1.0"
             [ -f almanac/index.html ] && emit "$BASE/almanac/" "almanac/index.html" "weekly" "0.8"
+            [ -f shops/index.html ] && emit "$BASE/shops/" "shops/index.html" "monthly" "0.6"
             for f in almanac/*/index.html; do
               [ -e "$f" ] || continue
               slug=$(basename "$(dirname "$f")")
