@@ -98,8 +98,8 @@ def card(shop, country):
         logo = f'          <div class="shop-logo logo-none" aria-hidden="true">{SHOPFRONT}</div>\n'
     return (
         '        <article class="shop">\n'
-        + logo +
         '          <div class="shop-head">\n'
+        + logo.replace("          <div", "            <div", 1) +
         f'            <div class="shop-title">\n              <h3 class="en-serif">{name}</h3>\n              <p class="shop-town">{e(shop["town"])}</p>\n            </div>\n'
         '          </div>\n'
         f'          <p class="shop-desc">{e(shop["description"])}</p>\n'
