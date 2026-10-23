@@ -274,19 +274,27 @@ html, body { overflow-x: clip; }
 :root { --page-max: 1180px; --gutter: clamp(18px, 5vw, 40px); --measure: 760px; }
 </style>
 <style id="design-pass">
-/* Homepage layout, following the brand tokens: sections 1080px, hero 1180px, left-aligned sections, pictures alternate sides. */
+/* Homepage layout: one 1180px width for the hero and every section (M, 23 Oct), left-aligned sections, pictures alternate sides. */
 h2 { text-wrap: balance; }
 /* Hero: wider text column so the descriptor sits on one line on wide screens */
 @media (min-width: 900px) { div[style*="min-height: 460px"] { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) !important; } }
 @media (max-width: 899px) { div[style*="min-height: 460px"] { grid-template-columns: minmax(0, 1fr) !important; } }
 @media (min-width: 1200px) { div[style*="min-height: 460px"] h1 { white-space: nowrap; } }
 
-@media (min-width: 768px) {
-  /* Your cards pair: picture on the right, then picture on the left */
-  #cards > div > .reveal:nth-of-type(1) > :first-child { order: 2; }
-  #cards > div > .reveal:nth-of-type(1) > :last-child { order: 1; }
-  #cards > div > .reveal:nth-of-type(2) > :first-child { order: 1 !important; }
-  #cards > div > .reveal:nth-of-type(2) > :last-child { order: 2 !important; }
+/* Your cards pair (M, 23 Oct): words first in one column until there is room; from 1024px a wide words column so headings sit on two lines and one line. */
+#cards .br-lg { display: none; }
+@media (min-width: 600px) { #cards .br-lg { display: inline; } }
+#cards > div > .reveal:nth-of-type(n) { grid-template-columns: minmax(0, 1fr) !important; }
+#cards > div > .reveal:nth-of-type(n) > div:has(h2) { order: 1 !important; max-width: 640px; }
+#cards > div > .reveal:nth-of-type(n) > div:not(:has(h2)) { order: 2 !important; }
+#cards > div > .reveal > div:has(h2) > div[style*="max-width: 460px"] { max-width: 600px !important; }
+@media (min-width: 1024px) {
+  #cards > div > .reveal:nth-of-type(1) { grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) !important; }
+  #cards > div > .reveal:nth-of-type(2) { grid-template-columns: minmax(0, 3fr) minmax(0, 5fr) !important; }
+  #cards > div > .reveal:nth-of-type(2) > div:not(:has(h2)) { order: 1 !important; }
+  #cards > div > .reveal:nth-of-type(2) > div:has(h2) { order: 2 !important; }
+  #cards > div > .reveal:nth-of-type(n) > div:has(h2) { max-width: none; }
+  #cards > div > .reveal > div:has(h2) > div[style*="max-width: 460px"] { max-width: 560px !important; }
 }
 @media (min-width: 1024px) {
   /* How it works: heading set left over the steps, steps in two even rows of three */
@@ -295,7 +303,7 @@ h2 { text-wrap: balance; }
   div[style*="minmax(240px, 1fr)"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
 
   /* Questions: heading held on the left, the questions on the right */
-  #faq > div:last-child { max-width: 1080px !important; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; }
+  #faq > div:last-child { max-width: 1180px !important; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; }
   #faq > div:last-child > .reveal { text-align: left !important; position: sticky; top: 96px; margin-bottom: 0 !important; }
   #faq > div:first-child { left: 30% !important; }
 }
@@ -307,6 +315,9 @@ h2 { text-wrap: balance; }
 
 #philosophy { position: relative; overflow: hidden; background: #0e0b1e !important; }
 #philosophy > div, #philosophy > div > div { position: static !important; }
+/* One left edge: the old card's side padding goes now the card box is gone (M, 23 Oct) */
+#philosophy > div { max-width: 1180px !important; }
+#philosophy > div > div { padding-left: 0 !important; padding-right: 0 !important; }
 #philosophy > div > div { background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; overflow: visible !important;
   padding-top: calc(min(100vw, 1440px) * 0.6 - 30px) !important; }
 #philosophy .v2 { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: min(100%, 1440px); aspect-ratio: 3 / 2; max-height: calc(min(100vw, 1440px) * 0.66); margin: 0; z-index: 0; }
@@ -316,7 +327,6 @@ h2 { text-wrap: balance; }
               linear-gradient(to right, #0e0b1e 0%, rgba(14,11,30,0) 14%, rgba(14,11,30,0) 86%, #0e0b1e 100%),
               radial-gradient(ellipse 50% 40% at 50% 42%, rgba(232,201,138,0.10), transparent 70%); }
 @media (min-width: 1024px) {
-  #philosophy > div { max-width: 1080px !important; }
   #philosophy > div > div { padding-top: calc(min(100vw, 1440px) * 0.5 - 160px) !important; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto auto 1fr; column-gap: clamp(48px, 6vw, 88px); }
   #philosophy .v2 { aspect-ratio: 2 / 1; }
   #philosophy > div > div > :nth-child(3) { grid-column: 1; grid-row: 1; text-align: left !important; }
@@ -495,7 +505,7 @@ body::after {
 
   <!-- ═══════════ TRUST STRIP ═══════════ -->
   <div style="border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834; background: #100d22;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: 20px clamp(18px,5vw,40px); display: flex; align-items: center; justify-content: center; gap: clamp(14px,3vw,40px); flex-wrap: wrap; font-size: 13px; color: #e8c98a; text-align: center;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 20px clamp(18px,5vw,40px); display: flex; align-items: center; justify-content: center; gap: clamp(14px,3vw,40px); flex-wrap: wrap; font-size: 13px; color: #e8c98a; text-align: center;">
       <span>Use your own tarot deck</span>
       <span style="color: #2c284c;">·</span>
       <span>Interpreted in your tradition</span>
@@ -508,7 +518,7 @@ body::after {
 
   <!-- ═══════════ THE CARDS ARE YOURS ═══════════ -->
   <section id="cards" style="background: #100d22; border-bottom: 1px solid #1c1834;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(64px,9vw,108px) clamp(18px,5vw,40px);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(64px,9vw,108px) clamp(18px,5vw,40px);">
 
       <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(36px,5vw,60px); align-items: center;">
         <div style="display: flex; justify-content: center;">
@@ -522,7 +532,7 @@ body::after {
           <div style="display: inline-flex; align-items: center; gap: 9px; font-size: 11.5px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 18px;">
             <span style="width: 9px; height: 9px; border: 1.2px solid #9a8fc0; border-radius: 9px 0px; transform: rotate(45deg);"></span>
             Your cards. Your practice.</div>
-          <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: clamp(27px,2.4vw+16px,38px); line-height: 1.18; color: #f3efe9;">Bring the tarot deck you already know and love.</h2>
+          <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: clamp(27px,2.4vw+16px,38px); line-height: 1.18; color: #f3efe9;">Bring the tarot deck<br class="br-lg"> you already know and love.</h2>
           <div style="margin: 20px 0 0; font-size: clamp(15px,0.4vw+14px,17px); line-height: 1.6; color: #9aa0c2; max-width: 460px; text-wrap: pretty;"><p style="margin: 0;">The one you shuffle, hold and set intentions with. Enchantra works alongside it, helping you understand each reading and remember every reflection.</p><p style="margin: 14px 0 0;">Over time, cards return, new meanings emerge, and your practice deepens.</p></div>
           <div style="border-left: 2px solid #6b5a34; padding: 4px 0 4px 16px; margin-top: 24px;"><p class="en-serif" style="margin: 0; font-size: 18px; line-height: 1.5; font-style: italic; color: #e8c98a;">Your cards remain the physical connection to your practice.</p></div>
         </div>
@@ -547,7 +557,7 @@ body::after {
 
   <!-- ═══════════ HOW IT WORKS — card grid ═══════════ -->
   <section id="how" style="background: #100d22; border-bottom: 1px solid #1c1834;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px);">
       <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; text-align: center; margin-bottom: clamp(36px,5vw,56px);">
         <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">How it works</div>
         <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: clamp(28px,2.6vw+16px,40px); line-height: 1.15; color: #f3efe9; max-width: 620px; text-wrap: balance;">From a single reading to patterns that unfold over time.</h2>
@@ -592,7 +602,7 @@ body::after {
   </section>
 
   <!-- ═══════════ TRADITIONS ═══════════ -->
-  <section id="traditions" class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1080px; margin: 0 auto; padding: clamp(64px,9vw,96px) clamp(18px,5vw,40px);">
+  <section id="traditions" class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1180px; margin: 0 auto; padding: clamp(64px,9vw,96px) clamp(18px,5vw,40px);">
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(36px,5vw,56px); align-items: center;">
       <div>
         <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">Traditions</div>
@@ -623,7 +633,7 @@ body::after {
     <div style="position: absolute; top: 24%; left: 90%; width: 2px; height: 2px; border-radius: 50%; background: #c6cae2; animation: twinkle 6.5s ease-in-out infinite 1s;"></div>
     <div style="position: absolute; top: 80%; left: 6%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 5.8s ease-in-out infinite 1.7s;"></div>
     <div style="position: absolute; top: 12%; left: 62%; width: 3px; height: 3px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 6px rgba(232,201,138,0.7); animation: twinkle 4.5s ease-in-out infinite 0.3s;"></div>
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(60px,8vw,84px) clamp(18px,5vw,40px) clamp(72px,9vw,108px); position: relative;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(60px,8vw,84px) clamp(18px,5vw,40px) clamp(72px,9vw,108px); position: relative;">
       <div style="text-align: center; margin-bottom: clamp(40px,6vw,64px);">
         <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">From one cycle to many</div>
         <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: clamp(30px,3vw+16px,44px); line-height: 1.18; color: #f3efe9; max-width: 640px; text-wrap: balance;">Every reading becomes part of your story.</h2>
@@ -709,7 +719,7 @@ body::after {
   </section>
 
   <!-- ═══════════ FEATURES ═══════════ -->
-  <section class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1080px; margin: 0 auto; padding: clamp(72px,10vw,116px) clamp(18px,5vw,40px);">
+  <section class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1180px; margin: 0 auto; padding: clamp(72px,10vw,116px) clamp(18px,5vw,40px);">
     <div style="text-align: center; margin-bottom: clamp(40px,6vw,56px);">
       <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 20px;">Inside Enchantra</div>
       <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: clamp(28px,2.6vw+16px,40px); line-height: 1.2; color: #f3efe9; max-width: 600px; text-wrap: balance;">Everything your practice needs, in one place.</h2>
@@ -746,8 +756,8 @@ body::after {
         <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.12), transparent 70%); pointer-events: none;"></div>
         <figure class="founder-photo v2">
           <picture>
-            <source type="image/webp" srcset="/assets/images/people/m-thoth-spread-800.webp 800w, /assets/images/people/m-thoth-spread-1456.webp 1456w" sizes="(min-width: 1080px) 1080px, 100vw">
-            <img src="/assets/images/people/m-thoth-spread-1456.jpg" srcset="/assets/images/people/m-thoth-spread-800.jpg 800w, /assets/images/people/m-thoth-spread-1456.jpg 1456w" sizes="(min-width: 1080px) 1080px, 100vw" width="1456" height="971" loading="lazy" decoding="async" alt="Three cards from M's own Thoth deck on a wooden table: the Knight of Disks, the Queen of Cups and The Star." style="display: block; width: 100%; height: 100%; object-fit: cover;">
+            <source type="image/webp" srcset="/assets/images/people/m-thoth-spread-800.webp 800w, /assets/images/people/m-thoth-spread-1456.webp 1456w" sizes="(min-width: 1180px) 1180px, 100vw">
+            <img src="/assets/images/people/m-thoth-spread-1456.jpg" srcset="/assets/images/people/m-thoth-spread-800.jpg 800w, /assets/images/people/m-thoth-spread-1456.jpg 1456w" sizes="(min-width: 1180px) 1180px, 100vw" width="1456" height="971" loading="lazy" decoding="async" alt="Three cards from M's own Thoth deck on a wooden table: the Knight of Disks, the Queen of Cups and The Star." style="display: block; width: 100%; height: 100%; object-fit: cover;">
           </picture>
         </figure>
         <div style="text-align: center; font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #e8c98a; margin-bottom: 22px; position: relative;">Why we built Enchantra</div>
@@ -772,7 +782,7 @@ body::after {
 
   <!-- ═══════════ ALMANAC ═══════════ -->
   <section id="almanac" style="background: #100d22; border-bottom: 1px solid #1c1834;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px);">
       <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: clamp(36px,5vw,46px);">
         <div style="max-width: 560px;">
           <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 14px;">The Almanac</div>
@@ -879,7 +889,7 @@ body::after {
 
   <!-- ═══════════ FOOTER ═══════════ -->
   <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(48px,6vw,54px) clamp(18px,5vw,40px) clamp(52px,7vw,60px); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(48px,6vw,54px) clamp(18px,5vw,40px) clamp(52px,7vw,60px); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
       <div style="min-width: 200px;">
         <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 16px;">
           <span style="width: 24px; height: 24px; flex: none; display: inline-flex;">

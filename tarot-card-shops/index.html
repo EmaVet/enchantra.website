@@ -630,7 +630,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
 
 /* Jump list: lilac is structure; each region shows how many shops it holds */
 .jump { background: #100d22; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834; }
-.jump ul { list-style: none; margin: 0 auto; max-width: 1080px; padding: 22px clamp(18px,5vw,40px); display: flex; flex-wrap: wrap; gap: 10px; }
+.jump ul { list-style: none; margin: 0 auto; max-width: 1180px; padding: 22px clamp(18px,5vw,40px); display: flex; flex-wrap: wrap; gap: 10px; }
 .jump a { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 8px 0 18px; border-radius: 999px; border: 1px solid rgba(154,143,192,0.38);
   background: rgba(154,143,192,0.10); color: #e6e9f6; font-size: 15px; text-decoration: none; white-space: nowrap; transition: background 200ms ease, border-color 200ms ease; }
 .jump a:hover { background: rgba(154,143,192,0.20); border-color: #9a8fc0; color: #f3efe9; }
@@ -641,7 +641,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
 .band { border-top: 1px solid rgba(154,143,192,0.22); }
 .band-a { background: linear-gradient(180deg, #151133 0%, #0e0b1e 70%); }
 .band-b { background: linear-gradient(180deg, #1c1748 0%, #120f2a 70%); }
-.band-inner { max-width: 1080px; margin: 0 auto; padding: clamp(52px,7vw,84px) clamp(18px,5vw,40px); }
+.band-inner { max-width: 1180px; margin: 0 auto; padding: clamp(52px,7vw,84px) clamp(18px,5vw,40px); }
 .region { scroll-margin-top: 76px; }
 .region-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap;
   padding-bottom: 18px; margin-bottom: clamp(22px,3vw,30px); border-bottom: 1px solid rgba(154,143,192,0.20); }
@@ -703,7 +703,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
 
 /* Closing note: the invitation to suggest a partner, in the partners' light */
 .closing { background: #0e0b1e; border-top: 1px solid rgba(154,143,192,0.22); }
-.closing-inner { max-width: 1080px; margin: 0 auto; padding: clamp(56px,7vw,88px) clamp(18px,5vw,40px); }
+.closing-inner { max-width: 1180px; margin: 0 auto; padding: clamp(56px,7vw,88px) clamp(18px,5vw,40px); }
 .closing-panel { position: relative; overflow: hidden; padding: clamp(28px,4vw,44px); border-radius: 14px 14px 4px 14px; border: 1px solid rgba(var(--partner-rgb),0.30);
   background: linear-gradient(165deg, #1d1838 0%, #151130 60%, #120f2a 100%); }
 .closing-panel::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--partner); }
@@ -713,7 +713,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
 
 /* Questions people ask: the FAQ accordion from the homepage, heading left and questions right from 1024px */
 .faq-band { background: #100d22; border-top: 1px solid rgba(154,143,192,0.22); }
-.faq-inner { max-width: 1080px; margin: 0 auto; padding: clamp(56px,7vw,88px) clamp(18px,5vw,40px); display: grid; gap: clamp(22px,3vw,32px); }
+.faq-inner { max-width: 1180px; margin: 0 auto; padding: clamp(56px,7vw,88px) clamp(18px,5vw,40px); display: grid; gap: clamp(22px,3vw,32px); }
 .faq-head h2 { margin: 0; font-weight: 400; color: #f3efe9; }
 @media (min-width: 1024px) { .faq-inner { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px,5vw,80px); align-items: start; } .faq-head { position: sticky; top: 96px; } }
 .faq-list { display: flex; flex-direction: column; gap: 8px; }
@@ -750,8 +750,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
 #join p { font-size: clamp(16px, 0.5vw + 15px, 19px) !important; max-width: 520px !important; }
 </style>
 <style id="centred-blocks">
-/* The final call to action uses the full 1080px box; headline up to 960px, intro up to 700px */
-#join > div { max-width: 1080px !important; }
+/* The final call to action uses the full 1180px box; headline up to 960px, intro up to 700px */
+#join > div { max-width: 1180px !important; }
 #join h2 { max-width: 960px; margin-left: auto !important; margin-right: auto !important; text-wrap: balance; }
 #join p { max-width: 700px !important; text-wrap: pretty; }
 </style>
@@ -1356,7 +1356,7 @@ body::after {
 
   <!-- ═══════════ FOOTER (the homepage footer) ═══════════ -->
   <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(48px,6vw,54px) clamp(18px,5vw,40px) clamp(52px,7vw,60px); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(48px,6vw,54px) clamp(18px,5vw,40px) clamp(52px,7vw,60px); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
       <div style="min-width: 200px;">
         <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 16px;">
           <span style="width: 24px; height: 24px; flex: none; display: inline-flex;">

@@ -83,14 +83,14 @@
 </style>
 <style id="site-layout">
   html, body { overflow-x: clip; }
-  :root { --page-max: 1080px; --gutter: clamp(18px, 5vw, 40px); }
+  :root { --page-max: 1180px; --gutter: clamp(18px, 5vw, 40px); }
 </style>
 <style id="wide-sections">
-/* Wide screens (1024px and up): every section uses the full 1080px section width. Phones and tablets keep the stacked layout. */
+/* Wide screens (1024px and up): every section uses the full 1180px section width. Phones and tablets keep the stacked layout. */
 @media (min-width: 1024px) {
   /* Opening note: a full-width band, not a floating card. Lead line left, the note right. */
   #keepers { background: radial-gradient(ellipse 60% 120% at 18% 0%, #17132e, #0e0b1e 70%) !important; }
-  .letter-wrap { max-width: 1080px !important; }
+  .letter-wrap { max-width: 1180px !important; }
   .letter { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); column-gap: clamp(48px, 7vw, 112px); align-items: center;
             background: none !important; border: 0 !important; border-radius: 0 !important; padding: 0 !important; overflow: visible !important; }
   .letter-glow { left: 14% !important; top: -120px !important; }
@@ -100,7 +100,7 @@
   .letter-body p.en-serif { text-align: left !important; }
 
   /* What you need: heading left, the four needs in a 2 by 2 grid right */
-  #bring { max-width: 1080px !important; text-align: left !important; }
+  #bring { max-width: 1180px !important; text-align: left !important; }
   .bring-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); column-gap: clamp(48px, 6vw, 96px); align-items: center; }
   .bring-grid > :nth-child(1) { grid-column: 1; grid-row: 1; align-self: end; }
   .bring-grid > h2 { grid-column: 1; grid-row: 2; margin: 0 !important; align-self: start; }
@@ -119,7 +119,7 @@
   .pair-text > div[style*="max-width: 480px"] { max-width: 540px !important; }
 
   /* Promises: heading and the Keeper terms on the left; the five promises as one clean list on the right */
-  .promises-grid { max-width: 1080px !important; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); grid-template-rows: auto 1fr; column-gap: clamp(48px, 6vw, 104px); align-items: start; }
+  .promises-grid { max-width: 1180px !important; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); grid-template-rows: auto 1fr; column-gap: clamp(48px, 6vw, 104px); align-items: start; }
   .promises-head { grid-column: 1; grid-row: 1; text-align: left !important; margin: 0 !important; }
   .promises-head h2 { text-wrap: balance; }
   .promises-terms { grid-column: 1; grid-row: 2; text-align: left !important; margin: 24px 0 0 !important; max-width: 360px; }
@@ -291,7 +291,7 @@ body::after {
 
   <!-- ═══════════ INCLUDED + A KEEPER DOES — the homepage "your cards" pair ═══════════ -->
   <section id="included" style="background: #100d22; border-bottom: 1px solid #1c1834;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(64px,9vw,108px) clamp(18px,5vw,40px);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(64px,9vw,108px) clamp(18px,5vw,40px);">
 
       <div class="reveal pair-row" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(36px,5vw,60px); align-items: center;">
         <div class="art-stage art-a" style="display: flex; justify-content: center;">
@@ -327,7 +327,7 @@ body::after {
   </section>
 
   <!-- ═══════════ WHAT WE HOPE TO LEARN — the homepage "Inside Enchantra" cards ═══════════ -->
-  <section id="noticing" class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1080px; margin: 0 auto; padding: clamp(72px,10vw,116px) clamp(18px,5vw,40px);">
+  <section id="noticing" class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; max-width: 1180px; margin: 0 auto; padding: clamp(72px,10vw,116px) clamp(18px,5vw,40px);">
     <div style="text-align: center; margin-bottom: clamp(40px,6vw,56px);">
       <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #a4c2ab; margin-bottom: 16px;">What we hope to learn from you</div>
       <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: clamp(28px,2.6vw+16px,40px); line-height: 1.15; color: #f3efe9; max-width: 620px; text-wrap: balance;">You don't need to be an expert, just curious.</h2>
@@ -354,7 +354,7 @@ body::after {
 
   <!-- ═══════════ WHAT ENCHANTRA IS — the homepage "How it works" steps ═══════════ -->
   <section id="moon" style="background: #100d22; border-top: 1px solid #1c1834; border-bottom: 1px solid #1c1834;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px);">
       <div class="reveal" style="opacity: 0; transform: translateY(24px); transition: opacity 900ms ease, transform 900ms ease; text-align: center; margin-bottom: clamp(36px,5vw,56px);">
         <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">What Enchantra is</div>
         <h2 class="en-serif" style="margin: 0 auto; font-weight: 400; font-size: clamp(28px,2.6vw+16px,40px); line-height: 1.15; color: #f3efe9; max-width: 620px; text-wrap: balance;">We love the moon, she keeps our time.</h2>
@@ -469,7 +469,7 @@ body::after {
 
   <!-- ═══════════ FOOTER ═══════════ -->
   <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
-    <div style="max-width: 1080px; margin: 0 auto; padding: clamp(48px,6vw,54px) clamp(18px,5vw,40px) clamp(52px,7vw,60px); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(48px,6vw,54px) clamp(18px,5vw,40px) clamp(52px,7vw,60px); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
       <div style="min-width: 200px;">
         <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 16px;">
           <span style="width: 24px; height: 24px; flex: none; display: inline-flex;">
