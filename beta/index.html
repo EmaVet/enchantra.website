@@ -189,8 +189,13 @@ body::after {
 #apply p{max-width:700px!important;margin-left:auto!important;margin-right:auto!important;}
 </style>
 <style id="nav-buy">
-/* "Buy tarot cards" goes straight to the tarot card shops directory while it is the only place to buy (M, 23 Oct).
-   When indie online sellers are added it becomes a dropdown (see WEBSITE_DESIGN_RULES). */
+/* Laptop: "Buy tarot cards" goes straight to the tarot card shops directory while it is the only place to buy (M, 23 Oct).
+   When indie online sellers are added it becomes a dropdown (approved look in commit b78e6a0). */
+/* Phone menu: "Buy tarot cards" heads a group; each way to buy sits under it (M, 23 Oct) */
+.nav-menu-group { border-top: 1px solid #1c1834; display: flex; flex-direction: column; padding-bottom: 6px; }
+.nav-menu-head { font-size: 16px; color: #e6e9f6; padding: 12px 2px 4px; }
+.nav-menu .nav-menu-sub { border-top: 0; font-size: 15px; color: #c6cae2; text-decoration: none; padding: 8px 2px 8px 16px; }
+.nav-menu-group + a { border-top: 1px solid #1c1834; }
 /* 860–1099px: too narrow for every link, so the links go into the menu (☰) and the waitlist button stays in the bar */
 @media (min-width: 860px) and (max-width: 1099px) {
   .nav-links { display: none !important; }
@@ -236,7 +241,7 @@ body::after {
       <a href="/#cards" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">Bring your cards</a>
       <a href="/#how" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">How it works</a>
       <a href="/almanac" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">The Almanac</a>
-      <a href="/tarot-card-shops/" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">Buy tarot cards</a>
+      <div class="nav-menu-group"><span class="nav-menu-head">Buy tarot cards</span><a href="/tarot-card-shops/" class="nav-menu-sub">Tarot card shops</a></div>
       <a href="/#pricing" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">Pricing</a>
       <a href="/#faq" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">FAQ</a>
     </div>
