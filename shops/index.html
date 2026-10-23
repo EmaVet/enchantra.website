@@ -452,25 +452,18 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
 </style>
 <style id="ambient-glow">
 /* Ambient light: deep magenta #a8487f fading into lilac, fixed bottom left. Glows only, never text.
-   Phones: bigger and brighter. 768px and up: bold. */
+   Soft medium (M, 23 Oct): the same on phones and laptops. */
 body::after {
   content: "";
   position: fixed;
   left: 0;
   bottom: 0;
-  width: min(120vw, 1500px);
-  height: 110vh;
+  width: 102vw;
+  height: 92vh;
   pointer-events: none;
   z-index: 40;
-  background: radial-gradient(ellipse at bottom left, rgba(168, 72, 127, 0.72) 0%, rgba(168, 72, 127, 0.28) 28%, rgba(154, 143, 192, 0.18) 52%, transparent 78%);
+  background: radial-gradient(ellipse at bottom left, rgba(168, 72, 127, 0.60) 0%, rgba(168, 72, 127, 0.22) 29%, rgba(154, 143, 192, 0.15) 52%, transparent 76%);
   mix-blend-mode: screen;
-}
-@media (min-width: 768px) {
-  body::after {
-    width: 140vw;
-    height: 130vh;
-    background: radial-gradient(ellipse at bottom left, rgba(168, 72, 127, 0.88) 0%, rgba(168, 72, 127, 0.4) 30%, rgba(154, 143, 192, 0.2) 56%, transparent 80%);
-  }
 }
 @media print { body::after { display: none; } }
 </style>
