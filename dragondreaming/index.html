@@ -97,7 +97,7 @@ section:not(#apply):not(#join) h2.en-serif { font-size: clamp(30px, 2.2vw + 14px
 #join h2.en-serif { font-size: clamp(30px, 2.2vw + 14px, 44px) !important; line-height: 1.16 !important; text-wrap: balance; }
 </style>
 <style id="ambient-glow">
-/* Ambient light: deep magenta #a8487f fading into lilac, fixed bottom left. Glows only, never text.
+/* Ambient light: deep magenta #a8487f fading into lilac, fixed bottom left. Glows only, never text, never a hard edge.
    Soft medium (M, 23 Oct): the same on phones and laptops. */
 body::after {
   content: "";
@@ -107,7 +107,7 @@ body::after {
   width: 102vw;
   height: 92vh;
   pointer-events: none;
-  z-index: 40;
+  z-index: 55; /* above the top menu bar (50) so the light flows over it with no edge; below the phone join bar (60) */
   background: radial-gradient(ellipse at bottom left, rgba(168, 72, 127, 0.60) 0%, rgba(168, 72, 127, 0.22) 29%, rgba(154, 143, 192, 0.15) 52%, transparent 76%);
   mix-blend-mode: screen;
 }
