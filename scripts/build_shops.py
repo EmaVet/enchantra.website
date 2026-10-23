@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build Where Decks Find You (/shops/) from data/shops.json.
+"""Build Where Decks Find You (/tarot-card-shops/) from data/shops.json.
 
 Adding a shop: add one entry to data/shops.json, then run from the repo root:
 
     python3 scripts/build_shops.py
 
-It rewrites only the generated parts of shops/index.html (between the
+It rewrites only the generated parts of tarot-card-shops/index.html (between the
 shops:*:start / shops:*:end markers): the region jump list, the shop cards
 and the JSON-LD ItemList. Everything is written into the HTML itself, so
 search and AI answer engines read every shop without JavaScript.
@@ -19,7 +19,7 @@ from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data" / "shops.json"
-PAGE = ROOT / "shops" / "index.html"
+PAGE = ROOT / "tarot-card-shops" / "index.html"
 FIELDS = ("name", "region", "town", "address", "days", "description", "website")
 COUNT_WORDS = {1: "One shop", 2: "Two shops", 3: "Three shops", 4: "Four shops", 5: "Five shops", 6: "Six shops", 7: "Seven shops", 8: "Eight shops", 9: "Nine shops"}
 OPTIONAL = {"instagram": "", "facebook": "", "tiktok": "", "shop_online": False, "logo": "", "logo_bg": ""}
@@ -173,7 +173,7 @@ def build():
         "@context": "https://schema.org",
         "@type": "ItemList",
         "name": "Where Decks Find You: tarot shops in Australia and New Zealand",
-        "url": "https://enchantratarot.com/shops/",
+        "url": "https://enchantratarot.com/tarot-card-shops/",
         "numberOfItems": len(items),
         "itemListElement": items,
     }

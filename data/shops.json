@@ -1,5 +1,5 @@
 {
-  "_readme": "Where Decks Find You (/shops/). To add a shop, add one entry to \"shops\" with the same fields, then run: python3 scripts/build_shops.py. Region must match a name in \"regions\". Leave website, instagram, facebook and tiktok as \"\" when there isn't a confirmed one; set shop_online to true when the website sells online. Shops are sorted by town inside each region automatically.",
+  "_readme": "Where Decks Find You (/tarot-card-shops/). To add a shop, add one entry to \"shops\" with the same fields, then run: python3 scripts/build_shops.py. Region must match a name in \"regions\". Leave website, instagram, facebook and tiktok as \"\" when there isn't a confirmed one; set shop_online to true when the website sells online. Shops are sorted by town inside each region automatically.",
   "regions": [
     {
       "name": "New South Wales",
