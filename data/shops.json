@@ -346,6 +346,23 @@
       "tiktok": "",
       "logo": "",
       "logo_bg": ""
+    },
+    {
+      "name": "SpellBox",
+      "region": "Victoria",
+      "town": "Melbourne CBD",
+      "address": "17 Royal Arcade, Melbourne VIC",
+      "days": "Every day",
+      "description": "Danae Moon's witch shop in the Royal Arcade, with tarot cards and books, readings and classes on witchcraft. Its sister shop, The SpellBox Cauldron, is a minute's walk away in Block Place.",
+      "website": "spellbox.com.au",
+      "shop_online": true,
+      "instagram": "https://www.instagram.com/spellboxmelbourne/",
+      "facebook": "https://www.facebook.com/SpellBox/",
+      "tiktok": "",
+      "logo": "assets/images/shops/spellbox",
+      "logo_bg": "dark",
+      "logo_w": 440,
+      "logo_h": 152
     }
   ]
 }
