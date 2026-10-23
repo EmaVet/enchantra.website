@@ -119,17 +119,67 @@ def card(shop, country):
 def region_block(r, shops, tag="section"):
     note = f'\n          <p class="region-note">{e(r["note"])}</p>' if r.get("note") else ""
     eyebrow = "Aotearoa New Zealand" if r["country"] == "New Zealand" else r["country"]
+    places = []
+    for sh in shops:
+        place = sh["town"].split(",")[-1].strip().replace(" CBD", "")
+        if place not in places:
+            places.append(place)
+    where = places[0] if len(places) == 1 else ", ".join(places[:-1]) + " and " + places[-1]
+    summary = f'\n          <p class="region-where">Tarot card shops in {e(where)}.</p>'
     count = COUNT_WORDS.get(len(shops), f"{len(shops)} shops")
     return (
         f'    <{tag} class="region" id="{r["id"]}" aria-labelledby="{r["id"]}-h">\n'
         '      <div class="region-head">\n'
-        f'        <div>\n          <p class="region-eyebrow">{e(eyebrow)}</p>\n          <h2 class="en-serif" id="{r["id"]}-h">{e(r["name"])}</h2>{note}\n        </div>\n'
+        f'        <div>\n          <p class="region-eyebrow">{e(eyebrow)}</p>\n          <h2 class="en-serif" id="{r["id"]}-h">{e(r["name"])}</h2>{summary}{note}\n        </div>\n'
         f'        <p class="region-count">{count}</p>\n'
         '      </div>\n'
         '      <div class="shop-grid">\n'
         + "".join(card(s, r["country"]) for s in shops)
         + f'      </div>\n    </{tag}>\n'
     )
+
+
+META_DESCRIPTION = ("Where to buy tarot cards in person: hand-picked tarot and witch shops across Australia and "
+                    "New Zealand, from Melbourne and Sydney to Margaret River and Whanganui.")
+CITY_QUESTIONS = [  # (city, the words in a shop's town or address that place it there)
+    ("Melbourne", ("Melbourne",)), ("Sydney", ("Sydney", "Penrith")), ("Brisbane", ("Brisbane",)),
+    ("Adelaide", ("Adelaide",)), ("Canberra", ("Canberra",)), ("Perth", ("Perth",)),
+    ("Darwin", ("Darwin",)), ("Hobart", ("Hobart",)), ("Auckland", ("Auckland",)), ("Wellington", ("Wellington",)),
+]
+
+
+def join_names(names):
+    return names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
+
+
+def faq_entries(data, ordered, regions):
+    au_regions = [("the " + r["short"]) if r["name"].endswith("Territory") else r["short"]
+                  for r in regions if r["country"] == "Australia" and any(s["region"] == r["name"] for s in ordered)]
+    au = [s for s in ordered if any(r["name"] == s["region"] and r["country"] == "Australia" for r in regions)]
+    nz = [s for s in ordered if s not in au]
+    qa = [("Where can I buy tarot cards in person in Australia?",
+           f"In specialist tarot, witch and crystal shops, many of which let you look at sample decks before you buy. "
+           f"This page lists {len(au)} across {join_names(au_regions)}, each checked against the shop's own website.")]
+    for city, keys in CITY_QUESTIONS:
+        here = [s for s in ordered if any(k in s["town"] or k in s["address"] for k in keys)]
+        if here:
+            names = [f'{e(s["name"])} ({e(s["town"].split(",")[0])})' for s in here]
+            qa.append((f"Where can I buy tarot cards in {city}?",
+                       f"{join_names(names)}. Each listing has the address, opening days and a link to the shop."))
+    if nz:
+        qa.append(("Where can I buy tarot cards in New Zealand?",
+                   f"{join_names([e(s['name']) + ' (' + e(s['town'].split(',')[0]) + ')' for s in nz])}. "
+                   "Check each listing for opening days; some visits are by appointment."))
+    online = [e(s["name"]) for s in ordered if s.get("shop_online")]
+    qa.append(("Should I buy a tarot deck in a shop or online?",
+               "In a shop you can look through sample decks and feel the card stock before you choose. "
+               f"If you can't get there, {len(online)} of these shops also sell online: look for the bag button on their card."))
+    qa.append(("Do shops pay to be listed here?",
+               "No shop pays to be here, and we earn nothing from your visit."))
+    qa.append(("How do I suggest a tarot shop?",
+               'Email us at <a href="mailto:keeper@enchantratarot.com?subject=A%20shop%20for%20Where%20Decks%20Find%20You">'
+               "keeper@enchantratarot.com</a> with the shop's name and town. We check every shop before it goes on the list."))
+    return qa
 
 
 def build():
@@ -157,30 +207,74 @@ def build():
         sections.append(f'  <div class="band {band}">\n  <div class="band-inner">\n' + region_block(*g[0]) + '  </div>\n  </div>\n')
     jump.append('    </ul>')
 
+    # ---------- search: structured data, region summaries and the questions people ask ----------
+    URL = "https://enchantratarot.com/tarot-card-shops/"
+    STATES = {"NSW": "New South Wales", "VIC": "Victoria", "QLD": "Queensland", "WA": "Western Australia",
+              "SA": "South Australia", "TAS": "Tasmania", "ACT": "Australian Capital Territory", "NT": "Northern Territory"}
+
+    def postal(s, country):
+        parts = [p.strip() for p in s["address"].split(",")]
+        last = parts[-1].split()
+        addr = {"@type": "PostalAddress", "addressCountry": "AU" if country == "Australia" else "NZ"}
+        if country == "Australia" and last and last[-1] in STATES:
+            addr["addressRegion"] = last[-1]
+            addr["addressLocality"] = " ".join(last[:-1])
+        else:
+            addr["addressLocality"] = parts[-1]
+        street = ", ".join(parts[:-1])
+        if street:
+            addr["streetAddress"] = street
+        return addr
+
+    region_of = {r["name"]: r for r in regions}
+    ordered = [s for r in regions for s in sorted((s for s in data["shops"] if s["region"] == r["name"]), key=lambda s: s["town"].lower())]
     items = []
-    position = 0
-    for r in regions:
-        for s in sorted((s for s in data["shops"] if s["region"] == r["name"]), key=lambda s: s["town"].lower()):
-            position += 1
-            item = {"@type": "Store", "name": s["name"]}
-            if s["website"]:
-                item["url"] = site_url(s["website"])
-            same = [s[k] for k in ("instagram", "facebook", "tiktok") if s.get(k)]
-            if same:
-                item["sameAs"] = same
-            items.append({"@type": "ListItem", "position": position, "item": item})
-    ld = {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        "name": "Where Decks Find You: tarot shops in Australia and New Zealand",
-        "url": "https://enchantratarot.com/tarot-card-shops/",
-        "numberOfItems": len(items),
-        "itemListElement": items,
-    }
+    for i, s in enumerate(ordered, 1):
+        item = {"@type": "Store", "name": s["name"], "description": s["description"],
+                "address": postal(s, region_of[s["region"]]["country"])}
+        if s["website"]:
+            item["url"] = site_url(s["website"])
+        same = [s[k] for k in ("instagram", "facebook", "tiktok") if s.get(k)]
+        if same:
+            item["sameAs"] = same
+        items.append({"@type": "ListItem", "position": i, "item": item})
+    position = len(items)
+
+    faqs = faq_entries(data, ordered, regions)
+    graph = [
+        {"@type": "CollectionPage", "@id": URL + "#page", "url": URL,
+         "name": "Tarot card shops in Australia and New Zealand",
+         "headline": "Where Decks Find You",
+         "description": META_DESCRIPTION, "inLanguage": "en-AU",
+         "dateModified": data.get("last_checked_iso", ""),
+         "isPartOf": {"@type": "WebSite", "name": "Enchantra", "url": "https://enchantratarot.com/"},
+         "publisher": {"@type": "Organization", "name": "Enchantra", "alternateName": "Enchantra Tarot", "url": "https://enchantratarot.com/"},
+         "mainEntity": {"@id": URL + "#shops"},
+         "breadcrumb": {"@id": URL + "#breadcrumb"}},
+        {"@type": "BreadcrumbList", "@id": URL + "#breadcrumb", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Enchantra", "item": "https://enchantratarot.com/"},
+            {"@type": "ListItem", "position": 2, "name": "Tarot card shops", "item": URL}]},
+        {"@type": "ItemList", "@id": URL + "#shops", "name": "Tarot card shops in Australia and New Zealand",
+         "numberOfItems": len(items), "itemListOrder": "https://schema.org/ItemListUnordered", "itemListElement": items},
+        {"@type": "FAQPage", "@id": URL + "#questions", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": html.unescape(re.sub(r"<[^>]+>", "", a))}} for q, a in faqs]},
+    ]
+    if not graph[0]["dateModified"]:
+        del graph[0]["dateModified"]
+    ld = {"@context": "https://schema.org", "@graph": graph}
     jsonld = '<script type="application/ld+json">\n' + json.dumps(ld, ensure_ascii=False, indent=2) + '\n</script>'
 
+    faq_html = ['  <section class="faq-band" id="questions" aria-labelledby="questions-h">\n    <div class="faq-inner">\n'
+                '      <div class="faq-head">\n        <p class="region-eyebrow">When people ask</p>\n'
+                '        <h2 class="en-serif" id="questions-h">Buying tarot cards in person</h2>\n      </div>\n      <div class="faq-list">\n']
+    for q, a in faqs:
+        faq_html.append(f'        <details class="faq-item">\n          <summary><h3 class="en-serif">{e(q)}</h3><span class="faq-sign" aria-hidden="true"></span></summary>\n'
+                        f'          <p>{a}</p>\n        </details>\n')
+    faq_html.append('      </div>\n    </div>\n  </section>')
+    faq_block = "".join(faq_html)
+
     page = PAGE.read_text(encoding="utf-8")
-    for key, body in (("jsonld", jsonld), ("jump", "\n".join(jump)), ("regions", "".join(sections).rstrip("\n"))):
+    for key, body in (("jsonld", jsonld), ("jump", "\n".join(jump)), ("regions", "".join(sections).rstrip("\n")), ("faq", faq_block)):
         pattern = re.compile(rf"(<!-- shops:{key}:start -->)(.*?)(<!-- shops:{key}:end -->)", re.S)
         if not pattern.search(page):
             raise SystemExit(f"marker shops:{key} not found in {PAGE}")
