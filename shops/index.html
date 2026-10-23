@@ -365,10 +365,9 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
 .region-count { margin: 0 0 6px; font-size: 15px; color: #9aa0c2; white-space: nowrap; }
 .region-note { margin: 12px 0 0; font-size: 17px; line-height: 1.6; color: #9aa0c2; text-wrap: pretty; }
 
-/* Shop grid: three a row on laptops, two on tablets, one on phones */
+/* Shop grid: two a row from tablet width up, one on phones (M, 23 Oct) */
 .shop-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(14px,2vw,20px); align-items: stretch; }
 @media (min-width: 640px) { .shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1024px) { .shop-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* Partner card: their own candlelight on our night */
 .shop { position: relative; overflow: hidden; display: flex; flex-direction: column; padding: clamp(22px,2.6vw,28px);
