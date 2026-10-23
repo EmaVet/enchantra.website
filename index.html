@@ -418,7 +418,7 @@ body::after {
 .nav-drop-btn:hover, .nav-drop.open .nav-drop-btn { color: #f0dcac; }
 .nav-caret { transition: transform 200ms ease; }
 .nav-drop.open .nav-caret { transform: rotate(180deg); }
-.nav-drop-panel { display: none; position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); min-width: 340px; padding: 8px;
+.nav-drop-panel { display: none; position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%); min-width: 0; width: max-content; padding: 8px;
   background: #15122a; border: 1px solid #2c284c; border-radius: 14px; box-shadow: 0 18px 40px rgba(0,0,0,0.45); z-index: 70; }
 .nav-drop-panel::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; } /* keeps hover open across the gap */
 .nav-drop.open .nav-drop-panel { display: block; }
@@ -462,7 +462,7 @@ body::after {
         <a href="#cards" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Bring your cards</a>
         <a href="#how" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">How it works</a>
         <a href="/almanac" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">The Almanac</a>
-        <div class="nav-drop"><button type="button" class="nav-drop-btn" aria-expanded="false" aria-controls="navBuy">Buy tarot cards<svg class="nav-caret" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="nav-drop-panel" id="navBuy"><a href="/tarot-card-shops/" class="nav-drop-item"><span class="nav-drop-ico"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5 5.5 4h13L20 9.5"/><path d="M4 9.5c0 1.4 1.1 2.5 2.7 2.5s2.6-1.1 2.6-2.5c0 1.4 1.1 2.5 2.7 2.5s2.7-1.1 2.7-2.5c0 1.4 1 2.5 2.6 2.5S20 10.9 20 9.5"/><path d="M5.5 12v8h13v-8"/><path d="M10 20v-4.5h4V20"/></svg></span><span><span class="nav-drop-title">Tarot card shops</span><span class="nav-drop-sub">In person, across Australia and NZ</span></span></a></div></div>
+        <div class="nav-drop"><button type="button" class="nav-drop-btn" aria-expanded="false" aria-controls="navBuy">Buy tarot cards<svg class="nav-caret" viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button><div class="nav-drop-panel" id="navBuy"><a href="/tarot-card-shops/" class="nav-drop-item"><span><span class="nav-drop-title">Tarot card shops</span><span class="nav-drop-sub">In person, across Australia and NZ</span></span></a></div></div>
         <a href="#pricing" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Pricing</a>
         <a href="#faq" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">FAQ</a>
       </div>
