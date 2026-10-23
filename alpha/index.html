@@ -113,18 +113,26 @@ section:not(#apply):not(#join) h2.en-serif { font-size: clamp(30px, 2.2vw + 14px
 #what h3, #what h3 + div + p, #firstrun > p { text-align: left !important; margin-left: 0 !important; }
 </style>
 <style id="ambient-glow">
-/* Ambient light: deep magenta #a8487f fading into lilac, fixed bottom left. Glows only, never text. */
+/* Ambient light: deep magenta #a8487f fading into lilac, fixed bottom left. Glows only, never text.
+   Phones: bigger and brighter. 768px and up: bold. */
 body::after {
   content: "";
   position: fixed;
   left: 0;
   bottom: 0;
-  width: min(75vw, 760px);
-  height: min(70vh, 640px);
+  width: min(120vw, 1500px);
+  height: 110vh;
   pointer-events: none;
   z-index: 40;
-  background: radial-gradient(ellipse at bottom left, rgba(168, 72, 127, 0.45) 0%, rgba(154, 143, 192, 0.14) 42%, transparent 72%);
+  background: radial-gradient(ellipse at bottom left, rgba(168, 72, 127, 0.72) 0%, rgba(168, 72, 127, 0.28) 28%, rgba(154, 143, 192, 0.18) 52%, transparent 78%);
   mix-blend-mode: screen;
+}
+@media (min-width: 768px) {
+  body::after {
+    width: 140vw;
+    height: 130vh;
+    background: radial-gradient(ellipse at bottom left, rgba(168, 72, 127, 0.88) 0%, rgba(168, 72, 127, 0.4) 30%, rgba(154, 143, 192, 0.2) 56%, transparent 80%);
+  }
 }
 @media print { body::after { display: none; } }
 </style>
