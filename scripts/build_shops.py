@@ -139,7 +139,7 @@ def region_block(r, shops, tag="section"):
     )
 
 
-META_DESCRIPTION = ("Where to buy tarot cards in person: hand-picked tarot and witch shops across Australia and "
+META_DESCRIPTION = ("Where to buy tarot cards in person: hand-picked tarot and metaphysical shops across Australia and "
                     "New Zealand, from Melbourne and Sydney to Margaret River and Whanganui.")
 CITY_QUESTIONS = [  # (city, the words in a shop's town or address that place it there)
     ("Melbourne", ("Melbourne",)), ("Sydney", ("Sydney", "Penrith")), ("Brisbane", ("Brisbane",)),
@@ -158,7 +158,7 @@ def faq_entries(data, ordered, regions):
     au = [s for s in ordered if any(r["name"] == s["region"] and r["country"] == "Australia" for r in regions)]
     nz = [s for s in ordered if s not in au]
     qa = [("Where can I buy tarot cards in person in Australia?",
-           f"In specialist tarot, witch and crystal shops, many of which let you look at sample decks before you buy. "
+           f"In specialist tarot and metaphysical shops, many of which let you look at sample decks before you buy. "
            f"This page lists {len(au)} across {join_names(au_regions)}, each checked against the shop's own website.")]
     for city, keys in CITY_QUESTIONS:
         here = [s for s in ordered if any(k in s["town"] or k in s["address"] for k in keys)]
