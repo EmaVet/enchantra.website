@@ -14,6 +14,7 @@ Read this before you change or create any page on this site. The full rulebook, 
 8. **Colour is voice.** Gold = the oracle and the one forward action. Sage = the person's own words. Lilac = structure and echoes. Silver = moonlight. Rose = care. No red, no success green. Icons follow the same colours.
 9. **Words.** Never change M's copy while doing design work. If copy looks wrong, list it and ask. **Real names are exempt from the copy rules:** a shop, business, deck or person's own name (on Where Decks Find You and anywhere else) is used exactly as its owner writes it, even if it contains a banned word ("Sacred", "Divine") or anything else the copy law would catch. Never flag, change or soften a real name.
 10. **Buttons.** Waitlist: "Join the waitlist" (gold, spark first, arrow after). Keepers: "Email to become a Keeper" (mailto with the subject filled in). Never use an email address as button text. One waitlist button on screen at a time on phones.
+11. **Top menu.** "Buy tarot cards" sits between The Almanac and Pricing. A dropdown only when it holds more than one item; with one item it links straight to the page on laptops, and on phones it is a heading with the item indented under it. The approved dropdown (two lines per item, no icon) is in the rulebook, section 4c and Appendix A.
 
 ## How we work
 
