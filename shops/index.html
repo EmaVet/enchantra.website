@@ -450,6 +450,22 @@ a:focus-visible, button:focus-visible { outline: 2px solid #c6cae2; outline-offs
 #join h2 { max-width: 960px; margin-left: auto !important; margin-right: auto !important; text-wrap: balance; }
 #join p { max-width: 700px !important; text-wrap: pretty; }
 </style>
+<style id="ambient-glow">
+/* Ambient light: deep magenta #a8487f fading into lilac, fixed bottom left. Glows only, never text. */
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: min(75vw, 760px);
+  height: min(70vh, 640px);
+  pointer-events: none;
+  z-index: 40;
+  background: radial-gradient(ellipse at bottom left, rgba(168, 72, 127, 0.45) 0%, rgba(154, 143, 192, 0.14) 42%, transparent 72%);
+  mix-blend-mode: screen;
+}
+@media print { body::after { display: none; } }
+</style>
 </head>
 <body>
 
