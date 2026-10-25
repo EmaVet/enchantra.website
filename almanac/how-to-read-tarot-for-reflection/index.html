@@ -89,32 +89,71 @@
 @font-face { font-family: 'Noto Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url("/assets/fonts/noto-serif-latin-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 </style>
 <style id="site-layout">
-/* Article: one reading column; the 'On this page' panel sits beside it from 1080px */
-div[style*="minmax(280px, 640px)"] { grid-template-columns: minmax(0, 1fr) !important; justify-content: start !important; }
-@media (min-width: 1080px) { div[style*="minmax(280px, 640px)"] { grid-template-columns: minmax(0, 680px) 280px !important; justify-content: space-between !important; } }
-.art-body { max-width: 680px !important; }
 
 html, body { overflow-x: clip; }
 
 /* Site layout: one container and one left edge on every page, fluid down to phone width. */
 :root { --page-max: 1180px; --gutter: clamp(18px, 5vw, 40px); --measure: 760px; }
 </style>
-<style id="article-wide">
-/* Articles (M, 25 Oct): use the full site width on laptops. The text column fills the space beside
-   a sticky "On this page" panel, about 75 characters a line, so it reads well at every size. */
-@media (min-width: 768px) {
-  .art-body div[style*="flex-direction: column; gap: 10px"] { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
-}
+<style id="article-template">
+/* Article template (option A): header on the 1180px edge, one 640px reading column,
+   "On this page" collapsed at the top on phones and tablets, a sticky rail on the right from 1024px. */
+:root { --measure: 640px; --rail: 240px; }
+
+/* Header: words on the left, drawing on the right from 1024px */
+header[data-dc-tpl="16"] > div[style*="1180px"] { padding-top: clamp(24px, 4vw, 40px) !important; padding-bottom: clamp(40px, 5vw, 64px) !important; }
+header[data-dc-tpl="16"] h1.en-serif { font-size: clamp(34px, 4.4vw + 16px, 54px) !important; line-height: 1.1 !important; max-width: 760px !important; text-wrap: balance; }
+header[data-dc-tpl="16"] h1.en-serif + p { font-size: clamp(17px, 0.5vw + 15px, 20px) !important; line-height: 1.6 !important; max-width: var(--measure) !important; text-wrap: pretty; }
+.art-byline { margin-top: clamp(20px, 3vw, 28px); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 14px; line-height: 1.5; color: #8b8fb2; }
+.art-byline .who { color: #c6cae2; }
+.art-byline .dot { color: #2c284c; }
+.art-hero-art { width: clamp(180px, 46vw, 240px) !important; margin: clamp(28px, 5vw, 40px) auto 0 !important; }
 @media (min-width: 1024px) {
-  h1.en-serif { max-width: 960px !important; }
-  h1.en-serif + p { max-width: 760px !important; }
-  div[style*="minmax(280px, 640px)"] { grid-template-columns: minmax(0, 1fr) 260px !important; justify-content: stretch !important; align-items: stretch !important; gap: clamp(40px, 4vw, 64px) !important; }
-  /* The page wrapper's hidden overflow stops the panel sticking; clip keeps the no-sideways-scroll guard */
-  div[data-dc-tpl="7"] { overflow: visible !important; overflow-x: clip !important; }
-  div[style*="minmax(280px, 640px)"] > aside { align-self: stretch !important; }
-  .art-body { max-width: none !important; font-size: clamp(17px, 0.35vw + 13px, 19px); }
+  header[data-dc-tpl="16"] > div[style*="1180px"] { display: grid !important; grid-template-columns: minmax(0, 1fr) clamp(240px, 24vw, 300px); column-gap: clamp(40px, 6vw, 96px); align-items: center; }
+  header[data-dc-tpl="16"] > div[style*="1180px"] > * { grid-column: 1; }
+  .art-hero-art { grid-column: 2 !important; grid-row: 1 / span 5; width: 100% !important; margin: 0 !important; }
+}
+
+/* Body: one reading column, about 70 characters a line */
+div[style*="minmax(280px, 640px)"] { grid-template-columns: minmax(0, 1fr) !important; justify-content: start !important; gap: 28px !important; }
+.art-body { max-width: var(--measure) !important; font-size: 17px; line-height: 1.7 !important; }
+@media (min-width: 768px) { .art-body { font-size: 18px; } }
+.art-body h2.en-serif { font-size: clamp(24px, 1vw + 20px, 32px) !important; text-wrap: balance; }
+
+/* Phase cards two to a row from 768px (only card lists, never the gold quote blocks) */
+@media (min-width: 768px) {
+  .art-body > div:has(> div[style*="padding: 18px 20px; display: grid"]) { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+/* The photo and the phase cards step out past the text into the gap; the text never does */
+@media (min-width: 1200px) {
+  .art-body > figure, .art-body > div:has(> div[style*="padding: 18px 20px; display: grid"]) { width: calc(100% + 120px) !important; max-width: none !important; }
+}
+@media (min-width: 1440px) {
+  .art-body > figure, .art-body > div:has(> div[style*="padding: 18px 20px; display: grid"]) { width: calc(100% + 160px) !important; }
+}
+
+/* "On this page": a closed box above the article on phones and tablets */
+div[style*="minmax(280px, 640px)"] > aside { order: 0 !important; max-width: var(--measure); }
+aside > div { padding: 6px 20px !important; top: 84px !important; }
+.toc > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 44px; font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #9a8fc0; }
+.toc > summary::-webkit-details-marker { display: none; }
+.toc > summary::after { content: "+"; font-size: 20px; letter-spacing: 0; transition: transform .2s ease; }
+.toc[open] > summary::after { transform: rotate(45deg); }
+.toc > summary:focus-visible { outline: 2px solid #c6cae2; outline-offset: 3px; border-radius: 8px; }
+.toc > nav { margin: 8px 0 16px; }
+
+/* From 1024px: a sticky rail on the right, ending on the 1180px edge */
+@media (min-width: 1024px) {
+  div[style*="minmax(280px, 640px)"] { grid-template-columns: minmax(0, var(--measure)) var(--rail) !important; justify-content: space-between !important; column-gap: clamp(48px, 6vw, 96px) !important; align-items: start !important; }
+  div[style*="minmax(280px, 640px)"] > aside { order: 2 !important; align-self: stretch !important; }
+  div[data-dc-tpl="7"] { overflow: visible !important; overflow-x: clip !important; } /* lets the rail stick */
+  aside > div { background: transparent !important; border: 0 !important; padding: 0 !important; top: 104px !important; }
+  .toc > summary { pointer-events: none; min-height: 0; margin-bottom: 8px; }
+  .toc > summary::after { display: none; }
+  .toc > nav { margin: 0; }
 }
 </style>
+
 <style id="heading-rules">
 /* Headings on the rulebook scale */
 #join h2 { font-size: clamp(34px, 3.4vw + 16px, 56px) !important; line-height: 1.12 !important; text-wrap: balance; }
@@ -174,16 +213,14 @@ body::after {
       <div data-dc-tpl="22" style="font-size: 13px; margin-bottom: clamp(24px, 4vw, 34px);"><a data-dc-tpl="23" href="/almanac/" style="color: rgb(154, 160, 194); text-decoration: none;">← The Almanac</a></div>
       <div data-dc-tpl="24" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 11.5px; letter-spacing: 1.4px; text-transform: uppercase; color: rgb(154, 143, 192); margin-bottom: 22px;">
         <span data-dc-tpl="25" style="color: rgb(154, 143, 192);">Reflection</span>
-        <span data-dc-tpl="26" style="color: rgb(44, 40, 76);">·</span>
-        <span data-dc-tpl="27"><span class="sc-interp">6 July 2026</span></span>
-        <span data-dc-tpl="28" style="color: rgb(44, 40, 76);">·</span>
-        <span data-dc-tpl="29"><span class="sc-interp">7 min read</span></span>
       </div>
       <h1 data-dc-tpl="30" class="en-serif" style="margin: 0px; font-weight: 400; font-size: clamp(26px, 6.2vw, 52px); line-height: 1.12; color: rgb(243, 239, 233); text-wrap: balance; max-width: 640px;">How to Read Tarot for Reflection</h1>
       <p data-dc-tpl="31" style="margin: clamp(16px, 3vw, 26px) 0px 0px; font-size: clamp(15px, 3.8vw, 20px); line-height: 1.6; color: rgb(198, 202, 226); max-width: 600px; text-wrap: pretty;">Reading tarot for reflection means asking questions about yourself and allowing the cards to show you what you already half-know. The card becomes a mirror for the life you're already living, and the meaning stays yours to make. Here's how I got there.</p>
+      <div class="art-byline"><span>Written by <span class="who">the Enchantra team</span></span><span class="dot" aria-hidden="true">·</span><time datetime="2026-07-06">6 July 2026</time><span class="dot" aria-hidden="true">·</span><span>7 min read</span></div>
+
 
       
-      <div data-dc-tpl="32" style="position: relative; width: clamp(210px, 56vw, 290px); aspect-ratio: 1 / 1.18; margin: clamp(36px, 6vw, 52px) auto 0px;">
+      <div class="art-hero-art" data-dc-tpl="32" style="position: relative; width: clamp(210px, 56vw, 290px); aspect-ratio: 1 / 1.18; margin: clamp(36px, 6vw, 52px) auto 0px;">
         <div data-dc-tpl="33" style="position: absolute; left: 50%; top: 42%; transform: translate(-50%, -50%); width: 78%; aspect-ratio: 1 / 1; border-radius: 50%; background: radial-gradient(closest-side, rgba(232, 201, 138, 0.14), rgba(198, 202, 226, 0.05) 55%, transparent 72%); animation: 4800ms ease-in-out 0s infinite normal none running glowpulse;"></div>
         
         <div data-dc-tpl="34" style="position: absolute; left: 50%; bottom: 50%; transform: translateX(-50%); width: clamp(118px, 32vw, 150px); aspect-ratio: 176 / 250; border-radius: 18px 18px 6px; background: linear-gradient(160deg, rgb(54, 48, 88) 0%, rgb(39, 32, 66) 55%, rgb(31, 25, 55) 100%); border: 1px solid rgb(107, 90, 52); box-shadow: rgba(0, 0, 0, 0.5) 0px -14px 40px, rgba(232, 201, 138, 0.18) 0px 0px 30px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 12%; animation: 5200ms ease-in-out 0s infinite normal none running floatCard;">
@@ -208,8 +245,7 @@ body::after {
     <div data-dc-tpl="43" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 640px)); gap: clamp(28px, 4vw, 48px); justify-content: center; align-items: start;">
       <aside data-dc-tpl="44" style="order: 2;">
         <div data-dc-tpl="45" style="position: sticky; top: 84px; background: rgb(19, 16, 42); border: 1px solid rgb(36, 31, 64); border-radius: 16px; padding: 22px 22px 24px;">
-          <div data-dc-tpl="46" style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: rgb(154, 143, 192); margin-bottom: 16px;">On this page</div>
-          <nav data-dc-tpl="47" style="display: flex; flex-direction: column; gap: 12px;">
+          <details class="toc"><summary>On this page</summary><nav data-dc-tpl="47" style="display: flex; flex-direction: column; gap: 12px;">
             
               <a data-dc-tpl="49" href="#stopped-asking" class="scp1" style="font-size: 14px; line-height: 1.4; color: rgb(154, 160, 194); text-decoration: none; border-left: 2px solid rgb(44, 40, 76); padding-left: 12px;"><span class="sc-interp">When I stopped asking "what will happen?"</span></a>
             
@@ -225,9 +261,7 @@ body::after {
             
               <a data-dc-tpl="49" href="#when-people-ask" class="scp1" style="font-size: 14px; line-height: 1.4; color: rgb(154, 160, 194); text-decoration: none; border-left: 2px solid rgb(44, 40, 76); padding-left: 12px;"><span class="sc-interp">When people ask</span></a>
             
-          </nav>
-          <div data-dc-tpl="50" style="height: 1px; background: rgb(36, 31, 64); margin: 22px 0px;"></div>
-          <div data-dc-tpl="51" style="font-size: 13px; line-height: 1.55; color: rgb(139, 143, 178);">Written by <span data-dc-tpl="52" style="color: rgb(198, 202, 226);">the Enchantra team</span></div>
+          </nav></details>
         </div>
       </aside>
 
@@ -425,4 +459,9 @@ body::after {
 
 
 
+<script>
+  /* "On this page": open on laptops, closed on phones and tablets */
+  (function () { var t = document.querySelector('.toc'); if (!t) return; var mq = matchMedia('(min-width: 1024px)');
+    function s() { t.open = mq.matches; } s(); mq.addEventListener('change', s); })();
+</script>
 </body></html>
