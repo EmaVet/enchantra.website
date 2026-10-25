@@ -8,9 +8,21 @@
   </url>
   <url>
     <loc>https://enchantratarot.com/almanac/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://enchantratarot.com/tarot-card-shops/</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://enchantratarot.com/about-m/</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://enchantratarot.com/almanac/how-to-read-tarot-for-reflection/</loc>
