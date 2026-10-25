@@ -99,6 +99,22 @@ html, body { overflow-x: clip; }
 /* Site layout: one container and one left edge on every page, fluid down to phone width. */
 :root { --page-max: 1180px; --gutter: clamp(18px, 5vw, 40px); --measure: 760px; }
 </style>
+<style id="article-wide">
+/* Articles (M, 25 Oct): use the full site width on laptops. The text column fills the space beside
+   a sticky "On this page" panel, about 75 characters a line, so it reads well at every size. */
+@media (min-width: 768px) {
+  .art-body div[style*="flex-direction: column; gap: 10px"] { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+@media (min-width: 1024px) {
+  h1.en-serif { max-width: 960px !important; }
+  h1.en-serif + p { max-width: 760px !important; }
+  div[style*="minmax(280px, 640px)"] { grid-template-columns: minmax(0, 1fr) 260px !important; justify-content: stretch !important; align-items: stretch !important; gap: clamp(40px, 4vw, 64px) !important; }
+  /* The page wrapper's hidden overflow stops the panel sticking; clip keeps the no-sideways-scroll guard */
+  div[data-dc-tpl="7"] { overflow: visible !important; overflow-x: clip !important; }
+  div[style*="minmax(280px, 640px)"] > aside { align-self: stretch !important; }
+  .art-body { max-width: none !important; font-size: clamp(17px, 0.35vw + 13px, 19px); }
+}
+</style>
 <style id="heading-rules">
 /* Headings on the rulebook scale */
 #join h2 { font-size: clamp(34px, 3.4vw + 16px, 56px) !important; line-height: 1.12 !important; text-wrap: balance; }
