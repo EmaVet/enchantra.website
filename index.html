@@ -71,17 +71,17 @@
         {
           "@type": "Offer",
           "name": "Monthly",
-          "price": "6.50",
+          "price": "6.49",
           "priceCurrency": "AUD",
-          "description": "First lunar cycle free, then A$6.50/month.",
+          "description": "First lunar cycle free, then A$6.49/month.",
           "availability": "https://schema.org/PreOrder"
         },
         {
           "@type": "Offer",
           "name": "Annual",
-          "price": "59.00",
+          "price": "63.99",
           "priceCurrency": "AUD",
-          "description": "A$59/year, about A$4.92/month.",
+          "description": "A$63.99/year, about A$5.33/month.",
           "availability": "https://schema.org/PreOrder"
         }
       ]
@@ -503,7 +503,7 @@ body::after {
         </div>
         <div style="margin-top: 18px; font-size: 13px; line-height: 1.5; color: #9aa0c2;">
           <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 8px rgba(232,201,138,0.7); flex: none;"></span>Coming soon</div>
-          <div style="padding-left: 14px; margin-top: 2px;">First lunar cycle free, then A$6.50/month</div>
+          <div style="padding-left: 14px; margin-top: 2px;">First lunar cycle free, then <span data-price="monthly">A$6.49</span>/month</div>
         </div>
       </div>
 
@@ -717,14 +717,14 @@ body::after {
             <div style="display: inline-flex; padding: 4px 11px; border-radius: 999px; background: #231e42; border: 1px solid #463c72; font-size: 11px; font-weight: 500; letter-spacing: 0.4px; color: #cbbff0;">Best value</div>
           </div>
           <div style="display: flex; align-items: baseline; gap: 10px; margin-top: 6px; flex-wrap: wrap;">
-            <span class="en-serif" style="font-size: 18px; color: #e8c98a;">A$59 / year</span>
-            <span style="font-size: 14px; color: #8b8fb2;">about A$4.92 / month</span>
+            <span class="en-serif" style="font-size: 18px; color: #e8c98a;"><span data-price="annual">A$63.99</span> / year</span>
+            <span style="font-size: 14px; color: #8b8fb2;">about <span data-price="annual-month">A$5.33</span> / month</span>
           </div>
         </div>
         <div style="border: 1px solid #2c284c; background: #1a1730; border-radius: 16px; padding: 18px; margin-top: 12px;">
           <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
             <div class="en-serif" style="font-size: 22px; color: #e6e9f6;">Monthly</div>
-            <span class="en-serif" style="font-size: 18px; color: #e8c98a;">A$6.50 / month</span>
+            <span class="en-serif" style="font-size: 18px; color: #e8c98a;"><span data-price="monthly">A$6.49</span> / month</span>
           </div>
         </div>
         <div style="font-size: 14px; line-height: 1.5; color: #9aa0c2; text-align: center; margin-top: 18px;">Begin with a full lunar cycle, free. Enchantra renews after that. You can step away and return anytime.</div>
@@ -907,7 +907,7 @@ body::after {
       </div>
       <div style="margin-top: 20px; font-size: 13px; line-height: 1.5; color: #9aa0c2; text-align: center;">
         <div style="display: inline-flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 8px rgba(232,201,138,0.7); flex: none;"></span>Coming soon</div>
-        <div style="margin-top: 2px;">First lunar cycle free, then A$6.50/month</div>
+        <div style="margin-top: 2px;">First lunar cycle free, then <span data-price="monthly">A$6.49</span>/month</div>
       </div>
     </div>
   </section>
@@ -1044,5 +1044,6 @@ body::after {
     buttons.forEach(function (b) { io.observe(b); });
   })();
 </script>
+<script src="/assets/js/prices.js" defer></script>
 </body>
 </html>
