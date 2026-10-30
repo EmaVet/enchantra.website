@@ -74,6 +74,7 @@
           "name": "Monthly",
           "price": "6.49",
           "priceCurrency": "AUD",
+          "eligibleRegion": { "@type": "Country", "name": "AU" },
           "description": "First month free, then A$6.49/month.",
           "availability": "https://schema.org/PreOrder"
         },
@@ -82,7 +83,26 @@
           "name": "Annual",
           "price": "63.99",
           "priceCurrency": "AUD",
+          "eligibleRegion": { "@type": "Country", "name": "AU" },
           "description": "A$63.99/year, about A$5.33/month.",
+          "availability": "https://schema.org/PreOrder"
+        },
+        {
+          "@type": "Offer",
+          "name": "Monthly",
+          "price": "6.99",
+          "priceCurrency": "NZD",
+          "eligibleRegion": { "@type": "Country", "name": "NZ" },
+          "description": "First month free, then NZ$6.99/month.",
+          "availability": "https://schema.org/PreOrder"
+        },
+        {
+          "@type": "Offer",
+          "name": "Annual",
+          "price": "69.00",
+          "priceCurrency": "NZD",
+          "eligibleRegion": { "@type": "Country", "name": "NZ" },
+          "description": "NZ$69/year, about NZ$5.75/month.",
           "availability": "https://schema.org/PreOrder"
         }
       ]
@@ -355,6 +375,8 @@ h2 { text-wrap: balance; }
   #pricing > .reveal > div[style*="max-width: 420px"] > div:nth-child(2) > div { flex-direction: column; align-items: flex-start !important; gap: 6px !important; }
   #pricing > .reveal > div[style*="max-width: 420px"] > div:last-child { grid-column: 1 / -1; margin-top: 4px !important; max-width: 520px; justify-self: center; }
   #pricing h2 { max-width: none !important; }
+  #pricing [data-launch-note] { grid-column: 1 / -1; max-width: 520px; justify-self: center; margin-top: 4px !important; }
+  #pricing > .reveal > div[style*="max-width: 420px"] > [data-launch-note]:not([hidden]) + div:last-child { margin-top: -8px !important; } /* 16px grid gap less 8 = 8px, as on phones */
 }
 
 /* How it works: brand card lift and larger step icons */
@@ -384,6 +406,10 @@ h2 { text-wrap: balance; }
 /* Section headings at the top of the brand scale (Section H2 38–44px): 44px on laptops, 30px on phones. Hero and final CTA keep their own sizes. */
 section:not(#join) h2.en-serif { font-size: clamp(30px, 2.2vw + 14px, 44px) !important; line-height: 1.16 !important; }
 #how h2.en-serif, #traditions h2.en-serif { max-width: 720px !important; }
+</style>
+<style id="launch-note">
+  /* ENCH-317: the line under the price sits close to the free-month line below it */
+  #pricing [data-launch-note]:not([hidden]) + div { margin-top: 8px !important; }
 </style>
 <style id="ambient-glow">
 /* Ambient light: deep magenta #a8487f fading into lilac, fixed bottom left. Glows only, never text, never a hard edge.
@@ -503,7 +529,7 @@ body::after {
           </a>
         </div>
         <div style="margin-top: 18px; font-size: 13px; line-height: 1.5; color: #9aa0c2;">
-          <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 8px rgba(232,201,138,0.7); flex: none;"></span>Coming soon</div>
+          <div data-store-soon style="display: flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 8px rgba(232,201,138,0.7); flex: none;"></span>Coming soon</div>
           <div style="padding-left: 14px; margin-top: 2px;">First month free, then <span data-price="monthly">A$6.49</span>/month</div>
         </div>
       </div>
@@ -730,6 +756,7 @@ body::after {
             <span class="en-serif" style="font-size: 18px; color: #e8c98a;"><span data-price="monthly">A$6.49</span> / month</span>
           </div>
         </div>
+        <p data-launch-note hidden style="margin: 18px 0 0; font-size: 14px; line-height: 1.5; color: #c6cae2; text-align: center; text-wrap: pretty;"></p>
         <div style="font-size: 14px; line-height: 1.5; color: #9aa0c2; text-align: center; margin-top: 18px;">Begin with a free month (a little more than a full lunar cycle). Enchantra renews after that. You can step away and return anytime.</div>
       </div>
 
@@ -909,7 +936,7 @@ body::after {
         </a>
       </div>
       <div style="margin-top: 20px; font-size: 13px; line-height: 1.5; color: #9aa0c2; text-align: center;">
-        <div style="display: inline-flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 8px rgba(232,201,138,0.7); flex: none;"></span>Coming soon</div>
+        <div data-store-soon style="display: inline-flex; align-items: center; gap: 8px;"><span style="width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 8px rgba(232,201,138,0.7); flex: none;"></span>Coming soon</div>
         <div style="margin-top: 2px;">First month free, then <span data-price="monthly">A$6.49</span>/month</div>
       </div>
     </div>
@@ -945,7 +972,7 @@ body::after {
         <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">The app</div>
         <div style="display: flex; flex-direction: column; gap: 11px;">
           <a href="/beta/" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the Keepers</a>
-          <span style="font-size: 14px; color: #9aa0c2;">iPhone · coming soon</span>
+          <span data-store-footer style="font-size: 14px; color: #9aa0c2;">iPhone · coming soon</span>
           <span style="font-size: 14px; color: #9aa0c2;">Android · coming soon</span>
           <a href="https://cardswekeep.substack.com/subscribe" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the waitlist</a>
         </div>
