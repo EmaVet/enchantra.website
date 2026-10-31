@@ -35,10 +35,10 @@ var ENCHANTRA_RELEASE = {
     // Line under the price for everyone else (they see Australian prices).
     noteElsewhere: 'Enchantra isn’t in your country yet. Prices shown are for Australia.',
     countryName: { GB: 'the UK', IE: 'Ireland', US: 'the US', CA: 'Canada' },
-    storeButton: 'Download on the App Store',
+    storeButton: 'Download',
     storeFooter: 'iPhone · on the App Store',
     // Release day, Australia and New Zealand: the line under the App Store button (M, 31 Oct)
-    androidSoon: 'Android · coming soon'
+    androidSoon: 'Available now for iPhone · Android coming soon'
   };
 
   var CA_ZONES = ['Toronto','Vancouver','Edmonton','Winnipeg','Halifax','St_Johns','Regina','Moncton',
@@ -125,7 +125,7 @@ var ENCHANTRA_RELEASE = {
         if (n.nodeType === 3 && /\S/.test(n.nodeValue)) { n.nodeValue = ' ' + WORDS.storeButton + ' '; break; }
       }
     });
-    // "Coming soon" becomes "Android · coming soon" (M, 31 Oct). The dot stays.
+    // "Coming soon" becomes the release-day line (M, 31 Oct). The dot stays.
     each('[data-store-soon]', function (el) {
       for (var n = el.lastChild; n; n = n.previousSibling) {
         if (n.nodeType === 3 && /\S/.test(n.nodeValue)) { n.nodeValue = WORDS.androidSoon; break; }
