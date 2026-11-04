@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex, nofollow">
+<title>Email confirmed | Enchantra</title>
+<script>
+  /* Runs first, before anything else loads. Supabase may add sign-in tokens after "#".
+     They are never kept, logged or sent: this only tests whether the address reports an
+     error, then wipes everything after the path. No analytics on this page (ENCH-294).
+     The error flag is kept in history.state so a refresh keeps the right message. */
+  (function () {
+    var isError = /(^[#?]|&)error(_code|_description)?=/;
+    var failed = isError.test(location.hash) || isError.test(location.search) ||
+      !!(history.state && history.state.linkError);
+    if (failed) {
+      document.documentElement.className = 'link-error';
+      document.title = 'This link has expired | Enchantra';
+    }
+    try { history.replaceState(failed ? { linkError: true } : null, '', location.pathname); } catch (e) {}
+  })();
+</script>
+<style>
+  /* ── Intrinsic responsive system ──
+     No layout media queries. Type + spacing scale with clamp(); multi-column
+     blocks use grid auto-fit + minmax so they reflow from desktop → tablet →
+     phone on their own. New content dropped into these patterns adapts
+     automatically at every width. The only width rule is the mobile sticky bar. */
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; background: #0e0b1e; }
+  ::selection { background: #463c72; color: #e6e9f6; }
+  * { box-sizing: border-box; }
+  a { color: #e8c98a; }
+  a:hover { color: #f0dcac; }
+
+  @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.022); } }
+  @keyframes glowpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
+  @keyframes twinkle { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+  @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes cardglow { 0%,100% { box-shadow: 0 12px 30px rgba(0,0,0,0.45); } 50% { box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 24px rgba(232,201,138,0.22); } }
+  @keyframes threadpulse { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+  @keyframes floatCardR { 0%,100% { transform: rotate(var(--r)) translateY(0); } 50% { transform: rotate(var(--r)) translateY(-9px); } }
+
+  .en-serif { font-family: 'Iowan Old Style', 'Noto Serif', Palatino, Georgia, serif; }
+
+  /* Gold buttons — hover/active as real CSS (was runtime style-hover/style-active) */
+  .btn-gold { transition: background 200ms ease, transform 160ms ease, box-shadow 200ms ease; }
+  .btn-gold:hover { background: #f0dcac !important; transform: translateY(-1px); box-shadow: 0 6px 22px rgba(232,201,138,0.32); }
+  .btn-gold:active { transform: translateY(0); }
+
+  /* FAQ accordion (native <details>, independent items) */
+  details.faq > summary { list-style: none; }
+  details.faq > summary::-webkit-details-marker { display: none; }
+  .faq-sign::after { content: "+"; }
+  details.faq[open] .faq-sign::after { content: "\2013"; }
+
+  /* Mobile sticky "Join the waitlist" bar + hamburger nav share one breakpoint (860px).
+     Below 860: hamburger menu + sticky bottom bar (no nav Join pill).
+     860 and up: full nav bar with links + Join pill (no sticky bar, no hamburger). */
+  .sticky-join, .sticky-spacer { display: none; }
+  .nav-toggle { display: none; background: none; border: 0; padding: 4px; margin: -4px 0; cursor: pointer; line-height: 0; }
+  .nav-links a:hover, .nav-menu a:hover { color: #f0dcac !important; }
+  .nav-menu {
+    display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column;
+    background: #0e0b1e; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid #221d3a; box-shadow: 0 12px 24px rgba(0,0,0,0.4); padding: 4px clamp(18px,5vw,40px) 14px;
+  }
+  .nav-menu.open { display: flex; }
+  .nav-menu a { border-top: 1px solid #1c1834; }
+  .nav-menu a:first-child { border-top: 0; }
+  @media (max-width: 859px) {
+    .sticky-join, .sticky-spacer { display: block; }
+    .nav-links, .nav-join { display: none !important; }
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  }
+  @media (min-width: 860px) { .nav-menu { display: none !important; } }
+
+  /* Motion pauses while its section is off-screen (IntersectionObserver below) */
+  .is-offscreen, .is-offscreen * { animation-play-state: paused !important; }
+
+  /* Accessibility: motion off → reveal immediately, no transforms */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; }
+    .reveal, .reveal > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
+</style>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+@font-face { font-family: 'Noto Serif'; font-style: normal; font-weight: 400 500; font-display: swap; src: url("/assets/fonts/noto-serif-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Noto Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url("/assets/fonts/noto-serif-latin-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+</style>
+<style id="ambient-glow">
+/* Ambient light: deep magenta #a8487f fading into lilac, fixed bottom left. Glows only, never text, never a hard edge.
+   Soft medium (M, 23 Oct): the same on phones and laptops. */
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 102vw;
+  height: 92vh;
+  pointer-events: none;
+  z-index: 55; /* above the top menu bar (50) so the light flows over it with no edge; below the phone join bar (60) */
+  background: radial-gradient(ellipse at bottom left, rgba(168, 72, 127, 0.60) 0%, rgba(168, 72, 127, 0.22) 29%, rgba(154, 143, 192, 0.15) 52%, transparent 76%);
+  mix-blend-mode: screen;
+}
+@media print { body::after { display: none; } }
+</style>
+<style id="nav-buy">
+/* Laptop: "Buy tarot cards" goes straight to the tarot card shops directory while it is the only place to buy (M, 23 Oct).
+   When indie online sellers are added it becomes a dropdown (approved look in commit b78e6a0). */
+/* Phone menu: "Buy tarot cards" heads a group; each way to buy sits under it (M, 23 Oct) */
+.nav-menu-group { border-top: 1px solid #1c1834; display: flex; flex-direction: column; padding-bottom: 6px; }
+.nav-menu-head { font-size: 16px; color: #e6e9f6; padding: 12px 2px 4px; }
+.nav-menu .nav-menu-sub { border-top: 0; font-size: 15px; color: #c6cae2; text-decoration: none; padding: 8px 2px 8px 16px; }
+.nav-menu-group + a { border-top: 1px solid #1c1834; }
+/* 860–1099px: too narrow for every link, so the links go into the menu (☰) and the waitlist button stays in the bar */
+@media (min-width: 860px) and (max-width: 1099px) {
+  .nav-links { display: none !important; }
+  .nav-toggle { display: inline-flex !important; align-items: center; justify-content: center; }
+  .nav-menu.open { display: flex !important; }
+}
+</style>
+<style id="confirmed">
+/* Heading and line, or the one error line: chosen before first paint by the script above */
+.when-error { display: none; }
+.link-error .when-error { display: block; }
+.link-error .when-ok { display: none; }
+.confirmed-hero { position: relative; max-width: 1180px; margin: 0 auto; padding: clamp(40px,7vw,72px) clamp(18px,5vw,40px); display: grid; grid-template-columns: minmax(0,1fr); gap: 32px; align-items: center; }
+@media (min-width: 900px) { .confirmed-hero { grid-template-columns: minmax(0,1.7fr) minmax(0,1fr); } }
+.confirmed-hero h1 { margin: 0; font-weight: 400; color: #f3efe9; text-wrap: balance; }
+.confirmed-hero h1.confirmed-title { font-size: clamp(32px, 4.4vw + 16px, 54px); line-height: 1.09; text-wrap: wrap; }
+.confirmed-lead { margin: 20px 0 0; font-size: clamp(17px, 0.5vw + 15px, 18px); line-height: 1.6; color: #cdd1e6; max-width: 640px; text-wrap: pretty; }
+.confirmed-error { font-size: clamp(23px, 3vw + 12px, 36px); line-height: 1.25; overflow-wrap: anywhere; }
+.confirmed-error a { color: #cbbff0; text-decoration: none; }
+.confirmed-error a:hover { color: #cbbff0; }
+.while-here { background: #100d22; border-top: 1px solid #1c1834; }
+.while-here-inner { max-width: 1180px; margin: 0 auto; padding: clamp(48px, 6vw, 72px) clamp(18px, 5vw, 40px); }
+.while-here h2 { margin: 0 0 24px; font-weight: 400; font-size: clamp(30px, 2.2vw + 14px, 44px); line-height: 1.15; color: #f3efe9; }
+@media (min-width: 1024px) { .while-here h2 { margin-bottom: 32px; } }
+.here-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.here-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 8px; }
+.here-intro { margin: 0; font-size: clamp(16px, 0.5vw + 15px, 18px); line-height: 1.5; color: #cdd1e6; }
+.here-all { font-size: 15px; color: #c6cae2; text-decoration: none; white-space: nowrap; }
+.post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(272px, 1fr)); gap: clamp(12px, 1.6vw, 18px); }
+.post-grid-more { margin-top: clamp(12px, 1.6vw, 18px); }
+.post { display: flex; flex-direction: column; background: #15122a; border: 1px solid #2c284c; border-radius: 18px; overflow: hidden; text-decoration: none; transition: border-color 200ms ease; }
+.post:hover { border-color: #6f6a92; }
+.post-img { display: block; height: 92px; overflow: hidden; background: radial-gradient(circle at 50% 40%, #241e3c, #14112a); }
+.post-body { display: flex; flex-direction: column; flex: 1; padding: 18px 20px 20px; }
+.post-meta { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 8px; }
+.post-cat { color: #e8c98a; }
+.post-dot { color: #2c284c; }
+.post-title { display: block; font-size: 18px; line-height: 1.32; color: #f3efe9; }
+.post-line { display: block; margin-top: 8px; font-size: 15px; line-height: 1.55; color: #cdd1e6; }
+.post-draw { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.deck-card { position: absolute; width: 40px; aspect-ratio: 96 / 138; display: flex; align-items: center; justify-content: center; border-radius: 9px 9px 3px 9px; background: linear-gradient(160deg, #2c2648, #1c1733); border: 1px solid #4a4270; box-shadow: 0 12px 26px rgba(0,0,0,0.5); }
+.deck-card.chosen { background: linear-gradient(160deg, #363058, #1f1937); border-color: #6b5a34; box-shadow: 0 12px 26px rgba(0,0,0,0.5), 0 0 30px rgba(232,201,138,0.22); }
+.post-draw:has(.deck-card) { position: relative; }
+.m-b { width: 50px; height: 50px; border-radius: 50%; background: radial-gradient(circle at 62% 42%, #322b57, #1a1730); box-shadow: inset -10px 0 18px -3px rgba(198,202,226,0.5); }
+.m-s { width: 26px; height: 26px; border-radius: 50%; background: #1a1730; }
+.thread { width: 3px; height: 56px; border-radius: 2px; background: linear-gradient(#a4c2ab, transparent); }
+.icon-orb { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 42%, #241e3c, #191529); border: 1px solid #2e2648; box-shadow: 0 0 18px rgba(154,143,192,0.1); }
+.m-l { box-shadow: inset -4px 0 8px -1px rgba(198,202,226,0.45); }
+.m-r { box-shadow: inset 4px 0 8px -1px rgba(198,202,226,0.45); }
+@media (hover: hover) { .post:hover .post-title { color: #f0dcac; } }
+#faq { background: #0e0b1e; border-top: 1px solid #1c1834; }
+#faq h2 { font-size: clamp(30px, 2.2vw + 14px, 44px) !important; }
+@media (min-width: 1024px) {
+  #faq > div:last-child { max-width: 1180px !important; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; }
+  #faq > div:last-child > .reveal { text-align: left !important; position: sticky; top: 96px; margin-bottom: 0 !important; }
+  #faq > div:first-child { left: 30% !important; }
+}
+a:focus-visible { outline: 2px solid #c6cae2; outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<div style="min-height: 100vh; background: #0e0b1e; color: #cdd1e6; font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden;">
+
+  <nav style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) max(clamp(18px, 5vw, 40px), calc((100% - 1180px) / 2 + clamp(18px, 5vw, 40px))) 14px; background: rgba(14,11,30,0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a;">
+    <a href="/" style="display: flex; align-items: center; gap: 7px; text-decoration: none;">
+      <span style="width: 26px; height: 26px; flex: none; display: inline-flex;">
+        <svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;">
+          <path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path>
+          <path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path><circle cx="71" cy="49" r="3" fill="#e8c98a"></circle>
+        </svg>
+      </span>
+      <span class="en-serif" style="font-size: 19px; letter-spacing: 0.5px; color: #f3efe9;">Enchantra</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px);">
+      <div class="nav-links" style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px);">
+        <a href="/#cards" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Bring your cards</a>
+        <a href="/#how" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">How it works</a>
+        <a href="/almanac" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">The Almanac</a>
+        <a href="/tarot-card-shops/" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Buy tarot cards</a>
+        <a href="/#pricing" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Pricing</a>
+        <a href="/#faq" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">FAQ</a>
+      </div>
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#f3efe9" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+      </button>
+    </div>
+    <div class="nav-menu" id="navMenu">
+      <a href="/#cards" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">Bring your cards</a>
+      <a href="/#how" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">How it works</a>
+      <a href="/almanac" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">The Almanac</a>
+      <div class="nav-menu-group"><span class="nav-menu-head">Buy tarot cards</span><a href="/tarot-card-shops/" class="nav-menu-sub">Tarot card shops</a></div>
+      <a href="/#pricing" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">Pricing</a>
+      <a href="/#faq" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">FAQ</a>
+    </div>
+  </nav>
+
+  <header class="confirmed-hero">
+    <div>
+      <div class="when-ok">
+        <h1 class="en-serif confirmed-title">Email confirmed.<br>Welcome to Enchantra.</h1>
+        <p class="confirmed-lead">Open Enchantra on your phone and log in. Your first reading is waiting.</p>
+      </div>
+      <div class="when-error">
+        <h1 class="en-serif confirmed-error">This link has expired or was already used. Open Enchantra and log in, and if that doesn't work, write to <a href="mailto:keeper@enchantratarot.com">keeper@enchantratarot.com</a>.</h1>
+      </div>
+    </div>
+    <div aria-hidden="true"><div style="position: relative; width: clamp(190px, 44vw, 300px); aspect-ratio: 1 / 1; margin: 0 auto;">
+        <div style="position: absolute; inset: -5%; border-radius: 50%; background: radial-gradient(closest-side, rgba(198,202,226,0.10), rgba(198,202,226,0.04) 55%, transparent 72%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
+        <div style="position: absolute; left: 50%; top: 50%; width: 84%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; border: 1px dashed rgba(232,201,138,0.16);">
+          <div style="position: absolute; left: 50%; top: -6px; margin-left: -7px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 62% 42%, #45406e, #221c3c); box-shadow: inset -3px 0 8px rgba(232,201,138,0.5), 0 0 10px rgba(232,201,138,0.2);"></div>
+          <div style="position: absolute; right: -6px; top: 50%; margin-top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 30% 50%, #3a3363, #1a1730); box-shadow: inset 4px 0 7px -1px rgba(198,202,226,0.5);"></div>
+          <div style="position: absolute; left: 50%; bottom: -6px; margin-left: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #2e2850 0 48%, #14112a 52%); border: 1px solid #241f40;"></div>
+          <div style="position: absolute; left: -6px; top: 50%; margin-top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 70% 50%, #3a3363, #1a1730); box-shadow: inset -4px 0 7px -1px rgba(198,202,226,0.5);"></div>
+        </div>
+        <div style="position: absolute; left: 50%; top: 50%; width: 58%; aspect-ratio: 1; transform: translate(-50%,-50%);">
+          <div style="width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle closest-side at 62% 42%, #2e2850 0%, #221d38 55%, #1a1730 100%); border: 1px solid #241f40; box-shadow: inset -30px 0 52px -10px rgba(198,202,226,0.55), 0 0 80px rgba(198,202,226,0.10); animation: breath 4800ms ease-in-out infinite;"></div>
+        </div>
+        </div></div>
+  </header>
+
+  <section class="while-here">
+    <div class="while-here-inner">
+      <h2 class="en-serif">While you're here.</h2>
+      <div class="here-head"><div><div class="here-eyebrow">The Almanac</div><p class="here-intro">Notes for a reflective tarot practice.</p></div><a class="here-all" href="/almanac/">Read the Almanac ›</a></div>
+      <div class="post-grid">
+        <!-- confirmed:articles:start -->
+        <a class="post" href="/almanac/tarot-journaling/">
+          <span class="post-img post-draw" aria-hidden="true"><span class="thread"></span></span>
+          <span class="post-body"><span class="post-meta"><span class="post-cat">Journaling</span><span class="post-dot">·</span>9 min read</span><span class="en-serif post-title">Tarot journaling: the smallest version that works</span><span class="post-line">A three-line format, prompts, and how to record the echoes that follow a reading.</span></span>
+        </a>
+        <a class="post" href="/almanac/reading-tarot-with-the-lunar-cycle/">
+          <span class="post-img post-draw" aria-hidden="true"><span class="m-s m-l"></span><span class="m-b"></span><span class="m-s m-r"></span></span>
+          <span class="post-body"><span class="post-meta"><span class="post-cat">Lunar</span><span class="post-dot">·</span>6 min read</span><span class="en-serif post-title">Reading tarot with the lunar cycle</span><span class="post-line">How each moon phase shapes your intentions, daily cards and full moon reflections.</span></span>
+        </a>
+        <a class="post" href="/almanac/how-to-read-tarot-for-reflection/">
+          <span class="post-img post-draw" aria-hidden="true"><span class="m-b"></span></span>
+          <span class="post-body"><span class="post-meta"><span class="post-cat">Reflection</span><span class="post-dot">·</span>7 min read</span><span class="en-serif post-title">How to read tarot for reflection, not prediction</span><span class="post-line">A beginner's way into the cards that never asks them to tell your future.</span></span>
+        </a>
+        <!-- confirmed:articles:end -->
+      </div>
+      <div class="post-grid post-grid-more">
+        <a class="post" href="/#how">
+          <span class="post-img post-draw" aria-hidden="true"><span class="icon-orb"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#9a8fc0" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="12" r="2" fill="#9a8fc0" stroke="none"></circle><path d="M12.5 7.5 a6.5 6.5 0 0 1 0 9"></path><path d="M15.5 4.5 a10.5 10.5 0 0 1 0 15" opacity="0.6"></path></svg></span></span>
+          <span class="post-body"><span class="en-serif post-title">How it works</span><span class="post-line">From a single reading to patterns that unfold over time.</span></span>
+        </a>
+        <a class="post" href="/tarot-card-shops/">
+          <span class="post-img post-draw" aria-hidden="true"><span class="deck-card" style="transform: translateX(-74%) rotate(-14deg);"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#c6cae2"></path><circle cx="19" cy="5" r="1.6" fill="#c6cae2"></circle></svg></span><span class="deck-card" style="transform: translateX(74%) rotate(14deg);"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#c6cae2"></path><circle cx="19" cy="5" r="1.6" fill="#c6cae2"></circle></svg></span><span class="deck-card chosen" style="z-index: 2; transform: translateY(-3px);"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path><circle cx="19" cy="5" r="1.6" fill="#e8c98a"></circle></svg></span></span>
+          <span class="post-body"><span class="en-serif post-title">Where Decks Find You</span><span class="post-line">A small woo woo directory of shops worth the trip.</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- confirmed:faq:start -->
+  <section id="faq" style="position: relative; overflow: clip;">
+    <div style="position: absolute; top: 6%; left: 50%; transform: translateX(-50%); width: min(640px,90vw); height: 380px; border-radius: 50%; background: radial-gradient(closest-side, rgba(232,201,138,0.08), rgba(154,143,192,0.05) 55%, transparent 76%); pointer-events: none;"></div>
+    <div style="max-width: 800px; margin: 0 auto; padding: clamp(60px,8vw,100px) clamp(18px,5vw,40px); position: relative;">
+      <div class="reveal" style="text-align: center; margin-bottom: clamp(36px,5vw,50px);">
+        <div style="font-size: 11.5px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; color: #9a8fc0; margin-bottom: 16px;">Questions</div>
+        <h2 class="en-serif" style="margin: 0; font-weight: 400; font-size: clamp(27px,2.4vw+16px,38px); line-height: 1.18; color: #f3efe9;">Everything you need to know.</h2>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <details class="faq" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+          <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px clamp(18px,4vw,24px); cursor: pointer;"><span class="en-serif" style="font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.4; color: #e6e9f6;">What is Enchantra?</span><span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;"></span></summary>
+          <div style="padding: 0 clamp(18px,4vw,24px) 22px; font-size: 15px; line-height: 1.6; color: #9aa0c2;">Enchantra is a tarot reflection app that helps you build a deeper relationship with your own tarot deck. Draw cards from your physical deck, explore their meaning, record your reflections and discover patterns across your readings over time.</div>
+        </details>
+        <details class="faq" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+          <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px clamp(18px,4vw,24px); cursor: pointer;"><span class="en-serif" style="font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.4; color: #e6e9f6;">What is a reflective tarot reading?</span><span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;"></span></summary>
+          <div style="padding: 0 clamp(18px,4vw,24px) 22px; font-size: 15px; line-height: 1.6; color: #9aa0c2;">A reflective tarot reading helps you explore your cards and what they stir in you. You draw from your own physical tarot deck, and Enchantra interprets the card in the context of your intention, your tarot tradition and the lunar cycle. It offers a place to begin.</div>
+        </details>
+        <details class="faq" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+          <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px clamp(18px,4vw,24px); cursor: pointer;"><span class="en-serif" style="font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.4; color: #e6e9f6;">Do I need to know tarot already?</span><span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;"></span></summary>
+          <div style="padding: 0 clamp(18px,4vw,24px) 22px; font-size: 15px; line-height: 1.6; color: #9aa0c2;">No. Enchantra is designed for beginners and experienced tarot readers alike. If you're new to tarot, it explains each card in plain English while encouraging you to build confidence in your own intuition over time.</div>
+        </details>
+        <details class="faq" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+          <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px clamp(18px,4vw,24px); cursor: pointer;"><span class="en-serif" style="font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.4; color: #e6e9f6;">Can I use my own tarot deck?</span><span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;"></span></summary>
+          <div style="padding: 0 clamp(18px,4vw,24px) 22px; font-size: 15px; line-height: 1.6; color: #9aa0c2;">Yes. Enchantra is built to work alongside your own physical tarot deck. It supports major tarot traditions, including Rider–Waite–Smith, Thoth and Marseille. You choose your deck's tradition, and each card is interpreted within its own system so the meaning stays true to the creator's intention.</div>
+        </details>
+        <details class="faq" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+          <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px clamp(18px,4vw,24px); cursor: pointer;"><span class="en-serif" style="font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.4; color: #e6e9f6;">Does Enchantra predict the future?</span><span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;"></span></summary>
+          <div style="padding: 0 clamp(18px,4vw,24px) 22px; font-size: 15px; line-height: 1.6; color: #9aa0c2;">No. Enchantra is not a fortune telling app. It helps you reflect on your readings, record what they mean to you and notice patterns across your practice over time. Rather than telling you what will happen, it helps you pay closer attention to the life you're already living.</div>
+        </details>
+        <details class="faq" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+          <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px clamp(18px,4vw,24px); cursor: pointer;"><span class="en-serif" style="font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.4; color: #e6e9f6;">How does AI work in Enchantra?</span><span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;"></span></summary>
+          <div style="padding: 0 clamp(18px,4vw,24px) 22px; font-size: 15px; line-height: 1.6; color: #9aa0c2;">AI helps explain the symbolism and traditional meanings of your cards while remembering your readings, reflections and patterns over time. It gives you a thoughtful place to begin, and your intuition takes it from there.</div>
+        </details>
+        <details class="faq" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+          <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px clamp(18px,4vw,24px); cursor: pointer;"><span class="en-serif" style="font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.4; color: #e6e9f6;">Does AI make up my interpretation?</span><span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;"></span></summary>
+          <div style="padding: 0 clamp(18px,4vw,24px) 22px; font-size: 15px; line-height: 1.6; color: #9aa0c2;">No. Enchantra uses AI to provide thoughtful interpretations based on your chosen tarot tradition, your intention and your reading history. It never tells you what to believe. Your own reflections and lived experience are always the most important part of every reading.</div>
+        </details>
+        <details class="faq" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+          <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px clamp(18px,4vw,24px); cursor: pointer;"><span class="en-serif" style="font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.4; color: #e6e9f6;">Is my tarot journal private?</span><span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;"></span></summary>
+          <div style="padding: 0 clamp(18px,4vw,24px) 22px; font-size: 15px; line-height: 1.6; color: #9aa0c2;">Yes. Your readings, reflections and notes are private by default. They're securely stored so you can revisit them whenever you like, but they are never shared with other users.</div>
+        </details>
+        <details class="faq" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+          <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px clamp(18px,4vw,24px); cursor: pointer;"><span class="en-serif" style="font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.4; color: #e6e9f6;">Can Enchantra help me notice patterns?</span><span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;"></span></summary>
+          <div style="padding: 0 clamp(18px,4vw,24px) 22px; font-size: 15px; line-height: 1.6; color: #9aa0c2;">Yes. As your readings grow, Enchantra helps you discover recurring cards, repeating themes and, if you choose, real-world echoes like dreams, symbols, people, places and meaningful moments. These are the connections that often only become visible with time.</div>
+        </details>
+        <details class="faq" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+          <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px clamp(18px,4vw,24px); cursor: pointer;"><span class="en-serif" style="font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.4; color: #e6e9f6;">Is Enchantra a digital tarot deck?</span><span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;"></span></summary>
+          <div style="padding: 0 clamp(18px,4vw,24px) 22px; font-size: 15px; line-height: 1.6; color: #9aa0c2;">No. You continue using the physical tarot deck you already own and love. You shuffle, draw and read your own cards. Enchantra simply helps you understand, remember and build a deeper relationship with them over time.</div>
+        </details>
+        <details class="faq" style="background: #15122a; border: 1px solid #2c284c; border-radius: 14px; overflow: hidden;">
+          <summary style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px clamp(18px,4vw,24px); cursor: pointer;"><span class="en-serif" style="font-size: clamp(16px,0.5vw+15px,18px); line-height: 1.4; color: #e6e9f6;">How is Enchantra different from other tarot apps?</span><span class="faq-sign" style="font-size: 20px; color: #9a8fc0; flex: none;"></span></summary>
+          <div style="padding: 0 clamp(18px,4vw,24px) 22px; font-size: 15px; line-height: 1.6; color: #9aa0c2;">Most tarot apps focus on digital card draws or one-off readings. Enchantra is designed to help you build an ongoing tarot practice. It combines your physical deck, thoughtful interpretations, private journaling and long-term pattern tracking, so every reading becomes part of a bigger story.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+  <!-- confirmed:faq:end -->
+
+  <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(48px,6vw,54px) clamp(18px,5vw,40px) clamp(52px,7vw,60px); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
+      <div style="min-width: 200px;">
+        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 16px;">
+          <span style="width: 24px; height: 24px; flex: none; display: inline-flex;">
+            <svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;">
+              <path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path>
+              <path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path><circle cx="71" cy="49" r="3" fill="#e8c98a"></circle>
+            </svg>
+          </span>
+          <span class="en-serif" style="font-size: 19px; color: #f3efe9;">Enchantra</span>
+        </div>
+        <!-- Footer line: the replacement comes from the next brand board -->
+        <div style="font-size: 12.5px; color: #8b8fb2; margin-top: 20px;">Enchantra (ABN 87 927 064 532)</div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">Practice</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="/#practice" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The philosophy</a>
+          <a href="/#how" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">How it works</a>
+          <a href="/almanac/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The Almanac</a>
+          <a href="/#faq" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">FAQ</a>
+          <a href="/tarot-card-shops/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Where Decks Find You</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">The app</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="/beta/" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the Keepers</a>
+          <span style="font-size: 14px; color: #9aa0c2;">iPhone · coming soon</span>
+          <span style="font-size: 14px; color: #9aa0c2;">Android · coming soon</span>
+          <a href="https://cardswekeep.substack.com/subscribe" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the waitlist</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">More</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="/about-m/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">About M</a>
+          <a href="/privacy/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Privacy</a>
+          <a href="/terms/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Terms</a>
+          <a href="/support/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Support</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="border-top: 1px solid #1c1834; padding: 22px 40px; text-align: center; font-size: 12.5px; color: #8b8fb2;">© 2026 Enchantra · Tarot reading and journaling app.</div>
+  </footer>
+
+</div>
+
+<script>
+  /* Mobile nav: hamburger toggles the dropdown menu; tapping a link closes it. */
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var menu = document.getElementById('navMenu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function () {
+      var open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) { menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+    });
+  })();
+</script>
+</body>
+</html>

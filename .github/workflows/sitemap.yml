@@ -56,16 +56,21 @@ jobs:
           echo "----- generated sitemap.xml -----"
           cat "$OUT"
 
+      - name: Keep the newest article and the questions on /confirmed/
+        run: |
+          set -euo pipefail
+          python3 scripts/build_confirmed_articles.py
+
       - name: Commit if changed
         run: |
           set -euo pipefail
-          if git diff --quiet -- sitemap.xml; then
-            echo "sitemap.xml is already up to date."
+          git add sitemap.xml confirmed/index.html
+          if git diff --cached --quiet; then
+            echo "sitemap.xml and /confirmed/ are already up to date."
           else
             git config user.name  "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add sitemap.xml
-            git commit -m "chore: auto-update sitemap.xml"
+            git commit -m "chore: auto-update sitemap.xml and /confirmed/ articles"
             git push
-            echo "sitemap.xml updated and pushed."
+            echo "Updates pushed."
           fi
