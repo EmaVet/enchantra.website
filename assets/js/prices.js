@@ -38,7 +38,12 @@ var ENCHANTRA_RELEASE = {
     storeButton: 'Download',
     storeFooter: 'iPhone · on the App Store',
     // Release day, Australia and New Zealand: the line under the App Store button (M, 31 Oct)
-    androidSoon: 'Available now for iPhone · Android coming soon'
+    androidSoon: 'Available now for iPhone · Android coming soon',
+    // Release day, Australia and New Zealand: the final call to action (M, 8 Nov)
+    storeHeading: 'Enchantra is on the App Store.',
+    storeIntro: 'Bring the deck you already love. Your first month is free.',
+    // Release day, Australia and New Zealand: second button beside Download, for Android (M, 8 Nov)
+    androidButton: 'Join the Android waitlist'
   };
 
   var CA_ZONES = ['Toronto','Vancouver','Edmonton','Winnipeg','Halifax','St_Johns','Regina','Moncton',
@@ -131,6 +136,20 @@ var ENCHANTRA_RELEASE = {
         if (n.nodeType === 3 && /\S/.test(n.nodeValue)) { n.nodeValue = WORDS.androidSoon; break; }
       }
     });
+    // A second, outline button beside Download for Android visitors: the waitlist (M, 8 Nov).
+    each('a[data-android-pair]', function (a) {
+      var b = document.createElement('a');
+      b.href = 'https://cardswekeep.substack.com/subscribe';
+      b.target = '_blank'; b.rel = 'noopener';
+      b.className = 'btn-outline';
+      b.textContent = WORDS.androidButton;
+      b.setAttribute('style', 'display: inline-flex; align-items: center; justify-content: center; height: 52px; padding: 0 26px; border-radius: 999px; border: 1px solid #e8c98a; color: #e8c98a; font-size: 15px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; white-space: nowrap;');
+      var row = a.parentNode;
+      row.style.display = 'flex'; row.style.flexWrap = 'wrap'; row.style.gap = '12px';
+      a.insertAdjacentElement('afterend', b);
+    });
+    each('[data-store-heading]', function (el) { el.textContent = WORDS.storeHeading; });
+    each('[data-store-intro]', function (el) { el.textContent = WORDS.storeIntro; });
     each('[data-store-footer]', function (el) {
       var a = document.createElement('a');
       a.href = url; a.textContent = WORDS.storeFooter;
