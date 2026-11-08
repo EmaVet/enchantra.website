@@ -35,7 +35,7 @@ var ENCHANTRA_RELEASE = {
     // Line under the price for everyone else (they see Australian prices).
     noteElsewhere: 'Enchantra isn’t in your country yet. Prices shown are for Australia.',
     countryName: { GB: 'the UK', IE: 'Ireland', US: 'the US', CA: 'Canada' },
-    storeButton: 'Download',
+    storeButton: 'Download for iPhone',
     storeFooter: 'iPhone · on the App Store',
     // Release day, Australia and New Zealand: the line under the App Store button (M, 31 Oct)
     androidSoon: 'Available now for iPhone · Android coming soon',
