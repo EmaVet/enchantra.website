@@ -111,6 +111,12 @@ header[data-dc-tpl="16"] h1.en-serif + p { font-size: clamp(17px, 0.5vw + 15px, 
 .art-byline a.who:focus-visible { outline: 2px solid #c6cae2; outline-offset: 3px; border-radius: 4px; }
 .art-byline .dot { color: #2c284c; }
 .art-hero-art { width: clamp(180px, 46vw, 240px) !important; margin: clamp(28px, 5vw, 40px) auto 0 !important; }
+/* Header stars stay off the words (9 Nov): under 1024px they sit in the band around the drawing,
+   from 1024px in the drawing's column on the right. */
+header[data-dc-tpl="16"] > div[data-dc-tpl="17"] { inset: auto 0 0 0 !important; height: clamp(200px, 50vw, 260px) !important; }
+@media (min-width: 1024px) {
+  header[data-dc-tpl="16"] > div[data-dc-tpl="17"] { inset: 0 0 0 auto !important; height: auto !important; width: calc(max(0px, (100% - 1180px) / 2) + clamp(18px, 5vw, 40px) + clamp(240px, 24vw, 300px) + 24px) !important; }
+}
 @media (min-width: 1024px) {
   header[data-dc-tpl="16"] > div[style*="1180px"] { display: grid !important; grid-template-columns: minmax(0, 1fr) clamp(240px, 24vw, 300px); column-gap: clamp(40px, 6vw, 96px); align-items: center; }
   header[data-dc-tpl="16"] > div[style*="1180px"] > * { grid-column: 1; }
