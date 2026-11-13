@@ -12,7 +12,7 @@
    While it is false, everyone sees "coming soon" and the waitlist, as before. */
 var ENCHANTRA_RELEASE = {
   APP_STORE_LIVE: true,  // switched on 8 Nov 2026: live on the App Store in Australia and New Zealand
-  APP_STORE_URL: 'https://apps.apple.com/app/id6807353179',
+  APP_STORE_URL: 'https://apps.apple.com/app/apple-store/id6807353179?pt=129348689&ct=website&mt=8',
   OPEN_IN: ['AU', 'NZ']                         // countries where the App Store sells Enchantra
 };
 /* ════════════════════════════════════════════════════════ */
