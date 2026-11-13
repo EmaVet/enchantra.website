@@ -122,6 +122,10 @@ var ENCHANTRA_RELEASE = {
       url = '#app-store-link';           // preview only
     }
     if (!live || !open) return;
+    // Apple's link has no country, and in a desktop browser that opens the US store,
+    // where Enchantra is not listed ("page can't be found"). Name the visitor's store.
+    var cc = country();
+    url = url.replace('://apps.apple.com/app/', '://apps.apple.com/' + (cc === 'NZ' ? 'nz' : 'au') + '/app/');
     // Every gold waitlist button becomes the App Store button.
     each('a.btn-gold[href*="substack.com/subscribe"], a[data-store-cta]', function (a) {
       a.href = url;
