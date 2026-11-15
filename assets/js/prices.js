@@ -163,6 +163,15 @@ var ENCHANTRA_RELEASE = {
       a.setAttribute('style', 'font-size: 14px; color: #e8c98a; text-decoration: none;');
       el.parentNode.replaceChild(a, el);
     });
+    // Meta pixel: a tap on any App Store button or link counts as app_store_click, the same
+    // event the short links fire (M, 16 Nov). It never delays or blocks the link, and does
+    // nothing where the pixel is absent or blocked.
+    document.addEventListener('click', function (e) {
+      try {
+        var a = e.target && e.target.closest ? e.target.closest('a[href^="https://apps.apple.com/"]') : null;
+        if (a && typeof window.fbq === 'function') window.fbq('trackCustom', 'app_store_click', { short_link: 'site-button' });
+      } catch (err) {}
+    });
     // Structured data: Australia and New Zealand offers become in stock.
     each('script[type="application/ld+json"]', function (s) {
       if (s.textContent.indexOf('schema.org/PreOrder') > -1) s.textContent = s.textContent.replace(/schema\.org\/PreOrder/g, 'schema.org/InStock');
