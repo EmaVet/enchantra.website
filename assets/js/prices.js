@@ -43,7 +43,9 @@ var ENCHANTRA_RELEASE = {
     storeHeading: 'Enchantra is on the App Store.',
     storeIntro: 'Bring the deck you already love. Your first month is free.',
     // Release day, Australia and New Zealand: second button beside Download, for Android (M, 8 Nov)
-    androidButton: 'Join the Android waitlist'
+    androidButton: 'Join the Android waitlist',
+    // Australia and New Zealand: the answer to "When will Enchantra be available?" (M, 15 Nov)
+    faqAvailable: 'Enchantra is available now on iPhone. Download it from the App Store. Android is coming soon: join the waitlist and we’ll let you know when it’s ready.'
   };
 
   var CA_ZONES = ['Toronto','Vancouver','Edmonton','Winnipeg','Halifax','St_Johns','Regina','Moncton',
@@ -154,6 +156,7 @@ var ENCHANTRA_RELEASE = {
     });
     each('[data-store-heading]', function (el) { el.textContent = WORDS.storeHeading; });
     each('[data-store-intro]', function (el) { el.textContent = WORDS.storeIntro; });
+    each('[data-store-faq]', function (el) { el.textContent = WORDS.faqAvailable; });
     each('[data-store-footer]', function (el) {
       var a = document.createElement('a');
       a.href = url; a.textContent = WORDS.storeFooter;
