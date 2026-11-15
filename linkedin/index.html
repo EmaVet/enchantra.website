@@ -13,7 +13,41 @@
     var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
     nz = /^Pacific\/(Auckland|Chatham)$/.test(tz) || /-NZ$/i.test(navigator.language || "");
   } catch (e) {}
-  location.replace("https://apps.apple.com/" + (nz ? "nz" : "au") + "/app/apple-store/id6807353179?pt=129348689&ct=linkedin&mt=8");
+  var gone = false;
+  function go() {
+    if (gone) return;
+    gone = true;
+    location.replace("https://apps.apple.com/" + (nz ? "nz" : "au") + "/app/apple-store/id6807353179?pt=129348689&ct=linkedin&mt=8");
+  }
+  // Meta pixel: one event, app_store_click, saying which short link was used.
+  // No PageView, no advanced matching, no automatic extras. The App Store opens
+  // as soon as Meta has the event, at once if Meta's script is blocked, and after
+  // half a second whatever happens. The pixel ID also lives in /assets/js/meta-pixel.js.
+  var PIXEL = '1457599145748355';
+  if (!/^\d+$/.test(PIXEL)) { go(); return; }
+  try {
+    setTimeout(go, 500);
+    var f = window.fbq = function () {
+      f.callMethod ? f.callMethod.apply(f, arguments) : f.queue.push(arguments);
+    };
+    window._fbq = f; f.push = f; f.loaded = true; f.version = '2.0'; f.queue = [];
+    f('set', 'autoConfig', false, PIXEL);
+    f('init', PIXEL);
+    f('trackCustom', 'app_store_click', { short_link: 'linkedin' });
+    try {
+      new PerformanceObserver(function (list) {
+        var sent = list.getEntries();
+        for (var i = 0; i < sent.length; i++) {
+          if (/facebook\.com\/tr\/?(\?|$)/.test(sent[i].name)) { go(); return; }
+        }
+      }).observe({ type: 'resource', buffered: true });
+    } catch (e) {}
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    s.onerror = go;
+    document.head.appendChild(s);
+  } catch (e) { go(); }
 })();
 </script>
 <noscript><meta http-equiv="refresh" content="0; url=https://apps.apple.com/au/app/apple-store/id6807353179?pt=129348689&amp;ct=linkedin&amp;mt=8"></noscript>
