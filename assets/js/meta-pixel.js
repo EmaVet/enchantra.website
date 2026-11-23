@@ -5,8 +5,8 @@
 // so ads can reach people by what they did on the site.
 //   - No advanced matching: init gets the pixel ID alone, never an email, name or form field.
 //   - Not loaded on /confirmed (ENCH-294: that address can carry sign-in tokens).
-//   - The short links (/insta, /fb, /linkedin, /tiktok, /substack, /app) carry their own
-//     copy of the ID and fire app_store_click instead. Change the ID in all seven places.
+//   - The short links (/insta, /fb, /linkedin, /tiktok, /substack, /app, /ad-a, /ad-b) carry their own
+//     copy of the ID and fire app_store_click instead. Change the ID in all nine places.
 var ENCHANTRA_META_PIXEL_ID = '1457599145748355';
 
 (function (id) {

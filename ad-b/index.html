@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<title>Enchantra on the App Store</title>
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+// Enchantra is in the Australian and New Zealand App Stores. A link with no
+// country opens the US store in a browser, which shows "page can't be found".
+(function () {
+  var nz = false;
+  try {
+    var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+    nz = /^Pacific\/(Auckland|Chatham)$/.test(tz) || /-NZ$/i.test(navigator.language || "");
+  } catch (e) {}
+  // Meta pixel: one event, app_store_click, saying which short link was used.
+  // Sent as one small request that carries on after this page has gone (keepalive),
+  // so the App Store opens straight away and never waits for Meta (M, 16 Nov).
+  // The pixel ID also lives in /assets/js/meta-pixel.js.
+  try {
+    var ping = 'https://www.facebook.com/tr?id=1457599145748355&ev=app_store_click&cd[short_link]=ad-b&noscript=1';
+    if (window.fetch) fetch(ping, { mode: 'no-cors', keepalive: true, credentials: 'include' }).catch(function () {});
+    else new Image().src = ping;
+  } catch (e) {}
+  location.replace("https://apps.apple.com/" + (nz ? "nz" : "au") + "/app/apple-store/id6807353179?pt=129348689&ct=meta-ad-b&mt=8");
+})();
+</script>
+<noscript><meta http-equiv="refresh" content="0; url=https://apps.apple.com/au/app/apple-store/id6807353179?pt=129348689&amp;ct=meta-ad-b&amp;mt=8"></noscript>
+</head><body>
+Taking you to <a href="https://apps.apple.com/au/app/apple-store/id6807353179?pt=129348689&amp;ct=meta-ad-b&amp;mt=8">Enchantra on the App Store</a>.
+</body></html>
