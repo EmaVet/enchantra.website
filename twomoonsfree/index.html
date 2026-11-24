@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Two moons free | Enchantra</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://enchantratarot.com/twomoonsfree/" />
+<script>
+/* /twomoonsfree: where the QR code on the Enchantra promo cards lands (M, 24 Nov 2026).
+   iPhone:   straight to Apple's offer code page for TWOMOONS. Apple offers the download as part of redeeming.
+   Android:  straight to Google Play with the referrer "twomoons", once the two ANDROID lines below are filled in.
+             Until then Android visitors see this page with "Coming soon to Android".
+   Computer: this page.
+   Every visit is counted once as promo_visit with source "cards" (Meta pixel, the same small
+   keepalive request the short links use, so nothing waits for Meta). The pixel ID also lives in
+   /assets/js/meta-pixel.js. */
+var TWOMOONS = {
+  APP_ID: '6807353179',
+  CODE: 'TWOMOONS',
+  ANDROID_LIVE: false,      // change to true on the day the Android app is on Google Play
+  ANDROID_PACKAGE: ''       // and paste the app's Google Play ID here, e.g. com.example.app
+};
+(function () {
+  var ua = navigator.userAgent || '';
+  var device = /iPhone|iPod/.test(ua) ? 'iphone' : /Android/i.test(ua) ? 'android' : 'computer';
+  var via = /[?&]via=screen(&|$)/.test(location.search) ? 'screen' : 'card';   // screen: the QR code on this page
+  TWOMOONS.device = device;
+  TWOMOONS.redeem = 'https://apps.apple.com/redeem?ctx=offercodes&id=' + TWOMOONS.APP_ID + '&code=' + TWOMOONS.CODE;
+  try {
+    var ping = 'https://www.facebook.com/tr?id=1457599145748355&ev=promo_visit&cd[source]=cards&cd[device]=' + device + '&cd[via]=' + via + '&noscript=1';
+    if (window.fetch) fetch(ping, { mode: 'no-cors', keepalive: true, credentials: 'include' }).catch(function () {});
+    else new Image().src = ping;
+  } catch (e) {}
+  if (device === 'iphone') { location.replace(TWOMOONS.redeem); return; }
+  if (device === 'android' && TWOMOONS.ANDROID_LIVE && /^[A-Za-z][\w.]+$/.test(TWOMOONS.ANDROID_PACKAGE)) {
+    location.replace('https://play.google.com/store/apps/details?id=' + TWOMOONS.ANDROID_PACKAGE + '&referrer=twomoons');
+  }
+})();
+</script>
+<style>
+  /* ── Intrinsic responsive system ──
+     No layout media queries. Type + spacing scale with clamp(); multi-column
+     blocks use grid auto-fit + minmax so they reflow from desktop → tablet →
+     phone on their own. New content dropped into these patterns adapts
+     automatically at every width. The only width rule is the mobile sticky bar. */
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; padding: 0; background: #0e0b1e; }
+  ::selection { background: #463c72; color: #e6e9f6; }
+  * { box-sizing: border-box; }
+  a { color: #e8c98a; }
+  a:hover { color: #f0dcac; }
+
+  @keyframes breath { 0%,100% { transform: scale(1); } 50% { transform: scale(1.022); } }
+  @keyframes glowpulse { 0%,100% { opacity: 0.5; } 50% { opacity: 0.9; } }
+  @keyframes twinkle { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+  @keyframes floatCard { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @keyframes cardglow { 0%,100% { box-shadow: 0 12px 30px rgba(0,0,0,0.45); } 50% { box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 24px rgba(232,201,138,0.22); } }
+  @keyframes threadpulse { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+  @keyframes floatCardR { 0%,100% { transform: rotate(var(--r)) translateY(0); } 50% { transform: rotate(var(--r)) translateY(-9px); } }
+
+  .en-serif { font-family: 'Iowan Old Style', 'Noto Serif', Palatino, Georgia, serif; }
+
+  /* Gold buttons — hover/active as real CSS (was runtime style-hover/style-active) */
+  .btn-gold { transition: background 200ms ease, transform 160ms ease, box-shadow 200ms ease; }
+  .btn-gold:hover { background: #f0dcac !important; transform: translateY(-1px); box-shadow: 0 6px 22px rgba(232,201,138,0.32); }
+  .btn-gold:active { transform: translateY(0); }
+
+  /* FAQ accordion (native <details>, independent items) */
+  details.faq > summary { list-style: none; }
+  details.faq > summary::-webkit-details-marker { display: none; }
+  .faq-sign::after { content: "+"; }
+  details.faq[open] .faq-sign::after { content: "\2013"; }
+
+  /* Mobile sticky "Join the waitlist" bar + hamburger nav share one breakpoint (860px).
+     Below 860: hamburger menu + sticky bottom bar (no nav Join pill).
+     860 and up: full nav bar with links + Join pill (no sticky bar, no hamburger). */
+  .sticky-join, .sticky-spacer { display: none; }
+  .nav-toggle { display: none; background: none; border: 0; padding: 4px; margin: -4px 0; cursor: pointer; line-height: 0; }
+  .nav-links a:hover, .nav-menu a:hover { color: #f0dcac !important; }
+  .nav-menu {
+    display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column;
+    background: #0e0b1e; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid #221d3a; box-shadow: 0 12px 24px rgba(0,0,0,0.4); padding: 4px clamp(18px,5vw,40px) 14px;
+  }
+  .nav-menu.open { display: flex; }
+  .nav-menu a { border-top: 1px solid #1c1834; }
+  .nav-menu a:first-child { border-top: 0; }
+  @media (max-width: 859px) {
+    .sticky-join, .sticky-spacer { display: block; }
+    .nav-links, .nav-join { display: none !important; }
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  }
+  @media (min-width: 860px) { .nav-menu { display: none !important; } }
+
+  /* Motion pauses while its section is off-screen (IntersectionObserver below) */
+  .is-offscreen, .is-offscreen * { animation-play-state: paused !important; }
+
+  /* Accessibility: motion off → reveal immediately, no transforms */
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; }
+    .reveal, .reveal > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
+</style>
+<noscript><style>.reveal, .reveal > * { opacity: 1 !important; transform: none !important; }</style></noscript>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<style>
+@font-face { font-family: 'Noto Serif'; font-style: normal; font-weight: 400 500; font-display: swap; src: url("/assets/fonts/noto-serif-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Noto Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url("/assets/fonts/noto-serif-latin-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+</style>
+<style id="site-layout">
+html, body { overflow-x: clip; }
+
+/* Site layout: one container and one left edge on every page, fluid down to phone width. */
+:root { --page-max: 1180px; --gutter: clamp(18px, 5vw, 40px); --measure: 760px; }
+</style>
+<style id="design-pass">
+/* Homepage layout: one 1180px width for the hero and every section (M, 23 Oct), left-aligned sections, pictures alternate sides. */
+h2 { text-wrap: balance; }
+/* Hero: wider text column so the descriptor sits on one line on wide screens */
+@media (min-width: 900px) { div[style*="min-height: 460px"] { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) !important; } }
+@media (max-width: 899px) { div[style*="min-height: 460px"] { grid-template-columns: minmax(0, 1fr) !important; } }
+@media (min-width: 1200px) { div[style*="min-height: 460px"] h1 { white-space: nowrap; } }
+
+/* Your cards pair (M, 23 Oct): words first in one column until there is room; from 1024px a wide words column so headings sit on two lines and one line. */
+#cards .br-lg { display: none; }
+@media (min-width: 600px) { #cards .br-lg { display: inline; } }
+#cards > div > .reveal:nth-of-type(n) { grid-template-columns: minmax(0, 1fr) !important; }
+#cards > div > .reveal:nth-of-type(n) > div:has(h2) { order: 1 !important; max-width: 640px; }
+#cards > div > .reveal:nth-of-type(n) > div:not(:has(h2)) { order: 2 !important; }
+#cards > div > .reveal > div:has(h2) > div[style*="max-width: 460px"] { max-width: 600px !important; }
+@media (min-width: 1024px) {
+  #cards > div > .reveal:nth-of-type(1) { grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) !important; }
+  #cards > div > .reveal:nth-of-type(2) { grid-template-columns: minmax(0, 3fr) minmax(0, 5fr) !important; }
+  #cards > div > .reveal:nth-of-type(2) > div:not(:has(h2)) { order: 1 !important; }
+  #cards > div > .reveal:nth-of-type(2) > div:has(h2) { order: 2 !important; }
+  #cards > div > .reveal:nth-of-type(n) > div:has(h2) { max-width: none; }
+  #cards > div > .reveal > div:has(h2) > div[style*="max-width: 460px"] { max-width: 560px !important; }
+}
+@media (min-width: 1024px) {
+  /* How it works: heading set left over the steps, steps in two even rows of three */
+  #how .reveal[style*="text-align: center"] { text-align: left !important; }
+  #how .reveal[style*="text-align: center"] h2, #how .reveal[style*="text-align: center"] p { margin-left: 0 !important; }
+  div[style*="minmax(240px, 1fr)"] { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+
+  /* Questions: heading held on the left, the questions on the right */
+  #faq > div:last-child { max-width: 1180px !important; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: clamp(40px, 5vw, 80px); align-items: start; }
+  #faq > div:last-child > .reveal { text-align: left !important; position: sticky; top: 96px; margin-bottom: 0 !important; }
+  #faq > div:first-child { left: 30% !important; }
+}
+@media (min-width: 640px) and (max-width: 1023px) { div[style*="minmax(240px, 1fr)"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+#almanac h2 { max-width: 620px; }
+/* Why we built Enchantra: option 2 as approved (M's own cards photo, full-bleed, no card box) */
+#philosophy > div > div > :nth-child(1) { display: none; }
+#philosophy > div > div > :not(figure) { position: relative; z-index: 1; }
+
+#philosophy { position: relative; overflow: hidden; background: #0e0b1e !important; }
+#philosophy > div, #philosophy > div > div { position: static !important; }
+/* One left edge: the old card's side padding goes now the card box is gone (M, 23 Oct) */
+#philosophy > div { max-width: 1180px !important; }
+#philosophy > div > div { padding-left: 0 !important; padding-right: 0 !important; }
+#philosophy > div > div { background: none !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; overflow: visible !important;
+  padding-top: calc(min(100vw, 1440px) * 0.6 - 30px) !important; }
+#philosophy .v2 { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: min(100%, 1440px); aspect-ratio: 3 / 2; max-height: calc(min(100vw, 1440px) * 0.66); margin: 0; z-index: 0; }
+#philosophy .v2 img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%; filter: brightness(0.7) saturate(0.85); }
+#philosophy .v2::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom, #0e0b1e 0%, rgba(14,11,30,0) 14%, rgba(14,11,30,0) 84%, #0e0b1e 100%),
+              linear-gradient(to right, #0e0b1e 0%, rgba(14,11,30,0) 14%, rgba(14,11,30,0) 86%, #0e0b1e 100%),
+              radial-gradient(ellipse 50% 40% at 50% 42%, rgba(232,201,138,0.10), transparent 70%); }
+@media (min-width: 1024px) {
+  #philosophy > div > div { padding-top: calc(min(100vw, 1440px) * 0.45 - 60px) !important; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); grid-template-rows: auto auto 1fr; column-gap: clamp(48px, 6vw, 88px); }
+  #philosophy .v2 { aspect-ratio: 2 / 1; }
+  #philosophy > div > div > :nth-child(3) { grid-column: 1; grid-row: 1; text-align: left !important; }
+  #philosophy > div > div > :nth-child(4) { grid-column: 1; grid-row: 2; text-align: left !important; font-size: clamp(26px, 1.2vw + 16px, 32px) !important; line-height: 1.35 !important; }
+  #philosophy > div > div > :nth-child(5) { grid-column: 2; grid-row: 1 / span 3; margin: 0 !important; max-width: none !important; }
+  #philosophy > div > div > :nth-child(6) { grid-column: 1; grid-row: 3; justify-content: flex-start !important; margin-top: 28px !important; align-self: start; }
+}
+
+/* Tighter space around How it works */
+#cards > div { padding-bottom: clamp(48px, 6vw, 72px) !important; }
+#how > div { padding-top: clamp(48px, 6vw, 72px) !important; padding-bottom: clamp(48px, 6vw, 72px) !important; }
+#traditions { padding-top: clamp(56px, 7vw, 84px) !important; }
+
+/* Traditions: decks left, words right (stacked words first on phones) */
+@media (min-width: 768px) {
+  #traditions > div > div:first-child { order: 2; }
+  #traditions > div > div:last-child { order: 1; }
+}
+
+/* Pricing: wider on big screens, the two plans side by side; phones keep the stacked list */
+@media (min-width: 900px) {
+  #pricing { max-width: 920px !important; }
+  #pricing > .reveal > div[style*="max-width: 420px"] { max-width: 760px !important; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  #pricing > .reveal > div[style*="max-width: 420px"] > div { margin-top: 0 !important; padding: 26px 26px !important; }
+  #pricing > .reveal > div[style*="max-width: 420px"] > div:nth-child(2) > div { flex-direction: column; align-items: flex-start !important; gap: 6px !important; }
+  #pricing > .reveal > div[style*="max-width: 420px"] > div:last-child { grid-column: 1 / -1; margin-top: 4px !important; max-width: 520px; justify-self: center; }
+  #pricing h2 { max-width: none !important; }
+  #pricing [data-launch-note] { grid-column: 1 / -1; max-width: 520px; justify-self: center; margin-top: 4px !important; }
+  #pricing > .reveal > div[style*="max-width: 420px"] > [data-launch-note]:not([hidden]) + div:last-child { margin-top: -8px !important; } /* 16px grid gap less 8 = 8px, as on phones */
+}
+
+/* How it works: brand card lift and larger step icons */
+#how div[style*="padding: 28px 26px"] { box-shadow: 0 14px 30px rgba(0,0,0,0.35); }
+#how div[style*="width: 46px; height: 46px"] { width: 54px !important; height: 54px !important; }
+#how div[style*="width: 46px; height: 46px"] svg { width: 26px; height: 26px; }
+/* Sticky bar: one waitlist button on screen at a time */
+@media (max-width: 759px) {
+  .sticky-join { transform: translateY(110%); transition: transform 320ms ease; }
+  .sticky-join.show { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .sticky-join { transition: none; } }
+</style>
+<style id="final-cta">
+/* Final call to action: option A, the finale under the stars (as approved) */
+#join { position: relative; overflow: hidden; }
+#join .cta-sky { position: absolute; inset: 0; pointer-events: none; }
+#join .cta-star, #join .cta-spark { position: absolute; border-radius: 50%; }
+#join .cta-spark { border-radius: 0; }
+#join::before { content: ""; position: absolute; left: 50%; top: 46%; width: min(900px, 120vw); aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(232,201,138,0.13), rgba(198,202,226,0.05) 55%, transparent 72%); animation: glowpulse 4800ms ease-in-out infinite; pointer-events: none; }
+#join > div { position: relative; padding-top: clamp(96px, 12vw, 150px) !important; padding-bottom: clamp(104px, 13vw, 160px) !important; }
+#join h2 { font-size: clamp(34px, 3.4vw + 16px, 56px) !important; line-height: 1.1 !important; }
+#join p { font-size: clamp(16px, 0.5vw + 15px, 19px) !important; max-width: 520px !important; }
+</style>
+<style id="heading-scale">
+/* Section headings at the top of the brand scale (Section H2 38–44px): 44px on laptops, 30px on phones. Hero and final CTA keep their own sizes. */
+section:not(#join) h2.en-serif { font-size: clamp(30px, 2.2vw + 14px, 44px) !important; line-height: 1.16 !important; }
+#how h2.en-serif, #traditions h2.en-serif { max-width: 720px !important; }
+</style>
+<style id="launch-note">
+  /* ENCH-317: Android waitlist button beside Download (AU/NZ, release day) */
+  .btn-outline { transition: background 200ms ease, color 200ms ease; }
+  .btn-outline:hover { background: rgba(232,201,138,0.10); color: #f0dcac !important; }
+  .btn-outline:focus-visible { outline: 2px solid #c6cae2; outline-offset: 3px; }
+  /* ENCH-317: the line under the price sits close to the free-month line below it */
+  #pricing [data-launch-note]:not([hidden]) + div { margin-top: 8px !important; }
+</style>
+<style id="ambient-glow">
+/* Ambient light: deep magenta #a8487f fading into lilac, fixed bottom left. Glows only, never text, never a hard edge.
+   Soft medium (M, 23 Oct): the same on phones and laptops. */
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 102vw;
+  height: 92vh;
+  pointer-events: none;
+  z-index: 55; /* above the top menu bar (50) so the light flows over it with no edge; below the phone join bar (60) */
+  background: radial-gradient(ellipse at bottom left, rgba(168, 72, 127, 0.60) 0%, rgba(168, 72, 127, 0.22) 29%, rgba(154, 143, 192, 0.15) 52%, transparent 76%);
+  mix-blend-mode: screen;
+}
+@media print { body::after { display: none; } }
+</style>
+<style id="centred-blocks">
+/* Centred sections: full container, headline up to 960px, intro up to 700px (rulebook section 2) */
+#practice h2.en-serif, #pricing h2.en-serif, h2.en-serif[style*="max-width: 600px"]{max-width:960px!important;}
+#practice h2.en-serif + p, #pricing h2.en-serif + p, h2.en-serif[style*="max-width: 600px"] + p{max-width:700px!important;}
+#join > div:not(.cta-sky){max-width:1180px!important;}
+#join h2{max-width:960px!important;margin-left:auto!important;margin-right:auto!important;}
+#join p{max-width:700px!important;margin-left:auto!important;margin-right:auto!important;}
+</style>
+<style id="nav-buy">
+/* Laptop: "Buy tarot cards" goes straight to the tarot card shops directory while it is the only place to buy (M, 23 Oct).
+   When indie online sellers are added it becomes a dropdown (approved look in commit b78e6a0). */
+/* Phone menu: "Buy tarot cards" heads a group; each way to buy sits under it (M, 23 Oct) */
+.nav-menu-group { border-top: 1px solid #1c1834; display: flex; flex-direction: column; padding-bottom: 6px; }
+.nav-menu-head { font-size: 16px; color: #e6e9f6; padding: 12px 2px 4px; }
+.nav-menu .nav-menu-sub { border-top: 0; font-size: 15px; color: #c6cae2; text-decoration: none; padding: 8px 2px 8px 16px; }
+.nav-menu-group + a { border-top: 1px solid #1c1834; }
+/* 860–1099px: too narrow for every link, so the links go into the menu (☰) and the waitlist button stays in the bar */
+@media (min-width: 860px) and (max-width: 1099px) {
+  .nav-links { display: none !important; }
+  .nav-toggle { display: inline-flex !important; align-items: center; justify-content: center; }
+  .nav-menu.open { display: flex !important; }
+}
+</style>
+<style id="twomoons">
+/* /twomoonsfree: QR code, App Store button and code line under the hero words. */
+.tm-row { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 24px; }
+.tm-qr { flex: none; line-height: 0; }
+.tm-get { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.tm-code { margin: 0; font-size: 15px; line-height: 1.5; color: #c6cae2; }
+.tm-code span { color: #f3efe9; font-weight: 600; letter-spacing: 1px; }
+.tm-android { display: flex; align-items: center; gap: 8px; font-size: 13px; line-height: 1.5; color: #9aa0c2; }
+.tm-android[hidden] { display: none; }
+.tm-android span { width: 6px; height: 6px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 8px rgba(232,201,138,0.7); flex: none; }
+#tmStore:focus-visible { outline: 2px solid #c6cae2; outline-offset: 3px; }
+</style>
+<script src="/assets/js/meta-pixel.js" async></script>
+</head>
+<body>
+
+<div style="min-height: 100vh; background: #0e0b1e; color: #cdd1e6; font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden;">
+
+  <nav style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: calc(14px + env(safe-area-inset-top)) max(clamp(18px, 5vw, 40px), calc((100% - 1180px) / 2 + clamp(18px, 5vw, 40px))) 14px; background: rgba(14,11,30,0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid #221d3a;">
+    <a href="/" style="display: flex; align-items: center; gap: 7px; text-decoration: none;">
+      <span style="width: 26px; height: 26px; flex: none; display: inline-flex;">
+        <svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;">
+          <path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path>
+          <path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path><circle cx="71" cy="49" r="3" fill="#e8c98a"></circle>
+        </svg>
+      </span>
+      <span class="en-serif" style="font-size: 19px; letter-spacing: 0.5px; color: #f3efe9;">Enchantra</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px);">
+      <div class="nav-links" style="display: flex; align-items: center; gap: clamp(16px, 2.4vw, 28px);">
+        <a href="/#cards" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Bring your cards</a>
+        <a href="/#how" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">How it works</a>
+        <a href="/almanac" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">The Almanac</a>
+        <a href="/tarot-card-shops/" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Buy tarot cards</a>
+        <a href="/#pricing" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">Pricing</a>
+        <a href="/#faq" style="font-size: 14px; color: #c6cae2; text-decoration: none; white-space: nowrap;">FAQ</a>
+      </div>
+      <a href="https://cardswekeep.substack.com/subscribe" class="btn-gold nav-join" style="display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 999px; border: none; background: #e8c98a; color: #241c33; font-size: 13.5px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; white-space: nowrap; box-shadow: 0 4px 16px rgba(232,201,138,0.22);">
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="flex: none;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#241c33"></path><circle cx="19" cy="5" r="1.6" fill="#241c33"></circle></svg>
+        Join the waitlist
+        <svg viewBox="0 0 24 24" width="13" height="13"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#241c33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#f3efe9" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+      </button>
+    </div>
+    <div class="nav-menu" id="navMenu">
+      <a href="/#cards" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">Bring your cards</a>
+      <a href="/#how" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">How it works</a>
+      <a href="/almanac" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">The Almanac</a>
+      <div class="nav-menu-group"><span class="nav-menu-head">Buy tarot cards</span><a href="/tarot-card-shops/" class="nav-menu-sub">Tarot card shops</a></div>
+      <a href="/#pricing" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">Pricing</a>
+      <a href="/#faq" style="font-size: 16px; color: #e6e9f6; text-decoration: none; padding: 12px 2px;">FAQ</a>
+    </div>
+  </nav>
+
+  <!-- HERO: the homepage hero (stars, moon, M's Thoth cards) with the two moons offer -->
+  <header style="position: relative; max-width: 1180px; margin: 0 auto; padding: clamp(40px,7vw,72px) clamp(18px,5vw,40px) clamp(56px,8vw,96px); overflow: hidden;">
+    <!-- ambient stars -->
+    <div style="position: absolute; inset: 0; pointer-events: none;">
+      <div style="position: absolute; top: 14%; left: 48%; width: 4px; height: 4px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 6px rgba(198,202,226,0.8); animation: twinkle 5s ease-in-out infinite;"></div>
+      <div style="position: absolute; top: 30%; left: 88%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 6.5s ease-in-out infinite 1s;"></div>
+      <div style="position: absolute; top: 66%; left: 60%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 7s ease-in-out infinite 2s;"></div>
+      <div style="position: absolute; top: 20%; left: 68%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 5.5s ease-in-out infinite 0.5s;"></div>
+      <div style="position: absolute; top: 80%; left: 84%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 6s ease-in-out infinite 1.4s;"></div>
+      <div style="position: absolute; top: 8%; left: 76%; width: 3px; height: 3px; border-radius: 50%; background: #d6d9ee; box-shadow: 0 0 5px rgba(198,202,226,0.7); animation: twinkle 7.5s ease-in-out infinite 2.6s;"></div>
+      <div style="position: absolute; top: 16%; left: 82%; width: 3px; height: 3px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 6px rgba(232,201,138,0.7); animation: twinkle 4.5s ease-in-out infinite 0.3s;"></div>
+      <div style="position: absolute; top: 46%; left: 62%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 5.8s ease-in-out infinite 1.7s;"></div>
+      <div style="position: absolute; top: 72%; left: 71%; width: 2px; height: 2px; border-radius: 50%; background: #e8c98a; box-shadow: 0 0 5px rgba(232,201,138,0.6); animation: twinkle 6.4s ease-in-out infinite 2.2s;"></div>
+      <div style="position: absolute; top: 26%; left: 92%; animation: twinkle 5.2s ease-in-out infinite 0.7s;"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path><circle cx="19" cy="5" r="1.6" fill="#e8c98a"></circle></svg></div>
+      <div style="position: absolute; top: 60%; left: 52%; animation: twinkle 7.2s ease-in-out infinite 1.1s;"><svg viewBox="0 0 24 24" width="10" height="10"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a" opacity="0.8"></path><circle cx="19" cy="5" r="1.6" fill="#e8c98a" opacity="0.8"></circle></svg></div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(30px,5vw,48px); align-items: center; min-height: 460px; position: relative;">
+      <div style="text-align: left;">
+        <h1 style="display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 500; letter-spacing: 1.4px; text-transform: uppercase; color: #9a8fc0; margin: 0 0 20px;">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#e8c98a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"></rect><line x1="10" y1="18.5" x2="14" y2="18.5"></line></svg>
+          Enchantra · tarot reflection and journaling app for iPhone and Android</h1>
+        <p class="en-serif" style="text-wrap: balance; margin: 0; font-weight: 400; font-size: clamp(34px, 4.4vw + 16px, 54px); line-height: 1.09; color: #f3efe9; max-width: 540px;">Two moons free</p>
+        <p style="margin: clamp(18px,3vw,24px) 0 0; font-size: clamp(16px, 0.5vw + 15px, 18px); line-height: 1.62; color: #c6cae2; max-width: 500px; text-wrap: pretty;">Your first two lunar cycles are on us.</p>
+
+        <div class="tm-row" style="margin-top: clamp(26px,4vw,34px);">
+          <div class="tm-qr"><svg viewBox="-4 -4 41 41" width="132" height="132" role="img" aria-label="QR code for enchantratarot.com/twomoonsfree" shape-rendering="crispEdges" style="display: block; border-radius: 14px; background: #f3efe9;"><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM9 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM16 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM23 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM29 0h1v1h-1zM30 0h1v1h-1zM31 0h1v1h-1zM32 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM10 1h1v1h-1zM12 1h1v1h-1zM15 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM21 1h1v1h-1zM22 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM8 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM14 2h1v1h-1zM16 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM21 2h1v1h-1zM22 2h1v1h-1zM24 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM29 2h1v1h-1zM30 2h1v1h-1zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM12 3h1v1h-1zM15 3h1v1h-1zM18 3h1v1h-1zM19 3h1v1h-1zM22 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM29 3h1v1h-1zM30 3h1v1h-1zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM11 4h1v1h-1zM12 4h1v1h-1zM13 4h1v1h-1zM14 4h1v1h-1zM15 4h1v1h-1zM16 4h1v1h-1zM20 4h1v1h-1zM22 4h1v1h-1zM23 4h1v1h-1zM24 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM29 4h1v1h-1zM30 4h1v1h-1zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM8 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM19 5h1v1h-1zM22 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM29 6h1v1h-1zM30 6h1v1h-1zM31 6h1v1h-1zM32 6h1v1h-1zM8 7h1v1h-1zM9 7h1v1h-1zM10 7h1v1h-1zM12 7h1v1h-1zM14 7h1v1h-1zM16 7h1v1h-1zM18 7h1v1h-1zM19 7h1v1h-1zM20 7h1v1h-1zM21 7h1v1h-1zM24 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM13 8h1v1h-1zM14 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM22 8h1v1h-1zM24 8h1v1h-1zM26 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM29 8h1v1h-1zM30 8h1v1h-1zM0 9h1v1h-1zM2 9h1v1h-1zM4 9h1v1h-1zM8 9h1v1h-1zM11 9h1v1h-1zM13 9h1v1h-1zM16 9h1v1h-1zM17 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM22 9h1v1h-1zM23 9h1v1h-1zM26 9h1v1h-1zM27 9h1v1h-1zM29 9h1v1h-1zM30 9h1v1h-1zM32 9h1v1h-1zM2 10h1v1h-1zM3 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM10 10h1v1h-1zM13 10h1v1h-1zM14 10h1v1h-1zM15 10h1v1h-1zM17 10h1v1h-1zM24 10h1v1h-1zM25 10h1v1h-1zM28 10h1v1h-1zM30 10h1v1h-1zM31 10h1v1h-1zM0 11h1v1h-1zM3 11h1v1h-1zM8 11h1v1h-1zM11 11h1v1h-1zM13 11h1v1h-1zM15 11h1v1h-1zM16 11h1v1h-1zM17 11h1v1h-1zM18 11h1v1h-1zM19 11h1v1h-1zM21 11h1v1h-1zM22 11h1v1h-1zM24 11h1v1h-1zM25 11h1v1h-1zM28 11h1v1h-1zM29 11h1v1h-1zM30 11h1v1h-1zM31 11h1v1h-1zM32 11h1v1h-1zM0 12h1v1h-1zM1 12h1v1h-1zM5 12h1v1h-1zM6 12h1v1h-1zM8 12h1v1h-1zM9 12h1v1h-1zM12 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM22 12h1v1h-1zM23 12h1v1h-1zM24 12h1v1h-1zM27 12h1v1h-1zM28 12h1v1h-1zM29 12h1v1h-1zM31 12h1v1h-1zM32 12h1v1h-1zM2 13h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM7 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM12 13h1v1h-1zM13 13h1v1h-1zM15 13h1v1h-1zM17 13h1v1h-1zM18 13h1v1h-1zM21 13h1v1h-1zM23 13h1v1h-1zM26 13h1v1h-1zM29 13h1v1h-1zM31 13h1v1h-1zM32 13h1v1h-1zM0 14h1v1h-1zM1 14h1v1h-1zM2 14h1v1h-1zM3 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM7 14h1v1h-1zM11 14h1v1h-1zM12 14h1v1h-1zM15 14h1v1h-1zM16 14h1v1h-1zM17 14h1v1h-1zM21 14h1v1h-1zM22 14h1v1h-1zM25 14h1v1h-1zM26 14h1v1h-1zM31 14h1v1h-1zM0 15h1v1h-1zM2 15h1v1h-1zM4 15h1v1h-1zM5 15h1v1h-1zM9 15h1v1h-1zM15 15h1v1h-1zM18 15h1v1h-1zM19 15h1v1h-1zM20 15h1v1h-1zM21 15h1v1h-1zM24 15h1v1h-1zM25 15h1v1h-1zM26 15h1v1h-1zM29 15h1v1h-1zM30 15h1v1h-1zM0 16h1v1h-1zM1 16h1v1h-1zM5 16h1v1h-1zM6 16h1v1h-1zM10 16h1v1h-1zM11 16h1v1h-1zM14 16h1v1h-1zM15 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM19 16h1v1h-1zM20 16h1v1h-1zM22 16h1v1h-1zM23 16h1v1h-1zM24 16h1v1h-1zM25 16h1v1h-1zM27 16h1v1h-1zM28 16h1v1h-1zM29 16h1v1h-1zM32 16h1v1h-1zM0 17h1v1h-1zM1 17h1v1h-1zM2 17h1v1h-1zM4 17h1v1h-1zM7 17h1v1h-1zM8 17h1v1h-1zM9 17h1v1h-1zM12 17h1v1h-1zM13 17h1v1h-1zM14 17h1v1h-1zM16 17h1v1h-1zM18 17h1v1h-1zM19 17h1v1h-1zM20 17h1v1h-1zM21 17h1v1h-1zM22 17h1v1h-1zM23 17h1v1h-1zM26 17h1v1h-1zM27 17h1v1h-1zM29 17h1v1h-1zM30 17h1v1h-1zM32 17h1v1h-1zM0 18h1v1h-1zM3 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM9 18h1v1h-1zM10 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM16 18h1v1h-1zM18 18h1v1h-1zM20 18h1v1h-1zM25 18h1v1h-1zM26 18h1v1h-1zM27 18h1v1h-1zM28 18h1v1h-1zM30 18h1v1h-1zM31 18h1v1h-1zM0 19h1v1h-1zM1 19h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM5 19h1v1h-1zM7 19h1v1h-1zM9 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM16 19h1v1h-1zM21 19h1v1h-1zM22 19h1v1h-1zM23 19h1v1h-1zM24 19h1v1h-1zM25 19h1v1h-1zM26 19h1v1h-1zM27 19h1v1h-1zM28 19h1v1h-1zM29 19h1v1h-1zM30 19h1v1h-1zM31 19h1v1h-1zM32 19h1v1h-1zM2 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM6 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM10 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM18 20h1v1h-1zM22 20h1v1h-1zM24 20h1v1h-1zM27 20h1v1h-1zM28 20h1v1h-1zM29 20h1v1h-1zM31 20h1v1h-1zM32 20h1v1h-1zM0 21h1v1h-1zM2 21h1v1h-1zM3 21h1v1h-1zM7 21h1v1h-1zM8 21h1v1h-1zM9 21h1v1h-1zM10 21h1v1h-1zM11 21h1v1h-1zM13 21h1v1h-1zM15 21h1v1h-1zM16 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM21 21h1v1h-1zM22 21h1v1h-1zM23 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM30 21h1v1h-1zM32 21h1v1h-1zM0 22h1v1h-1zM3 22h1v1h-1zM6 22h1v1h-1zM9 22h1v1h-1zM12 22h1v1h-1zM13 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM20 22h1v1h-1zM24 22h1v1h-1zM25 22h1v1h-1zM27 22h1v1h-1zM28 22h1v1h-1zM29 22h1v1h-1zM31 22h1v1h-1zM0 23h1v1h-1zM5 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM11 23h1v1h-1zM14 23h1v1h-1zM16 23h1v1h-1zM20 23h1v1h-1zM21 23h1v1h-1zM23 23h1v1h-1zM25 23h1v1h-1zM27 23h1v1h-1zM29 23h1v1h-1zM30 23h1v1h-1zM31 23h1v1h-1zM32 23h1v1h-1zM0 24h1v1h-1zM2 24h1v1h-1zM4 24h1v1h-1zM5 24h1v1h-1zM6 24h1v1h-1zM8 24h1v1h-1zM11 24h1v1h-1zM13 24h1v1h-1zM17 24h1v1h-1zM22 24h1v1h-1zM24 24h1v1h-1zM25 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM28 24h1v1h-1zM8 25h1v1h-1zM9 25h1v1h-1zM12 25h1v1h-1zM13 25h1v1h-1zM14 25h1v1h-1zM17 25h1v1h-1zM18 25h1v1h-1zM19 25h1v1h-1zM20 25h1v1h-1zM21 25h1v1h-1zM24 25h1v1h-1zM28 25h1v1h-1zM30 25h1v1h-1zM32 25h1v1h-1zM0 26h1v1h-1zM1 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM5 26h1v1h-1zM6 26h1v1h-1zM11 26h1v1h-1zM13 26h1v1h-1zM14 26h1v1h-1zM15 26h1v1h-1zM16 26h1v1h-1zM17 26h1v1h-1zM23 26h1v1h-1zM24 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM30 26h1v1h-1zM31 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h1v1h-1zM11 27h1v1h-1zM13 27h1v1h-1zM15 27h1v1h-1zM16 27h1v1h-1zM17 27h1v1h-1zM18 27h1v1h-1zM20 27h1v1h-1zM21 27h1v1h-1zM23 27h1v1h-1zM24 27h1v1h-1zM28 27h1v1h-1zM29 27h1v1h-1zM30 27h1v1h-1zM31 27h1v1h-1zM0 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM6 28h1v1h-1zM8 28h1v1h-1zM9 28h1v1h-1zM14 28h1v1h-1zM16 28h1v1h-1zM22 28h1v1h-1zM24 28h1v1h-1zM25 28h1v1h-1zM26 28h1v1h-1zM27 28h1v1h-1zM28 28h1v1h-1zM29 28h1v1h-1zM31 28h1v1h-1zM32 28h1v1h-1zM0 29h1v1h-1zM2 29h1v1h-1zM3 29h1v1h-1zM4 29h1v1h-1zM6 29h1v1h-1zM8 29h1v1h-1zM10 29h1v1h-1zM12 29h1v1h-1zM13 29h1v1h-1zM15 29h1v1h-1zM17 29h1v1h-1zM18 29h1v1h-1zM19 29h1v1h-1zM20 29h1v1h-1zM21 29h1v1h-1zM25 29h1v1h-1zM28 29h1v1h-1zM29 29h1v1h-1zM30 29h1v1h-1zM31 29h1v1h-1zM32 29h1v1h-1zM0 30h1v1h-1zM2 30h1v1h-1zM3 30h1v1h-1zM4 30h1v1h-1zM6 30h1v1h-1zM8 30h1v1h-1zM9 30h1v1h-1zM13 30h1v1h-1zM14 30h1v1h-1zM15 30h1v1h-1zM16 30h1v1h-1zM17 30h1v1h-1zM20 30h1v1h-1zM21 30h1v1h-1zM23 30h1v1h-1zM26 30h1v1h-1zM27 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM10 31h1v1h-1zM15 31h1v1h-1zM20 31h1v1h-1zM21 31h1v1h-1zM22 31h1v1h-1zM23 31h1v1h-1zM25 31h1v1h-1zM26 31h1v1h-1zM28 31h1v1h-1zM29 31h1v1h-1zM30 31h1v1h-1zM0 32h1v1h-1zM1 32h1v1h-1zM2 32h1v1h-1zM3 32h1v1h-1zM4 32h1v1h-1zM5 32h1v1h-1zM6 32h1v1h-1zM8 32h1v1h-1zM10 32h1v1h-1zM11 32h1v1h-1zM15 32h1v1h-1zM17 32h1v1h-1zM20 32h1v1h-1zM22 32h1v1h-1zM23 32h1v1h-1zM24 32h1v1h-1zM25 32h1v1h-1zM26 32h1v1h-1zM27 32h1v1h-1zM29 32h1v1h-1zM31 32h1v1h-1z" fill="#0e0b1e"></path></svg></div>
+          <div class="tm-get">
+            <!-- APP STORE BADGE: Apple's own "Download on the App Store" file goes here once it is in /assets/icons/.
+                 Until then this is the homepage's gold App Store button. Never a redrawn badge (design rules 4b). -->
+            <a id="tmStore" href="https://apps.apple.com/au/app/apple-store/id6807353179?pt=129348689&amp;ct=cards&amp;mt=8" class="btn-gold" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 52px; padding: 0 30px; border-radius: 999px; background: #e8c98a; color: #241c33; font-size: 15px; font-weight: 600; letter-spacing: 0.2px; text-decoration: none; box-shadow: 0 6px 20px rgba(232,201,138,0.25);">
+              <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" style="flex: none;"><path d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#241c33"></path><circle cx="19" cy="5" r="1.6" fill="#241c33"></circle></svg>
+              Download for iPhone
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M4 12 H19 M13 6 L20 12 L13 18" fill="none" stroke="#241c33" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </a>
+            <p class="tm-code">or use code <span>TWOMOONS</span> in the App Store</p>
+            <div class="tm-android" hidden><span></span>Coming soon to Android</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- moon + cards stage — everything positioned in %, scales with the box -->
+      <div style="position: relative; width: clamp(240px, 74vw, 400px); aspect-ratio: 1 / 1; margin: 0 auto;">
+        <div style="position: absolute; inset: -5%; border-radius: 50%; background: radial-gradient(closest-side, rgba(198,202,226,0.10), rgba(198,202,226,0.04) 55%, transparent 72%); animation: glowpulse 4800ms ease-in-out infinite;"></div>
+        <div style="position: absolute; left: 50%; top: 50%; width: 84%; aspect-ratio: 1; transform: translate(-50%,-50%); border-radius: 50%; border: 1px dashed rgba(232,201,138,0.16);">
+          <div style="position: absolute; left: 50%; top: -6px; margin-left: -7px; width: 14px; height: 14px; border-radius: 50%; background: radial-gradient(circle at 62% 42%, #45406e, #221c3c); box-shadow: inset -3px 0 8px rgba(232,201,138,0.5), 0 0 10px rgba(232,201,138,0.2);"></div>
+          <div style="position: absolute; right: -6px; top: 50%; margin-top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 30% 50%, #3a3363, #1a1730); box-shadow: inset 4px 0 7px -1px rgba(198,202,226,0.5);"></div>
+          <div style="position: absolute; left: 50%; bottom: -6px; margin-left: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #2e2850 0 48%, #14112a 52%); border: 1px solid #241f40;"></div>
+          <div style="position: absolute; left: -6px; top: 50%; margin-top: -6px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 70% 50%, #3a3363, #1a1730); box-shadow: inset -4px 0 7px -1px rgba(198,202,226,0.5);"></div>
+        </div>
+        <div style="position: absolute; left: 50%; top: 50%; width: 58%; aspect-ratio: 1; transform: translate(-50%,-50%);">
+          <div style="width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle closest-side at 62% 42%, #2e2850 0%, #221d38 55%, #1a1730 100%); border: 1px solid #241f40; box-shadow: inset -30px 0 52px -10px rgba(198,202,226,0.55), 0 0 80px rgba(198,202,226,0.10); animation: breath 4800ms ease-in-out infinite;"></div>
+        </div>
+        <div style="position: absolute; left: 50%; bottom: 6%; width: 0; height: 0;">
+          <!-- M's own Thoth cards, photographed (approved by M 31 Oct 2026): Knight of Disks and Queen of Cups behind, The Star in front. Real proportions and corners, nothing redrawn. -->
+          <div style="--r: -22deg; transform: rotate(var(--r)); position: absolute; left: -33%; bottom: -30px; width: 24%; min-width: 74px; transform-origin: 50% 120%; animation: floatCardR 4800ms ease-in-out infinite; box-shadow: 0 16px 34px rgba(0,0,0,0.5); aspect-ratio: 325 / 534; border-radius: 5% / 3%; overflow: hidden;"><picture><source type="image/webp" srcset="/assets/images/people/thoth-knight.webp"><img src="/assets/images/people/thoth-knight.jpg" width="325" height="534" alt="Knight of Disks from M's Thoth tarot deck" style="display:block;width:100%;height:100%;filter:brightness(0.78) saturate(0.88);"></picture></div>
+          <div style="--r: 22deg; transform: rotate(var(--r)); position: absolute; left: 9%; bottom: -30px; width: 24%; min-width: 74px; transform-origin: 50% 120%; animation: floatCardR 4800ms ease-in-out infinite 1s; box-shadow: 0 16px 34px rgba(0,0,0,0.5); aspect-ratio: 325 / 534; border-radius: 5% / 3%; overflow: hidden;"><picture><source type="image/webp" srcset="/assets/images/people/thoth-queen.webp"><img src="/assets/images/people/thoth-queen.jpg" width="325" height="534" alt="Queen of Cups from M's Thoth tarot deck" style="display:block;width:100%;height:100%;filter:brightness(0.78) saturate(0.88);"></picture></div>
+          <div style="position: absolute; left: -14%; bottom: -14px; z-index: 3; width: 28%; min-width: 88px; animation: floatCard 4800ms ease-in-out infinite 0.5s; box-shadow: 0 24px 50px rgba(0,0,0,0.55), 0 0 34px rgba(232,201,138,0.26); aspect-ratio: 325 / 534; border-radius: 5% / 3%; overflow: hidden;"><picture><source type="image/webp" srcset="/assets/images/people/thoth-star.webp"><img src="/assets/images/people/thoth-star.jpg" width="325" height="534" alt="The Star from M's Thoth tarot deck" style="display:block;width:100%;height:100%;filter:brightness(0.94);"></picture></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <footer style="border-top: 1px solid #1c1834; background: #0e0b1e;">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(48px,6vw,54px) clamp(18px,5vw,40px) clamp(52px,7vw,60px); display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
+      <div style="min-width: 200px;">
+        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 16px;">
+          <span style="width: 24px; height: 24px; flex: none; display: inline-flex;">
+            <svg viewBox="0 0 120 120" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display: block; overflow: visible;">
+              <path d="M28 14.04 A56 56 0 1 1 28 105.96 A53.2 53.2 0 1 0 28 14.04 Z" fill="#e8c98a"></path>
+              <path transform="translate(49.8 49.8) scale(0.85)" d="M12 2 C12.9 8.2 15.8 11.1 22 12 C15.8 12.9 12.9 15.8 12 22 C11.1 15.8 8.2 12.9 2 12 C8.2 11.1 11.1 8.2 12 2 Z" fill="#e8c98a"></path><circle cx="71" cy="49" r="3" fill="#e8c98a"></circle>
+            </svg>
+          </span>
+          <span class="en-serif" style="font-size: 19px; color: #f3efe9;">Enchantra</span>
+        </div>
+        <!-- Footer line: the replacement comes from the next brand board -->
+        <div style="font-size: 12.5px; color: #8b8fb2; margin-top: 20px;">Enchantra (ABN 87 927 064 532)</div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">Practice</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="/#practice" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The philosophy</a>
+          <a href="/#how" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">How it works</a>
+          <a href="/#almanac" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">The Almanac</a>
+          <a href="/#faq" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">FAQ</a>
+          <a href="/tarot-card-shops/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Where Decks Find You</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">The app</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="/beta/" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the Keepers</a>
+          <span data-store-footer style="font-size: 14px; color: #9aa0c2;">iPhone · coming soon</span>
+          <span style="font-size: 14px; color: #9aa0c2;">Android · coming soon</span>
+          <a href="https://cardswekeep.substack.com/subscribe" style="font-size: 14px; color: #e8c98a; text-decoration: none;">Join the waitlist</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 12px; font-weight: 500; letter-spacing: 1.2px; text-transform: uppercase; color: #6f6c86; margin-bottom: 16px;">More</div>
+        <div style="display: flex; flex-direction: column; gap: 11px;">
+          <a href="/about-m/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">About M</a>
+          <a href="/privacy/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Privacy</a>
+          <a href="/terms/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Terms</a>
+          <a href="/support/" style="font-size: 14px; color: #9aa0c2; text-decoration: none;">Support</a>
+        </div>
+      </div>
+    </div>
+  
+    <div style="border-top: 1px solid #1c1834; padding: 22px 40px; text-align: center; font-size: 12.5px; color: #8b8fb2;">© 2026 Enchantra · Tarot reading and journaling app.</div>
+  </footer>
+
+</div>
+
+<script>
+  /* Mobile nav: hamburger toggles the dropdown menu; tapping a link closes it. */
+  (function () {
+    var btn = document.querySelector('.nav-toggle');
+    var menu = document.getElementById('navMenu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function () {
+      var open = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.addEventListener('click', function (e) {
+      if (e.target.closest('a')) { menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+    });
+  })();
+</script>
+<script>
+  /* Motion: float, twinkle and glow pause while their section is off-screen.
+     prefers-reduced-motion already stops all animation in the CSS. */
+  (function () {
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { e.target.classList.toggle('is-offscreen', !e.isIntersecting); });
+    }, { rootMargin: '120px 0px' });
+    [].forEach.call(document.querySelectorAll('header, section'), function (el) { io.observe(el); });
+  })();
+</script>
+<script>
+  /* /twomoonsfree: the button follows the visitor. iPhone (if Apple's page did not open by itself): the offer code page.
+     New Zealand: the New Zealand store. Android before release: the "Coming soon to Android" line. */
+  (function () {
+    var a = document.getElementById('tmStore'); if (!a || !window.TWOMOONS) return;
+    if (TWOMOONS.device === 'iphone') a.href = TWOMOONS.redeem;
+    else {
+      try {
+        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        if (/^Pacific\/(Auckland|Chatham)$/.test(tz) || /-NZ$/i.test(navigator.language || '')) a.href = a.href.replace('apps.apple.com/au/', 'apps.apple.com/nz/');
+      } catch (e) {}
+    }
+    if (TWOMOONS.device === 'android') { var n = document.querySelector('.tm-android'); if (n) n.hidden = false; }
+  })();
+</script>
+<script src="/assets/js/prices.js" defer></script>
+</body>
+</html>
